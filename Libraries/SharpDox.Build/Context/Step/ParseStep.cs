@@ -61,14 +61,13 @@ namespace SharpDox.Build.Context.Step
                     {
                         if (!_repository.ProjectInfo.Description.ContainsKey(splitted[0].ToLower()))
                         {
-                            _repository.ProjectInfo.Description.Add(splitted[0].ToLower(),
-                                File.ReadAllText(readme, Encoding.Default));
+                            _repository.ProjectInfo.Description.Add(splitted[0].ToLower(), File.ReadAllText(readme));
                             _repository.AddDocumentationLanguage(splitted[0].ToLower());
                         }
                     }
                     else if (splitted.Length > 0 && splitted[0].ToLower() == "readme" && !_repository.ProjectInfo.Description.ContainsKey("default"))
                     {
-                        _repository.ProjectInfo.Description.Add("default", File.ReadAllText(readme, Encoding.Default));
+                        _repository.ProjectInfo.Description.Add("default", File.ReadAllText(readme));
                     }
                 }
             }
