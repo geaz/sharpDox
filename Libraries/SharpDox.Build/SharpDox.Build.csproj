@@ -31,16 +31,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.NRefactory">
-      <HintPath>..\Vendor\ICSharpCode.NRefactory.dll</HintPath>
+      <HintPath>..\..\Vendor\ICSharpCode.NRefactory.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.NRefactory.Cecil">
-      <HintPath>..\Vendor\ICSharpCode.NRefactory.Cecil.dll</HintPath>
+      <HintPath>..\..\Vendor\ICSharpCode.NRefactory.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.NRefactory.CSharp">
-      <HintPath>..\Vendor\ICSharpCode.NRefactory.CSharp.dll</HintPath>
+      <HintPath>..\..\Vendor\ICSharpCode.NRefactory.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.NRefactory.Xml">
-      <HintPath>..\Vendor\ICSharpCode.NRefactory.Xml.dll</HintPath>
+      <HintPath>..\..\Vendor\ICSharpCode.NRefactory.Xml.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.Build.Framework" />
