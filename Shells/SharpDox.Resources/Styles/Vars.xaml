@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <SolidColorBrush x:Key="BackColor_MainWindow">#FFF6F5F1</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderColor_MainWindow">#FFC2C2C2</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Color_Main">#FFF58026</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_FadedMain">#FFEAB891</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_Blue">#FF0066CC</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_LogoFont">#FF706F6F</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_BodyFont">#FF272624</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_HeaderFont">#FF272624</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_MouseOverFont">#FF000000</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_PressedFont">#FFFFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_FadedFont">#FF979797</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_PageFont">#FF7F7F7F</SolidColorBrush>
+    
+    <FontFamily x:Key="Font_Regular">/SharpDox.Resources;component/Fonts/#Open Sans Regular</FontFamily>
+    <FontFamily x:Key="Font_Bold">/SharpDox.Resources;component/Fonts/#Open Sans Bold</FontFamily>
+    <FontFamily x:Key="Font_Light">/SharpDox.Resources;component/Fonts/#Open Sans Light</FontFamily>
+    <FontFamily x:Key="Font_Italic">/SharpDox.Resources;component/Fonts/#Open Sans Italic</FontFamily>
+    <FontFamily x:Key="Font_Icons">/SharpDox.Resources;component/Fonts/#FontAwesome Regular</FontFamily>
+    
+    <FontFamily x:Key="fontBoldItalic">/SharpDox.Resources;component/Fonts/#Open Sans Bold Italic</FontFamily>
+    <FontFamily x:Key="fontExtraBold">/SharpDox.Resources;component/Fonts/#Open Sans Extrabold</FontFamily>
+    <FontFamily x:Key="fontExtraBoldItalic">/SharpDox.Resources;component/Fonts/#Open Sans Extrabold Italic</FontFamily>
+    
+    <FontFamily x:Key="fontLightItalic">/SharpDox.Resources;component/Fonts/#Open Sans Light Italic</FontFamily>
+    <FontFamily x:Key="fontSemibold">/SharpDox.Resources;component/Fonts/#Open Sans Semibold</FontFamily>
+    <FontFamily x:Key="fontSemiboldItalic">/SharpDox.Resources;component/Fonts/#Open Sans Semibold Italic</FontFamily>
+    
+    <SolidColorBrush x:Key="borderColor">#FFE8E8E6</SolidColorBrush>
+    
+</ResourceDictionary> 

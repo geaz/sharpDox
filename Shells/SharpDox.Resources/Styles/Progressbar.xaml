@@ -1,0 +1,71 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Vars.xaml"></ResourceDictionary>
+
+        <ResourceDictionary>
+
+            <Style x:Key="ProgressBarStep" TargetType="{x:Type ProgressBar}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Foreground" Value="{StaticResource Color_Main}"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ProgressBar">
+                            <Border
+                                Name="Border"
+                                CornerRadius="0" 
+                                Padding="0"
+                                BorderBrush="{StaticResource BorderColor_MainWindow}"
+                                BorderThickness="1,0,1,0">
+                                <Grid x:Name="PART_Track" >
+                                    <Rectangle x:Name="PART_Indicator" HorizontalAlignment="Left">
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="#FFF58026"></SolidColorBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ProgressBarBuild" TargetType="{x:Type ProgressBar}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Foreground" Value="{StaticResource Color_Main}"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ProgressBar">
+                            <Border
+                                Name="Border"
+                                CornerRadius="0" 
+                                Padding="0"
+                                BorderBrush="{StaticResource BorderColor_MainWindow}"
+                                BorderThickness="1,0,1,1">
+                                <Grid x:Name="PART_Track" >
+                                    <Rectangle x:Name="PART_Indicator" HorizontalAlignment="Left">
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="#FFF58026"></SolidColorBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+        </ResourceDictionary>
+
+    </ResourceDictionary.MergedDictionaries>
+    
+</ResourceDictionary>

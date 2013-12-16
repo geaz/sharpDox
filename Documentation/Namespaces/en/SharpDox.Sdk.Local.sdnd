@@ -1,0 +1,29 @@
+The local namespace provides the interface to implement custom strings for **sharpDox**. _SharpDoxStrings_ contains all strings of the core application. 
+The default language of **sharpDox** is english. 
+
+On the start process **sharpDox** creates a language file in the folder _lang/defaults_ for each registered local strings type.
+For example the _en.SharpDox.sdlang_. This file contains all strings of the core application. If the tool should be available in Spanish, create a copy of _en.SharpDox.sdlang_ into the _lang_ folder and rename it to _es.SharpDox.sdlang_. The file always starts with the two letter language code. Now translate all the strings to spanish.
+
+If the windows system language is set to spanish, **sharpDox** will take all _es.*_ language files to show the translations. If no translation for a string is available, **sharpDox** takes the default string.
+
+Following an example how to implement a custom strings type with a single string:
+
+	using SharpDox.Sdk.Local;
+
+	namespace ExampleExporter
+	{
+	    public class ExampleStrings : ILocalStrings
+	    {
+	        private string _exampleString = "English String";
+	
+	        public string ExampleString
+	        {
+	            get { return _exampleString; }
+	            set { _exampleString = value; }
+	        }
+
+			public string DisplayName { get { return "ExampleExporter"; } }
+	    }
+	}
+
+The usage of a custom strings type is like using a custom config section. Please see the [SharpDox.Sdk.Config]({{namespace-link:SharpDox.Sdk.Config}}) description.

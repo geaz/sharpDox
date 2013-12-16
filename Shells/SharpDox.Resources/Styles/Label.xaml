@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Vars.xaml"></ResourceDictionary>
+
+        <ResourceDictionary>
+
+            <Style x:Key="BodyText" TargetType="{x:Type Label}">
+                <Setter Property="Foreground" Value="{StaticResource Color_BodyFont}"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FontFamily" Value="{StaticResource Font_Regular}"/>
+            </Style>
+            <Style x:Key="Headline" TargetType="{x:Type Label}">
+                <Setter Property="Foreground" Value="{StaticResource Color_HeaderFont}"/>
+                <Setter Property="FontSize" Value="26"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FontFamily" Value="{StaticResource Font_Light}"/>
+            </Style>
+            <Style x:Key="Headline2" TargetType="{x:Type Label}">
+                <Setter Property="Foreground" Value="{StaticResource Color_HeaderFont}"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FontFamily" Value="{StaticResource Font_Light}"/>
+            </Style>
+            <Style x:Key="Headline3" TargetType="{x:Type Label}">
+                <Setter Property="Foreground" Value="{StaticResource Color_HeaderFont}"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FontFamily" Value="{StaticResource Font_Light}"/>
+            </Style>
+            <Style x:Key="Description" TargetType="{x:Type TextBlock}">
+                <Setter Property="Foreground" Value="{StaticResource Color_FadedFont}"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontFamily" Value="{StaticResource Font_Light}"/>
+            </Style>
+
+        </ResourceDictionary>
+
+    </ResourceDictionary.MergedDictionaries>
+    
+</ResourceDictionary>

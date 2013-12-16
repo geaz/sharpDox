@@ -1,0 +1,54 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Net" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="SharpDox.Model.Repository" #>
+<#@ import namespace="SharpDox.Model.Documentation" #>
+<#@ import namespace="SharpDox.Plugins.Chm.Templates.Strings" #>
+<#@ import namespace="SharpDox.Sdk.Config" #>
+
+<# if(Articles.Count > 0) {
+	foreach (var article in Articles)
+	{
+		if (article.Content == "SDDoc")
+		{ #>
+			<li> <object type="text/sitemap">
+					<param name="Name" value="<#= WebUtility.HtmlEncode(article.Title) #>">
+					<param name="Local" value="<#= Helper.RemoveIllegalCharacters(article.Title.Replace(" ", "_")) #>.html">
+				</object>
+				<ul>
+				<# var apiNavTemplate = new ApiNavTemplate { SDRepository = SDRepository, Strings = Strings }; #>
+				<#= apiNavTemplate.TransformText() #>
+				</ul>
+			</li>
+		<# }
+		else if (!string.IsNullOrEmpty(article.Content))
+		{ #>
+			<li> <object type="text/sitemap">
+					<param name="Name" value="<#= WebUtility.HtmlEncode(article.Title) #>">
+					<param name="Local" value="<#= Helper.RemoveIllegalCharacters(article.Title.Replace(" ", "_")) #>.html">
+				</object>
+			</li>
+		<# }
+		else
+		{ #>
+			<li> <object type="text/sitemap">
+					<param name="Name" value="<#= WebUtility.HtmlEncode(article.Title) #>">
+					<param name="Local" value="<#= Helper.RemoveIllegalCharacters(article.Title.Replace(" ", "_")) #>.html">
+				</object>
+				<ul>
+				<# var articleNavTemplate = new ArticleNavTemplate { SDRepository = SDRepository, Articles = article.Children, Strings = Strings }; #>
+				<#= articleNavTemplate.TransformText() #>
+				</ul>
+			</li>
+		<# }
+	}
+} #>
+
+<#+ 
+public SDRepository SDRepository { get; set; }
+public List<SDArticle> Articles { get; set; } 
+public IStrings Strings { get; set; }
+#>

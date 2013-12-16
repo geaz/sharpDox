@@ -1,0 +1,25 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="SharpDox.Model.Repository" #>
+<#@ import namespace="SharpDox.Model.Documentation" #>
+<#@ import namespace="SharpDox.Sdk.Config" #>
+<#@ import namespace="MarkdownSharp" #> 
+<#@ import namespace="SharpDox.Plugins.Html.Templates.Strings" #> 
+
+<ul id="navigation">
+
+<#= string.Format("<li class='navtitle'>{0}</li>", Article.Title) #>
+<#= string.Format("<li><a class='sd-menuback' href='#' data-nav='{0}'><i class='icon-chevron-sign-left'></i> <p>{1}</p></a></li>", Article.Parent != null ? Article.Parent.Title.Replace(" ", "_") : "index", Strings.Back) #>
+
+<# var apiNavTemplate = new ApiNavTemplate { Repository = Repository }; #>
+<#= apiNavTemplate.TransformText() #>
+
+</ul>
+
+<#+	public SDRepository Repository { get; set; }
+	public string CurrentLanguage { get; set; }
+	public IStrings Strings { get; set; } 
+	public SDArticle Article { get; set; } #>

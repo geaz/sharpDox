@@ -1,0 +1,3 @@
+Types in this namespace are used in the _SDMethod_ type. The property _Calls_ contains a structure of calls to other project methods. _SDNode_ is the base of all other types. The _SDConditionalBlock_ represents a conditional block like a _if_ statement. _SDBlock_ represents blocks like _while_ or _foreach_ loops. _SDTargetNode_ represents the call to a project method.
+
+The calltree only contains calls to project methods.

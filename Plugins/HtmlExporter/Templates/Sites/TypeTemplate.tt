@@ -1,0 +1,229 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Net" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="SharpDox.Model.Repository" #>
+<#@ import namespace="SharpDox.Sdk.Config" #>
+<#@ import namespace="SharpDox.Sdk" #>
+<#@ import namespace="SharpDox.UML" #>
+<#@ import namespace="MarkdownSharp" #>
+<#@ import namespace="SharpDox.Plugins.Html.Templates.Strings" #> 
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title><#= Repository.ProjectInfo.ProjectName #> - <#= SDType.Name #></title>
+        <meta name="viewport" content="width=device-width">
+
+		<link rel="stylesheet" type="text/css" href="../stylesheets/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../stylesheets/font.css" />
+		<link rel="stylesheet" type="text/css" href="../stylesheets/font-awesome.css" />
+		<link rel="stylesheet" type="text/css" href="../stylesheets/typography.css" />
+		<link rel="stylesheet" type="text/css" href="../stylesheets/layout.css" />
+		<link rel="stylesheet" type="text/css" href="../stylesheets/elements.css" />
+		<link rel="stylesheet" type="text/css" href="../stylesheets/markdown.css" />
+		<link rel="stylesheet" type="text/css" href="../stylesheets/vs.css" />
+
+		<script src="../js/vendor/jquery.js"></script>
+		<script src="../js/vendor/highlight.pack.js"></script>
+
+		<script src="../js/NavTree.js"></script>
+
+		<script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>        
+        
+		<header id="topbar"> 
+            <div class="container">
+                <a class="logo" href="http://sharpdox.de" target="_blank" title="sharpDox">
+                    <img src="images/logo-small.png" alt="sharpDox" />
+                </a>
+                <div id="breadcrumb">
+					<a href="index.html" title="Start">Start</a>
+				</div>
+            </div>
+        </header>
+
+        <section id="content" class="container">
+            
+			<div id="sidebar">
+				<div id="docname">
+					<# if (String.IsNullOrEmpty(Repository.ProjectInfo.LogoPath))
+					{#>
+						<a href="index.html" class="pagelink"><h1><#= Repository.ProjectInfo.ProjectName #></h1></a>
+					<#}
+					else
+					{#>
+						<a href="index.html" class="pagelink"><img src="logo.png" title="<#= Repository.ProjectInfo.ProjectName #>"/></a>
+					<#}#>
+				</div>
+    
+				<div id="navigation-container" data-nav="<#= SDType.Namespace.Fullname #>">		
+				</div>				
+			</div>
+
+			<div id="documentation">
+
+				<div id="documentation-wrapper">
+					<div id="header">
+						<h2 class="type-title"><#= SDType.Name #></h2>
+						<span class="namespace-title">Namespace: <#= SDType.Namespace.Fullname #></span>
+					</div>
+
+					<# if(!SDType.IsClassDiagramEmpty()) { #>
+						<div id="sd-class-diagram">
+							<#	var svg = SDType.GetClassDiagram().ToSvg(270);
+								var template = new Templater(Repository, svg); #>
+							<#= template.TransformText(Helper.TransformLinkToken) #>
+						</div>
+					<# } #>
+
+					<div id="pagecontent">
+
+						<h3 class="box-title first-heading"><#= Strings.Syntax #></h3>
+						<div class="divider">
+							<span></span>
+						</div>
+						<div class="syntax-box">
+							<pre class="wrap-pre"><code><#= WebUtility.HtmlEncode(SDType.Syntax) #></code></pre>
+						</div>
+
+						<# if(SDType.BaseTypes.Count > 0) { #>
+							<h3 class="box-title"><#= Strings.BaseType #></h3>
+							<div class="list-box">
+								<ul>
+								<# foreach(var baseType in SDType.BaseTypes) { 
+									if(baseType.IsProjectStranger) { #>
+										<li><#= baseType.Fullname #></a></li>
+									<# } else { #>
+										<li><a href="type/<#= baseType.Guid #>.html"><#= baseType.Fullname #></a></li>
+									<# } #>
+								<# } #>
+								</ul>
+							</div>
+						<# } #>
+
+						<# if(SDType.ImplementedInterfaces.Count > 0) { #>
+							<h3 class="box-title"><#= Strings.Implements #></h3>
+							<div class="list-box">
+								<ul>
+								<# foreach(var implementedInterface in SDType.ImplementedInterfaces) {
+									if(implementedInterface.IsProjectStranger) { #>
+										<li><#= implementedInterface.Fullname #></a></li>
+									<# } else { #>
+										<li><a href="type/<#= implementedInterface.Guid #>.html"><#= implementedInterface.Fullname #></a></li>
+									<# } #>
+								<# } #>
+								</ul>
+							</div>
+						<# } #>
+        
+						<# if(SDType.Documentation.Count > 0) { #>
+
+							<# if(SDType.Documentation[CurrentLanguage].Summary.Count > 0) { #>
+								<h3 class="box-title"><#= Strings.Summary #></h3>
+								<div class="doc-box markdown">
+									<#= new Markdown().Transform(SDType.Documentation[CurrentLanguage].Summary.ToMarkdown()) #>
+								</div>
+							<# } #>
+
+							<# if(SDType.Documentation[CurrentLanguage].Remarks.Count > 0) { #>
+								<h3 class="box-title"><#= Strings.Remarks #></h3>
+								<div class="doc-box markdown">
+									<#= new Markdown().Transform(SDType.Documentation[CurrentLanguage].Remarks.ToMarkdown()) #>
+								</div>
+							<# } #>
+
+							<# if(SDType.Documentation[CurrentLanguage].Example.Count > 0) { #>
+								<h3 class="box-title"><#= Strings.Example #></h3>
+								<div class="doc-box markdown">
+									<#= new Markdown().Transform(SDType.Documentation[CurrentLanguage].Example.ToMarkdown()) #>
+								</div>
+							<# } #>
+
+							<# if(SDType.Documentation[CurrentLanguage].Returns.Count > 0) { #>
+								<h3 class="box-title"><#= Strings.Returns #></h3>
+								<div class="doc-box markdown">
+									<#= new Markdown().Transform(SDType.Documentation[CurrentLanguage].Returns.ToMarkdown()) #>
+								</div>
+							<# } #>
+
+							<# if(SDType.Documentation[CurrentLanguage].Exceptions.Count > 0) { #>
+								<h3 class="box-title"><#= Strings.Exceptions #></h3>
+								<div class="doc-box markdown">
+									<# foreach(var exception in SDType.Documentation[CurrentLanguage].Exceptions) { #>
+										<p><#= exception.Key #></p>
+										<div class="inline">
+											<#= new Markdown().Transform(exception.Value.ToMarkdown()) #>
+										</div>
+									<# } #>
+								</div>
+							<# } #>
+
+							<# if(SDType.Documentation[CurrentLanguage].Params.Count > 0) { #>
+								<h3 class="box-title"><#= Strings.Parameters #></h3>
+								<div class="doc-box markdown">
+									<# foreach(var parameter in SDType.Documentation[CurrentLanguage].Params) { #>
+										<p><#= parameter.Key #></p>
+										<div class="inline">
+											<#= new Markdown().Transform(parameter.Value.ToMarkdown()) #>
+										</div>
+									<# } #>
+								</div>
+							<# } #>
+
+							<# if(SDType.Documentation[CurrentLanguage].TypeParams.Count > 0) { #>
+								<h3 class="box-title"><#= Strings.TypeParameters #></h3>
+								<div class="doc-box markdown">
+									<# foreach(var typeParameter in SDType.Documentation[CurrentLanguage].TypeParams) { #>
+										<p><#= typeParameter.Key #></p>
+										<div class="inline">
+											<#= new Markdown().Transform(typeParameter.Value.ToMarkdown()) #>
+										</div>
+									<# } #>
+								</div>
+							<# } #>
+
+						<# } #>
+
+						<# if(SDType.Uses.Count > 0) { #>
+							<h3 class="box-title"><#= Strings.Uses #></h3>
+							<div class="list-box">
+								<ul>
+								<# foreach(var use in SDType.Uses) { #>
+									<li><a href="type/<#= use.Guid #>.html"><#= use.Name #></a></li>
+								<# } #>
+								</ul>
+							</div>
+						<# } #>
+
+						<# if(SDType.UsedBy.Count > 0) { #>
+							<h3 class="box-title"><#= Strings.UsedBy #></h3>
+							<div class="list-box">
+								<ul>
+								<# foreach(var used in SDType.UsedBy) { #>
+									<li><a href="type/<#= used.Guid #>.html"><#= used.Name #></a></li>
+								<# } #>
+								</ul>
+							</div>
+						<# } #>
+
+					</div>
+				</div>
+			</div>
+
+		</section>
+    </body>
+</html>
+
+<#+ public IStrings Strings { get; set; }
+	public string CurrentLanguage { get; set; }
+	public SDRepository Repository { get; set; }
+    public SDType SDType { get; set; } #>

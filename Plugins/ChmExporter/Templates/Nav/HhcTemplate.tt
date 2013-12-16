@@ -1,0 +1,67 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Net" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="SharpDox.Model.Repository" #>
+<#@ import namespace="SharpDox.Plugins.Chm.Templates.Strings" #>
+<#@ import namespace="SharpDox.Sdk.Config" #>
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+	<HEAD>
+		<meta name="GENERATOR" content="sharpDox">
+	</HEAD>
+	<BODY>
+		<ul>
+		<li> <object type="text/sitemap">
+						<param name="Name" value="<#= SDRepository.ProjectInfo.ProjectName #>">
+						<param name="Local" value="<#= SDRepository.ProjectInfo.ProjectName.Replace(" ", "") #>-Index.html">
+					</object>
+
+			<ul>
+				<# if(SDRepository.Articles.Count > 0) {
+					var articles = SDRepository.Articles.ContainsKey(CurrentLanguage) ? SDRepository.Articles[CurrentLanguage] : SDRepository.Articles["default"];
+					foreach (var article in articles)
+					{ #>
+						<li> <object type="text/sitemap">
+									<param name="Name" value="<#= WebUtility.HtmlEncode(article.Title) #>">
+									<param name="Local" value="<#= Helper.RemoveIllegalCharacters(article.Title.Replace(" ", "_")) #>.html">
+							</object>
+
+						<# if (article.Content == "SDDoc")
+						{ #>							
+								<ul>
+								<# var apiNavTemplate = new ApiNavTemplate { SDRepository = SDRepository, Strings = Strings }; #>
+								<#= apiNavTemplate.TransformText() #>
+								</ul>
+							</li>
+						<# }
+						else if(article.Children.Count > 0)
+						{ #>
+								<ul>
+								<# var articleNavTemplate = new ArticleNavTemplate { SDRepository = SDRepository, Articles = article.Children, Strings = Strings }; #>
+								<#= articleNavTemplate.TransformText() #>
+								</ul>
+							
+						<# } #>
+
+						</li>
+				<#	}
+				} else {
+					var apiNavTemplate = new ApiNavTemplate { SDRepository = SDRepository, Strings = Strings }; #>
+					<#= apiNavTemplate.TransformText() #>
+				<# } #>
+
+			</ul>
+		</li>
+		</ul>
+	</BODY>
+</HTML>
+
+<#+ 
+public SDRepository SDRepository { get; set; } 
+public string CurrentLanguage { get; set; }
+public IStrings Strings { get; set; }
+#>

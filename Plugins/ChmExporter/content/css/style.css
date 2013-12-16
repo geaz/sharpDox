@@ -1,0 +1,158 @@
+﻿/* layout */
+
+html, body{
+	margin:0;
+	padding:0;
+}
+
+#header{
+	padding:5px 25px;
+}
+
+#header h2{
+	margin:0;
+}
+
+#subheader{
+	display:block;
+	background: #EEE;
+	border-top: 1px solid #B4A9AC;
+	border-bottom: 1px solid #B4A9AC;
+	padding: 2px 25px;
+	margin:0;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+#subheader a{
+	text-decoration:none;
+	font-weight:bold;
+	color:#8c7f83;
+	font-size:12px;
+}
+
+#subheader a:hover{
+	color:#574c4f;
+}
+
+#content {
+	padding: 10px 25px;
+}
+
+.box-title{
+	margin-top:0;
+}
+
+.namespace-title{
+	font-size:1em;
+	color: #AAA;
+}
+
+.syntax-box {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #CCCCCC;
+    margin: 0 25px 20px 25px;
+    padding: 5px;
+}
+
+.doc-box {
+    margin: 0 25px 20px 25px;
+}
+
+.doc-box p{
+	font-style:italic;
+	margin:0;
+}
+
+.inline{
+	margin: 0 25px;
+}
+
+.diagram-box {
+    text-align: center;
+}
+
+/* #Tables
+================================================== */
+
+	.table-box{
+		width: 100%;
+		padding: 0 25px;
+	}
+
+	table{
+		width: 100%;
+		border-spacing:0;
+		border-collapse:collapse;
+	}
+
+	th{
+		background: #C2C2C2;
+	}
+
+	.even{
+		background: #F6F5F1;
+	}
+
+	td{
+		padding:5px 10px 5px 10px;
+	}
+
+	thead{
+		background: none repeat scroll 0 0 #F6F5F1;
+		font-family: "Segoe UI";
+		font-weight: bold;
+	}
+	
+	thead td{
+		border-bottom: 1px solid #C2C2C2;
+		border-top: 1px solid #C2C2C2;
+	}
+	
+	.icon-column {
+		width: 15px;
+	}
+
+/* #Typography
+================================================== */
+	body {
+		background: #fff;
+		font: 14px/24px "Segoe UI", Arial, sans-serif;
+		color: #636363;
+	}
+	
+	h1, h2, h3, h4, h5, h6 {
+		color: #636363;
+		font: 60px/68px "Segoe UI", Arial, sans-serif;
+	}
+	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
+	h1 { font-size: 42pt; line-height: 50px; margin-bottom: 14px;}
+	h2 { font-size: 20pt; line-height: 40px; margin-bottom: 10px; }
+	h3 { font-size: 18pt; line-height: 34px; margin-bottom: 8px; }
+	h4 { font-size: 11pt; font-weight:600; line-height: 30px; margin-bottom: 4px; }
+	h5 { font-size: 11pt; line-height: 24px; }
+	h6 { font-size: 11pt; line-height: 21px; }
+
+	p { margin: 0 0 20px 0; }
+	p img { margin: 0; }
+	p.lead { font-size: 21px; line-height: 27px; color: #777;  }
+
+	em { font-style: italic; }
+	strong { font-weight: bold; color: #333; }
+	small { font-size: 80%; }
+
+/*	Blockquotes  */
+	blockquote, blockquote p { font-size: 17px; line-height: 24px; color: #777; font-style: italic; }
+	blockquote { margin: 0 0 20px; padding: 9px 20px 0 19px; border-left: 1px solid #ddd; }
+	blockquote cite { display: block; font-size: 12px; color: #555; }
+	blockquote cite:before { content: "\2014 \0020"; }
+	blockquote cite a, blockquote cite a:visited, blockquote cite a:visited { color: #555; }
+
+	hr { border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 10px 0 30px; height: 0; }
+
+
+/* #Links
+================================================== */
+	a, a:visited { color: #1382CE; text-decoration: none; outline: 0; }
+	a:hover, a:focus { color: #F58026; }
+	p a, p a:visited { line-height: inherit; }

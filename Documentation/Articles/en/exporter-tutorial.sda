@@ -1,0 +1,164 @@
+This tutorial gives an overview about creating custom exporters for **sharpDox**. To accomplish this 
+task we will develop a plugin which creates a new setting page, own settings and an exporter to 
+create a csv output for each method in a solution.
+
+First of all create a library project in Visual Studio and reference the _SharpDox.Model_, 
+_SharpDox.Sdk_, _SharpDox.Ressources_ and _System.Xaml_. In the first step we create the config 
+class. Create a class _CSVConfig.cs_ with the following content:
+
+	using System;
+	using System.ComponentModel;
+	using SharpDox.Sdk.Config;
+
+	namespace CSVExporter
+	{
+		// The class implements the interface IConfigSection
+		public class CSVConfig : IConfigSection
+		{
+			// The ConfigController will register on this event to get notified
+			// about any changes.
+			public event PropertyChangedEventHandler PropertyChanged;
+			protected void OnPropertyChanged(string propertyName)
+			{
+				PropertyChangedEventHandler handler = PropertyChanged;
+				if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+			}
+
+			// This is our new configitem
+			private string _divider = string.Empty;
+			public string Divider { get { return _divider; } set { _divider = value; OnPropertyChanged("Divider"); } }
+
+			// This guid identifies the configsection in 
+			// the config file.
+			public Guid Guid { get { return new Guid("463e2a9d-5d26-42ac-8a02-012928988c79"); } }
+		}
+	}
+
+In this plugin we only create a setting to define the divider for the csv file.
+To let the user choose this divider we will create a config page.
+
+Create a wpf usercontrol, _CSVConfigPage_. Because of referencing the _SharpDox.Ressources_ 
+library we are able to use the wpf design of **sharpDox** in the new usercontrol. 
+The following two examples show the implementation of the config page.
+
+	using SharpDox.Sdk.UI;
+
+	namespace CSVExporter
+	{
+		public partial class CSVConfigPage : IPage
+		{
+			public CSVConfigPage(CSVConfig csvConfig)
+			{
+				DataContext = csvConfig;
+				InitializeComponent();
+			}
+
+			public string PageName { get { return "CSV"; } }
+			public new int Height { get { return int.Parse(mainGrid.Height.ToString()); } }
+			public new int Width { get { return int.Parse(mainGrid.Width.ToString()); } }
+		}
+	}
+
+Next the xaml file for the usercontrol:
+
+	<UserControl x:Class="CSVExporter.CSVConfigPage"
+				 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+				 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+				 mc:Ignorable="d" 
+				 d:DesignHeight="50" d:DesignWidth="385">
+		
+		<UserControl.Resources>
+			<ResourceDictionary>
+				<ResourceDictionary.MergedDictionaries>
+					<ResourceDictionary Source="/SharpDox.Resources;component/Resources/SharpDox.xaml"/>
+				</ResourceDictionary.MergedDictionaries>
+			</ResourceDictionary>
+		</UserControl.Resources>
+
+		<Grid Name="mainGrid" Height="50" Width="385">
+			<StackPanel Height="Auto" HorizontalAlignment="Left" Margin="15,0,15,0" Name="stackPanel2" VerticalAlignment="Top" Width="Auto">
+				<DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,0,0,0" Name="dockPanel1" VerticalAlignment="Top" Width="355">
+					<Label Content="Divider:" Width="150" Height="Auto" Name="label1" Style="{StaticResource BodyText}" />
+					<TextBox Height="Auto" Name="tbDivider" Width="Auto" DockPanel.Dock="Right" Tag="Divider" Text="{Binding Divider}" Style="{StaticResource TextBox}" />
+				</DockPanel>
+			</StackPanel>
+		</Grid>
+	</UserControl>
+
+The last step is to create the csv exporter. Create a new class _CSVExport.cs_ with the following content:
+
+	using System;
+	using System.IO;
+	using System.Linq;
+	using SharpDox.Model.Repository;
+	using SharpDox.Model.Repository.Types;
+	using SharpDox.Sdk.Exporter;
+
+	namespace CSVExporter
+	{
+		public class CSVExport : IExporter
+		{
+			/// <summary>
+			/// sharpDox listens on this event to get any status
+			/// messages. All messages will be shown in the progressbar.
+			/// </summary>
+			public event Action<string> OnStepMessage;
+			
+			/// <summary>
+			/// sharpDox listens on this event to get any status update.
+			/// This event will move forward the secondary progressbar.
+			/// </summary>
+			public event Action<int> OnStepProgress;
+
+			private readonly CSVConfig _csvConfig;
+
+			public CSVExport(CSVConfig csvConfig)
+			{
+				// Get our new configuration
+				_csvConfig = csvConfig;
+			}
+
+			// The export function gets the parsed solution and the  output path.
+			public void Export(SDRepository repository, string outputPath)
+			{
+				var csv = string.Empty;
+				var types = repository.GetAllTypes().OfType<SDType>().Where(o => !o.IsProjectStranger);
+				
+				foreach (var type in types)
+				{
+					ExecuteOnStepMessage("Creating entry for " + type.Fullname);
+					csv += string.Format("{1}{0}{2}{0}{3}", _csvConfig.Divider, type.Fullname, type.Name, type.Namespace) + System.Environment.NewLine;
+				}
+
+				File.WriteAllText(Path.Combine(outputPath, "methods.csv"), csv);
+			}
+
+			private void ExecuteOnStepMessage(string message)
+			{
+				var handler = OnStepMessage;
+				if (handler != null)
+				{
+					handler(message);
+				}
+			}
+
+			private void ExecuteOnStepProgress(int progress)
+			{
+				var handler = OnStepProgress;
+				if (handler != null)
+				{
+					handler(progress);
+				}
+			}
+
+			// The name of the exporter will be used to 
+			// create a subdirectory in the output path.
+			public string ExporterName { get { return "csv"; } }
+		}
+	}
+
+This is the complete, simple plugin for **sharpDox**. Just copy the created dll file into the 
+_plugin_ folder of **sharpDox**. This way **sharpDox** knows about the plugin and will register 
+it at the start. Please download the example on this site [here](http://sharpdox.de/UploadedFiles/Downloads/csv.zip "CSV-Exporter").

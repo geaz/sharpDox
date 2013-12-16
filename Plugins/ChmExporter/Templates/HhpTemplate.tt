@@ -1,0 +1,27 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="SharpDox.Model.Repository" #>
+
+[OPTIONS]
+Binary TOC=Yes
+Compatibility=1.1 or later
+Compiled file=<#= ProjectInfo.ProjectName.Replace(" ", "") #>.chm
+Contents file=<#= ProjectInfo.ProjectName.Replace(" ", "") #>.hhc
+Default Font=Segoe UI,8
+Default Window=main
+Display compile progress=Yes
+Default topic=<#= ProjectInfo.ProjectName.Replace(" ", "") #>-Index.html
+Error log file=logcompile.txt
+Full-text search=Yes
+Index file=<#= ProjectInfo.ProjectName.Replace(" ", "") #>.hhk
+Language=0x407 German (Germany)
+Title=<#= ProjectInfo.ProjectName #>
+[WINDOWS]
+main=,"<#= ProjectInfo.ProjectName.Replace(" ", "") #>.hhc","<#= ProjectInfo.ProjectName.Replace(" ", "") #>.hhk",,,,,,,0x63561,,0x70383e,,,,,,,,0
+
+<#+ 
+public SDProjectInfo ProjectInfo { get; set; } 
+#>

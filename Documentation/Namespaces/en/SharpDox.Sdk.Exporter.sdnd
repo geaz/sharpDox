@@ -1,0 +1,24 @@
+The exporter namespace provides the interface to implement custom exporters for **sharpDox**. Following an example how to implement a custom exporter:
+
+	using System;
+	using SharpDox.Model.Repository;
+	using SharpDox.Sdk.Exporter;
+	using SharpDox.Sdk.Config;
+
+	namespace ExampleExporter
+	{
+	    public class ExampleExporter : IExporter
+	    {
+	        public event Action<string> OnStepMessage;
+	        public event Action<int> OnStepProgress;
+	
+	        public void Export(SDRepository repository, string outputPath)
+	        {
+	            //Exportcode
+	        }
+	
+	        public string ExporterName { get { return "example"; } }
+	    }
+	}
+
+Look [here]({{article-link:exporter-tutorial}}) for an advanced tutorial.

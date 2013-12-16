@@ -1,0 +1,5 @@
+NewConfig = Neue Konfiguration
+Never = NIE
+StartSD = Starte sharpDox ...
+NoShells = Keine Shells registriert. Es wird mindestens eine Shell benötigt, um sharpDox auszuführen.
+MoreShells = Es ist mehr als eine Shell registriert. Welche soll gestartet werden?

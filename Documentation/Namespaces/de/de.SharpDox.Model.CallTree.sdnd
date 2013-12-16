@@ -1,0 +1,5 @@
+Die Elemente in diesem Namensraum werden von _SDMethod_ genutzt. Die Eigenschaft _Calls_ enthält alle Aufrufe zu anderen Projekt-Methoden. 
+_SDNode_ ist die Basis aller anderen Typen. Der _SDConditionalBlock_ repräsentiert zum Beispiel ein _if_ Statement, der _SDBlock_ einen Code-Block wie zum Beispiel
+eine _while_ oder _foreach_ Schleife. _SDTargetNode_ repräsentiert einen Aufruf zu einer anderen Projekt-Methode.
+
+Der Aufrufsbaum enthält nur Aufrufe zu anderen Projekt-Methoden.

@@ -1,0 +1,16 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="SharpDox.Model.Repository" #>
+<#@ import namespace="SharpDox.Model.Documentation" #>
+<#@ import namespace="SharpDox.Sdk.Config" #>
+<#@ import namespace="MarkdownSharp" #> 
+
+<#  foreach (var sdNamespace in Repository.GetAllNamespaces())
+{ #>
+	<#= string.Format("<li><a class='pagelink' href='namespace/{0}.html'><i class='icon-chevron-sign-right'></i> <p>{0}</p></a>", sdNamespace.Fullname) #>
+<# } #>
+
+<#+	public SDRepository Repository { get; set; } #>

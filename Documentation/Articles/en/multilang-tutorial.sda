@@ -1,0 +1,43 @@
+With **sharpDox** it is possible to create multilanguage documentations.
+It is just necessary to add a new file with a language prefix for descriptions, articles and translated navigation. Here are some examples:
+
+**Namespace-Description**
+
+	Original: SharpDox.Sdk.sdnd
+	Translated: de.SharpDox.Sdk.sdnd
+
+**Article**
+
+	Original: exporter-tutorial.sda
+	Translated: de.exporter-tutorial.sda
+
+**Project-Description**
+
+	Original: README
+	Translated: de.README
+
+**Navigation**
+
+	Original: default.sdnav
+	Translated: de.sdnav
+
+Because Visual Studio doesn't support multilanguage documentation it was necessary to extend them a bit. Here is a example to create multilanguage inline documentation for **sharpDox**:
+
+**Code-Documentation**
+
+	Original:
+	<summary>SUMMARY</summary>
+	<remarks>REMARKS</remarks>
+	[...]
+
+	Translated:
+	<default>
+		<summary>SUMMARY</summary>
+		<remarks>REMARKS</remarks>
+		[...]
+	</default>
+	<de>
+		<summary>DE_SUMMARY</summary>
+		<remarks>DE_REMARKS</remarks>
+		[...]
+	</de>

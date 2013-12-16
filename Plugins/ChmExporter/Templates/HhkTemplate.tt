@@ -1,0 +1,21 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="SharpDox.Sdk.Config" #>
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+
+</HEAD>
+<BODY>
+<UL>
+    <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="Test">
+            <param name="Name" value="Topic1">
+            <param name="Local" value="Topic1.htm">
+        </OBJECT>
+</UL></BODY>
+</HTML>

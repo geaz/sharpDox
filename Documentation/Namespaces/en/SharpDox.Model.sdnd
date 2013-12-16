@@ -1,0 +1,3 @@
+The _SharpDox.Model_ namespace contains all types which are used to create the model for a c# solution. 
+Please look into [SharpDox.Model.Repository]({{namespace-link:SharpDox.Model.Repository}}), 
+[SharpDox.Model.Documentation]({{namespace-link:SharpDox.Model.Documentation}}) and [SharpDox.Model.CallTree]({{namespace-link:SharpDox.Model.CallTree}}) to get further information.

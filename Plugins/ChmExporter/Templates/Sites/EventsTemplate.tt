@@ -1,0 +1,80 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="SharpDox.Model.Repository" #>
+<#@ import namespace="SharpDox.Plugins.Chm.Templates.Strings" #>
+<#@ import namespace="SharpDox.Sdk.Config" #>
+<#@ import namespace="MarkdownSharp" #>
+
+<html>
+    <head>
+        <title>Events</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <link rel="stylesheet" type="text/css" href="css/reset.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="js/jquery.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            $(document).ready(function() {
+                
+            });
+        </script>
+
+    </head>
+    <body>
+		<div id="header">
+			<h2 class="type-title"><#= Strings.Events #></h2>
+			<span class="namespace-title"><#= SDType.Fullname #></span>
+		</div>
+		<div id="subheader">
+			<a href="<#= ProjectInfo.ProjectName.Replace(" ", "") #>-Index.html">Start</a> > <a href="<#= SDNamespace.Guid #>.html"><#= SDNamespace.Fullname #></a> > <a href="<#= SDType.Guid #>.html"><#= SDType.Name #></a>
+		</div>
+
+		<div id="content">
+			<div class="table-box">
+				<table>
+					<thead>
+						<tr>
+							<td></td>
+							<td><#= Strings.Name #></td>
+							<td><#= Strings.Description #></td>
+						</tr>
+					</thead>
+					<tbody>
+
+					<# foreach(var eve in SDType.Events) { #>
+				
+						<tr>
+							<td class="icon-column">
+								<img alt="Events-Icon" src="icons/Event_<#= eve.Accessibility #>.png">
+							</td>
+							<td>
+								<a title="<#= eve.Name #>" href="<#= eve.Guid #>.html"><#= eve.Name #></a>
+							</td>	
+							<td class="markdown">
+								<# if(eve.Documentation.Count > 0 && eve.Documentation.ContainsKey(CurrentLanguage)) { #>
+									<#= new Markdown().Transform(eve.Documentation[CurrentLanguage].Summary.ToString()) #>
+								<# } else if(eve.Documentation.Count > 0) { #>
+									<#= new Markdown().Transform(eve.Documentation["default"].Summary.ToString()) #>
+								<# } #>
+							</td>
+						</tr>
+
+					<# } #>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+    </body>
+</html>
+
+<#+ 
+public SDType SDType { get; set; } 
+public SDNamespace SDNamespace { get; set; }
+public SDProjectInfo ProjectInfo { get; set; }
+public string CurrentLanguage { get; set; }
+public IStrings Strings { get; set; }
+#>

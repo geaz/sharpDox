@@ -1,0 +1,57 @@
+﻿body {
+  font: normal 0.8764em/1.5em 'OpenSansRegular', Arial, Verdana, sans-serif;
+  color: #666666;
+}
+html > body {
+  font-size: 14px;
+  line-height: 14px;
+}
+p {
+  margin: 0 0 1.5em  0;
+  font-size: 1em;
+  line-height: 1.5em;
+}
+h1 {
+  font-family: 'OpenSansLight', Arial, Verdana, sans-serif;
+  margin: 0.8077em 0;
+  font-size: 1.8571em;
+  line-height: 0.8077em;
+}
+h2 {
+  font-family: 'OpenSansLight', Arial, Verdana, sans-serif;
+  margin: 0.9545em 0;
+  font-size: 1.5714em;
+  line-height: 0.9545em;
+}
+h3 {
+  font-family: 'OpenSansLight', Arial, Verdana, sans-serif;
+  margin: 1.05em 0;
+  font-size: 1.4286em;
+  line-height: 1.05em;
+}
+h4 {
+  font-family: 'OpenSansLight', Arial, Verdana, sans-serif;
+  margin: 1.1667em 0;
+  font-size: 1.2857em;
+  line-height: 1.1667em;
+}
+h5 {
+  font-family: 'OpenSansLight', Arial, Verdana, sans-serif;
+  margin: 1.3125em 0;
+  font-size: 1.1429em;
+  line-height: 1.3125em;
+}
+h6 {
+  font-family: 'OpenSansLight', Arial, Verdana, sans-serif;
+  margin: 1.5em 0;
+  font-size: 1em;
+  line-height: 1.5em;
+}
+a,
+a:visited {
+  color: #1382ce;
+  text-decoration: none;
+}
+a:hover {
+  color: #f58026;
+}

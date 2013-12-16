@@ -1,0 +1,45 @@
+.markdown img {
+  width: 100%;
+}
+.markdown strong {
+  font-weight: bold;
+}
+.markdown em {
+  font-style: italic;
+}
+.markdown ol {
+  list-style-type: decimal;
+  margin-left: 20px;
+}
+.markdown ul li:before {
+  content: "\f138";
+  font-family: 'FontAwesome';
+  margin-right: 5px;
+}
+.markdown ul li {
+  margin-bottom: 5px;
+}
+.markdown blockquote {
+  background: #f6f5f1;
+  border: 1px solid #dadada;
+  padding: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.markdown blockquote p {
+  margin: 0;
+}
+.markdown pre {
+  background: #f6f5f1;
+  border: 1px solid #dadada;
+  padding: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-family: monospace;
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.markdown pre p {
+  margin: 0;
+}

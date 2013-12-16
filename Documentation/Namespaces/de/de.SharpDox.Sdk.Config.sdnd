@@ -1,0 +1,66 @@
+Der Config-Namensraum beinhaltet alle Interfaces, um eine eigene Konfigurationsektion zu erstellen.
+
+Nachfolgend ein Beispiel wie eine Konfigurationssektion mit einem einzelnen Konfigurationselement erstellt werden kann:
+
+	using System.ComponentModel;
+	using System;
+	using SharpDox.Sdk.Config;
+	
+	namespace ExamplePlugin
+	{
+	    public class ExampleConfig : IConfigSection
+	    {
+	        public event PropertyChangedEventHandler PropertyChanged;
+	        protected void OnPropertyChanged(string propertyName)
+	        {
+	            var handler = PropertyChanged;
+	            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+	        }
+	
+	        private string _exampleItem;
+	
+	        public string ExampleItem
+	        {
+	            get { return _exampleItem; }
+	            set
+	            {
+	                _exampleItem = value;
+	                OnPropertyChanged("ExampleItem");
+	            }
+	        }
+	
+	        public Guid Guid { get { return new Guid("XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXXXX"); } }         
+	    }
+	}
+
+Um eine Referenz zu dieser Konfiguration zu bekommen muss der Konstruktor eines Plugins lediglich mit dieser Konfiguration gefüllt werden.
+**sharpDox** kümmert sich darum, dass das Plugin daraufhin eine Referenz auf die Sektion erhält. Hier ein Beispiel:
+
+	using System;
+	using SharpDox.Model.Repository;
+	using SharpDox.Sdk.Exporter;
+	using SharpDox.Sdk.Config;
+
+	namespace ExampleExporter
+	{
+	    public class ExampleExporter : IExporter
+	    {
+	        public event Action<string> OnStepMessage;
+	        public event Action<int> OnStepProgress;
+	
+	        private readonly ExampleConfig _exampleConfig;
+	
+			//Fill the constructor with the config section
+	        public ExampleExporter(ExampleConfig exampleConfig)
+	        {
+	            _exampleConfig = exampleConfig;
+	        }
+	
+	        public void Export(SDRepository repository, string outputPath)
+	        {
+	            //Exportcode
+	        }
+	
+	        public string ExporterName { get { return "example"; } }
+	    }
+	}

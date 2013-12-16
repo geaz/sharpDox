@@ -1,0 +1,69 @@
+.container {
+  width: 1200px;
+  margin: auto;
+}
+
+#pagecontent{
+	margin-right:325px;
+}
+
+#content {
+  margin-top: 75px;
+  margin-bottom: 50px;
+}
+
+#topbar{
+	background: #F6F5F1;
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index: 999;
+    -moz-box-shadow:    0 2px 3px 0 rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.25);
+    box-shadow:         0 2px 3px 0 rgba(0, 0, 0, 0.25);
+}
+
+#breadcrumb {
+    padding-top: 8px;
+    font-size:9pt;
+}
+
+.logo {
+    float:right;
+    margin-top:3px;
+}
+
+#sidebar {
+    float: left;
+    margin-bottom: 25px;
+    margin-right: 25px;
+    width: 300px;
+}
+
+#docname {
+    height: 100px;
+}
+
+#docname h1{
+	margin:0;
+	margin-top:5px;
+}
+
+#documentation {
+    margin-left: 325px;
+}
+
+#documentation-wrapper #header {
+    height: 105px;
+}
+
+.type-title {
+    margin: 0;
+}
+
+.namespace-title {
+    display: block;
+    font-family: OpenSansLight;
+    font-size: 10pt;
+    margin-top: 5px;
+}

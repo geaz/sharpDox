@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="SharpDox.Plugins.Chm.ChmPage"
+             x:Name="Window"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:SharpDox.Resources.Controls;assembly=SharpDox.Resources"
+             mc:Ignorable="d" 
+             d:DesignHeight="475" d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                      Source="/SharpDox.Resources;component/SharpDox.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Name="mainGrid" Height="475" Width="400">
+        <StackPanel Height="Auto" HorizontalAlignment="Left" Margin="15,0,15,0" Name="stackPanel2" VerticalAlignment="Top" Width="Auto">
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel6" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.BackgroundColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label9" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding BackgroundColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel7" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.TextColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label1" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding TextColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel2" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.LinkColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label2" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding LinkColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel3" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.LinkHoverColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label3" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding LinkHoverColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel4" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.TableHeaderBackgroundColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label4" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding TableHeaderBackgroundColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel5" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.TableHeaderBorderColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label5" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding TableHeaderBorderColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel10" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.BreadCrumbBackgroundColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label10" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding BreadCrumbBackgroundColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel11" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.BreadCrumbBorderColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label11" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding BreadCrumbBorderColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel12" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.BreadCrumbLinkColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label12" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding BreadCrumbLinkColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel13" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.BreadCrumbLinkHoverColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label13" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding BreadCrumbLinkHoverColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel14" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.SyntaxBoxBackgroundColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label14" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding SyntaxBoxBackgroundColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel15" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.SyntaxBoxBorderColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label15" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding SyntaxBoxBorderColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,5,0,0" Name="dockPanel16" VerticalAlignment="Top" Width="370">
+                <Label Content="{Binding ElementName=Window, Path=Strings.SyntaxBoxTextColor}" ContentStringFormat="{}{0}:" Width="250" Height="Auto" Name="label16" Style="{StaticResource BodyText}" />
+                <controls:ColorSelector HorizontalAlignment="Left" 
+                    SelectedColor = "{Binding SyntaxBoxTextColor, UpdateSourceTrigger=PropertyChanged}"
+                    DefaultHeaderText="{Binding ElementName=Window, Path=Strings.DefaultColorsHeaderText}"
+                    CustomHeaderText="{Binding ElementName=Window, Path=Strings.CustomColorHeaderText}"></controls:ColorSelector>
+            </DockPanel>
+            <Button Content="{Binding ElementName=Window, Path=Strings.Reset}" Height="25" Margin="250,5,5,5" Style="{StaticResource NormalButton}" Click="Reset_Click"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

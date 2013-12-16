@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5E38E43F-B1CA-4A71-8EE6-5EF297B9328C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SharpDox.Resources</RootNamespace>
+    <AssemblyName>SharpDox.Resources</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\ColorSelector.xaml.cs">
+      <DependentUpon>ColorSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\BoolToValueConverter.cs" />
+    <Compile Include="Converter\MultiBoolToForegroundConverter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\ColorSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Expander.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Listbox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Label.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Textbox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Vars.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Fonts\OpenSans-Bold.ttf" />
+    <Resource Include="Fonts\OpenSans-BoldItalic.ttf" />
+    <Resource Include="Fonts\OpenSans-ExtraBold.ttf" />
+    <Resource Include="Fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <Resource Include="Fonts\OpenSans-Italic.ttf" />
+    <Resource Include="Fonts\OpenSans-Light.ttf" />
+    <Resource Include="Fonts\OpenSans-LightItalic.ttf" />
+    <Resource Include="Fonts\OpenSans-Regular.ttf" />
+    <Resource Include="Fonts\OpenSans-Semibold.ttf" />
+    <Resource Include="Fonts\OpenSans-SemiboldItalic.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Styles\Progressbar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Styles\Checkbox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Styles\Combobox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="SharpDox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\color.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Fonts\Fontawesome.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Class_friend.png" />
+    <Resource Include="Icons\Class_internal.png" />
+    <Resource Include="Icons\Class_private.png" />
+    <Resource Include="Icons\Class_protected.png" />
+    <Resource Include="Icons\Class_public.png" />
+    <Resource Include="Icons\Class_sealed.png" />
+    <Resource Include="Icons\Class_shortcut.png" />
+    <Resource Include="Icons\Constant_friend.png" />
+    <Resource Include="Icons\Constant_internal.png" />
+    <Resource Include="Icons\Constant_private.png" />
+    <Resource Include="Icons\Constant_protected.png" />
+    <Resource Include="Icons\Constant_public.png" />
+    <Resource Include="Icons\Constant_sealed.png" />
+    <Resource Include="Icons\Constant_shortcut.png" />
+    <Resource Include="Icons\Delegate_friend.png" />
+    <Resource Include="Icons\Delegate_internal.png" />
+    <Resource Include="Icons\Delegate_private.png" />
+    <Resource Include="Icons\Delegate_protected.png" />
+    <Resource Include="Icons\Delegate_public.png" />
+    <Resource Include="Icons\Delegate_sealed.png" />
+    <Resource Include="Icons\Delegate_shortcut.png" />
+    <Resource Include="Icons\EnumItem_friend.png" />
+    <Resource Include="Icons\EnumItem_internal.png" />
+    <Resource Include="Icons\EnumItem_private.png" />
+    <Resource Include="Icons\EnumItem_protected.png" />
+    <Resource Include="Icons\EnumItem_public.png" />
+    <Resource Include="Icons\EnumItem_sealed.png" />
+    <Resource Include="Icons\EnumItem_shortcut.png" />
+    <Resource Include="Icons\EnumPrivate.png" />
+    <Resource Include="Icons\Enum_friend.png" />
+    <Resource Include="Icons\Enum_internal.png" />
+    <Resource Include="Icons\Enum_private.png" />
+    <Resource Include="Icons\Enum_protected.png" />
+    <Resource Include="Icons\Enum_public.png" />
+    <Resource Include="Icons\Enum_sealed.png" />
+    <Resource Include="Icons\Enum_shortcut.png" />
+    <Resource Include="Icons\Event_friend.png" />
+    <Resource Include="Icons\Event_internal.png" />
+    <Resource Include="Icons\Event_private.png" />
+    <Resource Include="Icons\Event_protected.png" />
+    <Resource Include="Icons\Event_public.png" />
+    <Resource Include="Icons\Event_sealed.png" />
+    <Resource Include="Icons\Event_shortcut.png" />
+    <Resource Include="Icons\Field_friend.png" />
+    <Resource Include="Icons\Field_internal.png" />
+    <Resource Include="Icons\Field_private.png" />
+    <Resource Include="Icons\Field_protected.png" />
+    <Resource Include="Icons\Field_public.png" />
+    <Resource Include="Icons\Field_sealed.png" />
+    <Resource Include="Icons\Field_shortcut.png" />
+    <Resource Include="Icons\Interface_friend.png" />
+    <Resource Include="Icons\Interface_internal.png" />
+    <Resource Include="Icons\Interface_private.png" />
+    <Resource Include="Icons\Interface_protected.png" />
+    <Resource Include="Icons\Interface_public.png" />
+    <Resource Include="Icons\Interface_sealed.png" />
+    <Resource Include="Icons\Interface_shortcut.png" />
+    <Resource Include="Icons\MethodOverload_friend.png" />
+    <Resource Include="Icons\MethodOverload_internal.png" />
+    <Resource Include="Icons\MethodOverload_private.png" />
+    <Resource Include="Icons\MethodOverload_protected.png" />
+    <Resource Include="Icons\MethodOverload_public.png" />
+    <Resource Include="Icons\MethodOverload_sealed.png" />
+    <Resource Include="Icons\MethodOverload_shortcut.png" />
+    <Resource Include="Icons\Method_friend.png" />
+    <Resource Include="Icons\Method_internal.png" />
+    <Resource Include="Icons\Method_private.png" />
+    <Resource Include="Icons\Method_protected.png" />
+    <Resource Include="Icons\Method_public.png" />
+    <Resource Include="Icons\Method_sealed.png" />
+    <Resource Include="Icons\Method_shortcut.png" />
+    <Resource Include="Icons\Namespace_friend.png" />
+    <Resource Include="Icons\Namespace_internal.png" />
+    <Resource Include="Icons\Namespace_private.png" />
+    <Resource Include="Icons\Namespace_protected.png" />
+    <Resource Include="Icons\Namespace_public.png" />
+    <Resource Include="Icons\Namespace_sealed.png" />
+    <Resource Include="Icons\Namespace_shortcut.png" />
+    <Resource Include="Icons\Properties_friend.png" />
+    <Resource Include="Icons\Properties_internal.png" />
+    <Resource Include="Icons\Properties_private.png" />
+    <Resource Include="Icons\Properties_protected.png" />
+    <Resource Include="Icons\Properties_public.png" />
+    <Resource Include="Icons\Properties_sealed.png" />
+    <Resource Include="Icons\Properties_shortcut.png" />
+    <Resource Include="Icons\Structure_friend.png" />
+    <Resource Include="Icons\Structure_internal.png" />
+    <Resource Include="Icons\Structure_private.png" />
+    <Resource Include="Icons\Structure_protected.png" />
+    <Resource Include="Icons\Structure_public.png" />
+    <Resource Include="Icons\Structure_sealed.png" />
+    <Resource Include="Icons\Structure_shortcut.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SharpDox.Core\bin\Debug\$(ProjectName).dll"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

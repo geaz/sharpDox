@@ -1,0 +1,57 @@
+The UI namespace provides the interface to implement custom pages for the **sharpDox** GUI. If a plugin implements the _IPage_ interface, **sharpDox** will place this site into the exportersettings dropdown (like the chm config page).
+
+**sharpDox** comes with many styles for the GUI which are useable in custom pages. To use them include the resourcefile into your xaml file (see the xaml example below).
+
+**sharpdox** provides styles for the following controls:
+	
+- Buttons (Key: NormalButton)
+- Checkbox (Key: CheckBox)
+- Combobox (Key: Combobox)
+- Labels (Key: BodyText, Headline, Headline2, Headline3, Description)
+- ListBox (Key: ListBox)
+- TextBox (Key: TextBox)
+- TextBox with button (Key: TextBoxChooser)
+
+Following an example for an empty page:
+
+	using SharpDox.Sdk.UI;
+	
+	namespace ExampleExporter
+	{
+	    public partial class ExampleConfigPage : IPage
+	    {
+	        public ExampleConfigPage()
+	        {
+	            InitializeComponent();
+	        }
+	
+	        public string PageName { get { return "Example"; } }
+	        public new int Height { get { return int.Parse(mainGrid.Height.ToString()); } }
+	        public new int Width { get { return int.Parse(mainGrid.Width.ToString()); } }
+	    }
+	}
+
+And the XAML:
+
+	<UserControl x:Class="ExampleExporter.ExampleConfigPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="385">
+
+	    <UserControl.Resources>
+	        <ResourceDictionary>
+	            <ResourceDictionary.MergedDictionaries>
+	                <ResourceDictionary Source="/SharpDox.Resources;component/Resources/SharpDox.xaml"/>
+	            </ResourceDictionary.MergedDictionaries>
+	        </ResourceDictionary>
+	    </UserControl.Resources>
+	
+	    <Grid Name="mainGrid" Height="50" Width="385">
+	    	
+			//Your pagecontent
+
+	    </Grid>
+	</UserControl>
