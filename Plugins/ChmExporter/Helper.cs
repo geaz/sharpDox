@@ -28,7 +28,7 @@ namespace SharpDox.Plugins.Chm
             }
             else
             {
-                link = string.Format("{0}.html", identifier);
+                link = string.Format("{0}.html", identifier.Replace(' ', '_'));
             }
             return link;
         }

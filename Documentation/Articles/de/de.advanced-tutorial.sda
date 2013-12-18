@@ -24,21 +24,21 @@ Um einen Artikel, in einer Markdown-Syntax, zu erstellen, muss lediglich eine Da
 ##Links##
 Innerhalb von Beschreibungen und Artikeln können auf verschiedene Elemente innerhalb der Dokumentation verlinkt werden. Außerdem ist es möglich auf Bilder innerhalb der Lösung zu verlinken.
 
-Die Platzhalter werden statt einer URL genutzt (In den Beispielen wird die Markdown-Syntax genutzt):
+Die Platzhalter werden statt einer URL genutzt (In den Beispielen wird die Markdown-Syntax genutzt - bitte das " aus den Beispielen entfernen):
 
-**Namensraum** - {{namespace-link:[Fullname]}}
+**Namensraum** - {{"namespace-link:[Fullname]}}
 
-> **Beispiel:** \[LinkText]({{namespace-link:SharpDox.Sdk}})
+> **Beispiel:** \[LinkText]({{"namespace-link:SharpDox.Sdk}})
 
 **Typ** - {{type-link:[Identifier]}}
-> **Beispiel:** \[LinkText]({{type-link:SharpDox.Sdk.Templater}})
+> **Beispiel:** \[LinkText]({{"type-link:SharpDox.Sdk.Templater}})
 
-**Artikel** - {{article-link:[ArticleName]}}
-> **Beispiel:** \[LinkText]({{article-link:exporter-tutorial}})
+**Artikel** - {{article-link:[ArticleTitle]}}
+> **Beispiel:** \[LinkText]({{"article-link:Erstellen eines Exporters}})
 
 **Bilder** - Innerhalb der Solution können Bilder abgelegt werden die in Beschreibungen und Artikeln genutzt werden können. Die Bilder für die Dokumentation müssen mit dem Prefix _sdi.*_ beginnen.
 
-> **Beispiel:** !\[Shell]({{image-link:sdi.startSD.png}})
+> **Beispiel:** !\[Shell]({{"image-link:sdi.startSD.png}})
 
 ##Navigation##
 Das wichtigste Element einer erweiterten Dokumentation ist die Navigation. Mit dieser kann festgelegt werden wie die Struktur der Dokumentation aufgebaut ist. Als Beispiel soll die Navigation der **sharpDox** Dokumentation genommen werden:
