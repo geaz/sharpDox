@@ -44,7 +44,7 @@ namespace SharpDox.GUI.ViewModels
         }
 
         private bool _isRecentProjectsVisible = false;
-        public bool IsRecentProjectsVisible 
+        public bool IsRecentProjectsVisible
         {
             get { return _isRecentProjectsVisible; }
             set { _isRecentProjectsVisible = value; OnPropertyChanged("IsRecentProjectsVisible"); }
@@ -54,7 +54,7 @@ namespace SharpDox.GUI.ViewModels
         public IEnumerable<MenuItemViewModel> RecentProjects
         {
             get { return _recentProjects; }
-            set { _recentProjects = value; IsRecentProjectsVisible = value.Count() > 0;  OnPropertyChanged("RecentProjects"); }
+            set { _recentProjects = value; IsRecentProjectsVisible = value.Count() > 0; OnPropertyChanged("RecentProjects"); }
         }
 
         private RelayCommand _closeCommand;
@@ -116,7 +116,26 @@ namespace SharpDox.GUI.ViewModels
         {
             get
             {
-                return _saveConfigCommand ?? new RelayCommand(() => _configController.Save(), true);
+                return _saveConfigCommand ?? new RelayCommand(() =>
+                {
+                    if (!string.IsNullOrEmpty(Config.PathToConfig))
+                    {
+                        _configController.Save();
+                    }
+                    else
+                    {
+                        var dlg = new SaveFileDialog
+                        {
+                            DefaultExt = ".sdox",
+                            Filter = "SharpDox File(.sdox)|*.sdox"
+                        };
+
+                        if (dlg.ShowDialog() == true)
+                        {
+                            _configController.SaveTo(dlg.FileName);
+                        }
+                    }
+                }, true);
             }
             set
             {

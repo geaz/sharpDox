@@ -46,7 +46,7 @@
                     <img src="images/logo-small.png" alt="sharpDox" />
                 </a>
                 <div id="breadcrumb">
-					<a href="index.html" title="Start">Start</a>
+					<a href="../index.html" title="Start">Start</a> > <a href="../namespace/<#= SDType.Namespace.Guid #>.html"><#= SDType.Namespace.Fullname #></a> > <a href="<#= SDType.Guid #>.html"><#= SDType.Name #></a>
 				</div>
             </div>
         </header>

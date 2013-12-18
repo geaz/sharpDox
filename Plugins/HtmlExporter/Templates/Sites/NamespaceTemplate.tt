@@ -43,7 +43,7 @@
                     <img src="images/logo-small.png" alt="sharpDox" />
                 </a>
                 <div id="breadcrumb">
-					<a href="index.html" title="Start">Start</a>
+					<a href="../index.html" title="Start">Start</a> > <a href="<#= Namespace.Guid #>.html"><#= Namespace.Fullname #></a>
 				</div>
             </div>
         </header>

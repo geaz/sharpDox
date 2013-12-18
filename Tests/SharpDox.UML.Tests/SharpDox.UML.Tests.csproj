@@ -53,7 +53,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DiagramExtensionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\SharpDox.UML\SharpDox.UML.csproj">
+      <Project>{3cb8094e-ffe2-4ef1-8366-e6b9c91d4831}</Project>
+      <Name>SharpDox.UML</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SharpDox.Model\SharpDox.Model.csproj">
+      <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
+      <Name>SharpDox.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
