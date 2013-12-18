@@ -1,5 +1,5 @@
 With **sharpDox** it is possible to create multilanguage documentations.
-It is just necessary to add a new file with a language prefix for descriptions, articles and translated navigation. Here are some examples:
+It is just necessary to add a new file with a language prefix for descriptions, articles and translated navigations. Here are some examples:
 
 **Namespace-Description**
 
