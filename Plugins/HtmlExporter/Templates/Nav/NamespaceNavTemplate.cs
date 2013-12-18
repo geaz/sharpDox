@@ -23,7 +23,7 @@ namespace SharpDox.Plugins.Html.Templates.Nav
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\Git\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
+    #line 1 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class NamespaceNavTemplate : NamespaceNavTemplateBase
     {
@@ -36,28 +36,28 @@ namespace SharpDox.Plugins.Html.Templates.Nav
             this.Write(" \r\n");
             this.Write(" \r\n\r\n<ul id=\"navigation\">\r\n\r\n");
             
-            #line 14 "E:\Git\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
+            #line 14 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Format("<li class='navtitle'>{0}</li>", Namespace.Fullname)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 15 "E:\Git\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
+            #line 15 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Format("<li><a class='sd-menuback' href='#' data-nav='{0}'><i class='icon-chevron-sign-left'></i> <p>{1}</p></a></li>", ApiUrl, Strings.Back)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 16 "E:\Git\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Format("<li><a class='sd-menudescription' href='namespace/{0}.html'><i class='icon-file-text-alt'></i> <p>{1}</p></a></li>", Namespace.Fullname, Strings.Description)));
+            #line 16 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Format("<li><a class='sd-menudescription' href='namespace/{0}.html'><i class='icon-file-text-alt'></i> <p>{1}</p></a></li>", Namespace.Guid, Strings.Description)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 17 "E:\Git\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
+            #line 17 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
   foreach (var sdType in Namespace.Types)
 { 
             
@@ -65,14 +65,14 @@ namespace SharpDox.Plugins.Html.Templates.Nav
             #line hidden
             this.Write("\t");
             
-            #line 19 "E:\Git\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
+            #line 19 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Format("<li><a class='pagelink' href='type/{0}.html'><i class='icon-link'></i> <p>{1}</p></a>", sdType.Guid, sdType.Name)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 20 "E:\Git\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
+            #line 20 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
  } 
             
             #line default
@@ -81,7 +81,7 @@ namespace SharpDox.Plugins.Html.Templates.Nav
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 24 "E:\Git\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
+        #line 24 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Nav\NamespaceNavTemplate.tt"
 	public IStrings Strings { get; set; }
 	public string ApiUrl { get; set; }
 	public SDNamespace Namespace { get; set; } 

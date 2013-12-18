@@ -10,7 +10,7 @@
 
 <#  foreach (var sdNamespace in Repository.GetAllNamespaces())
 { #>
-	<#= string.Format("<li><a class='pagelink' href='namespace/{0}.html'><i class='icon-chevron-sign-right'></i> <p>{0}</p></a>", sdNamespace.Fullname) #>
+	<#= string.Format("<li><a class='pagelink' href='namespace/{0}.html'><i class='icon-chevron-sign-right'></i> <p>{1}</p></a>", sdNamespace.Guid, sdNamespace.Fullname) #>
 <# } #>
 
 <#+	public SDRepository Repository { get; set; } #>

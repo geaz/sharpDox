@@ -45,7 +45,7 @@
                     <img src="images/logo-small.png" alt="sharpDox" />
                 </a>
                 <div id="breadcrumb">
-					<a href="../index.html" title="Start">Start</a> > <a href="<#= Article.Title.Replace(" ", "_") #>.html"><#= Article.Title #></a>
+					<a href="../index.html" title="Start">Start</a> > <a href="../article/<#= Article.Title.Replace(" ", "_") #>.html"><#= Article.Title #></a>
 				</div>
             </div>
         </header>

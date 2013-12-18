@@ -32,7 +32,7 @@ namespace SharpDox.Plugins.Html.Steps
                 namespaceCount++;
 
                 var namespaceTemplate = new NamespaceTemplate { Strings = strings, CurrentLanguage = docLanguage, Namespace = nameSpace, Repository = repository };
-                File.WriteAllText(Path.Combine(outputPath, "namespace", nameSpace.Fullname + ".html"), namespaceTemplate.TransformText());
+                File.WriteAllText(Path.Combine(outputPath, "namespace", nameSpace.Guid + ".html"), namespaceTemplate.TransformText());
 
                 foreach (var type in nameSpace.Types)
                 {
