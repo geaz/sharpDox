@@ -34,7 +34,7 @@ namespace SharpDox.Build.Parser
 
         private SDField GetParsedField(IField field)
         {
-            return new SDField(field.GetIdentifier())
+            var sdField = new SDField(field.GetIdentifier())
             {
                 Name = field.Name,
                 DeclaringType = _typeParser.GetParsedType(field.DeclaringType),
@@ -42,6 +42,9 @@ namespace SharpDox.Build.Parser
                 ReturnType = _typeParser.GetParsedType(field.ReturnType),
                 Documentation = _documentationParser.ParseDocumentation(field)
             };
+
+            _repository.AddMember(sdField);
+            return sdField;
         }
 
         internal static void ParseMinimalFields(SDType sdType, IType type)

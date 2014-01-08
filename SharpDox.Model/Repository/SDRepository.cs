@@ -17,20 +17,22 @@ namespace SharpDox.Model.Repository
     ///     </summary>     
     /// </de>
     [Serializable]
-	public class SDRepository
+    public class SDRepository
     {
-		public SDRepository()
-		{
+        public SDRepository()
+        {
             ProjectInfo = new SDProjectInfo();
-			Namespaces = new List<SDNamespace>();
-			Types = new List<SDType>();
+            Namespaces = new Dictionary<string, SDNamespace>();
+            Types = new Dictionary<string, SDType>();
+            Methods = new Dictionary<string, SDMethod>();
+            Members = new Dictionary<string, SDMember>();
             DocumentationLanguages = new List<string>();
             Articles = new Dictionary<string, List<SDArticle>>();
             Images = new List<string>();
 
             AddDocumentationLanguage("default");
-		}
-        
+        }
+
         public void AddDocumentationLanguage(string twoLetterCode)
         {
             if (DocumentationLanguages.SingleOrDefault(d => d == twoLetterCode) == null)
@@ -39,28 +41,40 @@ namespace SharpDox.Model.Repository
             }
         }
 
-		public void AddNamespace(SDNamespace nameSpace)
-		{
-            if (GetNamespaceByIdentifier(nameSpace.Identifier) == null)
-                Namespaces.Add(nameSpace);
-		}
-
-		public void AddType(SDType type)
+        public void AddNamespace(SDNamespace sdNamespace)
         {
-            if(GetTypeByIdentifier(type.Identifier) == null)
-                Types.Add(type);
+            if (!Namespaces.ContainsKey(sdNamespace.Identifier))
+                Namespaces.Add(sdNamespace.Identifier, sdNamespace);
+        }
+
+        public void AddType(SDType sdType)
+        {
+            if (!Types.ContainsKey(sdType.Identifier))
+                Types.Add(sdType.Identifier, sdType);
+        }
+
+        public void AddMethod(SDMethod sdMethod)
+        {
+            if (!Methods.ContainsKey(sdMethod.Identifier))
+                Methods.Add(sdMethod.Identifier, sdMethod);
+        }
+
+        public void AddMember(SDMember sdMember)
+        {
+            if (!Members.ContainsKey(sdMember.Identifier))
+                Members.Add(sdMember.Identifier, sdMember);
         }
 
         public void AddNamespaceTypeRelation(string namespaceIdentifier, string typeIdentifier)
-		{
+        {
             var sdNamespace = GetNamespaceByIdentifier(namespaceIdentifier);
             var sdType = GetTypeByIdentifier(typeIdentifier);
 
-			if (sdNamespace != null && sdType != null && sdNamespace.Types.SingleOrDefault(t => t.Identifier == sdType.Identifier) == null)
-			{
+            if (sdNamespace != null && sdType != null && sdNamespace.Types.SingleOrDefault(t => t.Identifier == sdType.Identifier) == null)
+            {
                 sdNamespace.Types.Add(sdType);
-			}
-		}
+            }
+        }
 
         public Guid GetGuidByIdentifier(string identifier)
         {
@@ -70,24 +84,15 @@ namespace SharpDox.Model.Repository
             var sdType = GetTypeByIdentifier(identifier);
             if (sdType != null) return sdType.Guid;
 
-            var sdConstructor = Types.SelectMany(t => t.Constructors).SingleOrDefault(m => m.Identifier == identifier);
-            if (sdConstructor != null) return sdConstructor.Guid;
-
-            var sdMethod = Types.SelectMany(t => t.Methods).SingleOrDefault(m => m.Identifier == identifier);
+            var sdMethod = GetMethodByIdentifier(identifier);
             if (sdMethod != null) return sdMethod.Guid;
 
-            var sdField = Types.SelectMany(t => t.Fields).SingleOrDefault(f => f.Identifier == identifier);
-            if (sdField != null) return sdField.Guid;
-
-            var sdEvent = Types.SelectMany(t => t.Events).SingleOrDefault(f => f.Identifier == identifier);
-            if (sdEvent != null) return sdEvent.Guid;
-
-            var sdProperty = Types.SelectMany(t => t.Properties).SingleOrDefault(f => f.Identifier == identifier);
-            if (sdProperty != null) return sdProperty.Guid;
+            var sdMember = GetMemberByIdentifier(identifier);
+            if (sdMember != null) return sdMember.Guid;
 
             return Guid.Empty;
         }
-        
+
         /// <default>
         ///     <summary>
         ///     Returns a namespace, referenced by its identifier.
@@ -103,10 +108,13 @@ namespace SharpDox.Model.Repository
         ///     <returns>Der Namensraum, falls dieser vorhanden ist.</returns>   
         /// </de>
         public SDNamespace GetNamespaceByIdentifier(string identifier)
-		{
-            return Namespaces.SingleOrDefault(o => o.Identifier == identifier);
-		}
-        
+        {
+            SDNamespace sdNamespace = null;
+            Namespaces.TryGetValue(identifier, out sdNamespace);
+
+            return sdNamespace;
+        }
+
         /// <default>
         ///     <summary>
         ///     Returns a type, referenced by its identifier.
@@ -123,9 +131,12 @@ namespace SharpDox.Model.Repository
         /// </de>
         public SDType GetTypeByIdentifier(string identifier)
         {
-            return Types.SingleOrDefault(o => o.Identifier == identifier);
+            SDType sdType = null;
+            Types.TryGetValue(identifier, out sdType);
+
+            return sdType;
         }
-        
+
         /// <default>
         ///     <summary>
         ///     Returns a method, referenced by its identifier.
@@ -142,16 +153,37 @@ namespace SharpDox.Model.Repository
         /// </de>
         public SDMethod GetMethodByIdentifier(string identifier)
         {
-            var sdConstructor = Types.SelectMany(t => t.Constructors).SingleOrDefault(m => m.Identifier == identifier);
-            if (sdConstructor != null) return sdConstructor;
+            SDMethod sdMethod = null;
+            Methods.TryGetValue(identifier, out sdMethod);
 
-            var sdMethod = Types.SelectMany(t => t.Methods).SingleOrDefault(m => m.Identifier == identifier);
-            return sdMethod ?? null;
+            return sdMethod;
         }
-        
+
         /// <default>
         ///     <summary>
-        ///     Gets a list of all containing namespaces.
+        ///     Returns a member other than a method/constructor, referenced by its identifier.
+        ///     </summary>
+        ///     <param name="identifier">The identifier of the member.</param>
+        ///     <returns>The member, if it is available.</returns>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert das Mitglied mit dem angegebenen Identifikator (auﬂer Methoden / Konstruktoren).
+        ///     </summary>
+        ///     <param name="identifier">Der Identifikator des Mitglieds.</param>
+        ///     <returns>Das Mitglied, falls dieses vorhanden ist.</returns>  
+        /// </de>
+        public SDMember GetMemberByIdentifier(string identifier)
+        {
+            SDMember sdMember = null;
+            Members.TryGetValue(identifier, out sdMember);
+
+            return sdMember;
+        }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets a list of all namespaces.
         ///     </summary>
         ///     <returns>A list containing all namespaces.</returns>
         /// </default>
@@ -163,12 +195,12 @@ namespace SharpDox.Model.Repository
         /// </de>
         public List<SDNamespace> GetAllNamespaces()
         {
-            return Namespaces.OrderBy(n => n.Fullname).ToList();
+            return Namespaces.Select(n => n.Value).ToList();
         }
 
         /// <default>
         ///     <summary>
-        ///     Gets a list of all containing types.
+        ///     Gets a list of all types.
         ///     </summary>
         ///     <returns>A list containing all types.</returns>
         /// </default>
@@ -180,7 +212,24 @@ namespace SharpDox.Model.Repository
         /// </de>
         public List<SDType> GetAllTypes()
         {
-            return Types;
+            return Types.Select(n => n.Value).ToList();
+        }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets a list of all methods.
+        ///     </summary>
+        ///     <returns>A list containing all methods.</returns>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert eine Liste aller Methoden.
+        ///     </summary>
+        ///     <returns>Eine Liste aller Methoden.</returns> 
+        /// </de>
+        public List<SDMethod> GetAllMethods()
+        {
+            return Methods.Select(n => n.Value).ToList();
         }
 
         /// <default>
@@ -231,8 +280,12 @@ namespace SharpDox.Model.Repository
         /// </de>
         public List<string> Images { get; private set; }
 
-		private List<SDNamespace> Namespaces { get; set; }
+        private Dictionary<string, SDNamespace> Namespaces { get; set; }
 
-		private List<SDType> Types { get; set; }
-	}
+        private Dictionary<string, SDType> Types { get; set; }
+
+        private Dictionary<string, SDMethod> Methods { get; set; }
+
+        private Dictionary<string, SDMember> Members { get; set; }
+    }
 }

@@ -34,13 +34,16 @@ namespace SharpDox.Build.Parser
 
         private SDEvent GetParsedEvent(IEvent eve)
         {
-            return new SDEvent(eve.GetIdentifier())
+            var sdEvent = new SDEvent(eve.GetIdentifier())
             {
                 Name = eve.Name,
                 DeclaringType = _typeParser.GetParsedType(eve.DeclaringType),
                 Accessibility = eve.Accessibility.ToString().ToLower(),
                 Documentation = _documentationParser.ParseDocumentation(eve)
             };
+
+            _repository.AddMember(sdEvent);
+            return sdEvent;
         }
 
         internal static void ParseMinimalFields(SDType sdType, IType type)

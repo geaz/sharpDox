@@ -31,7 +31,7 @@ namespace SharpDox.Build.Parser
         }
 
         private void ParseMethodList(List<SDMethod> sdMethodList, IEnumerable<IMethod> methodList, bool isCtor)
-        {            
+        {
             foreach (var method in methodList)
             {
                 if (sdMethodList.SingleOrDefault((i => i.Identifier == method.GetIdentifier())) == null
@@ -70,13 +70,13 @@ namespace SharpDox.Build.Parser
                 IsVirtual = method.IsVirtual,
                 Documentation = _documentationParser.ParseDocumentation(method),
                 Region = new SDRegion
-                        {
-                            BeginColumn = method.Region.BeginColumn,
-                            BeginLine = method.Region.BeginLine,
-                            EndColumn = method.Region.EndColumn,
-                            EndLine = method.Region.EndLine,
-                            Filename = method.Region.FileName
-                        }
+                {
+                    BeginColumn = method.Region.BeginColumn,
+                    BeginLine = method.Region.BeginLine,
+                    EndColumn = method.Region.EndColumn,
+                    EndLine = method.Region.EndLine,
+                    Filename = method.Region.FileName
+                }
             };
 
             foreach (ITypeParameter typeParameter in method.TypeParameters)
@@ -98,6 +98,7 @@ namespace SharpDox.Build.Parser
                 });
             }
 
+            _repository.AddMethod(sdMethod);
             return sdMethod;
         }
 
