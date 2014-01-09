@@ -2,6 +2,7 @@
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="SharpDox.Model.Repository" #>
 <#@ import namespace="SharpDox.Sdk.Config" #>
@@ -58,7 +59,7 @@
 					<#}
 					else
 					{#>
-						<a href="index.html" class="pagelink"><img src="logo.png" title="<#= Repository.ProjectInfo.ProjectName #>"/></a>
+						<a href="index.html" class="pagelink"><img src="<#= Path.GetFileName(Repository.ProjectInfo.LogoPath) #>" title="<#= Repository.ProjectInfo.ProjectName #>"/></a>
 					<#}#>
 				</div>
     

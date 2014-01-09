@@ -11,6 +11,7 @@ namespace SharpDox.Plugins.Html.Templates.Sites
 {
     using System.Linq;
     using System.Text;
+    using System.IO;
     using System.Collections.Generic;
     using SharpDox.Model.Repository;
     using SharpDox.Sdk.Config;
@@ -22,7 +23,7 @@ namespace SharpDox.Plugins.Html.Templates.Sites
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+    #line 1 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class IndexTemplate : IndexTemplateBase
     {
@@ -44,7 +45,7 @@ namespace SharpDox.Plugins.Html.Templates.Sites
         <meta http-equiv=""X-UA-Compatible"" content=""IE=edge,chrome=1"">
         <title>");
             
-            #line 19 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 20 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Repository.ProjectInfo.ProjectName));
             
             #line default
@@ -87,7 +88,7 @@ namespace SharpDox.Plugins.Html.Templates.Sites
 				<div id=""docname"">
 					");
             
-            #line 55 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 56 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
  if (String.IsNullOrEmpty(Repository.ProjectInfo.LogoPath))
 					{
             
@@ -95,30 +96,37 @@ namespace SharpDox.Plugins.Html.Templates.Sites
             #line hidden
             this.Write("\t\t\t\t\t\t<a href=\"index.html\" class=\"pagelink\"><h1>");
             
-            #line 57 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 58 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Repository.ProjectInfo.ProjectName));
             
             #line default
             #line hidden
             this.Write("</h1></a>\r\n\t\t\t\t\t");
             
-            #line 58 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 59 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
 }
 					else
 					{
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t<a href=\"index.html\" class=\"pagelink\"><img src=\"logo.png\" title=\"");
+            this.Write("\t\t\t\t\t\t<a href=\"index.html\" class=\"pagelink\"><img src=\"");
             
-            #line 61 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 62 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Path.GetFileName(Repository.ProjectInfo.LogoPath)));
+            
+            #line default
+            #line hidden
+            this.Write("\" title=\"");
+            
+            #line 62 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Repository.ProjectInfo.ProjectName));
             
             #line default
             #line hidden
             this.Write("\"/></a>\r\n\t\t\t\t\t");
             
-            #line 62 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 63 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
 }
             
             #line default
@@ -127,35 +135,35 @@ namespace SharpDox.Plugins.Html.Templates.Sites
                     "iv>\t\t\t\t\r\n\t\t\t</div>\r\n\r\n\t\t\t<div id=\"documentation\">\r\n\t\t\t\t<div id=\"documentation-wr" +
                     "apper\">\r\n\t\t\t\t\t<div id=\"header\">\r\n\t\t\t\t\t\t<h2 class=\"type-title\">");
             
-            #line 72 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 73 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.By));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 72 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 73 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Repository.ProjectInfo.Author != null ? Repository.ProjectInfo.Author : string.Empty));
             
             #line default
             #line hidden
             this.Write("</h2>\r\n\t\t\t\t\t\t");
             
-            #line 73 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 74 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
  if(!string.IsNullOrEmpty(Repository.ProjectInfo.VersionNumber)) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t<span class=\"namespace-title\">Version ");
             
-            #line 74 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 75 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Repository.ProjectInfo.VersionNumber != null ? Repository.ProjectInfo.VersionNumber : string.Empty));
             
             #line default
             #line hidden
             this.Write("</span>\r\n\t\t\t\t\t\t");
             
-            #line 75 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 76 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
  } 
             
             #line default
@@ -163,7 +171,7 @@ namespace SharpDox.Plugins.Html.Templates.Sites
             this.Write("\t\t\t\t\t</div>\r\n\t\t\t\t\t<div id=\"pagecontent\">\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t<h3 class=\"box-title first" +
                     "-heading\">");
             
-            #line 79 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 80 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Description));
             
             #line default
@@ -171,35 +179,35 @@ namespace SharpDox.Plugins.Html.Templates.Sites
             this.Write("</h3>\r\n\t\t\t\t\t\t<div class=\"divider\">\r\n\t\t\t\t\t\t<span></span>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<d" +
                     "iv class=\"text-box markdown\">\r\n\t\t\t\t\t\t\t");
             
-            #line 85 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 86 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
  if(Repository.ProjectInfo.Description.Count > 0 && Repository.ProjectInfo.Description.ContainsKey(CurrentLanguage)) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t");
             
-            #line 86 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 87 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(Repository.ProjectInfo.Description[CurrentLanguage])));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t\t");
             
-            #line 87 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 88 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
  } else if(Repository.ProjectInfo.Description.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t");
             
-            #line 88 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 89 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(Repository.ProjectInfo.Description["default"])));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t\t");
             
-            #line 89 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+            #line 90 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
  } 
             
             #line default
@@ -209,7 +217,7 @@ namespace SharpDox.Plugins.Html.Templates.Sites
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 101 "S:\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
+        #line 102 "E:\Programming\Github\sharpDox\Plugins\HtmlExporter\Templates\Sites\IndexTemplate.tt"
  public string CurrentLanguage { get; set; }
 	public IStrings Strings { get; set; }
 	public SDRepository Repository { get; set; } 
