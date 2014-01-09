@@ -165,15 +165,15 @@
 								</div>
 							<# } #>
 
-							<# if(SDMember is SDMethod && !((SDMethod)SDMember).IsSequenceDiagramEmpty()) { #>
-								<div id="sd-sequence-diagram">
-									<#	var sequenceSvg = ((SDMethod)SDMember).GetSequenceDiagram(Repository.GetAllTypes()).ToSvg(530);
-										var template = new Templater(Repository, sequenceSvg); #>
-									<#= template.TransformText(Helper.TransformLinkToken) #>
-								</div>
-								<div class="legend"><p><#= Strings.PanZoom #></p></div>
-							<# } #>
+						<# } #>
 
+						<# if(SDMember is SDMethod && !((SDMethod)SDMember).IsSequenceDiagramEmpty()) { #>
+							<div id="sd-sequence-diagram">
+								<#	var sequenceSvg = ((SDMethod)SDMember).GetSequenceDiagram(Repository.GetAllTypes()).ToSvg(530);
+									var template = new Templater(Repository, sequenceSvg); #>
+								<#= template.TransformText(Helper.TransformLinkToken) #>
+							</div>
+							<div class="legend"><p><#= Strings.PanZoom #></p></div>
 						<# } #>
 
 					</div>
