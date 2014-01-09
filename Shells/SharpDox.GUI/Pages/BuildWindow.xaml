@@ -25,6 +25,6 @@
             <Button Content="{Binding ElementName=Window, Path=Strings.Stop}" Height="Auto" HorizontalContentAlignment="Center" Margin="0" Name="btnStop" Style="{StaticResource BigButton}" VerticalAlignment="Bottom" Width="Auto" IsEnabled="False" Click="BtnStopClick" DockPanel.Dock="Right" />
         </DockPanel>
         <Label x:Name="lblProgress" Content="0 %" Style="{StaticResource BodyText}" HorizontalAlignment="Left" Margin="15,215,0,0" VerticalAlignment="Top" Height="22" FontSize="8"/>
-        <Label x:Name="lblStepMessage" Content="" Style="{StaticResource BodyText}" HorizontalAlignment="Right" Margin="0,215,15,0" VerticalAlignment="Top" Height="22" FontSize="8" Width="385" HorizontalContentAlignment="Right"/>
+        <Label x:Name="lblStepMessage" Content="" Style="{StaticResource BodyText}" HorizontalAlignment="Right" Margin="0,215,15,0" VerticalAlignment="Top" Height="22" FontSize="8" Width="330" HorizontalContentAlignment="Right"/>
     </Grid>
 </UserControl>

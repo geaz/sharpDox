@@ -1,4 +1,5 @@
 NoDocLanguage = Bitte eine standard Sprache auswählen!
+NoProjectNameGiven = Kein Projektname angegeben. Bitte Projektname eingeben und erneut versuchen.
 NoProjectGiven = Kein Projekt angegeben. Bitte Projekt wählen und erneut versuchen.
 ProjectNotFound = Es konnte kein Projekt am angegebenen Pfad gefunden werden.
 NoOutputPathGiven = Kein Ausgabepfad angegeben. Bitte Ausgabepfad wählen und erneut versuchen.

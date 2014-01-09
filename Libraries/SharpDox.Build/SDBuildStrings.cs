@@ -5,6 +5,7 @@ namespace SharpDox.Build
     public class SDBuildStrings : ILocalStrings
     {
         private string _noDocLanguage = "Please select a default language!";
+        private string _noProjectNameGiven = "No project name given. Please enter a project name and try again.";
         private string _noProjectGiven = "No Project given. Please select a project and try again.";
         private string _projectNotFound = "No project found at the given path.";
         private string _noOutputPathGiven = "No output path given. Please select a path and try again.";
@@ -35,6 +36,12 @@ namespace SharpDox.Build
         {
             get { return _noDocLanguage; }
             set { _noDocLanguage = value; }
+        }
+
+        public string NoProjectNameGiven
+        {
+            get { return _noProjectNameGiven; }
+            set { _noProjectNameGiven = value; }
         }
 
         public string NoProjectGiven

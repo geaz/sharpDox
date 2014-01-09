@@ -16,6 +16,9 @@ namespace SharpDox.Build.Context.Step
 
         public void CheckConfig(bool checkOutputPath)
         {
+            if (string.IsNullOrEmpty(_config.ProjectName))
+                throw new SDBuildException(_sdBuildStrings.NoProjectNameGiven);
+
             if (string.IsNullOrEmpty(_config.InputPath))
                 throw new SDBuildException(_sdBuildStrings.NoProjectGiven);
 
