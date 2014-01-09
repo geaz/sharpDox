@@ -7,6 +7,7 @@ using SharpDox.Plugins.Chm.Templates.Nav;
 using System.Collections.Generic;
 using SharpDox.Model.Documentation;
 using SharpDox.UML;
+using System.Threading.Tasks;
 
 namespace SharpDox.Plugins.Chm.Steps
 {
@@ -47,28 +48,7 @@ namespace SharpDox.Plugins.Chm.Steps
             CreateArticleFiles();
 
             chmExporter.ExecuteOnStepProgress(35);
-            chmExporter.ExecuteOnStepMessage(chmExporter.ChmStrings.CreateNamespaces);
-            CreateNamespaceFiles();
-
-            chmExporter.ExecuteOnStepProgress(40);
-            chmExporter.ExecuteOnStepMessage(chmExporter.ChmStrings.CreateTypes);
-            CreateTypeFiles();
-
-            chmExporter.ExecuteOnStepProgress(45);
-            chmExporter.ExecuteOnStepMessage(chmExporter.ChmStrings.CreateFields);
-            CreateFieldFiles();
-
-            chmExporter.ExecuteOnStepProgress(50);
-            chmExporter.ExecuteOnStepMessage(chmExporter.ChmStrings.CreateEvents);
-            CreateEventFiles();
-
-            chmExporter.ExecuteOnStepProgress(55);
-            chmExporter.ExecuteOnStepMessage(chmExporter.ChmStrings.CreateProperties);
-            CreatePropertyFiles();
-
-            chmExporter.ExecuteOnStepProgress(60);
-            chmExporter.ExecuteOnStepMessage(chmExporter.ChmStrings.CreateMethods);
-            CreateMethodFiles();
+            CreateDocumentationFiles(chmExporter);
 
             chmExporter.CurrentStep = new CompileStep();
         }
@@ -112,7 +92,7 @@ namespace SharpDox.Plugins.Chm.Steps
 
         private void CreateArticles(IEnumerable<SDArticle> articles)
         {
-            foreach (var article in articles)
+            Parallel.ForEach(articles, article =>
             {
                 var articleHtmlFile = Path.Combine(_tmpFilepath, Helper.RemoveIllegalCharacters(article.Title.Replace(" ", "_")) + ".html");
 
@@ -128,149 +108,112 @@ namespace SharpDox.Plugins.Chm.Steps
                 }
 
                 CreateArticles(article.Children);
-            }
+            });
         }
 
-        private void CreateNamespaceFiles()
+        private void CreateDocumentationFiles(ChmExporter chmExporter)
         {
-            foreach (var nameSpace in _repository.GetAllNamespaces())
+            var currentNamespaceNumber = 0;
+            var namespaceCount = _repository.GetAllNamespaces().Count;
+
+            Parallel.ForEach(_repository.GetAllNamespaces(), sdNamespace =>
             {
-                var namespaceHtmlFile = Path.Combine(_tmpFilepath, nameSpace.Guid + ".html");
-                var template = new NamespaceTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = nameSpace, SDRepository = _repository, CurrentLanguage = _currentLanguage, Strings = _strings };
-                File.WriteAllText(namespaceHtmlFile, template.TransformText());
-            }
+                chmExporter.ExecuteOnStepMessage(sdNamespace.Fullname);
+
+                var namespaceHtmlFile = Path.Combine(_tmpFilepath, sdNamespace.Guid + ".html");
+                var namespaceTemplate = new NamespaceTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = sdNamespace, SDRepository = _repository, CurrentLanguage = _currentLanguage, Strings = _strings };
+                File.WriteAllText(namespaceHtmlFile, namespaceTemplate.TransformText());
+
+                CreateTypeFiles(chmExporter, sdNamespace);
+
+                chmExporter.ExecuteOnStepProgress(((++currentNamespaceNumber / namespaceCount) * 75) + 35);
+            });
         }
 
-        private void CreateTypeFiles()
+        private void CreateTypeFiles(ChmExporter chmExporter, SDNamespace sdNamespace)
         {
-            foreach (var nameSpace in _repository.GetAllNamespaces())
+            Parallel.ForEach(sdNamespace.Types, sdType =>
             {
-                foreach (var type in nameSpace.Types)
+                chmExporter.ExecuteOnStepMessage(sdType.Fullname);
+
+                sdType.SortMembers();
+                var typeHtmlFile = Path.Combine(_tmpFilepath, sdType.Guid + ".html");
+
+                var typeTemplate = new TypeTemplate { SDRepository = _repository, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
+
+                if (!sdType.IsClassDiagramEmpty())
                 {
-                    type.SortMembers();
-                    var typeHtmlFile = Path.Combine(_tmpFilepath, type.Guid + ".html");
-
-                    var template = new TypeTemplate { SDRepository = _repository, SDType = type, CurrentLanguage = _currentLanguage, Strings = _strings };
-
-                    if (!type.IsClassDiagramEmpty())
-                    {
-                        type.GetClassDiagram().ToPng(Path.Combine(_tmpFilepath, "diagrams", type.Guid + ".png"));
-                    }
-
-                    File.WriteAllText(typeHtmlFile, template.TransformText());
+                    sdType.GetClassDiagram().ToPng(Path.Combine(_tmpFilepath, "diagrams", sdType.Guid + ".png"));
                 }
-            }
-        }
+                File.WriteAllText(typeHtmlFile, typeTemplate.TransformText());
 
-        private void CreateFieldFiles()
-        {
-            foreach (var nameSpace in _repository.GetAllNamespaces())
-            {
-                foreach (var type in nameSpace.Types)
+                var fieldsIndexHtmlFile = Path.Combine(_tmpFilepath, sdType.Guid + "-Fields.html");
+                var fieldsTemplate = new FieldsTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = sdNamespace, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
+                File.WriteAllText(fieldsIndexHtmlFile, fieldsTemplate.TransformText());
+
+                Parallel.ForEach(sdType.Fields, sdField =>
                 {
-                    var sdType = _repository.GetTypeByIdentifier(type.Identifier);
+                    var fieldHtmlFile = Path.Combine(_tmpFilepath, sdField.Guid + ".html");
+                    var fieldTemplate = new FieldTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = sdNamespace, SDField = sdField, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
+                    File.WriteAllText(fieldHtmlFile, fieldTemplate.TransformText());
+                });
 
-                    var fieldsIndexHtmlFile = Path.Combine(_tmpFilepath, sdType.Guid + "-Fields.html");
-                    var fieldsTemplate = new FieldsTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = nameSpace, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
-                    File.WriteAllText(fieldsIndexHtmlFile, fieldsTemplate.TransformText());
+                var eveIndexHtmlFile = Path.Combine(_tmpFilepath, sdType.Guid + "-Events.html");
+                var eventsTemplate = new EventsTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = sdNamespace, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
+                File.WriteAllText(eveIndexHtmlFile, eventsTemplate.TransformText());
 
-                    foreach (var field in sdType.Fields)
-                    {
-                        var fieldHtmlFile = Path.Combine(_tmpFilepath, field.Guid + ".html");
-                        var fieldTemplate = new FieldTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = nameSpace, SDField = field, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
-                        File.WriteAllText(fieldHtmlFile, fieldTemplate.TransformText());
-                    }
-                }
-            }
-        }
-
-        private void CreateEventFiles()
-        {
-            foreach (var nameSpace in _repository.GetAllNamespaces())
-            {
-                foreach (var type in nameSpace.Types)
+                Parallel.ForEach(sdType.Events, sdEvent =>
                 {
-                    var sdType = _repository.GetTypeByIdentifier(type.Identifier);
+                    var eveHtmlFile = Path.Combine(_tmpFilepath, sdEvent.Guid + ".html");
+                    var eventTemplate = new EventTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = sdNamespace, SDEvent = sdEvent, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
+                    File.WriteAllText(eveHtmlFile, eventTemplate.TransformText());
+                });
 
-                    var eveIndexHtmlFile = Path.Combine(_tmpFilepath, sdType.Guid + "-Events.html");
-                    var eventsTemplate = new EventsTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = nameSpace, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
-                    File.WriteAllText(eveIndexHtmlFile, eventsTemplate.TransformText());
+                var propertiesIndexHtmlFile = Path.Combine(_tmpFilepath, sdType.Guid + "-Properties.html");
+                var propertiesTemplate = new PropertiesTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = sdNamespace, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
+                File.WriteAllText(propertiesIndexHtmlFile, propertiesTemplate.TransformText());
 
-                    foreach (var eve in sdType.Events)
-                    {
-                        var eveHtmlFile = Path.Combine(_tmpFilepath, eve.Guid + ".html");
-                        var eventTemplate = new EventTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = nameSpace, SDEvent = eve, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
-                        File.WriteAllText(eveHtmlFile, eventTemplate.TransformText());
-                    }
-                }
-            }
-        }
-
-        private void CreatePropertyFiles()
-        {
-            foreach (var nameSpace in _repository.GetAllNamespaces())
-            {
-                foreach (var type in nameSpace.Types)
+                Parallel.ForEach(sdType.Properties, sdProperty =>
                 {
-                    var sdType = _repository.GetTypeByIdentifier(type.Identifier);
+                    var propertyHtmlFile = Path.Combine(_tmpFilepath, sdProperty.Guid + ".html");
+                    var propertyTemplate = new PropertyTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = sdNamespace, SDProperty = sdProperty, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
+                    File.WriteAllText(propertyHtmlFile, propertyTemplate.TransformText());
+                });
 
-                    var propertiesIndexHtmlFile = Path.Combine(_tmpFilepath, sdType.Guid + "-Properties.html");
-                    var propertiesTemplate = new PropertiesTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = nameSpace, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
-                    File.WriteAllText(propertiesIndexHtmlFile, propertiesTemplate.TransformText());
+                var constructorsIndexHtmlFile = Path.Combine(_tmpFilepath, sdType.Guid + "-Constructors.html");
+                var constructorsTemplate = new ConstructorsTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = sdNamespace, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
+                File.WriteAllText(constructorsIndexHtmlFile, constructorsTemplate.TransformText());
 
-                    foreach (var property in sdType.Properties)
-                    {
-                        var propertyHtmlFile = Path.Combine(_tmpFilepath, property.Guid + ".html");
-                        var template = new PropertyTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = nameSpace, SDProperty = property, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
-                        File.WriteAllText(propertyHtmlFile, template.TransformText());
-                    }
-                }
-            }
-        }
+                var methodsIndexHtmlFile = Path.Combine(_tmpFilepath, sdType.Guid + "-Methods.html");
+                var methodsTemplate = new MethodsTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = sdNamespace, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
+                File.WriteAllText(methodsIndexHtmlFile, methodsTemplate.TransformText());
 
-        private void CreateMethodFiles()
-        {
-            foreach (var nameSpace in _repository.GetAllNamespaces())
-            {
-                foreach (var type in nameSpace.Types)
+                Parallel.ForEach(sdType.Methods, sdMethod =>
                 {
-                    var sdType = _repository.GetTypeByIdentifier(type.Identifier);
+                    var methodHtmlFile = Path.Combine(_tmpFilepath, sdMethod.Guid + ".html");
+                    var template = new MethodTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = sdNamespace, SDMethod = sdMethod, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
 
-                    var constructorsIndexHtmlFile = Path.Combine(_tmpFilepath, sdType.Guid + "-Constructors.html");
-                    var constructorsTemplate = new ConstructorsTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = nameSpace, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
-                    File.WriteAllText(constructorsIndexHtmlFile, constructorsTemplate.TransformText());
-
-                    var methodsIndexHtmlFile = Path.Combine(_tmpFilepath, sdType.Guid + "-Methods.html");
-                    var methodsTemplate = new MethodsTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = nameSpace, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
-                    File.WriteAllText(methodsIndexHtmlFile, methodsTemplate.TransformText());
-
-                    foreach (var method in sdType.Methods)
+                    if (!sdMethod.IsSequenceDiagramEmpty())
                     {
-                        var methodHtmlFile = Path.Combine(_tmpFilepath, method.Guid + ".html");
-                        var template = new MethodTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = nameSpace, SDMethod = method, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
-
-                        if (!method.IsSequenceDiagramEmpty())
-                        {
-                            method.GetSequenceDiagram(_repository.GetAllTypes()).ToPng(Path.Combine(_tmpFilepath, "diagrams", method.Guid + ".png"));
-                        }
-
-                        File.WriteAllText(methodHtmlFile, template.TransformText());
+                        sdMethod.GetSequenceDiagram(_repository.GetAllTypes()).ToPng(Path.Combine(_tmpFilepath, "diagrams", sdMethod.Guid + ".png"));
                     }
 
-                    foreach (var constructor in sdType.Constructors)
+                    File.WriteAllText(methodHtmlFile, template.TransformText());
+                });
+
+                Parallel.ForEach(sdType.Constructors, sdConstructor =>
+                {
+                    var constructorHtmlFile = Path.Combine(_tmpFilepath, sdConstructor.Guid + ".html");
+                    var template = new MethodTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = sdNamespace, SDMethod = sdConstructor, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
+
+                    if (!sdConstructor.IsSequenceDiagramEmpty())
                     {
-                        var constructorHtmlFile = Path.Combine(_tmpFilepath, constructor.Guid + ".html");
-                        var template = new MethodTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = nameSpace, SDMethod = constructor, SDType = sdType, CurrentLanguage = _currentLanguage, Strings = _strings };
-
-                        if (!constructor.IsSequenceDiagramEmpty())
-                        {
-                            constructor.GetSequenceDiagram(_repository.GetAllTypes()).ToPng(Path.Combine(_tmpFilepath, "diagrams", constructor.Guid + ".png"));
-                        }
-
-                        File.WriteAllText(constructorHtmlFile, template.TransformText());
+                        sdConstructor.GetSequenceDiagram(_repository.GetAllTypes()).ToPng(Path.Combine(_tmpFilepath, "diagrams", sdConstructor.Guid + ".png"));
                     }
-                }
-            }
+
+                    File.WriteAllText(constructorHtmlFile, template.TransformText());
+                });
+            });
         }
     }
 }

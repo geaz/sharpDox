@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using SharpDox.UML.Class.Model;
+using SharpDox.UML.Ressources;
 
 namespace SharpDox.UML.Class.Renderer
 {

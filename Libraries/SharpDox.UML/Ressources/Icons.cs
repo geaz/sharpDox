@@ -2,11 +2,14 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Resources;
 
-namespace SharpDox.UML
+namespace SharpDox.UML.Ressources
 {
     internal static class Icons
     {
+        private static readonly Object _lockObj = new Object();
+
         public static BitmapImage GetIcon(string entityType, string accessibility)
         {
             BitmapImage bitmap = null;
@@ -73,7 +76,11 @@ namespace SharpDox.UML
                     break;
             }
 
-            var sri = Application.GetResourceStream(uri);
+            StreamResourceInfo sri = null;
+            lock (_lockObj)
+            {
+                sri = Application.GetResourceStream(uri);
+            }
 
             var base64 = string.Empty;
             using (var memoryStream = new MemoryStream())
