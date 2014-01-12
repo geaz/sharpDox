@@ -21,6 +21,5 @@ CouldNotEndParse = Die Dokumentation konnte nicht eingelesen werden.
 ReadingProject = Lese Projekt
 StartingBuild = Starte Bauvorgang ...
 BuildSuccess = Bauvorgang erfolgreich beendet.
-BuildStopping = Bauvorgang wird gestoppt ...
 BuildStopped = Bauvorgang wurde gestoppt!
 CouldNotEndBuild = Die Dokumentation konnte nicht erstellt werden.

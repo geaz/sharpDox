@@ -3,7 +3,6 @@ using System.IO;
 using SharpDox.Plugins.Html.Templates.Sites;
 using SharpDox.Model.Repository;
 using SharpDox.Plugins.Html.Templates.Strings;
-using System.Threading.Tasks;
 
 namespace SharpDox.Plugins.Html.Steps
 {
@@ -26,94 +25,89 @@ namespace SharpDox.Plugins.Html.Steps
 
             var namespaceCount = 0d;
             var namespaceTotal = repository.GetAllNamespaces().Count;
-
-            Parallel.ForEach(repository.GetAllNamespaces(), sdNamespace =>
+            foreach (var nameSpace in repository.GetAllNamespaces())
             {
                 htmlExporter.ExecuteOnStepProgress(Convert.ToInt16((namespaceCount / namespaceTotal) * 50) + 50);
-                htmlExporter.ExecuteOnStepMessage(htmlExporter.HtmlStrings.CreateFilesForNamespace + ": " + sdNamespace.Fullname);
+                htmlExporter.ExecuteOnStepMessage(htmlExporter.HtmlStrings.CreateFilesForNamespace + ": " + nameSpace.Fullname);
                 namespaceCount++;
 
-                var namespaceTemplate = new NamespaceTemplate { Strings = strings, CurrentLanguage = docLanguage, Namespace = sdNamespace, Repository = repository };
-                File.WriteAllText(Path.Combine(outputPath, "namespace", sdNamespace.Guid + ".html"), namespaceTemplate.TransformText());
+                var namespaceTemplate = new NamespaceTemplate { Strings = strings, CurrentLanguage = docLanguage, Namespace = nameSpace, Repository = repository };
+                File.WriteAllText(Path.Combine(outputPath, "namespace", nameSpace.Guid + ".html"), namespaceTemplate.TransformText());
 
-                Parallel.ForEach(sdNamespace.Types, sdType =>
+                foreach (var type in nameSpace.Types)
                 {
-                    sdType.SortMembers();
+                    type.SortMembers();
                     var typeTemplate = new TypeTemplate
                     {
                         Strings = strings,
-                        CurrentLanguage = sdType.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
-                        SDType = sdType,
+                        CurrentLanguage = type.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
+                        SDType = type,
                         Repository = repository
                     };
-                    File.WriteAllText(Path.Combine(outputPath, "type", sdType.Guid + ".html"), typeTemplate.TransformText());
+                    File.WriteAllText(Path.Combine(outputPath, "type", type.Guid + ".html"), typeTemplate.TransformText());
 
-                    Parallel.ForEach(sdType.Constructors, sdConstructor =>
+                    foreach (var constructor in type.Constructors)
                     {
                         var memberTemplate = new MemberTemplate
                         {
                             Strings = strings,
-                            CurrentLanguage = sdConstructor.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
-                            SDType = sdType,
-                            SDMember = sdConstructor,
+                            CurrentLanguage = constructor.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
+                            SDType = type,
+                            SDMember = constructor,
                             Repository = repository
                         };
-                        File.WriteAllText(Path.Combine(outputPath, "constructor", sdConstructor.Guid + ".html"), memberTemplate.TransformText());
-                    });
-
-                    Parallel.ForEach(sdType.Methods, sdMethod =>
+                        File.WriteAllText(Path.Combine(outputPath, "constructor", constructor.Guid + ".html"), memberTemplate.TransformText());
+                    }
+                    foreach (var method in type.Methods)
                     {
                         var memberTemplate = new MemberTemplate
                         {
                             Strings = strings,
-                            CurrentLanguage = sdMethod.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
-                            SDType = sdType,
-                            SDMember = sdMethod,
+                            CurrentLanguage = method.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
+                            SDType = type,
+                            SDMember = method,
                             Repository = repository
                         };
-                        File.WriteAllText(Path.Combine(outputPath, "method", sdMethod.Guid + ".html"), memberTemplate.TransformText());
-                    });
-
-                    Parallel.ForEach(sdType.Fields, sdFields =>
+                        File.WriteAllText(Path.Combine(outputPath, "method", method.Guid + ".html"), memberTemplate.TransformText());
+                    }
+                    foreach (var field in type.Fields)
                     {
                         var memberTemplate = new MemberTemplate
                         {
                             Strings = strings,
-                            CurrentLanguage = sdFields.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
-                            SDType = sdType,
-                            SDMember = sdFields,
+                            CurrentLanguage = field.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
+                            SDType = type,
+                            SDMember = field,
                             Repository = repository
                         };
-                        File.WriteAllText(Path.Combine(outputPath, "field", sdFields.Guid + ".html"), memberTemplate.TransformText());
-                    });
-
-                    Parallel.ForEach(sdType.Properties, sdProperty =>
+                        File.WriteAllText(Path.Combine(outputPath, "field", field.Guid + ".html"), memberTemplate.TransformText());
+                    }
+                    foreach (var property in type.Properties)
                     {
                         var memberTemplate = new MemberTemplate
                         {
                             Strings = strings,
-                            CurrentLanguage = sdProperty.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
-                            SDType = sdType,
-                            SDMember = sdProperty,
+                            CurrentLanguage = property.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
+                            SDType = type,
+                            SDMember = property,
                             Repository = repository
                         };
-                        File.WriteAllText(Path.Combine(outputPath, "property", sdProperty.Guid + ".html"), memberTemplate.TransformText());
-                    });
-
-                    Parallel.ForEach(sdType.Events, sdEvent =>
+                        File.WriteAllText(Path.Combine(outputPath, "property", property.Guid + ".html"), memberTemplate.TransformText());
+                    }
+                    foreach (var eve in type.Events)
                     {
                         var memberTemplate = new MemberTemplate
                         {
                             Strings = strings,
-                            CurrentLanguage = sdEvent.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
-                            SDType = sdType,
-                            SDMember = sdEvent,
+                            CurrentLanguage = eve.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
+                            SDType = type,
+                            SDMember = eve,
                             Repository = repository
                         };
-                        File.WriteAllText(Path.Combine(outputPath, "event", sdEvent.Guid + ".html"), memberTemplate.TransformText());
-                    });
-                });
-            });
+                        File.WriteAllText(Path.Combine(outputPath, "event", eve.Guid + ".html"), memberTemplate.TransformText());
+                    }
+                }
+            }
         }
     }
 }

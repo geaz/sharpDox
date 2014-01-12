@@ -27,7 +27,6 @@ namespace SharpDox.Build
         private string _readingProject = "Reading project";
         private string _startingBuild = "Starting build";
         private string _buildSuccess = "Build ended successfully.";
-        private string _buildStopping = "Build gets stopped...";
         private string _buildStopped = "Build stopped!";
         private string _couldNotEndBuild = "Could not build documentation.";
 
@@ -169,12 +168,6 @@ namespace SharpDox.Build
         {
             get { return _buildSuccess; }
             set { _buildSuccess = value; }
-        }
-
-        public string BuildStopping
-        {
-            get { return _buildStopping; }
-            set { _buildStopping = value; }
         }
 
         public string BuildStopped
