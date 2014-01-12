@@ -6,6 +6,7 @@
 <#@ import namespace="SharpDox.Model.Repository" #>
 <#@ import namespace="SharpDox.Sdk.Config" #>
 <#@ import namespace="MarkdownSharp" #>
+<#@ import namespace="SharpDox.Sdk" #>
 <#@ import namespace="SharpDox.Plugins.Html.Templates.Strings" #> 
 
 <!DOCTYPE html>
@@ -81,7 +82,10 @@
 							<span></span>
 							</div>
 							<div class="text-box markdown">
-								<#= new Markdown().Transform(Namespace.Description[CurrentLanguage]) #>
+								<#	var template = new Templater(Repository, Namespace.Description[CurrentLanguage]); 
+								var namespaceDescription = template.TransformText(Helper.TransformLinkToken); #>
+
+								<#= new Markdown().Transform(namespaceDescription) #>
 							</div>
 							<h3 class="box-title"><#= Strings.Types #></h3>
 

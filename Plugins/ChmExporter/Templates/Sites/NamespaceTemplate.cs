@@ -15,6 +15,7 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
     using SharpDox.Model.Repository;
     using SharpDox.Plugins.Chm.Templates.Strings;
     using SharpDox.Sdk.Config;
+    using SharpDox.Sdk;
     using MarkdownSharp;
     using System;
     
@@ -22,7 +23,7 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+    #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class NamespaceTemplate : NamespaceTemplateBase
     {
@@ -34,7 +35,7 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
         {
             this.Write("\r\n<html>\r\n    <head>\r\n        <title>");
             
-            #line 13 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDNamespace.Fullname));
             
             #line default
@@ -56,42 +57,42 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
 		<div id=""header"">
 			<h2 class=""type-title"">");
             
-            #line 28 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 29 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDNamespace.Fullname));
             
             #line default
             #line hidden
             this.Write("</h2>\r\n\t\t\t<span class=\"namespace-title\">Assembly: ");
             
-            #line 29 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 30 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDNamespace.Assemblyname));
             
             #line default
             #line hidden
             this.Write("</span>\r\n\t\t</div>\r\n\t\t<div id=\"subheader\">\r\n\t\t\t<a href=\"");
             
-            #line 32 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 33 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectInfo.ProjectName.Replace(" ", "")));
             
             #line default
             #line hidden
             this.Write("-Index.html\">Start</a> > <a href=\"");
             
-            #line 32 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 33 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDNamespace.Guid));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 32 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 33 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDNamespace.Fullname));
             
             #line default
             #line hidden
             this.Write("</a>\r\n\t\t</div>\r\n\r\n\t\t<div id=\"content\">\r\n\t\t\t");
             
-            #line 36 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 37 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  var language = SDNamespace.Description.ContainsKey(CurrentLanguage) ? CurrentLanguage : "default";
 			if(SDNamespace.Description.Count > 0) { 
             
@@ -99,28 +100,45 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             #line hidden
             this.Write("\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 38 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 39 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Description));
             
             #line default
             #line hidden
             this.Write("</h3>\r\n\t\t\t\t<div class=\"text-box markdown description\">\r\n\t\t\t\t\t");
             
-            #line 40 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(SDNamespace.Description != null ? new Markdown().Transform(SDNamespace.Description[language].ToString()) : ""));
+            #line 41 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+	if(SDNamespace.Description != null)
+						{
+							var template = new Templater(SDRepository, SDNamespace.Description[language].ToString()); 
+							var namespaceDescription = template.TransformText(Helper.TransformLinkToken); 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t</div>\r\n\t\t\t");
+            this.Write("\r\n\t\t\t\t\t\t\t");
             
-            #line 42 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 46 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(namespaceDescription)));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\t\t\t\t\t");
+            
+            #line 47 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t</div>\r\n\t\t\t");
+            
+            #line 49 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t<h2 class=\"box-title\">");
             
-            #line 44 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 51 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Types));
             
             #line default
@@ -128,21 +146,21 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             this.Write("</h2>\r\n\t\t\t<div class=\"table-box\">\r\n\t\t\t\t<table>\r\n\t\t\t\t\t<thead>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t" +
                     "<td></td>\r\n\t\t\t\t\t\t\t<td>");
             
-            #line 50 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 57 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Name));
             
             #line default
             #line hidden
             this.Write("</td>\r\n\t\t\t\t\t\t\t<td>");
             
-            #line 51 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 58 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Description));
             
             #line default
             #line hidden
             this.Write("</td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t</thead>\r\n\t\t\t\t\t<tbody>\r\n\r\n\t\t\t\t\t");
             
-            #line 56 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 63 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  foreach(var type in SDNamespace.Types) { 
 						var sdType = (SDType)SDRepository.GetTypeByIdentifier(type.Identifier); 						
 						var typeLanguage = sdType.Documentation.ContainsKey(CurrentLanguage) ? CurrentLanguage : "default"; 
@@ -152,154 +170,154 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             this.Write("\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<td class=\"icon-column\">\r\n\t\t\t\t\t\t\t\t<img alt=\"Class-Icon\" src=" +
                     "\"icons/Class_");
             
-            #line 62 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 69 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Accessibility));
             
             #line default
             #line hidden
             this.Write(".png\">\r\n\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t<a title=\"");
             
-            #line 65 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 72 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Name));
             
             #line default
             #line hidden
             this.Write("\" href=\"");
             
-            #line 65 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 72 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Guid));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 65 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 72 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Name));
             
             #line default
             #line hidden
             this.Write("</a>\r\n\t\t\t\t\t\t\t</td>\t\r\n\t\t\t\t\t\t\t<td class=\"markdown\">\r\n\t\t\t\t\t\t\t\t");
             
-            #line 68 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 75 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  if(sdType.Documentation.Count > 0 && sdType.Documentation[typeLanguage].Summary.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t\t");
             
-            #line 69 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 76 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(sdType.Documentation[typeLanguage].Summary.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t\t\t");
             
-            #line 70 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 77 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t</tr>\r\n\r\n\t\t\t\t\t");
             
-            #line 74 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 81 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t</div>\r\n\r\n\t\t\t");
             
-            #line 80 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 87 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  if(SDNamespace.Uses.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 81 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 88 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Uses));
             
             #line default
             #line hidden
             this.Write("</h3>\r\n\t\t\t\t<div class=\"list-box\">\r\n\t\t\t\t\t<ul>\r\n\t\t\t\t\t");
             
-            #line 84 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 91 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  foreach(var use in SDNamespace.Uses) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t<li><a href=\"");
             
-            #line 85 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 92 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(use.Fullname));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 85 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 92 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(use.Fullname));
             
             #line default
             #line hidden
             this.Write("</a></li>\r\n\t\t\t\t\t");
             
-            #line 86 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 93 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t</ul>\r\n\t\t\t\t</div>\r\n\t\t\t");
             
-            #line 89 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 96 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t");
             
-            #line 91 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 98 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  if(SDNamespace.UsedBy.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 92 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 99 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.UsedBy));
             
             #line default
             #line hidden
             this.Write("</h3>\r\n\t\t\t\t<div class=\"list-box\">\r\n\t\t\t\t\t<ul>\r\n\t\t\t\t\t");
             
-            #line 95 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 102 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  foreach(var used in SDNamespace.UsedBy) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t<li><a href=\"");
             
-            #line 96 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 103 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(used.Fullname));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 96 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 103 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(used.Fullname));
             
             #line default
             #line hidden
             this.Write("</a></li>\r\n\t\t\t\t\t");
             
-            #line 97 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 104 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t</ul>\r\n\t\t\t\t</div>\r\n\t\t\t");
             
-            #line 100 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+            #line 107 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  } 
             
             #line default
@@ -308,7 +326,7 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 106 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
+        #line 113 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\NamespaceTemplate.tt"
  
 public SDNamespace SDNamespace { get; set; }
 public SDRepository SDRepository { get; set; }

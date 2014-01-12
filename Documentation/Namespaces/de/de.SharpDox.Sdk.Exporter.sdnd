@@ -21,4 +21,4 @@ Der Exporter-Namensraum beinhaltet alle Interfaces um einen eigenen Exporter zu 
 	    }
 	}
 
-Ein ausführlicheres Beispiel ist [hier]({{article-link:exporter-tutorial}}) zu finden.
+Ein ausführlicheres Beispiel ist [hier]({{article-link:Create a exporter}}) zu finden.

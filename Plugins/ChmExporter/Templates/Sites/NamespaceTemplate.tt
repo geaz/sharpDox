@@ -6,6 +6,7 @@
 <#@ import namespace="SharpDox.Model.Repository" #>
 <#@ import namespace="SharpDox.Plugins.Chm.Templates.Strings" #>
 <#@ import namespace="SharpDox.Sdk.Config" #>
+<#@ import namespace="SharpDox.Sdk" #>
 <#@ import namespace="MarkdownSharp" #>
 
 <html>
@@ -37,7 +38,13 @@
 			if(SDNamespace.Description.Count > 0) { #>
 				<h3 class="box-title"><#= Strings.Description #></h3>
 				<div class="text-box markdown description">
-					<#= SDNamespace.Description != null ? new Markdown().Transform(SDNamespace.Description[language].ToString()) : "" #>
+					<#	if(SDNamespace.Description != null)
+						{
+							var template = new Templater(SDRepository, SDNamespace.Description[language].ToString()); 
+							var namespaceDescription = template.TransformText(Helper.TransformLinkToken); #>
+
+							<#= new Markdown().Transform(namespaceDescription) #>
+					<# } #>
 				</div>
 			<# } #>
 

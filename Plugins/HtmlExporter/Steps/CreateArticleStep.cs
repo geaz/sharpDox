@@ -20,8 +20,7 @@ namespace SharpDox.Plugins.Html.Steps
 
                 foreach (var article in articles)
                 {
-                    htmlExporter.ExecuteOnStepMessage(string.Format(htmlExporter.HtmlStrings.CreatingArticle,
-                        article.Title));
+                    htmlExporter.ExecuteOnStepMessage(string.Format(htmlExporter.HtmlStrings.CreatingArticle, article.Title));
                     CreateArticle(article, htmlExporter.Repository, htmlExporter.CurrentStrings, htmlExporter.OutputPath);
                 }
             }
