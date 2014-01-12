@@ -19,7 +19,8 @@ namespace SharpDox.UML.Class
 
             ParseFields(type.Fields);
             ParseProperties(type.Properties);
-            ParseMethods(type.Constructors.Concat(type.Methods));
+            ParseConstructors(type.Constructors);
+            ParseMethods(type.Methods);
             ParseEvents(type.Events);
 
             return _classDiagram;
@@ -46,6 +47,14 @@ namespace SharpDox.UML.Class
                     getSet = " { set; }";
 
                 _classDiagram.PropertyRows.Add(new ClassDiagramRow(property.Identifier, "Properties", property.Accessibility, property.Name + getSet));
+            }
+        }
+
+        private void ParseConstructors(IEnumerable<SDMethod> constructors)
+        {
+            foreach (var constructor in constructors.OrderBy(o => o.Name))
+            {
+                _classDiagram.ConstructorRows.Add(new ClassDiagramRow(constructor.Identifier, "Method", constructor.Accessibility, constructor.Name));
             }
         }
 

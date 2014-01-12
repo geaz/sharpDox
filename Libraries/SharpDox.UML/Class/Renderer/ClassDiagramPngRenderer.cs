@@ -50,6 +50,7 @@ namespace SharpDox.UML.Class.Renderer
             var allRows = new List<ClassDiagramRow>();
             allRows.AddRange(classDiagram.FieldRows);
             allRows.AddRange(classDiagram.PropertyRows);
+            allRows.AddRange(classDiagram.ConstructorRows);
             allRows.AddRange(classDiagram.MethodRows);
             allRows.AddRange(classDiagram.EventRows);
             return allRows;
@@ -84,6 +85,7 @@ namespace SharpDox.UML.Class.Renderer
             position = RenderRowSection(classDiagram.EventRows, position, _diagramSize, renderLine);
 
             renderLine = FollowingSectionsNotEmpty(classDiagram, "Methods");
+            position = RenderRowSection(classDiagram.ConstructorRows, position, _diagramSize, false);
             position = RenderRowSection(classDiagram.MethodRows, position, _diagramSize, renderLine);
             
             RenderRowSection(classDiagram.PropertyRows, position, _diagramSize, false);

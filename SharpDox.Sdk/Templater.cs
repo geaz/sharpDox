@@ -86,6 +86,7 @@ namespace SharpDox.Sdk
         {
             ReplaceLink("image", @"{{image-link:[^}}]*}}", transform);
             ReplaceLink("method", @"{{method-link:[^}}]*}}", transform);
+            ReplaceLink("constructor", @"{{constructor-link:[^}}]*}}", transform);
             ReplaceLink("event", @"{{event-link:[^}}]*}}", transform);
             ReplaceLink("property", @"{{property-link:[^}}]*}}", transform);
             ReplaceLink("field", @"{{field-link:[^}}]*}}", transform);

@@ -25,6 +25,7 @@ namespace SharpDox.UML.Class.Model
             Name = name;
             Accessibility = string.Format("{0} {1} {2}", accessibility, attribute, kind);
 
+            ConstructorRows = new List<ClassDiagramRow>();
             MethodRows = new List<ClassDiagramRow>();
             FieldRows = new List<ClassDiagramRow>();
             PropertyRows = new List<ClassDiagramRow>();
@@ -57,6 +58,7 @@ namespace SharpDox.UML.Class.Model
         public string Name { get; set; }
 
         public List<ClassDiagramRow> FieldRows { get; private set; }
+        public List<ClassDiagramRow> ConstructorRows { get; private set; }
         public List<ClassDiagramRow> MethodRows { get; private set; }
         public List<ClassDiagramRow> PropertyRows { get; private set; }
         public List<ClassDiagramRow> EventRows { get; private set; }

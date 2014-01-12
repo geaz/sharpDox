@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Windows;
-using System.Windows.Media;
 
 namespace SharpDox.UML.Class
 {
@@ -84,6 +82,7 @@ namespace SharpDox.UML.Class
             position = RenderRowSection(classDiagram.EventRows, "event", position, renderLine);
 
             renderLine = FollowingSectionsNotEmpty(classDiagram, "Methods");
+            position = RenderRowSection(classDiagram.ConstructorRows, "constructor", position, false);
             position = RenderRowSection(classDiagram.MethodRows, "method", position, renderLine);
 
             position = RenderRowSection(classDiagram.PropertyRows, "property", position, false);
