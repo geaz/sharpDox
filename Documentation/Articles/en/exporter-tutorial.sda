@@ -161,4 +161,4 @@ The last step is to create the csv exporter. Create a new class _CSVExport.cs_ w
 
 This is the complete, simple plugin for **sharpDox**. Just copy the created dll file into the 
 _plugin_ folder of **sharpDox**. This way **sharpDox** knows about the plugin and will register 
-it at the start. Please download the example on this site [here](http://sharpdox.de/UploadedFiles/Downloads/csv.zip "CSV-Exporter").
+it at the start. Please download the example on this site [here](https://github.com/Geaz/SharpDox.Examples.Plugins.CVS "CSV-Exporter").

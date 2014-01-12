@@ -174,4 +174,4 @@ Datei _CSVExport.cs_ mit folgendem Inhalt erstellt:
 Damit wäre ein komplettes, rudimentäres Plugin für **sharpDox** fertiggestellt. Die resultierende 
 DLL-Datei wird anschließend einfach in den _plugin_ Ordner von **sharpDox** kopiert. 
 Damit wird das Plugin beim Start registriert. Das Beispiel auf dieser Seite kann 
-[hier](http://sharpdox.de/UploadedFiles/Downloads/csv.zip "CSV-Exporter") heruntergeladen werden.
+[hier](https://github.com/Geaz/SharpDox.Examples.Plugins.CVS "CSV-Exporter") heruntergeladen werden.

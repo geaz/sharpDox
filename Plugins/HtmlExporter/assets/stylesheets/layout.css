@@ -45,7 +45,7 @@
 }
 
 #docname img {
-    height: 100px;
+    max-height: 100px;
 }
 
 #docname h1{
