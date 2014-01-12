@@ -108,11 +108,15 @@
             </StackPanel>
         </Border>
 
+        <StackPanel Margin="0,0,15,15" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button ToolTip="{Binding ElementName=Window, Path=Strings.RefreshTree}" Command="{Binding RefreshCommand}" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,0,0,0" Content="&#xF021;"></Button>
+        </StackPanel>
+        
         <StackPanel Margin="0,0,15,15" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Command="{Binding IncludeAllCommand}" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF14A;"></Button>
-            <Button Command="{Binding ShowHideCommand}" CommandParameter="private" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF084;"></Button>
-            <Button Command="{Binding ShowHideCommand}" CommandParameter="protected" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF023;"></Button>
-            <Button Command="{Binding ShowHideCommand}" CommandParameter="internal" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF187;"></Button>
+            <Button ToolTip="{Binding ElementName=Window, Path=Strings.IncludeAll}" Command="{Binding IncludeAllCommand}" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF14A;"></Button>
+            <Button ToolTip="{Binding ElementName=Window, Path=Strings.HidePrivate}" Command="{Binding ShowHideCommand}" CommandParameter="private" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF084;"></Button>
+            <Button ToolTip="{Binding ElementName=Window, Path=Strings.HideProtected}" Command="{Binding ShowHideCommand}" CommandParameter="protected" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF023;"></Button>
+            <Button ToolTip="{Binding ElementName=Window, Path=Strings.HideInternal}" Command="{Binding ShowHideCommand}" CommandParameter="internal" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF187;"></Button>
         </StackPanel>
     </Grid>
 </UserControl>

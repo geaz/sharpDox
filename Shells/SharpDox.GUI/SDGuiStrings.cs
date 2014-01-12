@@ -26,6 +26,11 @@ namespace SharpDox.GUI
         private string _pleaseWait = "Please wait...";
         private string _seeBuild = "See build page for details!";
         private string _lastBuild = "LAST BUILD";
+        private string _refreshTree = "Refresh tree";
+        private string _includeAll = "Include all";
+        private string _hidePrivate = "Hide all private members";
+        private string _hideProtected = "Hide all protected members";
+        private string _hideInternal = "Hide all internal members";
 
         public string DisplayName { get { return "SharpDoxGui"; } }
 
@@ -159,6 +164,36 @@ namespace SharpDox.GUI
         {
             get { return _lastBuild; }
             set { _lastBuild = value; }
+        }
+
+        public string RefreshTree
+        {
+            get { return _refreshTree; }
+            set { _refreshTree = value; }
+        }
+
+        public string IncludeAll
+        {
+            get { return _includeAll; }
+            set { _includeAll = value; }
+        }
+
+        public string HidePrivate
+        {
+            get { return _hidePrivate; }
+            set { _hidePrivate = value; }
+        }
+
+        public string HideProtected
+        {
+            get { return _hideProtected; }
+            set { _hideProtected = value; }
+        }
+
+        public string HideInternal
+        {
+            get { return _hideInternal; }
+            set { _hideInternal = value; }
         }
     }
 }

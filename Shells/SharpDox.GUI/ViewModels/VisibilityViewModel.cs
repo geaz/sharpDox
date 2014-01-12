@@ -103,5 +103,19 @@ namespace SharpDox.GUI.ViewModels
                 OnPropertyChanged("IncludeAllCommand");
             }
         }
+
+        private RelayCommand _refreshCommand;
+        public RelayCommand RefreshCommand
+        {
+            get
+            {
+                return _refreshCommand ?? new RelayCommand(RefreshTreeView, true);
+            }
+            set
+            {
+                _refreshCommand = value;
+                OnPropertyChanged("RefreshCommand");
+            }
+        }
     }
 }
