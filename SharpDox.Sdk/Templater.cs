@@ -28,6 +28,7 @@ namespace SharpDox.Sdk
         ///     You have to create a new instance 
         ///     for each text you want to transform.
         ///     </summary>
+        ///     <param name="repository">The repository of the parsed project.</param>
         ///     <param name="template">The text you want to transform.</param>
         /// </default>
         /// <de>
@@ -36,6 +37,7 @@ namespace SharpDox.Sdk
         ///     Für jeden Text der transformiert werden soll
         ///     muss eine neue Instanz erstellt werden.
         ///     </summary>
+        ///     <param name="repository">Das Repository des eingelesenen Projekts.</param>
         ///     <param name="template">Der Text der transformiert werden soll.</param>
         /// </de>
         public Templater(SDRepository repository, string template)
@@ -49,18 +51,19 @@ namespace SharpDox.Sdk
         ///     This function takes a delegate which 
         ///     gets called for each link placeholder.
         ///     
-        ///     The delegate gets two parameters:
+        ///     The delegate gets three parameters:
         ///     
         ///     - The type of the link placeholder.
         ///       Possible values are: 'article', 'image', 'namespace', 'type',
         ///       'method', 'field', 'property' and 'event'.
-        ///     - The name/identifier of the link
+        ///     - The guid of the element. Empty for images and articles.
+        ///     - The name/identifier of the linked element.
         ///       For articles it is the title, images the filename, namespaces the fullname and
         ///       the identifier for the remaining elements.
         ///       
         ///     The delegate has to return a string which replaces the old link placeholder.
         ///     </summary>
-        ///     <param name="transform">A delegate with two string parameters and a string returnvalue.</param>
+        ///     <param name="transform">A delegate with two string, one guid parameter and a string return value.</param>
         ///     <returns>The transformed text.</returns>
         /// </default>
         /// <de>
@@ -68,18 +71,19 @@ namespace SharpDox.Sdk
         ///     Dieser Funktion muss ein Delegat übergeben werden,
         ///     welches von sharpDox für jeden Link-Platzhalter aufgerufen wird.
         ///     
-        ///     Dabei übergibt sharpDox dem Delegat zwei Parameter:
+        ///     Dabei übergibt sharpDox dem Delegat drei Parameter:
         ///     
         ///     - Die Art des übergebene Link-Platzhalters. 
         ///       Mögliche Werte sind: 'article', 'image', 'namespace', 'type',
         ///       'method', 'field', 'property' und 'event'.
-        ///     - Der Name/Identifikator des Links
+        ///     - Die Guid des Elements. Leer bei Bildern und Artikeln.
+        ///     - Der Name/Identifikator des verlinkten Elements.
         ///       Für Artikel der Titel, Bilder der Dateiname, Namensräume der Vollname und
         ///       für den Rest der Identifikator des Elements.
         ///       
         ///     Der Delegat muss einen String zurückliefern, welcher genutzt wird um den alten Platzhalter zu ersetzen.
         ///     </summary>
-        ///     <param name="transform">Ein Delegat mit zwei String-Parametern und einem String-Rückgabewert.</param>
+        ///     <param name="transform">Ein Delegat mit zwei String-, einem Guid-Parameter und einem String-Rückgabewert.</param>
         ///     <returns>Der transformierte Text.</returns>
         /// </de>
         public string TransformText(Func<string, Guid, string, string> transform)
