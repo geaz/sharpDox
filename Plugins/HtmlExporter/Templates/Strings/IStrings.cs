@@ -26,5 +26,6 @@
         string UsedBy { get; }
         string PanZoom { get; }
         string Article { get; }
+        string Members { get; }
     }
 }

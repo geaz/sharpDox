@@ -80,13 +80,13 @@ namespace SharpDox.UML.Class
             var renderLine = FollowingSectionsNotEmpty(classDiagram, "Fields");
             position = RenderRowSection(classDiagram.FieldRows, "field", position, renderLine);
 
-            renderLine = FollowingSectionsNotEmpty(classDiagram, "Properties");
-            position = RenderRowSection(classDiagram.PropertyRows, "property", position, renderLine);
+            renderLine = FollowingSectionsNotEmpty(classDiagram, "Events");
+            position = RenderRowSection(classDiagram.EventRows, "event", position, renderLine);
 
             renderLine = FollowingSectionsNotEmpty(classDiagram, "Methods");
             position = RenderRowSection(classDiagram.MethodRows, "method", position, renderLine);
 
-            position = RenderRowSection(classDiagram.EventRows, "event", position, false);
+            position = RenderRowSection(classDiagram.PropertyRows, "property", position, false);
 
             return position;
         }
@@ -101,11 +101,11 @@ namespace SharpDox.UML.Class
                     empty = classDiagram.PropertyRows.Count + classDiagram.MethodRows.Count +
                             classDiagram.EventRows.Count > 0;
                     break;
-                case "Properties":
+                case "Events":
                     empty = classDiagram.MethodRows.Count + classDiagram.EventRows.Count > 0;
                     break;
                 case "Methods":
-                    empty = classDiagram.EventRows.Count > 0;
+                    empty = classDiagram.PropertyRows.Count > 0;
                     break;
             }
 

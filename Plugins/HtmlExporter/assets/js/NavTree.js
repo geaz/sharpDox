@@ -18,7 +18,7 @@ function initNav() {
 }
 
 function initNavUrls() {
-    var links = $("a").not('[href^="http://"],[href="#"],[href^="../"]');
+    var links = $("a").not('[href^="http://"],[href^="https://"],[href="#"],[href^="../"]');
     $.each(links, function (key, value) {
         if ($(value).is('[href]')) {
             $(value).attr('href', urlPrefix + $(value).attr('href'));

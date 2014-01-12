@@ -23,5 +23,6 @@
         public string Basetype { get { return "Basetype"; } }
         public string Implements { get { return "Implements"; } }
         public string Article { get { return "Article"; } }
+        public string Members { get { return "Members"; } }
     }
 }

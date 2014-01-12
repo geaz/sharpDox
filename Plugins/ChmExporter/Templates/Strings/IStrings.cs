@@ -23,5 +23,6 @@
         string Basetype { get; }
         string Implements { get; }
         string Article { get; }
+        string Members { get; }
     }
 }

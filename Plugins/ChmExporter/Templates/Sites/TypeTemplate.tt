@@ -140,6 +140,112 @@
 
 			<# } #>
 
+			<h2 class="box-title"><#= Strings.Members #></h2>
+			<div class="table-box">
+				<table>
+					<thead>
+						<tr>
+							<td></td>
+							<td><#= Strings.Name #></td>
+							<td><#= Strings.Summary #></td>
+						</tr>
+					</thead>
+					<tbody>
+
+					<#	foreach(var sdField in SDType.Fields) {
+						var typeLanguage = sdField.Documentation.ContainsKey(CurrentLanguage) ? CurrentLanguage : "default"; #>
+
+						<tr>
+							<td class="iconColumn">
+								<img alt="Field-Icon" src="icons/Field_<#= sdField.Accessibility #>.png">
+							</td>
+							<td>
+								<a title="<#= sdField.Name #>" href="<#= sdField.Guid #>.html"><#= sdField.Name #></a>
+							</td>	
+							<td class="markdown">
+								<# if(sdField.Documentation.Count > 0 && sdField.Documentation[typeLanguage].Summary.Count > 0) { #>
+									<#= new Markdown().Transform(sdField.Documentation[typeLanguage].Summary.ToMarkdown()) #>
+								<# } #>
+							</td>
+						</tr>
+					<# }		
+
+						foreach(var sdEvent in SDType.Events) {
+						var typeLanguage = sdEvent.Documentation.ContainsKey(CurrentLanguage) ? CurrentLanguage : "default"; #>
+
+						<tr>
+							<td class="iconColumn">
+								<img alt="Event-Icon" src="icons/Event_<#= sdEvent.Accessibility #>.png">
+							</td>
+							<td>
+								<a title="<#= sdEvent.Name #>" href="<#= sdEvent.Guid #>.html"><#= sdEvent.Name #></a>
+							</td>	
+							<td class="markdown">
+								<# if(sdEvent.Documentation.Count > 0 && sdEvent.Documentation[typeLanguage].Summary.Count > 0) { #>
+									<#= new Markdown().Transform(sdEvent.Documentation[typeLanguage].Summary.ToMarkdown()) #>
+								<# } #>
+							</td>
+						</tr>
+					<# }
+
+						foreach(var sdConstructor in SDType.Constructors) {
+						var typeLanguage = sdConstructor.Documentation.ContainsKey(CurrentLanguage) ? CurrentLanguage : "default"; #>
+
+						<tr>
+							<td class="iconColumn">
+								<img alt="Constructor-Icon" src="icons/Method_<#= sdConstructor.Accessibility #>.png">
+							</td>
+							<td>
+								<a title="<#= sdConstructor.Name #>" href="<#= sdConstructor.Guid #>.html"><#= sdConstructor.Name #></a>
+							</td>	
+							<td class="markdown">
+								<# if(sdConstructor.Documentation.Count > 0 && sdConstructor.Documentation[typeLanguage].Summary.Count > 0) { #>
+									<#= new Markdown().Transform(sdConstructor.Documentation[typeLanguage].Summary.ToMarkdown()) #>
+								<# } #>
+							</td>
+						</tr>
+					<# }
+
+						foreach(var sdMethod in SDType.Methods) {
+						var typeLanguage = sdMethod.Documentation.ContainsKey(CurrentLanguage) ? CurrentLanguage : "default"; #>
+
+						<tr>
+							<td class="iconColumn">
+								<img alt="Constructor-Icon" src="icons/Method_<#= sdMethod.Accessibility #>.png">
+							</td>
+							<td>
+								<a title="<#= sdMethod.Name #>" href="<#= sdMethod.Guid #>.html"><#= sdMethod.Name #></a>
+							</td>	
+							<td class="markdown">
+								<# if(sdMethod.Documentation.Count > 0 && sdMethod.Documentation[typeLanguage].Summary.Count > 0) { #>
+									<#= new Markdown().Transform(sdMethod.Documentation[typeLanguage].Summary.ToMarkdown()) #>
+								<# } #>
+							</td>
+						</tr>
+					<# }
+
+						foreach(var sdProperty in SDType.Properties) {
+						var typeLanguage = sdProperty.Documentation.ContainsKey(CurrentLanguage) ? CurrentLanguage : "default"; #>
+
+						<tr>
+							<td class="iconColumn">
+								<img alt="Property-Icon" src="icons/Properties_<#= sdProperty.Accessibility #>.png">
+							</td>
+							<td>
+								<a title="<#= sdProperty.Name #>" href="<#= sdProperty.Guid #>.html"><#= sdProperty.Name #></a>
+							</td>	
+							<td class="markdown">
+								<# if(sdProperty.Documentation.Count > 0 && sdProperty.Documentation[typeLanguage].Summary.Count > 0) { #>
+									<#= new Markdown().Transform(sdProperty.Documentation[typeLanguage].Summary.ToMarkdown()) #>
+								<# } #>
+							</td>
+						</tr>
+					<# } #>
+
+					</tbody>
+				</table>
+			</div>
+
 			<# if(SDType.Uses.Count > 0) { #>
 				<h3 class="box-title"><#= Strings.Uses #></h3>
 				<div class="list-box">

@@ -215,6 +215,108 @@
 							</div>
 						<# } #>
 
+						<h3 class="box-title"><#= Strings.Members #></h3>
+						<div class="table-box">
+							<table>
+								<thead>
+									<tr>
+										<td></td>
+										<td><#= Strings.Name #></td>
+										<td><#= Strings.Summary #></td>
+									</tr>
+								</thead>
+								<tbody>			
+
+									<# var even = false; 
+									foreach(var sdField in SDType.Fields) { #>
+
+										<tr <# if(even) { even = false; #> class="even" <# } else { even = true; } #>>
+											<td class="iconColumn">
+												<img alt="Field-Icon" src="../images/icons/Field_<#= sdField.Accessibility #>.png">
+											</td>
+											<td>
+												<a title="<#= sdField.Name #>" href="../field/<#= sdField.Guid #>.html"><#= sdField.Name #></a>
+											</td>	
+											<td class="markdown">
+												<# if(sdField.Documentation.ContainsKey(CurrentLanguage)) { #>
+													<#= new Markdown().Transform(sdField.Documentation[CurrentLanguage].Summary.ToString()) #>
+												<# } #>
+											</td>
+										</tr>
+									<# }
+
+									foreach(var sdEvent in SDType.Events) { #>
+
+										<tr <# if(even) { even = false; #> class="even" <# } else { even = true; } #>>
+											<td class="iconColumn">
+												<img alt="Event-Icon" src="../images/icons/Event_<#= sdEvent.Accessibility #>.png">
+											</td>
+											<td>
+												<a title="<#= sdEvent.Name #>" href="../method/<#= sdEvent.Guid #>.html"><#= sdEvent.Name #></a>
+											</td>	
+											<td class="markdown">
+												<# if(sdEvent.Documentation.ContainsKey(CurrentLanguage)) { #>
+													<#= new Markdown().Transform(sdEvent.Documentation[CurrentLanguage].Summary.ToString()) #>
+												<# } #>
+											</td>
+										</tr>
+									<# }
+
+									foreach(var sdConstructor in SDType.Constructors) { #>
+
+										<tr <# if(even) { even = false; #> class="even" <# } else { even = true; } #>>
+											<td class="iconColumn">
+												<img alt="Constructor-Icon" src="../images/icons/Method_<#= sdConstructor.Accessibility #>.png">
+											</td>
+											<td>
+												<a title="<#= sdConstructor.Name #>" href="../constructor/<#= sdConstructor.Guid #>.html"><#= sdConstructor.Name #></a>
+											</td>	
+											<td class="markdown">
+												<# if(sdConstructor.Documentation.ContainsKey(CurrentLanguage)) { #>
+													<#= new Markdown().Transform(sdConstructor.Documentation[CurrentLanguage].Summary.ToString()) #>
+												<# } #>
+											</td>
+										</tr>
+									<# }
+
+									foreach(var sdMethod in SDType.Methods) { #>
+
+										<tr <# if(even) { even = false; #> class="even" <# } else { even = true; } #>>
+											<td class="iconColumn">
+												<img alt="Method-Icon" src="../images/icons/Method_<#= sdMethod.Accessibility #>.png">
+											</td>
+											<td>
+												<a title="<#= sdMethod.Name #>" href="../method/<#= sdMethod.Guid #>.html"><#= sdMethod.Name #></a>
+											</td>	
+											<td class="markdown">
+												<# if(sdMethod.Documentation.ContainsKey(CurrentLanguage)) { #>
+													<#= new Markdown().Transform(sdMethod.Documentation[CurrentLanguage].Summary.ToString()) #>
+												<# } #>
+											</td>
+										</tr>
+									<# }
+
+									foreach(var sdProperty in SDType.Properties) { #>
+
+										<tr <# if(even) { even = false; #> class="even" <# } else { even = true; } #>>
+											<td class="iconColumn">
+												<img alt="Property-Icon" src="../images/icons/Properties_<#= sdProperty.Accessibility #>.png">
+											</td>
+											<td>
+												<a title="<#= sdProperty.Name #>" href="../property/<#= sdProperty.Guid #>.html"><#= sdProperty.Name #></a>
+											</td>	
+											<td class="markdown">
+												<# if(sdProperty.Documentation.ContainsKey(CurrentLanguage)) { #>
+													<#= new Markdown().Transform(sdProperty.Documentation[CurrentLanguage].Summary.ToString()) #>
+												<# } #>
+											</td>
+										</tr>
+									<# } #>
+
+								</tbody>
+							</table>
+						</div>
+
 					</div>
 				</div>
 			</div>

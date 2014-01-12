@@ -19,7 +19,7 @@ namespace SharpDox.UML.Class
 
             ParseFields(type.Fields);
             ParseProperties(type.Properties);
-            ParseMethods(type.Methods);
+            ParseMethods(type.Constructors.Concat(type.Methods));
             ParseEvents(type.Events);
 
             return _classDiagram;

@@ -26,5 +26,6 @@
         public string UsedBy { get { return "Genutzt von"; } }
         public string PanZoom { get { return "Verschieben: Diagram halten und ziehen - Zoomen: Mausrad benutzen"; } }
         public string Article { get { return "Artikel"; } }
+        public string Members { get { return "Mitglieder"; } }
     }
 }
