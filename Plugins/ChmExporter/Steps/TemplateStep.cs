@@ -119,23 +119,20 @@ namespace SharpDox.Plugins.Chm.Steps
             Parallel.ForEach(_repository.GetAllNamespaces(), sdNamespace =>
             {
                 chmExporter.ExecuteOnStepMessage(sdNamespace.Fullname);
+                chmExporter.ExecuteOnStepProgress(((++currentNamespaceNumber / namespaceCount) * 75) + 35);
 
                 var namespaceHtmlFile = Path.Combine(_tmpFilepath, sdNamespace.Guid + ".html");
                 var namespaceTemplate = new NamespaceTemplate { ProjectInfo = _repository.ProjectInfo, SDNamespace = sdNamespace, SDRepository = _repository, CurrentLanguage = _currentLanguage, Strings = _strings };
                 File.WriteAllText(namespaceHtmlFile, namespaceTemplate.TransformText());
 
-                CreateTypeFiles(chmExporter, sdNamespace);
-
-                chmExporter.ExecuteOnStepProgress(((++currentNamespaceNumber / namespaceCount) * 75) + 35);
+                CreateTypeFiles(sdNamespace);
             });
         }
 
-        private void CreateTypeFiles(ChmExporter chmExporter, SDNamespace sdNamespace)
+        private void CreateTypeFiles(SDNamespace sdNamespace)
         {
             Parallel.ForEach(sdNamespace.Types, sdType =>
             {
-                chmExporter.ExecuteOnStepMessage(sdType.Fullname);
-
                 sdType.SortMembers();
                 var typeHtmlFile = Path.Combine(_tmpFilepath, sdType.Guid + ".html");
 

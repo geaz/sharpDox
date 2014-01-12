@@ -9,6 +9,7 @@ namespace SharpDox.Build
     public class BuildController : IBuildController
     {
         private Thread _buildThread;
+        private bool _isStopping;
 
         private readonly SDBuildStrings _sdBuildStrings;
         private readonly BuildMessenger _buildMessenger;
@@ -57,10 +58,13 @@ namespace SharpDox.Build
 
         public void Stop()
         {
-            if (_buildThread != null)
+            if (_buildThread != null && !_isStopping)
             {
+                _isStopping = true;
+                _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.BuildStopping);
                 _buildThread.Abort();
                 _buildThread = null;
+                _isStopping = false;
             }
         }
     }
