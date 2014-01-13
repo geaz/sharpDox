@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace SharpDox.UML
+namespace SharpDox.UML.Extensions
 {
     internal static class StringToWidth
     {

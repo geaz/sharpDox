@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Media;
 using SharpDox.Model.Repository;
 using SharpDox.UML.Class.Renderer;
+using SharpDox.UML.Extensions;
 using SharpDox.UML.SVG;
 using System.Globalization;
 

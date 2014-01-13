@@ -1,4 +1,5 @@
 ﻿using SharpDox.UML.Class.Model;
+using SharpDox.UML.Extensions;
 using SharpDox.UML.Ressources;
 using SharpDox.UML.SVG;
 using System;

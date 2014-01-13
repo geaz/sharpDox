@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace SharpDox.UML
+namespace SharpDox.UML.Extensions
 {
     internal static class DrawingVisualPngSaver
     {
