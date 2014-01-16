@@ -12,12 +12,12 @@ namespace SharpDox.Build.Parser
 {
     internal class NamespaceParser : BaseParser
     {
-        private Dictionary<string, string> _descriptionFiles;
+        private List<string> _descriptionFiles;
 
-        internal NamespaceParser(SDRepository repository, List<string> excludedIdentifiers, SharpDoxConfig sharpDoxConfig) : base(repository, excludedIdentifiers)
+        internal NamespaceParser(SDRepository repository, List<string> excludedIdentifiers, SharpDoxConfig sharpDoxConfig)
+            : base(repository, excludedIdentifiers)
         {
-            _descriptionFiles = Directory.EnumerateFiles(Path.GetDirectoryName(sharpDoxConfig.InputPath), "*.sdnd", SearchOption.AllDirectories)
-                                .ToDictionary(v => Path.GetFileName(v).ToLower());
+            _descriptionFiles = Directory.EnumerateFiles(Path.GetDirectoryName(sharpDoxConfig.InputPath), "*.sdnd", SearchOption.AllDirectories).ToList();
         }
 
         internal void ParseProjectNamespaces(CSharpProject project)
@@ -35,20 +35,20 @@ namespace SharpDox.Build.Parser
 
         internal SDNamespace GetParsedNamespace(IType type)
         {
-            var descriptions = new Dictionary<string, string>();
+            var descriptionFiles = _descriptionFiles.Where(d => Path.GetFileName(d).ToLower().Contains(type.Namespace.ToLower() + ".sdnd"));
 
-            var lowerNamespaceName = type.Namespace.ToLower();
-            if (_descriptionFiles.ContainsKey(lowerNamespaceName + ".sdnd"))
+            var descriptions = new Dictionary<string, string>();
+            foreach (var file in descriptionFiles)
             {
-                var splitted = lowerNamespaceName.Replace(lowerNamespaceName, " ").Split('.');
+                var splitted = Path.GetFileName(file).ToLower().Replace(type.Namespace.ToLower(), " ").Split('.');
                 if (splitted.Length > 0 && splitted[0].Length == 2 && CultureInfo.GetCultures(CultureTypes.AllCultures).Any(c => c.TwoLetterISOLanguageName == splitted[0]))
                 {
-                    descriptions.Add(splitted[0], File.ReadAllText(_descriptionFiles[lowerNamespaceName + ".sdnd"]));
+                    descriptions.Add(splitted[0], File.ReadAllText(file));
                     _repository.AddDocumentationLanguage(splitted[0].ToLower());
                 }
                 else if (splitted.Length > 0 && string.IsNullOrEmpty(splitted[0].Trim()))
                 {
-                    descriptions.Add("default", File.ReadAllText(_descriptionFiles[lowerNamespaceName + ".sdnd"]));
+                    descriptions.Add("default", File.ReadAllText(file));
                 }
             }
 

@@ -19,7 +19,7 @@ namespace SharpDox.Plugins.Chm.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+    #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class StylesheetTemplate : StylesheetTemplateBase
     {
@@ -29,63 +29,67 @@ namespace SharpDox.Plugins.Chm.Templates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n/* layout */\r\nhtml, body{\r\n\tmargin:0;\r\n\tpadding:0;\r\n}\r\n\r\n#header{\r\n\tpadding:5px" +
-                    " 25px;\r\n}\r\n\r\n#header h2{\r\n\tmargin:0;\r\n}\r\n\r\n#subheader{\r\n\tdisplay:block;\r\n\tbackgr" +
-                    "ound: ");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n\n/* layout */\nhtml, body{\n\tmargin:0;\n\tpadding:0;\n}\n\n#header{\n\tpadding:5px 25px;\n" +
+                    "}\n\n#header h2{\n\tmargin:0;\n}\n\n#subheader{\n\tdisplay:block;\n\tbackground: ");
             
-            #line 24 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.BreadCrumbBackgroundColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n\tborder-top: 1px solid ");
+            this.Write(";\n\tborder-top: 1px solid ");
             
-            #line 25 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.BreadCrumbBorderColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n\tborder-bottom: 1px solid ");
+            this.Write(";\n\tborder-bottom: 1px solid ");
             
-            #line 26 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.BreadCrumbBorderColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n\tpadding: 2px 25px;\r\n\tmargin:0;\r\n\tmargin-top:5px;\r\n\tmargin-bottom:5px;\r\n}\r\n\r\n#" +
-                    "subheader a{\r\n\ttext-decoration:none;\r\n\tfont-weight:bold;\r\n\tcolor: ");
+            this.Write(";\n\tpadding: 2px 25px;\n\tmargin:0;\n\tmargin-top:5px;\n\tmargin-bottom:5px;\n}\n\n#subhead" +
+                    "er a{\n\ttext-decoration:none;\n\tfont-weight:bold;\n\tcolor: ");
             
-            #line 36 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.BreadCrumbLinkColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n\tfont-size:12px;\r\n}\r\n\r\n#subheader a:hover{\r\n\tcolor: ");
+            this.Write(";\n\tfont-size:12px;\n}\n\n#subheader a:hover{\n\tcolor: ");
             
-            #line 41 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.BreadCrumbLinkHoverColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n}\r\n\r\n#content {\r\n\tpadding: 10px 25px;\r\n}\r\n\r\n.box-title{\r\n\tmargin-top:0;\r\n}\r\n\r\n" +
-                    ".namespace-title{\r\n\tfont-size:1em;\r\n\tcolor: #AAA;\r\n}\r\n\r\n.syntax-box {\r\n    backg" +
-                    "round: none repeat scroll 0 0 ");
+            this.Write(";\n}\n\n#content {\n\tpadding: 10px 25px;\n}\n\n.typesite{\n\tdisplay:none;\n}\n\n.box-title{\n" +
+                    "\tmargin-top:0;\n}\n\n.namespace-title{\n\tfont-size:1em;\n\tcolor: #AAA;\n}\n\n.syntax-box" +
+                    " {\n    background: none repeat scroll 0 0 ");
             
-            #line 58 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.SyntaxBoxBackgroundColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n    border: 1px solid ");
+            this.Write(";\n    border: 1px solid ");
             
-            #line 59 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.SyntaxBoxBorderColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n\tcolor: ");
+            this.Write(";\n\tcolor: ");
             
-            #line 60 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.SyntaxBoxTextColor));
             
             #line default
@@ -142,55 +146,53 @@ namespace SharpDox.Plugins.Chm.Templates
 	th{
 		background: ");
             
-            #line 110 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.TableHeaderBackgroundColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n\t}\r\n\r\n\t.even{\r\n\t\tbackground: #F6F5F1;\r\n\t}\r\n\r\n\ttd{\r\n\t\tpadding:5px 10px 5px 10px" +
-                    ";\r\n\t}\r\n\r\n\ttd p{\r\n\t\tmargin:0;\r\n\t}\r\n\r\n\tthead{\r\n\t\tbackground: none repeat scroll 0 " +
-                    "0 ");
+            this.Write(";\n\t}\n\n\t.even{\n\t\tbackground: #F6F5F1;\n\t}\n\n\ttd{\n\t\tpadding:5px 10px 5px 10px;\n\t}\n\n\tt" +
+                    "d p{\n\t\tmargin:0;\n\t}\n\n\tthead{\n\t\tbackground: none repeat scroll 0 0 ");
             
-            #line 126 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.TableHeaderBackgroundColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n\t\tfont-family: \"Segoe UI\";\r\n\t\tfont-weight: bold;\r\n\t}\r\n\t\r\n\tthead td{\r\n\t\tborder-" +
-                    "bottom: 1px solid ");
+            this.Write(";\n\t\tfont-family: \"Segoe UI\";\n\t\tfont-weight: bold;\n\t}\n\t\n\tthead td{\n\t\tborder-bottom" +
+                    ": 1px solid ");
             
-            #line 132 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.TableHeaderBorderColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n\t\tborder-top: 1px solid ");
+            this.Write(";\n\t\tborder-top: 1px solid ");
             
-            #line 133 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.TableHeaderBorderColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n\t}\r\n\t\r\n\t.icon-column {\r\n\t\twidth: 15px;\r\n\t}\r\n\r\n/* #Lists\r\n=====================" +
-                    "============================= */\r\n\r\n\t.list-box\r\n\t{\r\n\t\twidth: 100%;\r\n\t}\r\n\r\n/* #Ty" +
-                    "pography\r\n================================================== */\r\n\tbody {\r\n\t\tback" +
-                    "ground: ");
+            this.Write(";\n\t}\n\t\n\t.icon-column {\n\t\twidth: 15px;\n\t}\n\n/* #Lists\n=============================" +
+                    "===================== */\n\n\t.list-box\n\t{\n\t\twidth: 100%;\n\t}\n\n/* #Typography\n======" +
+                    "============================================ */\n\tbody {\n\t\tbackground: ");
             
-            #line 151 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.BackgroundColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n\t\tfont: 14px/24px \'Segoe UI\', \'Comic Sans MS\';\r\n\t\tcolor: ");
+            this.Write(";\n\t\tfont: 14px/24px \'Segoe UI\', \'Comic Sans MS\';\n\t\tcolor: ");
             
-            #line 153 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.TextColor));
             
             #line default
             #line hidden
-            this.Write(";\r\n\t}\r\n\t\r\n\th1, h2, h3, h4, h5, h6 {\r\n\t\tcolor: ");
+            this.Write(";\n\t}\n\t\n\th1, h2, h3, h4, h5, h6 {\n\t\tcolor: ");
             
-            #line 157 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.TextColor));
             
             #line default
@@ -221,14 +223,14 @@ namespace SharpDox.Plugins.Chm.Templates
 ================================================== */
 	a, a:visited { color: ");
             
-            #line 181 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.LinkColor));
             
             #line default
             #line hidden
-            this.Write("; text-decoration: none; outline: 0; }\r\n\ta:hover, a:focus { color: ");
+            this.Write("; text-decoration: none; outline: 0; }\n\ta:hover, a:focus { color: ");
             
-            #line 182 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ChmConfig.LinkHoverColor));
             
             #line default
@@ -285,7 +287,7 @@ namespace SharpDox.Plugins.Chm.Templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 230 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
+        #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\StylesheetTemplate.tt"
  
 public ChmConfig ChmConfig { get; set; }
 

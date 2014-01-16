@@ -25,7 +25,7 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+    #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class MethodTemplate : MethodTemplateBase
     {
@@ -35,405 +35,401 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n<html>\r\n    <head>\r\n        <title>");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n\n<div id=\"");
             
-            #line 16 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(SDMethod.Guid));
+            
+            #line default
+            #line hidden
+            this.Write("\" class=\"typesite\">\n\t<div id=\"header\">\n\t\t<h2 class=\"type-title\">");
+            
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDMethod.Name));
             
             #line default
             #line hidden
-            this.Write(@"</title>
-        <meta content=""text/html; charset=utf-8"" http-equiv=""Content-Type"">
-        <link rel=""stylesheet"" type=""text/css"" href=""css/reset.css"">
-        <link rel=""stylesheet"" type=""text/css"" href=""css/style.css"">
-        <script src=""js/jquery.js"" type=""text/javascript""></script>
-        
-        <script type=""text/javascript"">
-            $(document).ready(function() {
-                
-            });
-        </script>
-
-    </head>
-    <body>
-		<div id=""header"">
-			<h2 class=""type-title"">");
+            this.Write("</h2>\n\t\t<span class=\"namespace-title\">");
             
-            #line 31 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(SDMethod.Name));
-            
-            #line default
-            #line hidden
-            this.Write("</h2>\r\n\t\t\t<span class=\"namespace-title\">");
-            
-            #line 32 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Namespace.Fullname));
             
             #line default
             #line hidden
-            this.Write("</span>\r\n\t\t</div>\r\n\t\t<div id=\"subheader\">\r\n\t\t\t<a href=\"");
+            this.Write("</span>\n\t</div>\n\t<div id=\"subheader\">\n\t\t<a href=\"");
             
-            #line 35 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectInfo.ProjectName.Replace(" ", "")));
             
             #line default
             #line hidden
             this.Write("-Index.html\">Start</a> > <a href=\"");
             
-            #line 35 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDNamespace.Guid));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 35 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDNamespace.Fullname));
             
             #line default
             #line hidden
             this.Write("</a> > <a href=\"");
             
-            #line 35 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Guid));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 35 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Name));
             
             #line default
             #line hidden
             this.Write(" > <a href=\"");
             
-            #line 35 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDMethod.Guid));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 35 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDMethod.Name));
             
             #line default
             #line hidden
-            this.Write("</a>\r\n\t\t</div>\r\n\r\n\t\t<div id=\"content\">\r\n\t\t\t<h3 class=\"box-title\">");
+            this.Write("</a>\n\t</div>\n\n\t<div id=\"content\">\n\t\t<h3 class=\"box-title\">");
             
-            #line 39 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Syntax));
             
             #line default
             #line hidden
-            this.Write("</h3>\r\n\t\t\t<div class=\"syntax-box\">\r\n\t\t\t\t");
+            this.Write("</h3>\n\t\t<div class=\"syntax-box\">\n\t\t\t");
             
-            #line 41 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(WebUtility.HtmlEncode(SDMethod.Syntax)));
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t</div>\r\n        \r\n\t\t\t");
+            this.Write("\n\t\t</div>\n        \n\t\t");
             
-            #line 44 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  if(SDMethod.Documentation.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t");
+            this.Write("\n\n\t\t\t");
             
-            #line 46 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  var language = SDMethod.Documentation.ContainsKey(CurrentLanguage) ? CurrentLanguage : "default";
-				if(SDMethod.Documentation[language].Summary.Count > 0) { 
+			if(SDMethod.Documentation[language].Summary.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t<h3 class=\"box-title\">");
+            this.Write("\n\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 48 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Summary));
             
             #line default
             #line hidden
-            this.Write("</h3>\r\n\t\t\t\t\t<div class=\"doc-box markdown\">\r\n\t\t\t\t\t\t");
+            this.Write("</h3>\n\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t");
             
-            #line 50 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(SDMethod.Documentation[language].Summary.ToMarkdown())));
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t\t</div>\r\n\t\t\t\t");
+            this.Write("\n\t\t\t\t</div>\n\t\t\t");
             
-            #line 52 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t");
+            this.Write("\n\n\t\t\t");
             
-            #line 54 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  if(SDMethod.Documentation[language].Remarks.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t<h3 class=\"box-title\">");
+            this.Write("\n\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 55 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Remarks));
             
             #line default
             #line hidden
-            this.Write("</h3>\r\n\t\t\t\t\t<div class=\"doc-box markdown\">\r\n\t\t\t\t\t\t");
+            this.Write("</h3>\n\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t");
             
-            #line 57 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(SDMethod.Documentation[language].Remarks.ToMarkdown())));
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t\t</div>\r\n\t\t\t\t");
+            this.Write("\n\t\t\t\t</div>\n\t\t\t");
             
-            #line 59 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t");
+            this.Write("\n\n\t\t\t");
             
-            #line 61 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  if(SDMethod.Documentation[language].Example.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t<h3 class=\"box-title\">");
+            this.Write("\n\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 62 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Example));
             
             #line default
             #line hidden
-            this.Write("</h3>\r\n\t\t\t\t\t<div class=\"doc-box markdown\">\r\n\t\t\t\t\t\t");
+            this.Write("</h3>\n\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t");
             
-            #line 64 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(SDMethod.Documentation[language].Example.ToMarkdown())));
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t\t</div>\r\n\t\t\t\t");
+            this.Write("\n\t\t\t\t</div>\n\t\t\t");
             
-            #line 66 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t");
+            this.Write("\n\n\t\t\t");
             
-            #line 68 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  if(SDMethod.Documentation[language].Returns.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t<h3 class=\"box-title\">");
+            this.Write("\n\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 69 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Returns));
             
             #line default
             #line hidden
-            this.Write("</h3>\r\n\t\t\t\t\t<div class=\"doc-box markdown\">\r\n\t\t\t\t\t\t");
+            this.Write("</h3>\n\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t");
             
-            #line 71 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(SDMethod.Documentation[language].Returns.ToMarkdown())));
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t\t</div>\r\n\t\t\t\t");
+            this.Write("\n\t\t\t\t</div>\n\t\t\t");
             
-            #line 73 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t");
+            this.Write("\n\n\t\t\t");
             
-            #line 75 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  if(SDMethod.Documentation[language].Exceptions.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t<h3 class=\"box-title\">");
+            this.Write("\n\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 76 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Exceptions));
             
             #line default
             #line hidden
-            this.Write("</h3>\r\n\t\t\t\t\t<div class=\"doc-box markdown\">\r\n\t\t\t\t\t\t");
+            this.Write("</h3>\n\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t");
             
-            #line 78 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  foreach(var exception in SDMethod.Documentation[language].Exceptions) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t<p>");
+            this.Write("\n\t\t\t\t\t\t<p>");
             
-            #line 79 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(exception.Key));
             
             #line default
             #line hidden
-            this.Write("</p>\r\n\t\t\t\t\t\t\t<div class=\"inline\">\r\n\t\t\t\t\t\t\t\t");
+            this.Write("</p>\n\t\t\t\t\t\t<div class=\"inline\">\n\t\t\t\t\t\t\t");
             
-            #line 81 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(exception.Value.ToMarkdown())));
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t");
+            this.Write("\n\t\t\t\t\t\t</div>\n\t\t\t\t\t");
             
-            #line 83 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t</div>\r\n\t\t\t\t");
+            this.Write("\n\t\t\t\t</div>\n\t\t\t");
             
-            #line 85 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t");
+            this.Write("\n\n\t\t\t");
             
-            #line 87 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  if(SDMethod.Documentation[language].Params.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t<h3 class=\"box-title\">");
+            this.Write("\n\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 88 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Parameters));
             
             #line default
             #line hidden
-            this.Write("</h3>\r\n\t\t\t\t\t<div class=\"doc-box markdown\">\r\n\t\t\t\t\t\t");
+            this.Write("</h3>\n\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t");
             
-            #line 90 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  foreach(var parameter in SDMethod.Documentation[language].Params) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t<p>");
+            this.Write("\n\t\t\t\t\t\t<p>");
             
-            #line 91 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.Key));
             
             #line default
             #line hidden
-            this.Write("</p>\r\n\t\t\t\t\t\t\t<div class=\"inline\">\r\n\t\t\t\t\t\t\t\t");
+            this.Write("</p>\n\t\t\t\t\t\t<div class=\"inline\">\n\t\t\t\t\t\t\t");
             
-            #line 93 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(parameter.Value.ToMarkdown())));
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t");
+            this.Write("\n\t\t\t\t\t\t</div>\n\t\t\t\t\t");
             
-            #line 95 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t</div>\r\n\t\t\t\t");
+            this.Write("\n\t\t\t\t</div>\n\t\t\t");
             
-            #line 97 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t");
+            this.Write("\n\n\t\t\t");
             
-            #line 99 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  if(SDMethod.Documentation[language].TypeParams.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t<h3 class=\"box-title\">");
+            this.Write("\n\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 100 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.TypeParameters));
             
             #line default
             #line hidden
-            this.Write("</h3>\r\n\t\t\t\t\t<div class=\"doc-box markdown\">\r\n\t\t\t\t\t\t");
+            this.Write("</h3>\n\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t");
             
-            #line 102 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  foreach(var typeParameter in SDMethod.Documentation[language].TypeParams) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t<p>");
+            this.Write("\n\t\t\t\t\t\t<p>");
             
-            #line 103 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(typeParameter.Key));
             
             #line default
             #line hidden
-            this.Write("</p>\r\n\t\t\t\t\t\t\t<div class=\"inline\">\r\n\t\t\t\t\t\t\t\t");
+            this.Write("</p>\n\t\t\t\t\t\t<div class=\"inline\">\n\t\t\t\t\t\t\t");
             
-            #line 105 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(typeParameter.Value.ToMarkdown())));
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t");
+            this.Write("\n\t\t\t\t\t\t</div>\n\t\t\t\t\t");
             
-            #line 107 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t</div>\r\n\t\t\t\t");
+            this.Write("\n\t\t\t\t</div>\n\t\t\t");
             
-            #line 109 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t");
+            this.Write("\n\n\t\t");
             
-            #line 111 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t");
+            this.Write("\n\n\t\t");
             
-            #line 113 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
 	if(!SDMethod.IsSequenceDiagramEmpty()) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t<div class=\"diagram-box\">\r\n\t\t\t\t\t<img class=\"diagram-image\" src=\"diagrams/");
+            this.Write("\n\t\t\t<div class=\"diagram-box\">\n\t\t\t\t<img class=\"diagram-image\" src=\"diagrams/");
             
-            #line 115 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDMethod.Guid));
             
             #line default
             #line hidden
-            this.Write(".png\"/>\r\n\t\t\t\t</div>\r\n\t\t\t");
+            this.Write(".png\"/>\n\t\t\t</div>\n\t\t");
             
-            #line 117 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t</div>\r\n    </body>\r\n</html>\r\n\r\n");
+            this.Write("\n\t</div>\n</div>\n\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 122 "S:\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
+        #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  
 public SDType SDType { get; set; } 
 public SDMethod SDMethod { get; set; } 

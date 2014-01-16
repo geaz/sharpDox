@@ -8,9 +8,15 @@
 <#@ import namespace="SharpDox.Sdk.Config" #>
 <#@ import namespace="MarkdownSharp" #> 
 
-<#  foreach (var sdNamespace in Repository.GetAllNamespaces())
-{ #>
-	<#= string.Format("<li><a class='pagelink' href='namespace/{0}.html'><i class='icon-chevron-sign-right'></i> <p>{1}</p></a>", sdNamespace.Guid, sdNamespace.Fullname) #>
-<# } #>
+<#  
+var sdNamespaces = Repository.GetAllNamespaces();
+for (int i = 0; i < sdNamespaces.Count; i++)
+{ 
+	var sdNamespace = sdNamespaces[i];
+	var namespaceNavTemplate = new NamespaceNavTemplate { Namespace = sdNamespace }; #>	
+	<#= string.Format("{{\"type\":\"namespaceLink\", \"title\":\"{0}\", \"guid\":\"{1}\", \"children\":[{2}]}}", sdNamespace.Fullname, sdNamespace.Guid, namespaceNavTemplate.TransformText()) #>
+<# 
+	if(i != sdNamespaces.Count - 1) #> , <#
+} #>
 
 <#+	public SDRepository Repository { get; set; } #>

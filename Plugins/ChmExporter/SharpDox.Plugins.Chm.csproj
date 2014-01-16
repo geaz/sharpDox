@@ -79,9 +79,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Templates\Sites\ArticleTemplate.cs">
-      <DependentUpon>ArticleTemplate.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>ArticleTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Templates\Sites\EmptyArticleTemplate.cs">
       <DependentUpon>EmptyArticleTemplate.tt</DependentUpon>
@@ -175,9 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="content\js\jquery.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="content\js\jquery.zoomer.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

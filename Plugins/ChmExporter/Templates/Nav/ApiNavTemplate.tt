@@ -44,7 +44,7 @@
 										
 							<li> <object type="text/sitemap">
 									<param name="Name" value="<#= constructor.Name #>">
-									<param name="Local" value="<#= constructor.Guid #>.html">
+									<param name="Local" value="<#= sdType.Guid #>.html#<#= constructor.Guid #>">
 								</object> </li>
 
 						<# } #>
@@ -66,7 +66,7 @@
 										
 							<li> <object type="text/sitemap">
 									<param name="Name" value="<#= field.Name #>">
-									<param name="Local" value="<#= field.Guid #>.html">
+									<param name="Local" value="<#= sdType.Guid #>.html#<#= field.Guid #>">
 								</object> </li>
 
 						<# } #>
@@ -88,7 +88,7 @@
 										
 							<li> <object type="text/sitemap">
 									<param name="Name" value="<#= property.Name #>">
-									<param name="Local" value="<#= property.Guid #>.html">
+									<param name="Local" value="<#= sdType.Guid #>.html#<#= property.Guid #>">
 								</object> </li>
 
 						<# } #>
@@ -110,7 +110,7 @@
 										
 							<li> <object type="text/sitemap">
 									<param name="Name" value="<#= method.Name #>">
-									<param name="Local" value="<#= method.Guid #>.html">
+									<param name="Local" value="<#= sdType.Guid #>.html#<#= method.Guid #>">
 								</object> </li>
 
 						<# } #>
@@ -132,7 +132,7 @@
 										
 							<li> <object type="text/sitemap">
 									<param name="Name" value="<#= eve.Name #>">
-									<param name="Local" value="<#= eve.Guid #>.html">
+									<param name="Local" value="<#= sdType.Guid #>.html#<#= eve.Guid #>">
 								</object> </li>
 
 						<# } #>

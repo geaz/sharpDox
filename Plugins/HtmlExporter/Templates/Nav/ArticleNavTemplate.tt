@@ -6,32 +6,29 @@
 <#@ import namespace="SharpDox.Model.Repository" #>
 <#@ import namespace="SharpDox.Model.Documentation" #>
 <#@ import namespace="SharpDox.Sdk.Config" #>
-<#@ import namespace="MarkdownSharp" #> 
-<#@ import namespace="SharpDox.Plugins.Html.Templates.Strings" #> 
 
-<ul id="navigation">
-
-<#= string.Format("<li class='navtitle'>{0}</li>", Article.Title) #>
-<#= string.Format("<li><a class='sd-menuback' href='#' data-nav='{0}'><i class='icon-chevron-sign-left'></i> <p>{1}</p></a></li>", Article.Parent != null ? Article.Parent.Title.Replace(" ", "_") : "index", Strings.Back) #>
-<#  foreach (var article in Article.Children)
+<#  for (int i = 0; i < Article.Children.Count; i++)
 	{
+		var article = Article.Children[i];
+
 		if (article.Content == "SDDoc")
-		{ #>
-			<#= string.Format("<li><a class='pagelink' href='#' data-nav='{0}'><i class='icon-chevron-sign-right'></i> <p>{1}</p></a></li>", "api", article.Title) #>
+		{ #>		
+			<# var apiNavTemplate = new ApiNavTemplate { Repository = Repository }; #>						
+			<#= string.Format("{{\"type\":\"api\", \"title\":\"{0}\", \"children\":[{1}]}}", article.Title, apiNavTemplate.TransformText()) #>
 		<# }
 		else if (!string.IsNullOrEmpty(article.Content))
 		{ #>
-			<#= string.Format("<li><a class='pagelink' href='article/{0}.html'><i class='icon-link'></i> <p>{1}</p></a></li>", article.Title.Replace(" ", "_"), article.Title) #>
+			<# var articleNavTemplate = new ArticleNavTemplate { Article = article, Repository = Repository }; #>		
+			<#= string.Format("{{\"type\":\"link\", \"title\":\"{0}\", \"children\":[{1}]}}", article.Title, articleNavTemplate.TransformText()) #>
 		<# }
 		else
 		{ #>
-			<#= string.Format("<li><a class='pagelink' href='#' data-nav='{0}'><i class='icon-chevron-sign-right'></i> <p>{1}</p></a></li>", article.Title.Replace(" ", "_"), article.Title) #>
+			<# var articleNavTemplate = new ArticleNavTemplate { Article = article, Repository = Repository }; #>
+			<#= string.Format("{{\"type\":\"placeholder\", \"title\":\"{0}\", \"children\":[{1}]}}", article.Title, articleNavTemplate.TransformText()) #>
 		<# }
+
+		if(i != Article.Children.Count - 1) #> , <#
 	} #>
 
-</ul>
-
-<#+	public SDRepository Repository { get; set; }
-	public string CurrentLanguage { get; set; }
-	public IStrings Strings { get; set; } 
-	public SDArticle Article { get; set; } #>
+<#+	public SDArticle Article { get; set; }
+	public SDRepository Repository { get; set; } #>

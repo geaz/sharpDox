@@ -45,6 +45,10 @@ html, body{
 	padding: 10px 25px;
 }
 
+.typesite{
+	display:none;
+}
+
 .box-title{
 	margin-top:0;
 }

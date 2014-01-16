@@ -3,6 +3,10 @@ using System.IO;
 using SharpDox.Plugins.Html.Templates.Sites;
 using SharpDox.Model.Repository;
 using SharpDox.Plugins.Html.Templates.Strings;
+using System.Text;
+using SharpDox.Plugins.Html.Templates.Nav;
+using System.Collections.Generic;
+using SharpDox.Model.Documentation;
 
 namespace SharpDox.Plugins.Html.Steps
 {
@@ -20,8 +24,12 @@ namespace SharpDox.Plugins.Html.Steps
 
         private void CreateHtml(HtmlExporter htmlExporter, SDRepository repository, IStrings strings, string docLanguage, string outputPath)
         {
-            var indexTemplate = new IndexTemplate { Repository = repository, Strings = strings, CurrentLanguage = docLanguage };
+            var navJson = GetNavJson(repository, strings, docLanguage);
+            var indexTemplate = new IndexTemplate { Repository = repository, Strings = strings, CurrentLanguage = docLanguage, NavJson = navJson };
             File.WriteAllText(Path.Combine(outputPath, "index.html"), indexTemplate.TransformText());
+
+            var homeTemplate = new HomeTemplate { Repository = repository, Strings = strings, CurrentLanguage = docLanguage };
+            File.WriteAllText(Path.Combine(outputPath, "article", "home.html"), homeTemplate.TransformText());
 
             var namespaceCount = 0d;
             var namespaceTotal = repository.GetAllNamespaces().Count;
@@ -45,69 +53,16 @@ namespace SharpDox.Plugins.Html.Steps
                         Repository = repository
                     };
                     File.WriteAllText(Path.Combine(outputPath, "type", type.Guid + ".html"), typeTemplate.TransformText());
-
-                    foreach (var constructor in type.Constructors)
-                    {
-                        var memberTemplate = new MemberTemplate
-                        {
-                            Strings = strings,
-                            CurrentLanguage = constructor.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
-                            SDType = type,
-                            SDMember = constructor,
-                            Repository = repository
-                        };
-                        File.WriteAllText(Path.Combine(outputPath, "constructor", constructor.Guid + ".html"), memberTemplate.TransformText());
-                    }
-                    foreach (var method in type.Methods)
-                    {
-                        var memberTemplate = new MemberTemplate
-                        {
-                            Strings = strings,
-                            CurrentLanguage = method.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
-                            SDType = type,
-                            SDMember = method,
-                            Repository = repository
-                        };
-                        File.WriteAllText(Path.Combine(outputPath, "method", method.Guid + ".html"), memberTemplate.TransformText());
-                    }
-                    foreach (var field in type.Fields)
-                    {
-                        var memberTemplate = new MemberTemplate
-                        {
-                            Strings = strings,
-                            CurrentLanguage = field.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
-                            SDType = type,
-                            SDMember = field,
-                            Repository = repository
-                        };
-                        File.WriteAllText(Path.Combine(outputPath, "field", field.Guid + ".html"), memberTemplate.TransformText());
-                    }
-                    foreach (var property in type.Properties)
-                    {
-                        var memberTemplate = new MemberTemplate
-                        {
-                            Strings = strings,
-                            CurrentLanguage = property.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
-                            SDType = type,
-                            SDMember = property,
-                            Repository = repository
-                        };
-                        File.WriteAllText(Path.Combine(outputPath, "property", property.Guid + ".html"), memberTemplate.TransformText());
-                    }
-                    foreach (var eve in type.Events)
-                    {
-                        var memberTemplate = new MemberTemplate
-                        {
-                            Strings = strings,
-                            CurrentLanguage = eve.Documentation.ContainsKey(docLanguage) ? docLanguage : "default",
-                            SDType = type,
-                            SDMember = eve,
-                            Repository = repository
-                        };
-                        File.WriteAllText(Path.Combine(outputPath, "event", eve.Guid + ".html"), memberTemplate.TransformText());
-                    }
                 }
             }
+        }
+
+        private string GetNavJson(SDRepository repository, IStrings strings, string currentLanguage)
+        {
+            var indexNavTemplate = new IndexNavTemplate { Repository = repository, Strings = strings, CurrentLanguage = currentLanguage };
+            var indexNav = indexNavTemplate.TransformText().Trim();
+
+            return indexNav;
         }
     }
 }

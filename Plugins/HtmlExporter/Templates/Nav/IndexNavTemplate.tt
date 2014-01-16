@@ -9,32 +9,38 @@
 <#@ import namespace="MarkdownSharp" #> 
 <#@ import namespace="SharpDox.Plugins.Html.Templates.Strings" #> 
 
-<ul id="navigation">
+[{"title":"<#= Strings.Navigation #>", "children":[
 
-<#= string.Format("<li class='navtitle'>{0}</li>", Strings.Navigation) #>
 <# if(Repository.Articles.Count > 0) {
 		var articles = Repository.Articles.ContainsKey(CurrentLanguage) ? Repository.Articles[CurrentLanguage] : Repository.Articles["default"];
-		foreach (var article in articles)
+		for (int i = 0; i < articles.Count; i++)
 		{
+			var article = articles[i];
+
 			if (article.Content == "SDDoc")
-			{ #>
-				<#= string.Format("<li><a class='pagelink' href='#' data-nav='{0}'><i class='icon-chevron-sign-right'></i> <p>{1}</p></a></li>", "api", article.Title) #>
+			{ #>		
+				<# var apiNavTemplate = new ApiNavTemplate { Repository = Repository }; #>						
+				<#= string.Format("{{\"type\":\"api\", \"title\":\"{0}\", \"children\":[{1}]}}", article.Title, apiNavTemplate.TransformText()) #>
 			<# }
 			else if (!string.IsNullOrEmpty(article.Content))
 			{ #>
-				<#= string.Format("<li><a class='pagelink' href='article/{0}.html'><i class='icon-link'></i> <p>{1}</p></a></li>", article.Title.Replace(" ", "_"), article.Title) #>
+				<# var articleNavTemplate = new ArticleNavTemplate { Article = article, Repository = Repository }; #>		
+				<#= string.Format("{{\"type\":\"link\", \"title\":\"{0}\", \"children\":[{1}]}}", article.Title, articleNavTemplate.TransformText()) #>
 			<# }
 			else
 			{ #>
-				<#= string.Format("<li><a class='pagelink' href='#' data-nav='{0}'><i class='icon-chevron-sign-right'></i> <p>{0}</p></a></li>", article.Title.Replace(" ", "_"), article.Title) #>
+				<# var articleNavTemplate = new ArticleNavTemplate { Article = article, Repository = Repository }; #>
+				<#= string.Format("{{\"type\":\"placeholder\", \"title\":\"{0}\", \"children\":[{1}]}}", article.Title, articleNavTemplate.TransformText()) #>
 			<# }
+
+			if(i != articles.Count - 1) #> , <#
 		}
 	} else {
 		var apiNavTemplate = new ApiNavTemplate { Repository = Repository }; #>
 		<#= apiNavTemplate.TransformText() #>
-	<# } #>
+<# } #>
 
-</ul>
+]}]
 
 <#+	public SDRepository Repository { get; set; }
 	public string CurrentLanguage { get; set; }

@@ -58,7 +58,11 @@
 }
 
 #documentation-wrapper #header {
-    height: 105px;
+    height: 110px;
+}
+
+.typesite{
+	display:none;
 }
 
 .type-title {

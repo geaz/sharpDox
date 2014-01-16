@@ -50,7 +50,6 @@
     <Compile Include="HtmlStrings.cs" />
     <Compile Include="HtmlExporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Steps\CreateNavigationStep.cs" />
     <Compile Include="Steps\CreateArticleStep.cs" />
     <Compile Include="Steps\CopyStep.cs" />
     <Compile Include="Steps\CreateHtmlStep.cs" />
@@ -61,18 +60,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Templates\Nav\ApiNavWrapperTemplate.cs">
-      <DependentUpon>ApiNavWrapperTemplate.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Templates\Nav\ApiNavTemplate.cs">
       <DependentUpon>ApiNavTemplate.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Templates\Nav\NamespaceNavTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>NamespaceNavTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\Sites\HomeTemplate.cs">
+      <DependentUpon>HomeTemplate.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -218,10 +217,6 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ArticleNavTemplate.cs</LastGenOutput>
     </None>
-    <None Include="Templates\Nav\ApiNavWrapperTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ApiNavWrapperTemplate.cs</LastGenOutput>
-    </None>
     <None Include="Templates\Nav\ApiNavTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ApiNavTemplate.cs</LastGenOutput>
@@ -229,6 +224,10 @@
     <None Include="Templates\Nav\NamespaceNavTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>NamespaceNavTemplate.cs</LastGenOutput>
+    </None>
+    <None Include="Templates\Sites\HomeTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>HomeTemplate.cs</LastGenOutput>
     </None>
     <None Include="Templates\Sites\ArticleTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -649,6 +648,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\js\vendor\highlight.pack.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\js\Iframe.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\js\Parent.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\js\MemberNav.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\js\vendor\jquery.hashchange.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

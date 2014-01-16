@@ -6,21 +6,12 @@
 <#@ import namespace="SharpDox.Model.Repository" #>
 <#@ import namespace="SharpDox.Model.Documentation" #>
 <#@ import namespace="SharpDox.Sdk.Config" #>
-<#@ import namespace="MarkdownSharp" #> 
-<#@ import namespace="SharpDox.Plugins.Html.Templates.Strings" #> 
 
-<ul id="navigation">
+<#  for (int i = 0; i < Namespace.Types.Count; i++)
+	{ 
+		var sdType = Namespace.Types[i]; #>
+		<#= string.Format("{{\"type\":\"typeLink\", \"title\":\"{0}\", \"guid\":\"{1}\"}}", sdType.Name, sdType.Guid) #>
+<#		if(i != Namespace.Types.Count - 1) #> , <#
+	}	#>
 
-<#= string.Format("<li class='navtitle'>{0}</li>", Namespace.Fullname) #>
-<#= string.Format("<li><a class='sd-menuback' href='#' data-nav='{0}'><i class='icon-chevron-sign-left'></i> <p>{1}</p></a></li>", ApiUrl, Strings.Back) #>
-<#= string.Format("<li><a class='sd-menudescription' href='namespace/{0}.html'><i class='icon-file-text-alt'></i> <p>{1}</p></a></li>", Namespace.Guid, Strings.Description) #>
-<#  foreach (var sdType in Namespace.Types)
-{ #>
-	<#= string.Format("<li><a class='pagelink' href='type/{0}.html'><i class='icon-link'></i> <p>{1}</p></a>", sdType.Guid, sdType.Name) #>
-<# } #>
-
-</ul>
-
-<#+	public IStrings Strings { get; set; }
-	public string ApiUrl { get; set; }
-	public SDNamespace Namespace { get; set; } #>
+<#+	public SDNamespace Namespace { get; set; } #>

@@ -1,59 +1,62 @@
-var urlPrefix;
+var navData;
+var nav;
 
 $(document).ready(function () {
-    urlPrefix = "../";
-    if ($('meta[name=indexpage]').length > 0) urlPrefix = "";
-
-    initNav();
+    navData = $.parseJSON($('#navdata').html());		
+	nav = $('#navigation');
+	
+	loadNav(0);
 });
 
-function initNav() {
-    var nav = $("#navigation-container");
-    nav.load(urlPrefix + "nav/" + nav.attr("data-nav") + ".html", function () {
-        initNavOnClick();
-        initNavUrls();
-        initImgUrls();
-        initNavWrap();
-    });
+function loadNav(navIndex){
+	
+	var tmpNav = GetNav(navIndex);
+
+	nav.empty();
+	nav.append('<li class="navtitle">' + tmpNav["title"] + '</li>');
+	
+	if(navIndex.length > 1){
+		var arr = navIndex.split(".");
+		arr.pop();
+		nav.append('<li><a class="sd-menuback" href="#" onClick="loadNav(\'' + arr.join(".") + '\')"><i class="icon-chevron-sign-left"></i> <p>' + backString + '</p></a></li>');
+	}
+	
+	if(tmpNav["type"] == "namespaceLink"){
+		nav.append('<li><a class="sd-menudescription" onClick="SetDocSite(\'namespace/' + tmpNav["guid"] + '.html\')" href="#"><i class="icon-file-text-alt"></i> <p>' + descString + '</p></a></li>');
+	}
+	
+	$.each(tmpNav["children"], function (key, value){			
+		if(value["type"] == "placeholder" || value["type"] == "api" ){
+			nav.append('<li><a class="pagelink" onClick="loadNav(\'' + [navIndex, key].join(".") + '\')" href="#"><i class="icon-chevron-sign-right"></i> <p>' + value["title"] + '</p></a></li>');
+		}
+		else if(value["type"] == "link"){
+			nav.append('<li><a class="pagelink" onClick="SetDocSite(\'article/' + value["title"].replace(new RegExp(' ', 'g'), '_') + '.html\')" href="#"><i class="icon-link"></i> <p>' + value["title"] + '</p></a></li>');
+		}
+		else if(value["type"] == "namespaceLink"){
+			nav.append('<li><a class="pagelink" onClick="loadNav(\'' + [navIndex, key].join(".") + '\'); SetDocSite(\'namespace/' + value["guid"] + '.html\')" href="#"><i class="icon-chevron-sign-right"></i> <p>' + value["title"] + '</p></a></li>');
+		}
+		else if(value["type"] == "typeLink"){
+			nav.append('<li><a class="pagelink" href="#" onClick="SetDocSite(\'type/' + value["guid"] + '.html\')"><i class="icon-link"></i> <p>' + value["title"] + '</p></a></li>');
+		}
+	});
+	
+	initNavWrap();
 }
 
-function initNavUrls() {
-    var links = $("a").not('[href^="http://"],[href^="https://"],[href="#"],[href^="../"]');
-    $.each(links, function (key, value) {
-        if ($(value).is('[href]')) {
-            $(value).attr('href', urlPrefix + $(value).attr('href'));
-        }
-        else {
-            $(value).attr('xlink:href', urlPrefix + $(value).attr('xlink:href'));
-        }
-    });
+function SetDocSite(url){
+	$("#docFrame").attr('src', url);
 }
 
-function initImgUrls() {
-    var images = $("img").not('[src^="http://"],[src^="../"]');
-    $.each(images, function (key, value) {
-        var src = $(value).attr('src');
-        $(value).attr('src', urlPrefix + src);
-    });
-}
-
-function initNavOnClick() {
-    var items = $("#navigation a[href='#']");
-    items.click(function () {
-        if ($(this).is("[data-nav]")) {
-            Go(this);
-        }
-    });
-}
-
-function Go(item) {
-    var nav = $("#navigation-container");
-    nav.load(urlPrefix + "nav/" + $(item).attr("data-nav") + ".html", function () {
-        initNavOnClick();
-        initNavUrls();
-        initImgUrls();
-        initNavWrap();
-    });
+function GetNav(navIndexKey){
+	var navIndices = navIndexKey.toString().split(".")
+	var tmpNav = navData;
+	$.each(navIndices, function (key, value){
+		tmpNav = tmpNav[value];
+		if(key < navIndices.length - 1)
+			tmpNav = tmpNav["children"];
+	});
+	
+	return tmpNav;
 }
 
 function initNavWrap() {
@@ -66,7 +69,7 @@ function initNavWrap() {
             var textIndex = 0;
             $(val).remove();
             for (var i = 0; i < lineBreaks; i++) {
-                textIndex = createNewParagraph(parent, splittedText, textIndex);
+				    textIndex = createNewParagraph(parent, splittedText, textIndex);
             }
         }
     });

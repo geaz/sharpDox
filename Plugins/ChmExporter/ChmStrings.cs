@@ -9,13 +9,9 @@ namespace SharpDox.Plugins.Chm
         private string _createIndex = "Creating index file";
         private string _createToc = "Creating toc file";
         private string _createProject = "Creating project file";
-        private string _createNamespaces = "Creating namespace files";
-        private string _createTypes = "Creating type files";
-        private string _createFields = "Creating field files";
-        private string _createEvents = "Creating event files";
-        private string _createProperties = "Creating property files";
-        private string _createMethods = "Creating method files";
         private string _createArticles = "Creating article files";
+        private string _createIndexFilesFor = "Creating index files for";
+        private string _createType = "Creating type";
         private string _compiling = "Compiling chm";
         private string _saving = "Saving chm to output";
         private string _cleaning = "Cleaning temporary folder";
@@ -72,42 +68,6 @@ namespace SharpDox.Plugins.Chm
         {
             get { return _createArticles; }
             set { _createArticles = value; }
-        }
-
-        public string CreateNamespaces
-        {
-            get { return _createNamespaces; }
-            set { _createNamespaces = value; }
-        }
-
-        public string CreateTypes
-        {
-            get { return _createTypes; }
-            set { _createTypes = value; }
-        }
-
-        public string CreateFields
-        {
-            get { return _createFields; }
-            set { _createFields = value; }
-        }
-
-        public string CreateEvents
-        {
-            get { return _createEvents; }
-            set { _createEvents = value; }
-        }
-
-        public string CreateProperties
-        {
-            get { return _createProperties; }
-            set { _createProperties = value; }
-        }
-
-        public string CreateMethods
-        {
-            get { return _createMethods; }
-            set { _createMethods = value; }
         }
 
         public string Compiling
@@ -222,6 +182,18 @@ namespace SharpDox.Plugins.Chm
         {
             get { return _syntaxBoxTextColor; }
             set { _syntaxBoxTextColor = value; }
+        }
+
+        public string CreateIndexFilesFor
+        {
+            get { return _createIndexFilesFor; }
+            set { _createIndexFilesFor = value; }
+        }
+
+        public string CreateType
+        {
+            get { return _createType; }
+            set { _createType = value; }
         }
     }
 }

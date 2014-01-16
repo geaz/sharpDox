@@ -22,7 +22,7 @@ namespace SharpDox.Plugins.Chm.Templates.Nav
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+    #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class ApiNavTemplate : ApiNavTemplateBase
     {
@@ -32,388 +32,430 @@ namespace SharpDox.Plugins.Chm.Templates.Nav
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n\n");
             
-            #line 11 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  foreach (var nameSpace in SDRepository.GetAllNamespaces()) { 
             
             #line default
             #line hidden
-            this.Write("                \r\n<li> <object type=\"text/sitemap\">\r\n\t\t<param name=\"Name\" value=\"" +
-                    "");
+            this.Write("\n                \n<li> <object type=\"text/sitemap\">\n\t\t<param name=\"Name\" value=\"");
             
-            #line 14 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(nameSpace.Fullname));
             
             #line default
             #line hidden
-            this.Write("\">\r\n\t\t<param name=\"Local\" value=\"");
+            this.Write("\">\n\t\t<param name=\"Local\" value=\"");
             
-            #line 15 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(nameSpace.Guid));
             
             #line default
             #line hidden
-            this.Write(".html\">\r\n\t</object>\r\n\r\n\t");
+            this.Write(".html\">\n\t</object>\n\n\t");
             
-            #line 18 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  if (nameSpace.Types.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("                    \r\n\t\t<ul>\r\n\r\n\t\t");
+            this.Write("\n                    \n\t\t<ul>\n\n\t\t");
             
-            #line 22 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  foreach (var type in nameSpace.Types) {
 
 			var sdType = SDRepository.GetTypeByIdentifier(type.Identifier); 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t<li> <object type=\"text/sitemap\">\r\n\t\t\t\t\t<param name=\"Name\" value=\"");
+            this.Write("\n\n\t\t\t<li> <object type=\"text/sitemap\">\n\t\t\t\t\t<param name=\"Name\" value=\"");
             
-            #line 27 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Name));
             
             #line default
             #line hidden
-            this.Write("\">\r\n\t\t\t\t\t<param name=\"Local\" value=\"");
+            this.Write("\">\n\t\t\t\t\t<param name=\"Local\" value=\"");
             
-            #line 28 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Guid));
             
             #line default
             #line hidden
-            this.Write(".html\">\r\n\t\t\t\t</object>\r\n                    \r\n\t\t\t");
+            this.Write(".html\">\n\t\t\t\t</object>\n                    \n\t\t\t");
             
-            #line 31 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  if (sdType.Constructors.Count > 0 || sdType.Fields.Count > 0 || sdType.Properties.Count > 0 || sdType.Methods.Count > 0 || sdType.Events.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("                            \r\n\t\t\t\t<ul>\r\n\r\n\t\t\t\t");
+            this.Write("\n                            \n\t\t\t\t<ul>\n\n\t\t\t\t");
             
-            #line 35 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  if (sdType.Constructors.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t<li> <object type=\"text/sitemap\">\r\n\t\t\t\t\t\t\t<param name=\"Name\" value" +
-                    "=\"");
+            this.Write("\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t<li> <object type=\"text/sitemap\">\n\t\t\t\t\t\t\t<param name=\"Name\" value=" +
+                    "\"");
             
-            #line 38 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Constructors));
             
             #line default
             #line hidden
-            this.Write("\">\r\n\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
+            this.Write("\">\n\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
             
-            #line 39 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Guid));
             
             #line default
             #line hidden
-            this.Write("-Constructors.html\">\r\n\t\t\t\t\t\t</object>\r\n\t\t\t\t\t\t<ul>\r\n\r\n\t\t\t\t\t\t");
+            this.Write("-Constructors.html\">\n\t\t\t\t\t\t</object>\n\t\t\t\t\t\t<ul>\n\n\t\t\t\t\t\t");
             
-            #line 43 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  foreach (var constructor in sdType.Constructors)	{ 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<li> <object type=\"text/sitemap\">\r\n\t\t\t\t\t\t\t\t\t<param name=\"Name\"" +
-                    " value=\"");
+            this.Write("\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<li> <object type=\"text/sitemap\">\n\t\t\t\t\t\t\t\t\t<param name=\"Name\" " +
+                    "value=\"");
             
-            #line 46 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(constructor.Name));
             
             #line default
             #line hidden
-            this.Write("\">\r\n\t\t\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
+            this.Write("\">\n\t\t\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
             
-            #line 47 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Guid));
+            
+            #line default
+            #line hidden
+            this.Write(".html#");
+            
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(constructor.Guid));
             
             #line default
             #line hidden
-            this.Write(".html\">\r\n\t\t\t\t\t\t\t\t</object> </li>\r\n\r\n\t\t\t\t\t\t");
+            this.Write("\">\n\t\t\t\t\t\t\t\t</object> </li>\n\n\t\t\t\t\t\t");
             
-            #line 50 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t</li>\r\n\r\n\t\t\t\t");
+            this.Write("\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</li>\n\n\t\t\t\t");
             
-            #line 55 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t");
+            this.Write("\n\n\t\t\t\t");
             
-            #line 57 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  if (sdType.Fields.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t<li> <object type=\"text/sitemap\">\r\n\t\t\t\t\t\t\t<param name=\"Name\" value" +
-                    "=\"");
+            this.Write("\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t<li> <object type=\"text/sitemap\">\n\t\t\t\t\t\t\t<param name=\"Name\" value=" +
+                    "\"");
             
-            #line 60 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Fields));
             
             #line default
             #line hidden
-            this.Write("\">\r\n\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
+            this.Write("\">\n\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
             
-            #line 61 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Guid));
             
             #line default
             #line hidden
-            this.Write("-Fields.html\">\r\n\t\t\t\t\t\t</object>\r\n\t\t\t\t\t\t<ul>\r\n\r\n\t\t\t\t\t\t");
+            this.Write("-Fields.html\">\n\t\t\t\t\t\t</object>\n\t\t\t\t\t\t<ul>\n\n\t\t\t\t\t\t");
             
-            #line 65 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  foreach (var field in sdType.Fields)	{ 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<li> <object type=\"text/sitemap\">\r\n\t\t\t\t\t\t\t\t\t<param name=\"Name\"" +
-                    " value=\"");
+            this.Write("\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<li> <object type=\"text/sitemap\">\n\t\t\t\t\t\t\t\t\t<param name=\"Name\" " +
+                    "value=\"");
             
-            #line 68 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
             
             #line default
             #line hidden
-            this.Write("\">\r\n\t\t\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
+            this.Write("\">\n\t\t\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
             
-            #line 69 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Guid));
+            
+            #line default
+            #line hidden
+            this.Write(".html#");
+            
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.Guid));
             
             #line default
             #line hidden
-            this.Write(".html\">\r\n\t\t\t\t\t\t\t\t</object> </li>\r\n\r\n\t\t\t\t\t\t");
+            this.Write("\">\n\t\t\t\t\t\t\t\t</object> </li>\n\n\t\t\t\t\t\t");
             
-            #line 72 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t</li>\r\n\r\n\t\t\t\t");
+            this.Write("\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</li>\n\n\t\t\t\t");
             
-            #line 77 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t");
+            this.Write("\n\n\t\t\t\t");
             
-            #line 79 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  if (sdType.Properties.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t<li> <object type=\"text/sitemap\">\r\n\t\t\t\t\t\t\t<param name=\"Name\" value" +
-                    "=\"");
+            this.Write("\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t<li> <object type=\"text/sitemap\">\n\t\t\t\t\t\t\t<param name=\"Name\" value=" +
+                    "\"");
             
-            #line 82 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Properties));
             
             #line default
             #line hidden
-            this.Write("\">\r\n\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
+            this.Write("\">\n\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
             
-            #line 83 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Guid));
             
             #line default
             #line hidden
-            this.Write("-Properties.html\">\r\n\t\t\t\t\t\t</object>\r\n\t\t\t\t\t\t<ul>\r\n\r\n\t\t\t\t\t\t");
+            this.Write("-Properties.html\">\n\t\t\t\t\t\t</object>\n\t\t\t\t\t\t<ul>\n\n\t\t\t\t\t\t");
             
-            #line 87 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  foreach (var property in sdType.Properties)	{ 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<li> <object type=\"text/sitemap\">\r\n\t\t\t\t\t\t\t\t\t<param name=\"Name\"" +
-                    " value=\"");
+            this.Write("\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<li> <object type=\"text/sitemap\">\n\t\t\t\t\t\t\t\t\t<param name=\"Name\" " +
+                    "value=\"");
             
-            #line 90 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
-            this.Write("\">\r\n\t\t\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
+            this.Write("\">\n\t\t\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
             
-            #line 91 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Guid));
+            
+            #line default
+            #line hidden
+            this.Write(".html#");
+            
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Guid));
             
             #line default
             #line hidden
-            this.Write(".html\">\r\n\t\t\t\t\t\t\t\t</object> </li>\r\n\r\n\t\t\t\t\t\t");
+            this.Write("\">\n\t\t\t\t\t\t\t\t</object> </li>\n\n\t\t\t\t\t\t");
             
-            #line 94 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t</li>\r\n\r\n\t\t\t\t");
+            this.Write("\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</li>\n\n\t\t\t\t");
             
-            #line 99 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t");
+            this.Write("\n\n\t\t\t\t");
             
-            #line 101 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  if (sdType.Methods.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t<li> <object type=\"text/sitemap\">\r\n\t\t\t\t\t\t\t<param name=\"Name\" value" +
-                    "=\"");
+            this.Write("\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t<li> <object type=\"text/sitemap\">\n\t\t\t\t\t\t\t<param name=\"Name\" value=" +
+                    "\"");
             
-            #line 104 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Methods));
             
             #line default
             #line hidden
-            this.Write("\">\r\n\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
+            this.Write("\">\n\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
             
-            #line 105 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Guid));
             
             #line default
             #line hidden
-            this.Write("-Methods.html\">\r\n\t\t\t\t\t\t</object>\r\n\t\t\t\t\t\t<ul>\r\n\r\n\t\t\t\t\t\t");
+            this.Write("-Methods.html\">\n\t\t\t\t\t\t</object>\n\t\t\t\t\t\t<ul>\n\n\t\t\t\t\t\t");
             
-            #line 109 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  foreach (var method in sdType.Methods)	{ 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<li> <object type=\"text/sitemap\">\r\n\t\t\t\t\t\t\t\t\t<param name=\"Name\"" +
-                    " value=\"");
+            this.Write("\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<li> <object type=\"text/sitemap\">\n\t\t\t\t\t\t\t\t\t<param name=\"Name\" " +
+                    "value=\"");
             
-            #line 112 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(method.Name));
             
             #line default
             #line hidden
-            this.Write("\">\r\n\t\t\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
+            this.Write("\">\n\t\t\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
             
-            #line 113 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(method.Guid));
-            
-            #line default
-            #line hidden
-            this.Write(".html\">\r\n\t\t\t\t\t\t\t\t</object> </li>\r\n\r\n\t\t\t\t\t\t");
-            
-            #line 116 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t</li>\r\n\r\n\t\t\t\t");
-            
-            #line 121 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n\t\t\t\t");
-            
-            #line 123 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
- if (sdType.Events.Count > 0) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t<li> <object type=\"text/sitemap\">\r\n\t\t\t\t\t\t\t<param name=\"Name\" value" +
-                    "=\"");
-            
-            #line 126 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Events));
-            
-            #line default
-            #line hidden
-            this.Write("\">\r\n\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
-            
-            #line 127 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Guid));
             
             #line default
             #line hidden
-            this.Write("-Events.html\">\r\n\t\t\t\t\t\t</object>\r\n\t\t\t\t\t\t<ul>\r\n\r\n\t\t\t\t\t\t");
+            this.Write(".html#");
             
-            #line 131 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(method.Guid));
+            
+            #line default
+            #line hidden
+            this.Write("\">\n\t\t\t\t\t\t\t\t</object> </li>\n\n\t\t\t\t\t\t");
+            
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</li>\n\n\t\t\t\t");
+            
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\n\n\t\t\t\t");
+            
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+ if (sdType.Events.Count > 0) { 
+            
+            #line default
+            #line hidden
+            this.Write("\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t<li> <object type=\"text/sitemap\">\n\t\t\t\t\t\t\t<param name=\"Name\" value=" +
+                    "\"");
+            
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Events));
+            
+            #line default
+            #line hidden
+            this.Write("\">\n\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
+            
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Guid));
+            
+            #line default
+            #line hidden
+            this.Write("-Events.html\">\n\t\t\t\t\t\t</object>\n\t\t\t\t\t\t<ul>\n\n\t\t\t\t\t\t");
+            
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  foreach (var eve in sdType.Events)	{ 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<li> <object type=\"text/sitemap\">\r\n\t\t\t\t\t\t\t\t\t<param name=\"Name\"" +
-                    " value=\"");
+            this.Write("\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<li> <object type=\"text/sitemap\">\n\t\t\t\t\t\t\t\t\t<param name=\"Name\" " +
+                    "value=\"");
             
-            #line 134 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eve.Name));
             
             #line default
             #line hidden
-            this.Write("\">\r\n\t\t\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
+            this.Write("\">\n\t\t\t\t\t\t\t\t\t<param name=\"Local\" value=\"");
             
-            #line 135 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(sdType.Guid));
+            
+            #line default
+            #line hidden
+            this.Write(".html#");
+            
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eve.Guid));
             
             #line default
             #line hidden
-            this.Write(".html\">\r\n\t\t\t\t\t\t\t\t</object> </li>\r\n\r\n\t\t\t\t\t\t");
+            this.Write("\">\n\t\t\t\t\t\t\t\t</object> </li>\n\n\t\t\t\t\t\t");
             
-            #line 138 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t</li>\r\n\r\n\t\t\t\t");
+            this.Write("\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</li>\n\n\t\t\t\t");
             
-            #line 143 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t</ul>\r\n\r\n\t\t\t");
+            this.Write("\n\n\t\t\t\t</ul>\n\n\t\t\t");
             
-            #line 147 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t</li>\r\n\r\n\t\t");
+            this.Write("\n\n\t\t\t</li>\n\n\t\t");
             
-            #line 151 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t</ul>\r\n\r\n\t");
+            this.Write("\n\n\t\t</ul>\n\n\t");
             
-            #line 155 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t</li>\r\n\r\n");
+            this.Write("\n\n\t</li>\n\n");
             
-            #line 159 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+            #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n");
+            this.Write("\n\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 161 "E:\Git\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
+        #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Nav\ApiNavTemplate.tt"
  
 public SDRepository SDRepository { get; set; }
 public IStrings Strings { get; set; }

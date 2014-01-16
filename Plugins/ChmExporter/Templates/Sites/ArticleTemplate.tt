@@ -5,9 +5,9 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="SharpDox.Model.Repository" #>
 <#@ import namespace="SharpDox.Model.Documentation" #>
+<#@ import namespace="SharpDox.Plugins.Chm.Templates.Strings" #>
 <#@ import namespace="SharpDox.Sdk.Config" #>
 <#@ import namespace="SharpDox.Sdk" #>
-<#@ import namespace="SharpDox.Plugins.Chm.Templates.Strings" #>
 <#@ import namespace="MarkdownSharp" #>
 
 <html>
@@ -16,14 +16,6 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <link rel="stylesheet" type="text/css" href="css/reset.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <script src="js/jquery.js" type="text/javascript"></script>
-        
-        <script type="text/javascript">
-            $(document).ready(function() {
-                
-            });
-        </script>
-
     </head>
     <body>     
 		<div id="header">
@@ -44,7 +36,7 @@
     </body>
 </html>
 
-<#+ 
+<#+
 public SDArticle SDArticle { get; set; }
 public SDRepository Repository { get; set; }
 public SDProjectInfo ProjectInfo { get; set; }

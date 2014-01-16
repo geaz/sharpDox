@@ -40,24 +40,24 @@
         
 		<div id="documentation-wrapper">
 			<div id="header">
-				<h2 class="type-title"><#= Article.Title #></h2>
+				<h2 class="type-title"><#= Strings.By #> <#= Repository.ProjectInfo.Author != null ? Repository.ProjectInfo.Author : string.Empty #></h2>
 				<# if(!string.IsNullOrEmpty(Repository.ProjectInfo.VersionNumber)) { #>
-					<span class="namespace-title">Version <#= Repository.ProjectInfo.VersionNumber #></span>
+					<span class="namespace-title">Version <#= Repository.ProjectInfo.VersionNumber != null ? Repository.ProjectInfo.VersionNumber : string.Empty #></span>
 				<# } #>
 			</div>
 			<div id="pagecontent">
-
-				<h3 class="box-title first-heading"><#= Strings.Article #></h3>
+					
+				<h3 class="box-title first-heading"><#= Strings.Description #></h3>
 				<div class="divider">
 				<span></span>
 				</div>
 
 				<div class="text-box markdown">
-					<#	var template = new Templater(Repository, Article.Content); 
-						var helper = new Helper(Repository);
-						var article = template.TransformText(helper.TransformLinkToken); #>
-
-					<#= new Markdown().Transform(article) #>
+					<# if(Repository.ProjectInfo.Description.Count > 0 && Repository.ProjectInfo.Description.ContainsKey(CurrentLanguage)) { #>
+						<#= new Markdown().Transform(Repository.ProjectInfo.Description[CurrentLanguage]) #>
+					<# } else if(Repository.ProjectInfo.Description.Count > 0) { #>
+						<#= new Markdown().Transform(Repository.ProjectInfo.Description["default"]) #>
+					<# } #>
 				</div>
 
 			</div>
@@ -66,6 +66,6 @@
     </body>
 </html>
 
-<#+	public SDRepository Repository { get; set; }
-	public SDArticle Article { get; set; } 
+<#+	public string CurrentLanguage { get; set; }
+	public SDRepository Repository { get; set; }
 	public IStrings Strings { get; set; } #>

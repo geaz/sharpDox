@@ -11,15 +11,9 @@ namespace SharpDox.Plugins.Html.Steps
 
             CreateFolder(htmlExporter.OutputPath, "namespace");
             CreateFolder(htmlExporter.OutputPath, "type");
-            CreateFolder(htmlExporter.OutputPath, "constructor");
-            CreateFolder(htmlExporter.OutputPath, "method");
-            CreateFolder(htmlExporter.OutputPath, "field");
-            CreateFolder(htmlExporter.OutputPath, "property");
-            CreateFolder(htmlExporter.OutputPath, "event");
             CreateFolder(htmlExporter.OutputPath, "article");
-            CreateFolder(htmlExporter.OutputPath, "nav");
 
-            htmlExporter.CurrentStep = new CreateNavigationStep();
+            htmlExporter.CurrentStep = new CreateArticleStep();
         }
 
         public static void CreateFolder(string path, string name)
