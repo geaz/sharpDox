@@ -61,13 +61,11 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
 
         <script type=""text/javascript"">
             var activeDiv;
+			var oldHash = window.location.hash;
 
 			$(document).ready(function () {
 				onHashChange();
-
-				$(window).on('hashchange', function() {
-					onHashChange();
-				});
+				setHashCheck();
 			});
 
 			function onHashChange(){
@@ -81,6 +79,17 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
 					$(""#typeIndex"").show();
 				}
 			}
+
+			function setHashCheck(){
+				oldHash = window.location.hash;
+
+				setInterval(function() {
+					if(oldHash !== window.location.hash) {
+						oldHash = window.location.hash;
+						onHashChange();
+					}
+				}, 20);
+			}
         </script>
 
     </head>
@@ -89,84 +98,84 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
 			<div id=""header"">
 				<h2 class=""type-title"">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Name));
             
             #line default
             #line hidden
             this.Write("</h2>\n\t\t\t\t<span class=\"namespace-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Namespace.Fullname));
             
             #line default
             #line hidden
             this.Write("</span>\n\t\t\t</div>\n\t\t\t<div id=\"subheader\">\n\t\t\t\t<a href=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDRepository.ProjectInfo.ProjectName.Replace(" ", "")));
             
             #line default
             #line hidden
             this.Write("-Index.html\">Start</a> > <a href=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Namespace.Guid));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Namespace.Fullname));
             
             #line default
             #line hidden
             this.Write("</a> > <a href=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Guid));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Name));
             
             #line default
             #line hidden
             this.Write("</a>\n\t\t\t</div>\n\t\t\n\t\t\t<div id=\"content\">\n\n\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Syntax));
             
             #line default
             #line hidden
             this.Write("</h3>\n\t\t\t\t<div class=\"syntax-box\">\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(WebUtility.HtmlEncode(SDType.Syntax)));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t</div>\n\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(SDType.BaseTypes.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Basetype));
             
             #line default
             #line hidden
             this.Write("</h3>\n\t\t\t\t\t<div class=\"list-box\">\n\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  foreach(var baseType in SDType.BaseTypes) { 
 							if(baseType.IsProjectStranger) { 
             
@@ -174,70 +183,70 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t<li>");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(baseType.Fullname));
             
             #line default
             #line hidden
             this.Write("</a></li>\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } else { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t<li><a href=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(baseType.Guid));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(baseType.Fullname));
             
             #line default
             #line hidden
             this.Write("</a></li>\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(SDType.ImplementedInterfaces.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Implements));
             
             #line default
             #line hidden
             this.Write("</h3>\n\t\t\t\t\t<div class=\"list-box\">\n\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  foreach(var implementedInterface in SDType.ImplementedInterfaces) {
 							if(implementedInterface.IsProjectStranger) { 
             
@@ -245,56 +254,56 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t<li>");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(implementedInterface.Fullname));
             
             #line default
             #line hidden
             this.Write("</a></li>\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } else { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t<li><a href=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(implementedInterface.Guid));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(implementedInterface.Fullname));
             
             #line default
             #line hidden
             this.Write("</a></li>\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  var language = SDType.Documentation.ContainsKey(CurrentLanguage) ? CurrentLanguage : "default";
 				if(SDType.Documentation.Count > 0) { 
             
@@ -302,273 +311,273 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             #line hidden
             this.Write("\n\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(SDType.Documentation[language].Summary.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Summary));
             
             #line default
             #line hidden
             this.Write("</h3>\n\t\t\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(SDType.Documentation[language].Summary.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t</div>\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(SDType.Documentation[language].Remarks.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Remarks));
             
             #line default
             #line hidden
             this.Write("</h3>\n\t\t\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(SDType.Documentation[language].Remarks.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t</div>\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(SDType.Documentation[language].Example.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Example));
             
             #line default
             #line hidden
             this.Write("</h3>\n\t\t\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(SDType.Documentation[language].Example.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t</div>\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(SDType.Documentation[language].Returns.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Returns));
             
             #line default
             #line hidden
             this.Write("</h3>\n\t\t\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(SDType.Documentation[language].Returns.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t</div>\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(SDType.Documentation[language].Exceptions.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Exceptions));
             
             #line default
             #line hidden
             this.Write("</h3>\n\t\t\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  foreach(var exception in SDType.Documentation[language].Exceptions) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t<p>");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(exception.Key));
             
             #line default
             #line hidden
             this.Write("</p>\n\t\t\t\t\t\t\t\t<div class=\"inline\">\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(exception.Value.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t</div>\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(SDType.Documentation[language].Params.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Parameters));
             
             #line default
             #line hidden
             this.Write("</h3>\n\t\t\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  foreach(var parameter in SDType.Documentation[language].Params) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t<p>");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.Key));
             
             #line default
             #line hidden
             this.Write("</p>\n\t\t\t\t\t\t\t\t<div class=\"inline\">\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(parameter.Value.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t</div>\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(SDType.Documentation[language].TypeParams.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.TypeParameters));
             
             #line default
             #line hidden
             this.Write("</h3>\n\t\t\t\t\t\t<div class=\"doc-box markdown\">\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  foreach(var typeParameter in SDType.Documentation[language].TypeParams) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t<p>");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(typeParameter.Key));
             
             #line default
             #line hidden
             this.Write("</p>\n\t\t\t\t\t\t\t\t<div class=\"inline\">\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(typeParameter.Value.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t</div>\n\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t<h2 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Members));
             
             #line default
@@ -576,21 +585,21 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             this.Write("</h2>\n\t\t\t\t<div class=\"table-box\">\n\t\t\t\t\t<table>\n\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t" +
                     "<td></td>\n\t\t\t\t\t\t\t\t<td>");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Name));
             
             #line default
             #line hidden
             this.Write("</td>\n\t\t\t\t\t\t\t\t<td>");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Summary));
             
             #line default
             #line hidden
             this.Write("</td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t<tbody>\n\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
 	foreach(var sdField in SDType.Fields) {
 							var typeLanguage = sdField.Documentation.ContainsKey(CurrentLanguage) ? CurrentLanguage : "default"; 
             
@@ -599,63 +608,63 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             this.Write("\n\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td class=\"iconColumn\">\n\t\t\t\t\t\t\t\t\t<img alt=\"Field-Icon\" src=" +
                     "\"icons/Field_");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdField.Accessibility));
             
             #line default
             #line hidden
             this.Write(".png\">\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t<a title=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdField.Name));
             
             #line default
             #line hidden
             this.Write("\" href=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Guid));
             
             #line default
             #line hidden
             this.Write(".html#");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdField.Guid));
             
             #line default
             #line hidden
             this.Write("\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdField.Name));
             
             #line default
             #line hidden
             this.Write("</a>\n\t\t\t\t\t\t\t\t</td>\t\n\t\t\t\t\t\t\t\t<td class=\"markdown\">\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(sdField.Documentation.Count > 0 && sdField.Documentation[typeLanguage].Summary.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(sdField.Documentation[typeLanguage].Summary.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  }		
 
 							foreach(var sdEvent in SDType.Events) {
@@ -666,63 +675,63 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             this.Write("\n\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td class=\"iconColumn\">\n\t\t\t\t\t\t\t\t\t<img alt=\"Event-Icon\" src=" +
                     "\"icons/Event_");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdEvent.Accessibility));
             
             #line default
             #line hidden
             this.Write(".png\">\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t<a title=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdEvent.Name));
             
             #line default
             #line hidden
             this.Write("\" href=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Guid));
             
             #line default
             #line hidden
             this.Write(".html#");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdEvent.Guid));
             
             #line default
             #line hidden
             this.Write("\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdEvent.Name));
             
             #line default
             #line hidden
             this.Write("</a>\n\t\t\t\t\t\t\t\t</td>\t\n\t\t\t\t\t\t\t\t<td class=\"markdown\">\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(sdEvent.Documentation.Count > 0 && sdEvent.Documentation[typeLanguage].Summary.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(sdEvent.Documentation[typeLanguage].Summary.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  }
 
 							foreach(var sdConstructor in SDType.Constructors) {
@@ -733,63 +742,63 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             this.Write("\n\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td class=\"iconColumn\">\n\t\t\t\t\t\t\t\t\t<img alt=\"Constructor-Icon" +
                     "\" src=\"icons/Method_");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdConstructor.Accessibility));
             
             #line default
             #line hidden
             this.Write(".png\">\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t<a title=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdConstructor.Name));
             
             #line default
             #line hidden
             this.Write("\" href=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Guid));
             
             #line default
             #line hidden
             this.Write(".html#");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdConstructor.Guid));
             
             #line default
             #line hidden
             this.Write("\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdConstructor.Name));
             
             #line default
             #line hidden
             this.Write("</a>\n\t\t\t\t\t\t\t\t</td>\t\n\t\t\t\t\t\t\t\t<td class=\"markdown\">\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(sdConstructor.Documentation.Count > 0 && sdConstructor.Documentation[typeLanguage].Summary.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(sdConstructor.Documentation[typeLanguage].Summary.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  }
 
 							foreach(var sdMethod in SDType.Methods) {
@@ -800,63 +809,63 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             this.Write("\n\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td class=\"iconColumn\">\n\t\t\t\t\t\t\t\t\t<img alt=\"Constructor-Icon" +
                     "\" src=\"icons/Method_");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdMethod.Accessibility));
             
             #line default
             #line hidden
             this.Write(".png\">\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t<a title=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdMethod.Name));
             
             #line default
             #line hidden
             this.Write("\" href=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Guid));
             
             #line default
             #line hidden
             this.Write(".html#");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdMethod.Guid));
             
             #line default
             #line hidden
             this.Write("\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdMethod.Name));
             
             #line default
             #line hidden
             this.Write("</a>\n\t\t\t\t\t\t\t\t</td>\t\n\t\t\t\t\t\t\t\t<td class=\"markdown\">\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(sdMethod.Documentation.Count > 0 && sdMethod.Documentation[typeLanguage].Summary.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(sdMethod.Documentation[typeLanguage].Summary.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  }
 
 							foreach(var sdProperty in SDType.Properties) {
@@ -867,189 +876,189 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             this.Write("\n\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td class=\"iconColumn\">\n\t\t\t\t\t\t\t\t\t<img alt=\"Property-Icon\" s" +
                     "rc=\"icons/Properties_");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdProperty.Accessibility));
             
             #line default
             #line hidden
             this.Write(".png\">\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t<a title=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdProperty.Name));
             
             #line default
             #line hidden
             this.Write("\" href=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Guid));
             
             #line default
             #line hidden
             this.Write(".html#");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdProperty.Guid));
             
             #line default
             #line hidden
             this.Write("\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sdProperty.Name));
             
             #line default
             #line hidden
             this.Write("</a>\n\t\t\t\t\t\t\t\t</td>\t\n\t\t\t\t\t\t\t\t<td class=\"markdown\">\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(sdProperty.Documentation.Count > 0 && sdProperty.Documentation[typeLanguage].Summary.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new Markdown().Transform(sdProperty.Documentation[typeLanguage].Summary.ToMarkdown())));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t\t\t</tbody>\n\t\t\t\t\t</table>\n\t\t\t\t</div>\n\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(SDType.Uses.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.Uses));
             
             #line default
             #line hidden
             this.Write("</h3>\n\t\t\t\t\t<div class=\"list-box\">\n\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  foreach(var use in SDType.Uses) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t<li><a href=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(use.Guid));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(use.Name));
             
             #line default
             #line hidden
             this.Write("</a></li>\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  if(SDType.UsedBy.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t<h3 class=\"box-title\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Strings.UsedBy));
             
             #line default
             #line hidden
             this.Write("</h3>\n\t\t\t\t\t<div class=\"list-box\">\n\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  foreach(var used in SDType.UsedBy) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t\t<li><a href=\"");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(used.Guid));
             
             #line default
             #line hidden
             this.Write(".html\">");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(used.Name));
             
             #line default
             #line hidden
             this.Write("</a></li>\n\t\t\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
 	if(!SDType.IsClassDiagramEmpty()) { 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t\t<div class=\"diagram-box\">\n\t\t\t\t\t\t<img class=\"diagram-image\" src=\"diagrams/");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDType.Guid));
             
             #line default
             #line hidden
             this.Write(".png\"/>\n\t\t\t\t\t</div>\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t</div>\n\t\t</div>\n\n\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
 	foreach (var constructor in SDType.Constructors)
 			{
 				var memberTemplate = new MethodTemplate
@@ -1059,21 +1068,23 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
 					SDNamespace = SDType.Namespace,
 					SDType = SDType, 
 					CurrentLanguage = CurrentLanguage, 
-					Strings = Strings
+					Strings = Strings,
+					SDRepository = SDRepository,
+					TmpFilepath = TmpFilepath
 				}; 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(memberTemplate.TransformText()));
             
             #line default
             #line hidden
             this.Write("\n\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
   }
 			foreach (var method in SDType.Methods)
 			{
@@ -1084,21 +1095,23 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
 					SDNamespace = SDType.Namespace,
 					SDType = SDType, 
 					CurrentLanguage = CurrentLanguage, 
-					Strings = Strings
+					Strings = Strings,
+					SDRepository = SDRepository,
+					TmpFilepath = TmpFilepath
 				}; 
             
             #line default
             #line hidden
             this.Write("\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(memberTemplate.TransformText()));
             
             #line default
             #line hidden
             this.Write("\n\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
   }
 			foreach (var field in SDType.Fields)
 			{
@@ -1116,14 +1129,14 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             #line hidden
             this.Write("\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(memberTemplate.TransformText()));
             
             #line default
             #line hidden
             this.Write("\n\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
   }
 			foreach (var property in SDType.Properties)
 			{
@@ -1141,14 +1154,14 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             #line hidden
             this.Write("\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(memberTemplate.TransformText()));
             
             #line default
             #line hidden
             this.Write("\n\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
   }
 			foreach (var sdEvent in SDType.Events)
 			{
@@ -1166,14 +1179,14 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             #line hidden
             this.Write("\n\t\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(memberTemplate.TransformText()));
             
             #line default
             #line hidden
             this.Write("\n\t\t\t");
             
-            #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+            #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  } 
             
             #line default
@@ -1182,12 +1195,13 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 11 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
+        #line 14 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\TypeTemplate.tt"
  
 public SDRepository SDRepository { get; set; }
 public SDType SDType { get; set; } 
 public string CurrentLanguage { get; set; }
 public IStrings Strings { get; set; }
+public string TmpFilepath { get; set; }
 
         
         #line default

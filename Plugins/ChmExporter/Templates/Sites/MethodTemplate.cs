@@ -12,6 +12,7 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
     using System.Linq;
     using System.Text;
     using System.Net;
+    using System.IO;
     using System.Collections.Generic;
     using SharpDox.Model.Repository;
     using SharpDox.Model.Repository.Members;
@@ -35,6 +36,7 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
         /// </summary>
         public virtual string TransformText()
         {
+            this.Write("\n");
             this.Write("\n");
             this.Write("\n");
             this.Write("\n");
@@ -408,17 +410,18 @@ namespace SharpDox.Plugins.Chm.Templates.Sites
             
             #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
 	if(!SDMethod.IsSequenceDiagramEmpty()) { 
+			SDMethod.GetSequenceDiagram(SDRepository.GetAllTypes()).ToPng(Path.Combine(TmpFilepath, "diagrams", SDMethod.Guid + ".png")); 
             
             #line default
             #line hidden
-            this.Write("\n\t\t\t<div class=\"diagram-box\">\n\t\t\t\t<img class=\"diagram-image\" src=\"diagrams/");
+            this.Write("\n\n\t\t\t<div class=\"diagram-box\">\n\t\t\t\t<img class=\"diagram-image\" src=\"diagrams/");
             
             #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SDMethod.Guid));
             
             #line default
             #line hidden
-            this.Write(".png\"/>\n\t\t\t</div>\n\t\t");
+            this.Write(".png\"/>\n\t\t\t</div>\n\n\t\t");
             
             #line 1 "E:\Programming\Github\sharpDox\Plugins\ChmExporter\Templates\Sites\MethodTemplate.tt"
  } 
@@ -437,6 +440,8 @@ public SDNamespace SDNamespace { get; set; }
 public SDProjectInfo ProjectInfo { get; set; }
 public string CurrentLanguage { get; set; }
 public IStrings Strings { get; set; }
+public SDRepository SDRepository { get; set; }
+public string TmpFilepath { get; set; }
 
         
         #line default

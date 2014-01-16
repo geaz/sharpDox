@@ -210,7 +210,8 @@ namespace SharpDox.Plugins.Chm.Steps
                         SDRepository = _chmExporter.Repository,
                         SDType = sdType,
                         CurrentLanguage = _chmExporter.CurrentLanguage,
-                        Strings = _chmExporter.CurrentStrings
+                        Strings = _chmExporter.CurrentStrings,
+                        TmpFilepath = _chmExporter.TmpPath
                     };
 
                     if (!sdType.IsClassDiagramEmpty())

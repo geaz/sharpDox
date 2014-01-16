@@ -21,13 +21,11 @@
 
         <script type="text/javascript">
             var activeDiv;
+			var oldHash = window.location.hash;
 
 			$(document).ready(function () {
 				onHashChange();
-
-				$(window).on('hashchange', function() {
-					onHashChange();
-				});
+				setHashCheck();
 			});
 
 			function onHashChange(){
@@ -40,6 +38,17 @@
 					activeDiv = $("#typeIndex");
 					$("#typeIndex").show();
 				}
+			}
+
+			function setHashCheck(){
+				oldHash = window.location.hash;
+
+				setInterval(function() {
+					if(oldHash !== window.location.hash) {
+						oldHash = window.location.hash;
+						onHashChange();
+					}
+				}, 20);
 			}
         </script>
 
@@ -305,7 +314,9 @@
 					SDNamespace = SDType.Namespace,
 					SDType = SDType, 
 					CurrentLanguage = CurrentLanguage, 
-					Strings = Strings
+					Strings = Strings,
+					SDRepository = SDRepository,
+					TmpFilepath = TmpFilepath
 				}; #>
 				<#= memberTemplate.TransformText() #>
 		<#  }
@@ -318,7 +329,9 @@
 					SDNamespace = SDType.Namespace,
 					SDType = SDType, 
 					CurrentLanguage = CurrentLanguage, 
-					Strings = Strings
+					Strings = Strings,
+					SDRepository = SDRepository,
+					TmpFilepath = TmpFilepath
 				}; #>
 				<#= memberTemplate.TransformText() #>
 		<#  }
@@ -370,4 +383,5 @@ public SDRepository SDRepository { get; set; }
 public SDType SDType { get; set; } 
 public string CurrentLanguage { get; set; }
 public IStrings Strings { get; set; }
+public string TmpFilepath { get; set; }
 #>

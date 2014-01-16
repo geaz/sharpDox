@@ -3,6 +3,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Net" #>
+<#@ import namespace="System.IO" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="SharpDox.Model.Repository" #>
 <#@ import namespace="SharpDox.Model.Repository.Members" #>
@@ -95,10 +96,13 @@
 
 		<# } #>
 
-		<#	if(!SDMethod.IsSequenceDiagramEmpty()) { #>
+		<#	if(!SDMethod.IsSequenceDiagramEmpty()) { 
+			SDMethod.GetSequenceDiagram(SDRepository.GetAllTypes()).ToPng(Path.Combine(TmpFilepath, "diagrams", SDMethod.Guid + ".png")); #>
+
 			<div class="diagram-box">
 				<img class="diagram-image" src="diagrams/<#= SDMethod.Guid #>.png"/>
 			</div>
+
 		<# } #>
 	</div>
 </div>
@@ -110,4 +114,6 @@ public SDNamespace SDNamespace { get; set; }
 public SDProjectInfo ProjectInfo { get; set; }
 public string CurrentLanguage { get; set; }
 public IStrings Strings { get; set; }
+public SDRepository SDRepository { get; set; }
+public string TmpFilepath { get; set; }
 #>
