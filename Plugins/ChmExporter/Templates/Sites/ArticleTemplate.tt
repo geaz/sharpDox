@@ -22,7 +22,7 @@
 			<h2 class="type-title"><#= SDArticle.Title #></h2>
 		</div>
 		<div id="subheader">
-			<a href="<#= ProjectInfo.ProjectName.Replace(" ", "") #>-Index.html">Start</a> > <a href="<#= Helper.RemoveIllegalCharacters(SDArticle.Title) #>.html"><#= SDArticle.Title #></a>
+			<a href="<#= ProjectInfo.ProjectName.Replace(" ", "") #>-Index.html">Start</a> > <a href="<#= Helper.RemoveIllegalCharacters(SDArticle.Title.Replace(" ", "_")) #>.html"><#= SDArticle.Title #></a>
 		</div>
 
 		<div id="content">
