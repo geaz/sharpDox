@@ -1,9 +1,9 @@
 var activeDiv;
 
-$(document).ready(function () {
-	$(window).hashchange(function(){
-		onHashChange();
-	})
+$(window).on("load", function () {
+    $(window).hashchange(function() {
+        onHashChange();
+    });
 
 	$(window).hashchange();
 });
