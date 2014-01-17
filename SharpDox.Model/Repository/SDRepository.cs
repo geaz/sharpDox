@@ -178,6 +178,12 @@ namespace SharpDox.Model.Repository
             SDMember sdMember = null;
             Members.TryGetValue(identifier, out sdMember);
 
+            if (sdMember == null)
+            {
+                var sdMethod = GetMethodByIdentifier(identifier);
+                if (sdMethod != null) sdMember = sdMethod;
+            }
+
             return sdMember;
         }
 
