@@ -65,7 +65,11 @@ namespace SharpDox.Plugins.Html
             }
         }
 
-        public string ExporterName { get { return "html"; } }
+        public string ExporterName { get { return "Html"; } }
+
+        public string Author { get { return "Gerrit \"Geaz\" Gazic"; } }
+
+        public string Description { get { return HtmlStrings.Description; } }
 
         internal string OutputPath { get; private set; }
 

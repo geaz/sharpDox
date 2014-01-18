@@ -35,15 +35,16 @@ namespace SharpDox.Build.Context.Step
             var i = 0;
             foreach (var exporter in _allExporters)
             {
-                _buildMessenger.ExecuteOnBuildMessage(string.Format(_sdBuildStrings.StartExporter + ": \"{0}\" ...", exporter.ExporterName));
+                if (!_sharpDoxConfig.DeactivatedExporters.Contains(exporter.ExporterName))
+                {
+                    _buildMessenger.ExecuteOnBuildMessage(string.Format(_sdBuildStrings.StartExporter + ": \"{0}\" ...", exporter.ExporterName));
 
-                var outputPath = GetOutputPath(_sharpDoxConfig.OutputPath, exporter.ExporterName);
+                    var outputPath = GetOutputPath(_sharpDoxConfig.OutputPath, exporter.ExporterName);
 
-                exporter.OnStepMessage += (m) => _buildMessenger.ExecuteOnStepMessage(m);
-                exporter.OnStepProgress += (p) => _buildMessenger.ExecuteOnStepProgress(p);
-                exporter.Export(repository, outputPath);
-
-                PostProgress(i++);
+                    exporter.OnStepMessage += (m) => _buildMessenger.ExecuteOnStepMessage(m);
+                    exporter.OnStepProgress += (p) => _buildMessenger.ExecuteOnStepProgress(p);
+                    exporter.Export(repository, outputPath);
+                }
             }
         }
 
@@ -54,12 +55,6 @@ namespace SharpDox.Build.Context.Step
                 Directory.CreateDirectory(outputPath);
 
             return outputPath;
-        }
-
-        private void PostProgress(int currentExporterIndex)
-        {
-            var percentage = ((double)currentExporterIndex / _allExporters.Length) * 100;
-            _buildMessenger.ExecuteOnStepProgress((int)percentage);
         }
     }
 }

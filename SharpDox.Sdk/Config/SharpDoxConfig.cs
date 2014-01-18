@@ -32,6 +32,7 @@ namespace SharpDox.Sdk.Config
         private string _projectName;
         private string _versionNumber;
         private ObservableCollection<string> _excludedIdentifiers;
+        private ObservableCollection<string> _deactivatedExporters;
 
         private readonly SharpDoxStrings _strings;
 
@@ -288,6 +289,27 @@ namespace SharpDox.Sdk.Config
                 _excludedIdentifiers = value; 
                 if(_excludedIdentifiers != null) _excludedIdentifiers.CollectionChanged += (s, a) => OnPropertyChanged("ExcludedIdentifiers");
                 OnPropertyChanged("ExcludedIdentifiers");
+            }
+        }
+
+        /// <default>
+        ///     <summary>
+        ///     Returns all deactivated exporters.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert alle deaktivierten Exporter.
+        ///     </summary>
+        /// </de>
+        public ObservableCollection<string> DeactivatedExporters
+        {
+            get { return _deactivatedExporters ?? (_excludedIdentifiers = new ObservableCollection<string>()); }
+            set
+            {
+                _deactivatedExporters = value;
+                if (_deactivatedExporters != null) _deactivatedExporters.CollectionChanged += (s, a) => OnPropertyChanged("DeactivatedExporters");
+                OnPropertyChanged("DeactivatedExporters");
             }
         }
 

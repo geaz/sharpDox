@@ -9,6 +9,7 @@ namespace SharpDox.GUI
         private string _exportSettings = "Exportsettings";
         private string _selectExportSetting = "select an export option";
         private string _visibilitySettings = "Visibility Settings";
+        private string _exporterSelection = "Exporter Selection";
         private string _new = "New";
         private string _load = "Load";
         private string _save = "Save";
@@ -194,6 +195,12 @@ namespace SharpDox.GUI
         {
             get { return _hideInternal; }
             set { _hideInternal = value; }
+        }
+
+        public string ExporterSelection
+        {
+            get { return _exporterSelection; }
+            set { _exporterSelection = value; }
         }
     }
 }

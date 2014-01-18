@@ -8,7 +8,6 @@ The UI namespace provides the interface to implement custom pages for the **shar
 - Checkbox (Key: CheckBox)
 - Combobox (Key: Combobox)
 - Labels (Key: BodyText, Headline, Headline2, Headline3, Description)
-- ListBox (Key: ListBox)
 - TextBox (Key: TextBox)
 - TextBox with button (Key: TextBoxChooser)
 

@@ -11,7 +11,6 @@ auch in benutzererstellten Seiten verwendbar (siehe unten dazu die XAML-Datei).
 - Checkbox (Key: CheckBox)
 - Combobox (Key: Combobox)
 - Labels (Key: BodyText, Headline, Headline2, Headline3, Description)
-- ListBox (Key: ListBox)
 - TextBox (Key: TextBox)
 - TextBox with button (Key: TextBoxChooser)
 

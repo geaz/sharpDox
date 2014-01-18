@@ -12,6 +12,12 @@
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                 <Setter Property="FontFamily" Value="{StaticResource Font_Regular}"/>
             </Style>
+            <Style x:Key="BodyTextFaded" TargetType="{x:Type Label}">
+                <Setter Property="Foreground" Value="{StaticResource Color_FadedFont}"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FontFamily" Value="{StaticResource Font_Regular}"/>
+            </Style>
             <Style x:Key="Headline" TargetType="{x:Type Label}">
                 <Setter Property="Foreground" Value="{StaticResource Color_HeaderFont}"/>
                 <Setter Property="FontSize" Value="26"/>

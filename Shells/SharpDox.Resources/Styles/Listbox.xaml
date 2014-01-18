@@ -3,7 +3,10 @@
     <ResourceDictionary.MergedDictionaries>
 
         <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Vars.xaml"></ResourceDictionary>
-
+        <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Checkbox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Label.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Buttons.xaml"></ResourceDictionary>
+        
         <ResourceDictionary>
 
             <Style x:Key="ListBoxItem" TargetType="ListBoxItem">
@@ -11,12 +14,32 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListBoxItem">
-                            <Border Name="Border" Padding="5" SnapsToDevicePixels="true">
-                                <ContentPresenter />
+                            <Border Name="Border" Padding="5" SnapsToDevicePixels="true" Width="200" BorderBrush="{StaticResource BorderColor_MainWindow}" BorderThickness="0,0,0,1">
+                                <DockPanel>
+                                    <CheckBox DockPanel.Dock="Right" VerticalAlignment="Center" IsChecked="{Binding IsChecked}" Style="{StaticResource CheckBox}" />
+                                    <Button x:Name="infoButton" DockPanel.Dock="Right" VerticalAlignment="Center" Content="&#xF05A;" Style="{StaticResource IconButton2}" BorderThickness="0" />
+                                    <ContentPresenter DockPanel.Dock="Left" VerticalAlignment="Center" Content="{Binding Name}" Margin="5,0" />
+
+                                    <Popup x:Name="infoPopup" Placement="Left" PopupAnimation="Fade" PlacementTarget="{Binding ElementName=infoButton}"
+                                           IsOpen="{Binding ElementName=infoButton,Path=IsMouseOver, Mode=OneWay}" AllowsTransparency="True" Width="250">
+                                        <Grid Background="{StaticResource BackColor_MainWindow}" Width="250">
+                                            <Border BorderBrush="{StaticResource BorderColor_MainWindow}" BorderThickness="1">
+                                                <StackPanel Margin="5">
+                                                    <DockPanel>
+                                                        <Label Content="{Binding Name}" Style="{StaticResource BodyText}" />
+                                                        <Label Content="{Binding Author}" Style="{StaticResource BodyTextFaded}" DockPanel.Dock="Right" HorizontalAlignment="Right" />
+                                                    </DockPanel>
+                                                    <Border Background="{StaticResource BorderColor_MainWindow}" BorderThickness="0" Height="1" Width="240" />
+                                                    <TextBlock Margin="5" Text="{Binding Description}" TextWrapping="Wrap" FontFamily="{StaticResource Font_Regular}" FontSize="13" />
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+                                    </Popup>
+                                </DockPanel>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="true">
-                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Color_Main}"/>
+                                    <Setter TargetName="Border" Property="Background" Value="Transparent"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

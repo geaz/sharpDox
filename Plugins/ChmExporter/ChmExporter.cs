@@ -66,7 +66,11 @@ namespace SharpDox.Plugins.Chm
             }
         }
 
-        public string ExporterName { get { return "chm"; } }
+        public string ExporterName { get { return "Chm"; } }
+
+        public string Author { get { return "Gerrit \"Geaz\" Gazic"; } }
+
+        public string Description { get { return ChmStrings.Description; } }
 
         internal string OutputPath { get; private set; }
 

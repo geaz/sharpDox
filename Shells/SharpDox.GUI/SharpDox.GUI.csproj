@@ -59,6 +59,9 @@
     <Compile Include="Pages\BuildWindow.xaml.cs">
       <DependentUpon>BuildWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ExporterSelection.xaml.cs">
+      <DependentUpon>ExporterSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\VisibilitySettings.xaml.cs">
       <DependentUpon>VisibilitySettings.xaml</DependentUpon>
     </Compile>
@@ -72,6 +75,8 @@
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ExporterListBoxItemViewModel.cs" />
+    <Compile Include="ViewModels\ExporterViewModel.cs" />
     <Compile Include="ViewModels\TreeModel\FieldViewModel.cs" />
     <Compile Include="ViewModels\TreeModel\EventViewModel.cs" />
     <Compile Include="ViewModels\TreeModel\PropertyViewModel.cs" />
@@ -86,6 +91,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Pages\BuildWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ExporterSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -244,6 +244,42 @@
                 </Setter>
             </Style>
 
+            <Style x:Key="IconButton2" TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="25"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="SnapsToDevicePixels" Value="true"/>
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="Foreground" Value="#FF6c6c6c"/>
+                <Setter Property="FontFamily" Value="{StaticResource Font_Icons}"/>
+                <Setter Property="Opacity" Value="1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="ButtonBorder" 
+                      CornerRadius="0" 
+                      BorderThickness="0"
+                      BorderBrush="#FFC2C2C2"
+                      Background="White"
+                      RenderTransformOrigin="0.5,0.5"
+                      Padding="0">
+                                <DockPanel>
+                                    <ContentPresenter x:Name="ButtonContentPresenter"
+                                  Margin="0,0,0,0"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  RecognizesAccessKey="True"/>
+                                </DockPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="#FFf58026"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
             <Style x:Key="BigButton" TargetType="{x:Type Button}">
                 <Setter Property="SnapsToDevicePixels" Value="true"/>
                 <Setter Property="OverridesDefaultStyle" Value="true"/>

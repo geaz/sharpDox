@@ -67,9 +67,14 @@ namespace SharpDox.GUI
         private void SetExportDropDown()
         {
             pluginComboBox.Items.Add(Strings.SelectExportSetting);
+            pluginComboBox.Items.Add(Strings.ExporterSelection);
             pluginComboBox.Items.Add(Strings.VisibilitySettings);
 
-            foreach (var page in _allPages.Where(p => p.PageName != Strings.VisibilitySettings && p.PageName != Strings.GeneralSettings && p.PageName != Strings.Build))
+            foreach (var page in _allPages.Where(p => 
+                                    p.PageName != Strings.VisibilitySettings && 
+                                    p.PageName != Strings.GeneralSettings && 
+                                    p.PageName != Strings.ExporterSelection && 
+                                    p.PageName != Strings.Build))
             {
                 pluginComboBox.Items.Add(page.PageName);
             }
