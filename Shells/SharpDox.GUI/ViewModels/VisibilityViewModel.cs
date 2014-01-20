@@ -38,7 +38,7 @@ namespace SharpDox.GUI.ViewModels
 
         private void ParseCompleted(SDRepository repository)
         {
-            Application.Current.Dispatcher.Invoke(
+            Application.Current.Dispatcher.BeginInvoke(
                 DispatcherPriority.Background,
                 new Action(() => {
                     TreeView = new VisibilityItemList();

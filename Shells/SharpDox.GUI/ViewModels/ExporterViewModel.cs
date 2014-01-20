@@ -26,7 +26,7 @@ namespace SharpDox.GUI.ViewModels
         {
             if (Application.Current != null)
             {
-                Application.Current.Dispatcher.Invoke(DispatcherPriority.Background, new Action(RefreshListBox));
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(RefreshListBox));
             }
             else
             {
