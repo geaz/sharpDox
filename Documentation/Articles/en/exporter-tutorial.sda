@@ -156,6 +156,14 @@ The last step is to create the csv exporter. Create a new class _CSVExport.cs_ w
 			// The name of the exporter will be used to 
 			// create a subdirectory in the output path.
 			public string ExporterName { get { return "csv"; } }
+			
+			// Name of the plugin author.
+			// Used in the exporter selection.
+			public string Author { get { return "Gerrit 'Geaz' Gazic"; } }
+
+			// Small description of the plugin.
+			// Used in the exporter selection.
+			public string Description { get { return "A small csv example plugin for sharpDox"; } }
 		}
 	}
 

@@ -5,7 +5,7 @@ namespace SharpDox.Sdk.Build
     /// <default>
     ///     <summary>
     ///     This interface exposes all needed functionalities to
-    ///     parse and build documentations.
+    ///     parse and build documentation.
     ///     </summary>
     /// </default>
     /// <de>

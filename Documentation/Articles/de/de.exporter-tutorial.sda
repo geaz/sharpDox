@@ -168,6 +168,14 @@ Datei _CSVExport.cs_ mit folgendem Inhalt erstellt:
 			// Der Name wird des Exporter wird als Unterordner im Ausgabepfad erzeugt.
 			// Der komplette Ausgabepfad wird der Export-Funktion übergeben.
 			public string ExporterName { get { return "csv"; } }
+			
+			// Der Name des Plugin-Autors.
+			// Wird in der Exporter-Auswahl angezeigt.
+			public string Author { get { return "Gerrit 'Geaz' Gazic"; } }
+
+			// Eine kleine Plugin-Beschreibung.
+			// Wird in der Exporter-Auswahl angezeigt.
+			public string Description { get { return "A small csv example plugin for sharpDox"; } }
 		}
 	}
 

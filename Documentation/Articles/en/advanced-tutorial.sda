@@ -61,8 +61,8 @@ The navigation is the main element of any advanced documentation. The custom nav
 
 	-Introduction#introduction
 	-Users
-	--Create advanced documentations#advanced-tutorial
-	--Create multilanguage documentations#multilang-tutorial
+	--Create advanced documentation#advanced-tutorial
+	--Create multilanguage documentation#multilang-tutorial
 	-Developers
 	--Create a exporter#exporter-tutorial
 	--API#SDDoc
@@ -70,7 +70,7 @@ The navigation is the main element of any advanced documentation. The custom nav
 The number hyphens indicates the level of the item followed by the name of the menuitem. _-Introduction_ means that the menuitem with the name _Introduction_ should be on the first position in the first level of the navigation.
 The part behind the _#_ defines the linked article (without the file extension). If a menuitem is missing the _#_ part, it is just a "placeholder" (for example the second line: _-Users_).
 
-	--Create advanced documentations#advanced-tutorial
+	--Create advanced documentation#advanced-tutorial
 Means that **sharpDox** should create a child menuitem with the name _Create advanced documentation_ which is linked to the _advanced-tutorial_ article.
 
 If you want a item to link to the code documentation, use the keyword _SDDoc_ instead of an article name (In the example above: _--API#SDDoc_).

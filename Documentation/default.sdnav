@@ -1,7 +1,7 @@
 -Introduction#introduction
 -Users
---Create advanced documentations#advanced-tutorial
---Create multilanguage documentations#multilang-tutorial
+--Create advanced documentation#advanced-tutorial
+--Create multilanguage documentation#multilang-tutorial
 -Developers
 --Create a exporter#exporter-tutorial
 --API#SDDoc
