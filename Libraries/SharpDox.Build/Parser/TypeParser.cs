@@ -48,6 +48,7 @@ namespace SharpDox.Build.Parser
         {
             sdType.IsProjectStranger = false;
             AddParsedTypeArguments(sdType, type.TypeArguments);
+            AddParsedTypeParameters(sdType, type.GetDefinition().TypeParameters);
             AddParsedBaseTypes(sdType, type.DirectBaseTypes);
             AddParsedInterfaces(sdType, type.DirectBaseTypes);            
             AddParsedProperties(sdType, type);
@@ -95,12 +96,36 @@ namespace SharpDox.Build.Parser
 
         private void AddParsedTypeArguments(SDType sdType, IEnumerable<IType> typeArguments)
         {
-            foreach (var typeParam in typeArguments)
+            foreach (var typeArgument in typeArguments)
             {
-                var type = GetParsedType(typeParam);
-                if (sdType.TypeParameters.SingleOrDefault((i => i.Identifier == type.Identifier)) == null)
+                var type = GetParsedType(typeArgument);
+                if (sdType.TypeArguments.SingleOrDefault((i => i.Identifier == type.Identifier)) == null)
                 {
-                    sdType.TypeParameters.Add(GetParsedType(typeParam));
+                    sdType.TypeArguments.Add(GetParsedType(typeArgument));
+                }
+            }
+        }
+
+        private void AddParsedTypeParameters(SDType sdType, IEnumerable<ITypeParameter> typeParameters)
+        {
+            foreach (var typeParameter in typeParameters)
+            {
+                var sdTypeParameter = new SDTypeParameter
+                {
+                    Name = typeParameter.Name,
+                    HasDefaultConstructorConstraint = typeParameter.HasDefaultConstructorConstraint,
+                    HasReferenceTypeConstraint = typeParameter.HasReferenceTypeConstraint,
+                    HasValueTypeConstraint = typeParameter.HasValueTypeConstraint,
+                    BaseClass = GetParsedType(typeParameter.EffectiveBaseClass)
+                };
+                foreach (var interfaceConstraint in typeParameter.EffectiveInterfaceSet)
+                {
+                    sdTypeParameter.Interfaces.Add(GetParsedType(interfaceConstraint));
+                }
+
+                if (sdType.TypeParameters.SingleOrDefault((i => i.Name == sdTypeParameter.Name)) == null)
+                {
+                    sdType.TypeParameters.Add(sdTypeParameter);
                 }
             }
         }

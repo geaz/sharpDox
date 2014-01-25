@@ -24,7 +24,7 @@ namespace SharpDox.Build.Context
             try
             {
                 _buildMessenger.ExecuteOnBuildProgress(0);
-                _steps.PreBuildStep.CheckConfig(false);
+                _steps.PreBuildStep.CheckConfig();
 
                 _buildMessenger.ExecuteOnBuildProgress(10);
                 var solution = _steps.LoadStep.LoadSolution();

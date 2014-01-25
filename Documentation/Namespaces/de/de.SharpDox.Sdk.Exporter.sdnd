@@ -9,8 +9,14 @@ Der Exporter-Namensraum beinhaltet alle Interfaces um einen eigenen Exporter zu 
 	{
 	    public class ExampleExporter : IExporter
 	    {
+			public event Action<string> OnRequirementsWarning;
 	        public event Action<string> OnStepMessage;
 	        public event Action<int> OnStepProgress;
+	
+			public bool CheckRequirements()
+			{
+				// Check for requirements
+			}
 	
 	        public void Export(SDRepository repository, string outputPath)
 	        {
@@ -18,6 +24,10 @@ Der Exporter-Namensraum beinhaltet alle Interfaces um einen eigenen Exporter zu 
 	        }
 	
 	        public string ExporterName { get { return "example"; } }
+			
+			public string Author { get { return "example"; } }
+			
+			public string Description { get { return "example"; } }
 	    }
 	}
 

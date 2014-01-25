@@ -38,6 +38,18 @@ namespace SharpDox.Model.Documentation.Token
 
         /// <default>
         ///     <summary>
+        ///     Represents a type parameter reference.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Repräsentiert eine Typparameterreferenz.
+        ///     </summary>
+        /// </de>
+        public const string TypeParamRef = "TypeParamRef";
+
+        /// <default>
+        ///     <summary>
         ///     Represents a parameter reference.
         ///     </summary>
         /// </default>

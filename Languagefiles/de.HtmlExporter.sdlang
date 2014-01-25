@@ -1,6 +1,0 @@
-CreatingFolders = Erstelle Ordner
-CreateFilesForNamespace = Erstelle Dateien für Namensraum
-CreatingNavigation = Erstelle Navigationsdateien
-CreatingArticle = Erstelle Artikel: {0}
-CopyingFile = Kopiere Datei: {0}
-Description = Dieser Exporter erstellt eine HTML-Dokumentation. Es werden mehrsprachige Dokumentationen, Artikel und Namensraum-Beschreibungen unterstützt.

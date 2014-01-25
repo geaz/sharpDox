@@ -127,7 +127,7 @@ namespace SharpDox.Model.Repository.Members
                 else if (CanSet)
                     getSet = "{ set; }";
 
-                var syntax = new string[] { Accessibility, desc, ReturnType.NameWithTypeParam, Name, getSet };
+                var syntax = new string[] { Accessibility, desc, ReturnType.NameWithTypeArguments, Name, getSet };
                 syntax = syntax.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
                 return string.Join(" ", syntax);

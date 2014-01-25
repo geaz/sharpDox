@@ -137,6 +137,9 @@ namespace SharpDox.Build.Parser
 			                    content.Add(new SDSeeToken {Name = element.GetAttribute("cref")});
 			                }
 			                break;
+                        case "typeparamref":
+                            content.Add(new SDToken {Role = SDTokenRole.TypeParamRef, Text = element.GetAttribute("name")});
+			                break;
 			            case "paramref":
 			                content.Add(new SDToken {Role = SDTokenRole.ParamRef, Text = element.GetAttribute("name")});
 			                break;

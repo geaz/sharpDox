@@ -46,7 +46,7 @@ namespace SharpDox.Model.Repository.Members
         {
             get
             {
-                return string.Join(" ", new string[] { Accessibility, ReturnType.NameWithTypeParam, Name });
+                return string.Join(" ", new string[] { Accessibility, ReturnType.NameWithTypeArguments, Name });
             }
         }
     }

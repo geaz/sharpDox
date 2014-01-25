@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using SharpDox.Model.Documentation;
 using SharpDox.Model.Repository.Members;
 
@@ -31,7 +32,8 @@ namespace SharpDox.Model.Repository
             UsedBy = new List<SDType>();
             Uses = new List<SDType>();
 
-            TypeParameters = new List<SDType>();
+            TypeParameters = new List<SDTypeParameter>();
+            TypeArguments = new List<SDType>();
 			Fields = new List<SDField>();
             Constructors = new List<SDMethod>();
 			Methods = new List<SDMethod>();
@@ -58,9 +60,9 @@ namespace SharpDox.Model.Repository
             Properties.Sort();
         }
 
-        private string GetTypeParamText()
+        private string GetTypeArgumentText()
         {
-            var typeParam = TypeParameters.Select(parameter => parameter.NameWithTypeParam).ToList();
+            var typeParam = TypeArguments.Select(argument => argument.NameWithTypeArguments).ToList();
             return typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
         }
 
@@ -230,11 +232,11 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert den Namen des Typen inklusive der Typ-Parameter.
         ///     </summary>     
         /// </de>
-        public string NameWithTypeParam
+        public string NameWithTypeArguments
         {
             get
             {
-                return Name + GetTypeParamText();
+                return Name + GetTypeArgumentText();
             }
         }
 
@@ -260,7 +262,7 @@ namespace SharpDox.Model.Repository
         ///     Liefert den vollen Namen des Typen.
         ///     </summary>     
         /// </de>
-        public string Fullname { get { return string.Format("{0}.{1}", Namespace.Fullname, NameWithTypeParam); } }
+        public string Fullname { get { return string.Format("{0}.{1}", Namespace.Fullname, NameWithTypeArguments); } }
 
         /// <default>
         ///     <summary>
@@ -276,6 +278,18 @@ namespace SharpDox.Model.Repository
 
         /// <default>
         ///     <summary>
+        ///     Gets or sets a list of all type arguments.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert eine Liste aller Typ-Argumente.
+        ///     </summary>     
+        /// </de>
+        public List<SDType> TypeArguments { get; private set; }
+
+        /// <default>
+        ///     <summary>
         ///     Gets or sets a list of all type parameters.
         ///     </summary>
         /// </default>
@@ -284,7 +298,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Typ-Parameter.
         ///     </summary>     
         /// </de>
-        public List<SDType> TypeParameters { get; private set; }
+        public List<SDTypeParameter> TypeParameters { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -413,7 +427,7 @@ namespace SharpDox.Model.Repository
 
                 var inheritedText = ImplementedInterfaces.Count > 0 ? string.Join(", ", ImplementedInterfaces.Select(i => i.Name).ToList()) : string.Empty;
                 var baseText = BaseTypes.Count > 0
-                                       ? BaseTypes.First().NameWithTypeParam
+                                       ? BaseTypes.First().NameWithTypeArguments
                                        : string.Empty;
 
                 if (inheritedText != string.Empty && baseText != string.Empty)
@@ -430,7 +444,35 @@ namespace SharpDox.Model.Repository
                     inheritedText = " : " + baseText;
                 }
 
-                var syntax = new string[] { Accessibility.ToLower(), desc, Kind.ToLower(), NameWithTypeParam + inheritedText };
+                var typeContraints = new StringBuilder();
+                foreach (var typeParam in TypeParameters)
+                {
+                    var list = new List<string>();
+                    if (typeParam.HasDefaultConstructorConstraint)
+                    {
+                        list.Add("new()");
+                    }
+                    if (typeParam.HasReferenceTypeConstraint)
+                    {
+                        list.Add("class");
+                    }
+                    if (typeParam.HasValueTypeConstraint)
+                    {
+                        list.Add("struct");
+                    }
+                    if (typeParam.BaseClass != null)
+                    {
+                        list.Add(typeParam.BaseClass.NameWithTypeArguments);
+                    }
+                    foreach (var interfaceConstraint in typeParam.Interfaces)
+                    {
+                        list.Add(interfaceConstraint.NameWithTypeArguments);
+                    }
+
+                    typeContraints.Append(string.Format("where {0} : {1} ", typeParam.Name, string.Join(", ", list)));
+                }
+
+                var syntax = new string[] { Accessibility.ToLower(), desc, Kind.ToLower(), NameWithTypeArguments + inheritedText, typeContraints.ToString() };
                 syntax = syntax.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
                 return string.Join(" ", syntax);

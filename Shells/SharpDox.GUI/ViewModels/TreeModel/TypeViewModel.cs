@@ -8,7 +8,7 @@ namespace SharpDox.GUI.ViewModels.TreeModel
         public TypeViewModel(SDType type, NamespaceViewModel parent, ObservableCollection<string> excludedIdentifiers)
             : base(type.Identifier, parent, excludedIdentifiers)
         {
-            Text = type.NameWithTypeParam;
+            Text = type.NameWithTypeArguments;
             Accessibility = type.Accessibility;
             Image = string.Format("pack://application:,,,/SharpDox.Resources;component/Icons/Class_{0}.png", Accessibility);
 

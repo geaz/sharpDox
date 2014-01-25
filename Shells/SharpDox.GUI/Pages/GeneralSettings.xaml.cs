@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using SharpDox.Sdk.Config;
-using SharpDox.Sdk.Local;
 using SharpDox.Sdk.UI;
 
 namespace SharpDox.GUI.Pages

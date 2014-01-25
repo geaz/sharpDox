@@ -29,6 +29,7 @@ namespace SharpDox.Build
         private string _buildSuccess = "Build ended successfully.";
         private string _buildStopped = "Build stopped!";
         private string _couldNotEndBuild = "Could not build documentation.";
+        private string _requirementError = "There was an error with the requirements of one or more exporters. Please check the output window.";
 
         public string DisplayName { get { return "SharpDoxBuild"; } }
 
@@ -180,6 +181,12 @@ namespace SharpDox.Build
         {
             get { return _couldNotEndBuild; }
             set { _couldNotEndBuild = value; }
+        }
+
+        public string RequirementError
+        {
+            get { return _requirementError; }
+            set { _requirementError = value; }
         }
     }
 }

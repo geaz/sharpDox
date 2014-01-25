@@ -8,7 +8,7 @@ namespace SharpDox.Build.Context
     {
         public Steps(SharpDoxConfig sharpDoxConfig, SDBuildStrings sdBuildStrings, IConfigController configController, BuildMessenger buildMessenger, IExporter[] allExporters = null)
         {
-            PreBuildStep = new PreBuildStep(sharpDoxConfig, sdBuildStrings);
+            PreBuildStep = new PreBuildStep(sharpDoxConfig, allExporters, buildMessenger, sdBuildStrings);
             LoadStep = new LoadStep(sharpDoxConfig, sdBuildStrings, buildMessenger);
             ParseStep = new ParseStep(sdBuildStrings, sharpDoxConfig, buildMessenger);
             StructureParseStep = new StructureParseStep(sdBuildStrings, buildMessenger);

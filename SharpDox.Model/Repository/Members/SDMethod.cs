@@ -229,7 +229,7 @@ namespace SharpDox.Model.Repository.Members
                 var desc = IsAbstract ? "abstract" : string.Empty;
                 desc = IsVirtual ? "virtual" : desc;
 
-                var syntaxItems = new string[] { Accessibility, desc, ReturnType.NameWithTypeParam, Name + typeParamText + "(" + string.Join(", ", param) + ")" };
+                var syntaxItems = new string[] { Accessibility, desc, ReturnType.NameWithTypeArguments, Name + typeParamText + "(" + string.Join(", ", param) + ")" };
                 syntaxItems = syntaxItems.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
                 return string.Join(" ", syntaxItems);

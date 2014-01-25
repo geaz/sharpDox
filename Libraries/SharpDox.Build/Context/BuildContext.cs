@@ -30,7 +30,7 @@ namespace SharpDox.Build.Context
                 _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.StartingBuild);
 
                 _buildMessenger.ExecuteOnBuildProgress(0);
-                _steps.PreBuildStep.CheckConfig(true);
+                _steps.PreBuildStep.CheckConfig(false);
 
                 _buildMessenger.ExecuteOnBuildProgress(10);
                 var solution = _steps.LoadStep.LoadSolution();

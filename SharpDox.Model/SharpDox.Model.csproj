@@ -52,6 +52,7 @@
     <Compile Include="Documentation\Token\SDTokenRole.cs" />
     <Compile Include="Documentation\Token\SDSeeToken.cs" />
     <Compile Include="Documentation\SDDocumentation.cs" />
+    <Compile Include="Repository\SDTypeParameter.cs" />
     <Compile Include="Repository\Members\SDEvent.cs" />
     <Compile Include="Repository\Members\SDField.cs" />
     <Compile Include="Repository\Members\SDMember.cs" />

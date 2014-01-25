@@ -18,6 +18,20 @@ namespace SharpDox.Sdk.Exporter
         /// <default>
         ///     <summary>
         ///     The BuildController of sharpDox listens on this event.
+        ///     The Exporter is able to post warnings during the requirements check.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Der BuildController von sharpDox lauscht an diesem Event.
+        ///     Der Exporter kann darüber Warnungen verschicken, die im Baufenster angezeigt werden.
+        ///     </summary>
+        /// </de>
+        event Action<string> OnRequirementsWarning;
+
+        /// <default>
+        ///     <summary>
+        ///     The BuildController of sharpDox listens on this event.
         ///     The Exporter is able to post messages which will displayed in the progressbar.
         ///     </summary>
         /// </default>
@@ -69,6 +83,24 @@ namespace SharpDox.Sdk.Exporter
         ///     </param>     
         /// </de>
         void Export(SDRepository repository, string outputPath);
+
+        /// <default>
+        ///     <summary>
+        ///     This method gets called by the build process to check any requirements of the plugin.
+        ///     </summary>
+        ///     <returns>
+        ///     True if all requirements are fulfilled, false otherwise and the build process stops.
+        ///     </returns>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Diese Methode wird während des Bauvorgangs aufgerufen, um die Vorraussetzungen des Plugins zu überprüfen.
+        ///     </summary>
+        ///     <returns>
+        ///     True, falls alle Vorraussetzungen erfüllt wurden. Ansonsten false und der Bauvorgang wird gestoppt.
+        ///     </returns> 
+        /// </de>
+        bool CheckRequirements();
 
         /// <default>
         ///     <summary>
