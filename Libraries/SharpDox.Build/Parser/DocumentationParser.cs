@@ -12,24 +12,24 @@ using System.Text.RegularExpressions;
 
 namespace SharpDox.Build.Parser
 {
-	internal class DocumentationParser
+    internal class DocumentationParser
     {
-	    private readonly SDRepository _sdRepository;
+        private readonly SDRepository _sdRepository;
 
-	    public DocumentationParser(SDRepository sdRepository)
-	    {
-	        _sdRepository = sdRepository;
-	    }
+        public DocumentationParser(SDRepository sdRepository)
+        {
+            _sdRepository = sdRepository;
+        }
 
-	    public Dictionary<string, SDDocumentation> ParseDocumentation(IEntity entity)
+        public Dictionary<string, SDDocumentation> ParseDocumentation(IEntity entity)
         {
             var docDic = new Dictionary<string, SDDocumentation>();
 
             try
-			{
-			    if (entity != null)
-			    {
-			        var xmlDoc = XmlDocumentationElement.Get(entity);
+            {
+                if (entity != null)
+                {
+                    var xmlDoc = XmlDocumentationElement.Get(entity);
 
                     if (xmlDoc != null)
                     {
@@ -40,7 +40,7 @@ namespace SharpDox.Build.Parser
                                 _sdRepository.AddDocumentationLanguage(child.Name.ToLower());
                                 var languageDoc = ParseDocumentation(child.Children);
                                 docDic.Add(child.Name.ToLower(), languageDoc);
-                            }                           
+                            }
                         }
 
                         //Es wurde keine Sprachunterstützung in der Doku genutzt.
@@ -51,13 +51,13 @@ namespace SharpDox.Build.Parser
                             docDic.Add("default", defaultDoc);
                         }
                     }
-			    }
-			}
+                }
+            }
             catch (NullReferenceException ex)
             {
                 Trace.TraceError(ex.ToString());
             }
-            
+
             return docDic;
         }
 
@@ -96,6 +96,9 @@ namespace SharpDox.Build.Parser
                     case "returns":
                         sdDocumentation.Returns = ParseContentTokens(child);
                         break;
+                    case "seealso":
+                        sdDocumentation.SeeAlso.Add(GetSeeRef(child));
+                        break;
                 }
             }
 
@@ -103,59 +106,65 @@ namespace SharpDox.Build.Parser
         }
 
         private SDTokenList ParseContentTokens(XmlDocumentationElement xmlElement)
-		{
+        {
             var content = new SDTokenList();
 
-			foreach (XmlDocumentationElement element in xmlElement.Children)
-			{
+            foreach (XmlDocumentationElement element in xmlElement.Children)
+            {
                 var text = Regex.Replace(element.TextContent, "^[ ]{4}", "", RegexOptions.Multiline);
 
-			    if (element.IsTextNode)
-			    {
+                if (element.IsTextNode)
+                {
                     content.Add(new SDToken { Role = SDTokenRole.Text, Text = text });
-			    }
-			    else
-			    {
-			        switch (element.Name.ToLower())
-			        {
-			            case "see":
-			                if (element.ReferencedEntity != null)
-			                {
-			                    var identifier = element.ReferencedEntity.DeclaringType != null
-                                                        ? element.ReferencedEntity.DeclaringType.GetIdentifier()
-			                                            : string.Empty;
-			                    content.Add(new SDSeeToken
-			                        {
-			                            Name = element.ReferencedEntity.Name,
-			                            Namespace = element.ReferencedEntity.Namespace,
-                                        DeclaringType = identifier != string.Empty ? _sdRepository.GetTypeByIdentifier(identifier) : null,
-                                        Text = element.ReferencedEntity.Name
-			                        });
-			                }
-			                else
-			                {
-			                    content.Add(new SDSeeToken {Name = element.GetAttribute("cref")});
-			                }
-			                break;
+                }
+                else
+                {
+                    switch (element.Name.ToLower())
+                    {
+                        case "see":
+                            content.Add(GetSeeRef(element));
+                            break;
                         case "typeparamref":
-                            content.Add(new SDToken {Role = SDTokenRole.TypeParamRef, Text = element.GetAttribute("name")});
-			                break;
-			            case "paramref":
-			                content.Add(new SDToken {Role = SDTokenRole.ParamRef, Text = element.GetAttribute("name")});
-			                break;
-			            case "code":
+                            content.Add(new SDToken { Role = SDTokenRole.TypeParamRef, Text = element.GetAttribute("name") });
+                            break;
+                        case "paramref":
+                            content.Add(new SDToken { Role = SDTokenRole.ParamRef, Text = element.GetAttribute("name") });
+                            break;
+                        case "code":
                             content.Add(new SDCodeToken { Text = text, IsInline = false });
-			                break;
-			            case "c":
+                            break;
+                        case "c":
                             content.Add(new SDCodeToken { Text = text, IsInline = true });
-			                break;
-			            case "para":
+                            break;
+                        case "para":
                             content.Add(new SDToken { Text = text, Role = SDTokenRole.Paragraph });
-			                break;
-			        }
-			    }
-			}
-			return content;
-		}
-	}
+                            break;
+                    }
+                }
+            }
+            return content;
+        }
+
+        private SDToken GetSeeRef(XmlDocumentationElement xmlElement)
+        {
+            var sdToken = new SDSeeToken();
+            if (xmlElement.ReferencedEntity != null)
+            {
+                var identifier = xmlElement.ReferencedEntity.DeclaringType != null
+                                        ? xmlElement.ReferencedEntity.DeclaringType.GetIdentifier()
+                                        : string.Empty;
+
+                sdToken.Name = xmlElement.ReferencedEntity.Name;
+                sdToken.Namespace = xmlElement.ReferencedEntity.Namespace;
+                sdToken.DeclaringType = identifier;
+                sdToken.Text = xmlElement.ReferencedEntity.Name;
+            }
+            else
+            {
+                sdToken.Name = xmlElement.GetAttribute("cref");
+            }
+
+            return sdToken;
+        }
+    }
 }

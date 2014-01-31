@@ -8,12 +8,14 @@ namespace SharpDox.Sdk.Config
     ///     This interface exposes all needed functionalities to
     ///     work with config files.
     ///     </summary>
+    ///     <seealso cref="IConfigSection"/>
     /// </default>
     /// <de>
     ///     <summary>
     ///     Dieses Interface bildet alle Funktionen ab, die zur
     ///     Arbeit mit Konfigurationsdateien notwendig sind.
     ///     </summary>
+    ///     <seealso cref="IConfigSection"/>
     /// </de>
     public interface IConfigController
     {

@@ -55,6 +55,6 @@ namespace SharpDox.Model.Documentation.Token
         ///     Setzt oder liefert den beinhaltenden Typen der referenzierten Entität.
         ///     </summary>
         /// </de>
-        public SDType DeclaringType { get; set; }
+        public string DeclaringType { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace SharpDox.Model.Documentation
             Remarks = new SDTokenList();
             Example = new SDTokenList();
             Returns = new SDTokenList();
+            SeeAlso = new SDTokenList();
             Exceptions = new Dictionary<string, SDTokenList>();
             Params = new Dictionary<string, SDTokenList>();
             TypeParams = new Dictionary<string, SDTokenList>();
@@ -75,6 +76,18 @@ namespace SharpDox.Model.Documentation
         ///     </summary>
         /// </de>
         public SDTokenList Returns { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets or sets a list of <c>SDToken</c>s,  representing all seealso sections.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert eine Liste von <c>SDToken</c>s, welche die "seealso"-Sektionen repräsentiert.
+        ///     </summary>
+        /// </de>
+        public SDTokenList SeeAlso { get; set; }
 
         /// <default>
         ///     <summary>
