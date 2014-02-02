@@ -97,7 +97,7 @@ namespace SharpDox.Build.Parser
                         sdDocumentation.Returns = ParseContentTokens(child);
                         break;
                     case "seealso":
-                        sdDocumentation.SeeAlso.Add(GetSeeRef(child));
+                        sdDocumentation.SeeAlsos.Add(GetSeeRef(child));
                         break;
                 }
             }
