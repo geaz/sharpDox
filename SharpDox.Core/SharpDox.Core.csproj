@@ -57,6 +57,7 @@
     <Compile Include="AppEntry.cs" />
     <Compile Include="Config\CoreStrings.cs" />
     <Compile Include="Config\CoreConfigSection.cs" />
+    <Compile Include="Config\LanguageList.cs" />
     <Compile Include="Log4NetTraceListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ContainerConfig.cs" />

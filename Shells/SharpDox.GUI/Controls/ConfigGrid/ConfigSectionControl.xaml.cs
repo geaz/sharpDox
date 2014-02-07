@@ -2,16 +2,11 @@
 using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Config.Attributes;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using SharpDox.Sdk.Config.Lists;
 
 namespace SharpDox.GUI.Controls.ConfigGrid
 {
@@ -43,7 +38,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
                     b.Mode = BindingMode.TwoWay;
                     b.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
 
-                    var mandatoryAttribute = (MandatoryAttribute)Attribute.GetCustomAttribute(configItem, typeof(MandatoryAttribute));
+                    var requiredAttribute = (RequiredAttribute)Attribute.GetCustomAttribute(configItem, typeof(RequiredAttribute));
                     var editorTypeAttribute = (ConfigEditorAttribute)Attribute.GetCustomAttribute(configItem, typeof(ConfigEditorAttribute));
 
                     if(editorTypeAttribute == null && configItem.PropertyType == typeof(string))
@@ -51,20 +46,32 @@ namespace SharpDox.GUI.Controls.ConfigGrid
                         var textItemControl = new ConfigTextControl();
                         textItemControl.ConfigItemDisplayName = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
                         textItemControl.SetBinding(ConfigTextControl.ConfigItemValueProperty, b);
-                        textItemControl.WaterMarkText = mandatoryAttribute != null ? _localController.GetLocalStrings<SDGuiStrings>().Mandatory
+                        textItemControl.WaterMarkText = requiredAttribute != null ? _localController.GetLocalStrings<SDGuiStrings>().Mandatory
                                                                                     : _localController.GetLocalStrings<SDGuiStrings>().Optional;
-                        textItemControl.WaterMarkColor = mandatoryAttribute != null ? (SolidColorBrush)TryFindResource("Color_FadedRed") : (SolidColorBrush)TryFindResource("Color_FadedGray");
+                        textItemControl.WaterMarkColor = requiredAttribute != null ? (SolidColorBrush)TryFindResource("Color_FadedRed") : (SolidColorBrush)TryFindResource("Color_FadedGray");
 
                         configItemPanel.Children.Add(textItemControl);
                     }
-                    else if (editorTypeAttribute != null && (editorTypeAttribute.Editor == EditorType.Filepicker || editorTypeAttribute.Editor == EditorType.Folderpicker))
+                    else if(editorTypeAttribute != null && editorTypeAttribute.Editor == EditorType.ComboBox && editorTypeAttribute.SourceListType != null)
+                    {
+                        var dropDownControl = new ConfigComboBoxControl();
+                        dropDownControl.ConfigItemDisplayName = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
+                        dropDownControl.SourceList = (ComboBoxList) Activator.CreateInstance(editorTypeAttribute.SourceListType);
+                        dropDownControl.SetBinding(ConfigComboBoxControl.SelectedValueProperty, b);
+                        dropDownControl.WaterMarkText = requiredAttribute != null ? _localController.GetLocalStrings<SDGuiStrings>().Mandatory
+                                                                                    : _localController.GetLocalStrings<SDGuiStrings>().Optional;
+                        dropDownControl.WaterMarkColor = requiredAttribute != null ? (SolidColorBrush)TryFindResource("Color_FadedRed") : (SolidColorBrush)TryFindResource("Color_FadedGray");
+
+                        configItemPanel.Children.Add(dropDownControl);
+                    }
+                    else if(editorTypeAttribute != null && (editorTypeAttribute.Editor == EditorType.Filepicker || editorTypeAttribute.Editor == EditorType.Folderpicker))
                     {
                         var fileSystemControl = new ConfigFileSystemControl();
                         fileSystemControl.ConfigItemDisplayName = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
                         fileSystemControl.SetBinding(ConfigFileSystemControl.ConfigItemValueProperty, b);
-                        fileSystemControl.WaterMarkText = mandatoryAttribute != null ? _localController.GetLocalStrings<SDGuiStrings>().Mandatory
+                        fileSystemControl.WaterMarkText = requiredAttribute != null ? _localController.GetLocalStrings<SDGuiStrings>().Mandatory
                                                                                     : _localController.GetLocalStrings<SDGuiStrings>().Optional;
-                        fileSystemControl.WaterMarkColor = mandatoryAttribute != null ? (SolidColorBrush)TryFindResource("Color_FadedRed") : (SolidColorBrush)TryFindResource("Color_FadedGray");
+                        fileSystemControl.WaterMarkColor = requiredAttribute != null ? (SolidColorBrush)TryFindResource("Color_FadedRed") : (SolidColorBrush)TryFindResource("Color_FadedGray");
                         fileSystemControl.IsFileSelector = editorTypeAttribute.Editor == EditorType.Filepicker;
 
                         configItemPanel.Children.Add(fileSystemControl);

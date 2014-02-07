@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.ComponentModel;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Media;
 using SharpDox.Local;
 using SharpDox.Sdk.Config;
 using System.Windows.Controls;

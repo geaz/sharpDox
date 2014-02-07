@@ -41,13 +41,14 @@
   <ItemGroup>
     <Compile Include="Build\IBuildController.cs" />
     <Compile Include="Build\IBuildMessenger.cs" />
-    <Compile Include="Config\Attributes\MandatoryAttribute.cs" />
+    <Compile Include="Config\Attributes\RequiredAttribute.cs" />
     <Compile Include="Config\Attributes\ConfigEditorAttribute.cs" />
     <Compile Include="Config\Attributes\NameAttribute.cs" />
     <Compile Include="Config\Attributes\EditorType.cs" />
     <Compile Include="Config\IConfigController.cs" />
     <Compile Include="Config\IConfigSection.cs" />
     <Compile Include="Config\ICoreConfigSection.cs" />
+    <Compile Include="Config\Lists\ComboBoxList.cs" />
     <Compile Include="Exporter\IExporter.cs" />
     <Compile Include="Local\ILocalStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

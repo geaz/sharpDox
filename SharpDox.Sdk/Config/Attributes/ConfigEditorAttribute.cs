@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SharpDox.Sdk.Config.Attributes
 {
@@ -12,6 +9,13 @@ namespace SharpDox.Sdk.Config.Attributes
             Editor = editorType;
         }
 
+        public ConfigEditorAttribute(EditorType editorType, Type sourceListType)
+        {
+            Editor = editorType;
+            SourceListType = sourceListType;
+        }
+
         public EditorType Editor { get; set; }
+        public Type SourceListType { get; set; }
     }
 }

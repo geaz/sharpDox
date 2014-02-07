@@ -85,7 +85,7 @@ namespace SharpDox.Core.Config
             }
         }
 
-        [Mandatory]
+        [Required]
         [Name(typeof(CoreStrings), "ProjectName")]
         public string ProjectName
         {
@@ -156,7 +156,7 @@ namespace SharpDox.Core.Config
             }
         }
 
-        [Mandatory]
+        [Required]
         [ConfigEditor(EditorType.Folderpicker)]
         [Name(typeof(CoreStrings), "InputPath")]
         public string InputPath
@@ -198,7 +198,7 @@ namespace SharpDox.Core.Config
             }
         }
 
-        [Mandatory]
+        [Required]
         [ConfigEditor(EditorType.Folderpicker)]
         [Name(typeof(CoreStrings), "OutputPath")]
         public string OutputPath
@@ -214,7 +214,8 @@ namespace SharpDox.Core.Config
             }
         }
 
-        [Mandatory]
+        [Required]
+        [ConfigEditor(EditorType.ComboBox, typeof(LanguageList))]
         [Name(typeof(CoreStrings), "DocLanguage")]
         public string DocLanguage
         {

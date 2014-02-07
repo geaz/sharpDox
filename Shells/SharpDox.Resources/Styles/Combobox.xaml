@@ -11,46 +11,34 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
-                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="25" />
                     </Grid.ColumnDefinitions>
                     <Border
-                      BorderBrush="{StaticResource BorderColor_MainWindow}"
                       CornerRadius="0"
-                      BorderThickness="1,1,1,1"
+                      BorderThickness="0"
                       Name="Border"
-                      Background="White"
+                      Background="Transparent"
                       Grid.ColumnSpan="2" />
                     <Border
-                      Margin="1,1,1,1"
-                      BorderBrush="White"
+                      Margin="0,0,2,0"
                       CornerRadius="0"
-                      BorderThickness="0,0,1,0"
-                      Background="White"
+                      BorderThickness="0"
+                      Background="Transparent"
                       Grid.Column="0" />
-                    <Path
-                      Margin="0,0,3,0"
-                      Data="M0,0L4,4 8,0z"
-                      HorizontalAlignment="Center"
-                      Fill="{StaticResource BorderColor_MainWindow}"
-                      Name="Arrow"
-                      VerticalAlignment="Center"
-                      Width="8"
-                      Grid.Column="1" />
+                    <Border Grid.Column="1" Background="White"></Border>
+                    <Label Name="Arrow" Content="&#xf0d7;" FontFamily="{StaticResource Font_Icons}"
+                           FontSize="16" Foreground="#FF6c6c6c" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
                 <ControlTemplate.Triggers>
                     <Trigger Property="UIElement.IsMouseOver" Value="True">
-                        <Setter Property="Panel.Background" TargetName="Border" Value="White"/>
-                        <Setter Property="Shape.Fill" TargetName="Arrow" Value="{StaticResource Color_Main}"/>
+                        <Setter Property="Foreground" TargetName="Arrow" Value="{StaticResource Color_Main}"/>
                     </Trigger>
                     <Trigger Property="ToggleButton.IsChecked" Value="True">
-                        <Setter Property="Panel.Background" TargetName="Border" Value="White"/>
-                        <Setter Property="Shape.Fill" TargetName="Arrow" Value="{StaticResource Color_Main}"/>
+                        <Setter Property="Foreground" TargetName="Arrow" Value="{StaticResource Color_Main}"/>
                     </Trigger>
                     <Trigger Property="UIElement.IsEnabled" Value="False">
-                        <Setter Property="Panel.Background" TargetName="Border" Value="{StaticResource Color_Main}"/>
-                        <Setter Property="Border.BorderBrush" TargetName="Border" Value="{StaticResource Color_Main}"/>
                         <Setter Property="TextElement.Foreground" Value="{StaticResource Color_Main}"/>
-                        <Setter Property="Shape.Fill" TargetName="Arrow" Value="#66FFFFFF"/>
+                        <Setter Property="Foreground" TargetName="Arrow" Value="#66FFFFFF"/>
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
@@ -75,9 +63,7 @@
                               Background="White"
                               SnapsToDevicePixels="True"
                               Padding="5" Margin="0,0,0,0">
-                                <ContentPresenter
-                                    ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
-                                    Content="{TemplateBinding ContentControl.Content}" />
+                                <ContentPresenter />
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="ComboBoxItem.IsHighlighted" Value="True">
@@ -121,6 +107,8 @@
                 <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
                 <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
                 <Setter Property="TextElement.Foreground" Value="{StaticResource Color_BodyFont}"/>
+                <Setter Property="TextElement.FontFamily" Value="{StaticResource Font_Regular}"/>
+                <Setter Property="TextElement.FontSize" Value="13"/>
                 <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
                 <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItem}"/>
                 <Setter Property="Control.Template">
@@ -173,8 +161,7 @@
                                     <ScrollViewer
                                         Margin="4,6,4,6"
                                         SnapsToDevicePixels="True">
-                                      <ItemsPresenter
-                                          KeyboardNavigation.DirectionalNavigation="Contained" />
+                                      <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
                                     </ScrollViewer>
                                   </Grid>
                                 </Popup>

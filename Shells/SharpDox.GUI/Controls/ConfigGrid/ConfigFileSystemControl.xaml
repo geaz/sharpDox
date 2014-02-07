@@ -32,7 +32,9 @@
             </Grid>
         </Border>
 
-        <Button Grid.Column="3" Style="{StaticResource IconButtonNoBorder}" Background="White" Content="{Binding ButtonText}" Command="{Binding ButtonCommand}" />
+        <Border Grid.Column="2" Background="White">
+            <Button Style="{StaticResource IconButtonNoBorder}" Content="{Binding ButtonText}" Command="{Binding ButtonCommand}" />
+        </Border>
     </Grid>
     
 </UserControl>
