@@ -18,7 +18,7 @@ namespace SharpDox.GUI.ViewModels
         private readonly IConfigController _configController;
         private readonly Action _onCloseHandle;
 
-        public ShellViewModel(SDGuiStrings strings, IConfigController configController, SharpDoxConfig sharpDoxConfig, Action onCloseHandle)
+        public ShellViewModel(SDGuiStrings strings, IConfigController configController, IConfigSection[] configSections, ICoreConfigSection sharpDoxConfig, Action onCloseHandle)
         {
             _onCloseHandle = onCloseHandle;
             _configController = configController;
@@ -26,12 +26,13 @@ namespace SharpDox.GUI.ViewModels
 
             Strings = strings;
             Config = sharpDoxConfig;
+            ConfigSections = configSections.ToList();
 
             RecentProjectsChanged();
         }
 
         public SDGuiStrings Strings { get; private set; }
-        public SharpDoxConfig Config { get; private set; }
+        public ICoreConfigSection Config { get; private set; }
 
         private void RecentProjectsChanged()
         {
@@ -41,6 +42,13 @@ namespace SharpDox.GUI.ViewModels
                 recentProjects.Add(new MenuItemViewModel { Text = recentProject.Value, Command = new RelayCommand(() => { _configController.Load(recentProject.Key); }, true) });
             }
             RecentProjects = recentProjects;
+        }
+
+        private IEnumerable<IConfigSection> _configSections;
+        public IEnumerable<IConfigSection> ConfigSections
+        {
+            get { return _configSections; }
+            set { _configSections = value; OnPropertyChanged("ConfigSections"); }
         }
 
         private bool _isRecentProjectsVisible = false;

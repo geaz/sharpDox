@@ -11,12 +11,12 @@ namespace SharpDox.Build.Context
         private readonly BuildMessenger _buildMessenger;
         private readonly Steps _steps;
 
-        public ParseContext(SharpDoxConfig sharpDoxConfig, SDBuildStrings sdBuildStrings, IConfigController configController, BuildMessenger buildMessenger)
+        public ParseContext(ICoreConfigSection coreConfigSection, SDBuildStrings sdBuildStrings, IConfigController configController, BuildMessenger buildMessenger)
         {
             _sdBuildStrings = sdBuildStrings;
             _buildMessenger = buildMessenger;
 
-            _steps = new Steps(sharpDoxConfig, sdBuildStrings, configController, buildMessenger);
+            _steps = new Steps(coreConfigSection, sdBuildStrings, configController, buildMessenger);
         }
 
         public virtual void ParseSolution()

@@ -6,13 +6,13 @@ namespace SharpDox.Build.Context.Step
 {
     internal class LoadStep
     {
-        private readonly SharpDoxConfig _config;
+        private readonly ICoreConfigSection _coreConfigSection;
         private readonly SDBuildStrings _sdBuildStrings;
         private readonly BuildMessenger _buildMessenger;
 
-        public LoadStep(SharpDoxConfig config, SDBuildStrings sdBuildStrings, BuildMessenger buildMessenger)
+        public LoadStep(ICoreConfigSection coreConfigSection, SDBuildStrings sdBuildStrings, BuildMessenger buildMessenger)
         {
-            _config = config;
+            _coreConfigSection = coreConfigSection;
             _sdBuildStrings = sdBuildStrings;
             _buildMessenger = buildMessenger;
         }
@@ -23,7 +23,7 @@ namespace SharpDox.Build.Context.Step
             _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.LoadingSolution);
 
             var solution = new CSharpSolution(_sdBuildStrings, _buildMessenger);
-            solution.LoadSolution(_config.InputPath);
+            solution.LoadSolution(_coreConfigSection.InputPath);
             PostSolutionLoadSummary(solution);
 
             _buildMessenger.ExecuteOnStepProgress(100);

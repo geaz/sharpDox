@@ -4,6 +4,9 @@ namespace SharpDox.GUI
 {
     public class SDGuiStrings : ILocalStrings
     {
+        private string _mandatory = "required";
+        private string _optional = "optional";
+
         private string _build = "Build";
         private string _generalSettings = "General Settings";
         private string _exportSettings = "Exportsettings";
@@ -34,6 +37,18 @@ namespace SharpDox.GUI
         private string _hideInternal = "Hide all internal members";
 
         public string DisplayName { get { return "SharpDoxGui"; } }
+
+        public string Mandatory
+        {
+            get { return _mandatory; }
+            set { _mandatory = value; }
+        }
+
+        public string Optional
+        {
+            get { return _optional; }
+            set { _optional = value; }
+        }
 
         public string GeneralSettings
         {

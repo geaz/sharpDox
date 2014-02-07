@@ -23,7 +23,7 @@ namespace SharpDox.Sdk.Build
         ///     and members. Just enough to show a tree of all members as seen in the
         ///     visibility settings of the sharpDox GUI.
         ///     </summary>
-        ///     <param name="sharpDoxConfig">A config file with all necessary parameters</param>
+        ///     <param name="coreConfigSection">A config file with all necessary parameters</param>
         ///     <param name="thread">Indicates, if the process should start in an own thread.</param>
         /// </default>
         /// <de>
@@ -32,17 +32,17 @@ namespace SharpDox.Sdk.Build
         ///     Die Methode liest lediglich minimale Informationen über Namensräume, Typen und Mitglieder.
         ///     Gerade genug, um einen Baum aufzubauen wie er in den Sichtbarkeitseinstellungen der sharpDox GUI zu sehen ist.
         ///     </summary>
-        ///     <param name="sharpDoxConfig">Eine Konfigurationsdatei mit allen notwendigen Einstellungen</param>
+        ///     <param name="coreConfigSection">Eine Konfigurationsdatei mit allen notwendigen Einstellungen</param>
         ///     <param name="thread">Gibt an, ob der Vorgang in einem eigenen Thread gestartet werden soll</param>
         /// </de>
-        void StartParse(SharpDoxConfig sharpDoxConfig, bool thread);
+        void StartParse(ICoreConfigSection coreConfigSection, bool thread);
 
         /// <default>
         ///     <summary>
         ///     Starts a documentation build for a given c# solution.
         ///     The method parses the solution and starts all registered exporters.
         ///     </summary>
-        ///     <param name="sharpDoxConfig">A config file with all necessary parameters</param>
+        ///     <param name="coreConfigSection">A config file with all necessary parameters</param>
         ///     <param name="thread">Indicates, if the process should start in an own thread.</param>
         /// </default>
         /// <de>
@@ -50,10 +50,10 @@ namespace SharpDox.Sdk.Build
         ///     Startet den Bau der Dokumentation einer gegebenen C# Lösung.
         ///     Die Methode liest die Lösung ein und startet alle registrierten 
         ///     </summary>
-        ///     <param name="sharpDoxConfig">Eine Konfigurationsdatei mit allen notwendigen Einstellungen</param>
+        ///     <param name="coreConfigSection">Eine Konfigurationsdatei mit allen notwendigen Einstellungen</param>
         ///     <param name="thread">Gibt an, ob der Vorgang in einem eigenen Thread gestartet werden soll</param>
         /// </de>
-        void StartBuild(SharpDoxConfig sharpDoxConfig, bool thread);
+        void StartBuild(ICoreConfigSection coreConfigSection, bool thread);
 
         /// <default>
         ///     <summary>

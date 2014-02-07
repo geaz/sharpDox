@@ -8,13 +8,13 @@ namespace SharpDox.Build.Context.Step
     internal class ExportStep
     {
         private readonly IExporter[] _allExporters;
-        private readonly SharpDoxConfig _sharpDoxConfig;
+        private readonly ICoreConfigSection _coreConfigSection;
         private readonly SDBuildStrings _sdBuildStrings;
         private readonly BuildMessenger _buildMessenger;
 
-        public ExportStep(SharpDoxConfig sharpDoxConfig, SDBuildStrings sdBuildStrings, BuildMessenger buildMessenger, IExporter[] allExporters)
+        public ExportStep(ICoreConfigSection coreConfigSection, SDBuildStrings sdBuildStrings, BuildMessenger buildMessenger, IExporter[] allExporters)
         {
-            _sharpDoxConfig = sharpDoxConfig;
+            _coreConfigSection = coreConfigSection;
             _sdBuildStrings = sdBuildStrings;
             _buildMessenger = buildMessenger;
             _allExporters = allExporters;
@@ -35,11 +35,11 @@ namespace SharpDox.Build.Context.Step
             var i = 0;
             foreach (var exporter in _allExporters)
             {
-                if (!_sharpDoxConfig.DeactivatedExporters.Contains(exporter.ExporterName))
+                if (_coreConfigSection.ActivatedExporters.Contains(exporter.ExporterName))
                 {
                     _buildMessenger.ExecuteOnBuildMessage(string.Format(_sdBuildStrings.StartExporter + ": \"{0}\" ...", exporter.ExporterName));
 
-                    var outputPath = GetOutputPath(_sharpDoxConfig.OutputPath, exporter.ExporterName);
+                    var outputPath = GetOutputPath(_coreConfigSection.OutputPath, exporter.ExporterName);
 
                     exporter.OnStepMessage += (m) => _buildMessenger.ExecuteOnStepMessage(m);
                     exporter.OnStepProgress += (p) => _buildMessenger.ExecuteOnStepProgress(p);

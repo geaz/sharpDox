@@ -10,10 +10,10 @@ namespace SharpDox.GUI.ViewModels
 {
     internal class ExporterViewModel : ViewModelBase
     {
-        private readonly SharpDoxConfig _sharpDoxConfig;
+        private readonly ICoreConfigSection _sharpDoxConfig;
         private readonly IExporter[] _allExporter;
 
-        public ExporterViewModel(SharpDoxConfig sharpDoxConfig, IExporter[] allExporters)
+        public ExporterViewModel(ICoreConfigSection sharpDoxConfig, IExporter[] allExporters)
         {
             _sharpDoxConfig = sharpDoxConfig;
             _allExporter = allExporters;
@@ -40,7 +40,7 @@ namespace SharpDox.GUI.ViewModels
             foreach (var exporter in _allExporter)
             {
                 var item = new ExporterListBoxItemViewModel(exporter.ExporterName, exporter.Author,
-                    exporter.Description, _sharpDoxConfig.DeactivatedExporters);
+                    exporter.Description, _sharpDoxConfig.ActivatedExporters);
                 ExporterList.Add(item);
             }
         }

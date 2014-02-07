@@ -23,9 +23,9 @@ namespace SharpDox.Build
             _allExporters = allExporters;
         }
 
-        public void StartParse(SharpDoxConfig sharpDoxConfig, bool thread)
+        public void StartParse(ICoreConfigSection coreConfigSection, bool thread)
         {
-            var parseContext = new ParseContext(sharpDoxConfig, _sdBuildStrings, _configController, _buildMessenger);
+            var parseContext = new ParseContext(coreConfigSection, _sdBuildStrings, _configController, _buildMessenger);
 
             if (thread)
             {
@@ -39,7 +39,7 @@ namespace SharpDox.Build
             }
         }
 
-        public void StartBuild(SharpDoxConfig sharpDoxConfig, bool thread)
+        public void StartBuild(ICoreConfigSection sharpDoxConfig, bool thread)
         {
             var buildContext = new BuildContext(sharpDoxConfig, _sdBuildStrings, _configController, _buildMessenger, _allExporters);
 

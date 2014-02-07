@@ -6,14 +6,14 @@ namespace SharpDox.Build.Context.Step
 {
     internal class PreBuildStep
     {
-        private readonly SharpDoxConfig _config;
+        private readonly ICoreConfigSection _coreConfigSection;
         private readonly IExporter[] _allExporters;
         private readonly BuildMessenger _buildMessenger;
         private readonly SDBuildStrings _sdBuildStrings;
 
-        public PreBuildStep(SharpDoxConfig config, IExporter[] allExporters, BuildMessenger buildMessenger, SDBuildStrings sdBuildStrings)
+        public PreBuildStep(ICoreConfigSection coreConfigSection, IExporter[] allExporters, BuildMessenger buildMessenger, SDBuildStrings sdBuildStrings)
         {
-            _config = config;
+            _coreConfigSection = coreConfigSection;
             _allExporters = allExporters;
             _buildMessenger = buildMessenger;
             _sdBuildStrings = sdBuildStrings;
@@ -21,24 +21,24 @@ namespace SharpDox.Build.Context.Step
 
         public void CheckConfig(bool justParse = true)
         {
-            if (string.IsNullOrEmpty(_config.ProjectName))
+            if (string.IsNullOrEmpty(_coreConfigSection.ProjectName))
                 throw new SDBuildException(_sdBuildStrings.NoProjectNameGiven);
 
-            if (string.IsNullOrEmpty(_config.InputPath))
+            if (string.IsNullOrEmpty(_coreConfigSection.InputPath))
                 throw new SDBuildException(_sdBuildStrings.NoProjectGiven);
 
-            if (!File.Exists(_config.InputPath))
+            if (!File.Exists(_coreConfigSection.InputPath))
                 throw new SDBuildException(_sdBuildStrings.ProjectNotFound);
 
             if (!justParse)
             {
-                if (string.IsNullOrEmpty(_config.DocLanguage))
+                if (string.IsNullOrEmpty(_coreConfigSection.DocLanguage))
                     throw new SDBuildException(_sdBuildStrings.NoDocLanguage);
 
-                if (string.IsNullOrEmpty(_config.OutputPath))
+                if (string.IsNullOrEmpty(_coreConfigSection.OutputPath))
                     throw new SDBuildException(_sdBuildStrings.NoOutputPathGiven);
 
-                if (!Directory.Exists(_config.OutputPath))
+                if (!Directory.Exists(_coreConfigSection.OutputPath))
                     throw new SDBuildException(_sdBuildStrings.OutputPathNotFound);
 
                 foreach (var exporter in _allExporters)

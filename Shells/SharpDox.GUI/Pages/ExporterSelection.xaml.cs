@@ -7,7 +7,7 @@ namespace SharpDox.GUI.Pages
 {
     public partial class ExporterSelection : IPage
     {
-        public ExporterSelection(SDGuiStrings strings, SharpDoxConfig sharpdoxConfig, IExporter[] allExporters)
+        public ExporterSelection(SDGuiStrings strings, ICoreConfigSection sharpdoxConfig, IExporter[] allExporters)
         {
             Strings = strings;
 

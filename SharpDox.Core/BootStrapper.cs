@@ -5,8 +5,8 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using SharpDox.ConsoleHelper;
+using SharpDox.Core.Config;
 using SharpDox.Local;
-using SharpDox.Sdk.Local;
 using SharpDox.Sdk.UI;
 
 namespace SharpDox.Core
@@ -15,7 +15,7 @@ namespace SharpDox.Core
     {
         private IContainer _container;
         private List<IShell> _shells;
-        private SharpDoxStrings _strings;
+        private CoreStrings _strings;
 
         private readonly string[] _args;
         private readonly string _sdVersion;
@@ -53,7 +53,7 @@ namespace SharpDox.Core
 
             var setupContext = new ContainerConfig();
             _container = setupContext.BuildContainer();
-            _strings = _container.Resolve<SharpDoxStrings>();
+            _strings = _container.Resolve<CoreStrings>();
         }
 
         private bool AnyShellExists()

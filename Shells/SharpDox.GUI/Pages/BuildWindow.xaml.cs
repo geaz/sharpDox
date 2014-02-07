@@ -11,9 +11,9 @@ namespace SharpDox.GUI.Pages
     {
         private readonly IBuildController _buildController;
         private readonly IBuildMessenger _buildMessenger;
-        private readonly SharpDoxConfig _sharpDoxConfig;
+        private readonly ICoreConfigSection _sharpDoxConfig;
 
-        public BuildWindow(SDGuiStrings strings, SharpDoxConfig sharpDoxConfig, IBuildController buildController, IBuildMessenger buildMessenger)
+        public BuildWindow(SDGuiStrings strings, ICoreConfigSection sharpDoxConfig, IBuildController buildController, IBuildMessenger buildMessenger)
         {
             Strings = strings;
 

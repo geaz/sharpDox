@@ -56,6 +56,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\ParameterRelayCommand.cs" />
+    <Compile Include="Controls\ConfigGrid\ConfigGridControl.xaml.cs">
+      <DependentUpon>ConfigGridControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ConfigGrid\ConfigFileSystemControl.xaml.cs">
+      <DependentUpon>ConfigFileSystemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ConfigGrid\ConfigComboBoxControl.xaml.cs">
+      <DependentUpon>ConfigComboBoxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ConfigGrid\ConfigTextControl.xaml.cs">
+      <DependentUpon>ConfigTextControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ConfigGrid\ConfigSectionControl.xaml.cs">
+      <DependentUpon>ConfigSectionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\BuildWindow.xaml.cs">
       <DependentUpon>BuildWindow.xaml</DependentUpon>
     </Compile>
@@ -90,6 +105,26 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\ConfigGrid\ConfigGridControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ConfigGrid\ConfigFileSystemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ConfigGrid\ConfigComboBoxControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ConfigGrid\ConfigTextControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ConfigGrid\ConfigSectionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\BuildWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -112,6 +147,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\SharpDox.Local\SharpDox.Local.csproj">
+      <Project>{52ecc690-3f03-4820-8fe4-2c07c7b33409}</Project>
+      <Name>SharpDox.Local</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SharpDox.Model\SharpDox.Model.csproj">
       <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
       <Name>SharpDox.Model</Name>
@@ -125,6 +164,7 @@
       <Name>SharpDox.Resources</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(SolutionDir)SharpDox.Core\bin\Debug\shells"

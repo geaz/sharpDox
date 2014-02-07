@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="SharpDox.GUI.Controls.ConfigGrid.ConfigTextControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" d:DesignHeight="27"
+             x:Name="TextControl" d:DesignWidth="250">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SharpDox.Resources;component/SharpDox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="0,0,0,2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="125"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Content="{Binding ConfigItemDisplayName}" Style="{StaticResource BodyText}" Grid.Column="0" Background="White" Margin="0,0,2,0" />
+
+        <Border Background="White" Grid.Column="1">
+            <Grid>
+                <TextBlock FontFamily="{StaticResource Font_Italic}" FontSize="13" Margin="5" Text="{Binding WaterMarkText}" Foreground="{Binding WaterMarkColor}"
+                           Visibility="{Binding ElementName=tbValue, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <TextBox Name="tbValue" Background="Transparent" Text="{Binding ConfigItemValue}" BorderThickness="0" FontFamily="{StaticResource Font_Regular}" 
+                         FontSize="13" Padding="5,5,0,5"/>
+            </Grid>
+        </Border>
+    </Grid>
+    
+</UserControl>

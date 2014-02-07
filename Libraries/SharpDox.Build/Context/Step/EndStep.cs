@@ -5,18 +5,18 @@ namespace SharpDox.Build.Context.Step
 {
     internal class EndStep
     {
-        private readonly SharpDoxConfig _sharpDoxConfig;
+        private readonly ICoreConfigSection _coreConfigSection;
         private readonly IConfigController _configController;
 
-        public EndStep(IConfigController configController, SharpDoxConfig sharpDoxConfig)
+        public EndStep(IConfigController configController, ICoreConfigSection coreConfigSection)
         {
             _configController = configController;
-            _sharpDoxConfig = sharpDoxConfig;
+            _coreConfigSection = coreConfigSection;
         }
 
         public void EndProcess()
         {
-            _sharpDoxConfig.LastBuild = DateTime.Now.ToString("d.M.yyyy - HH:mm");
+            _coreConfigSection.LastBuild = DateTime.Now.ToString("d.M.yyyy - HH:mm");
             _configController.Save();
         }
     }

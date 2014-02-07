@@ -216,7 +216,7 @@
                       CornerRadius="0" 
                       BorderThickness="{TemplateBinding BorderThickness}"
                       BorderBrush="#FFC2C2C2"
-                      Background="White"
+                      Background="{TemplateBinding Background}"
                       RenderTransformOrigin="0.5,0.5"
                       Padding="0">
                                 <DockPanel>
@@ -244,7 +244,7 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="IconButton2" TargetType="{x:Type Button}">
+            <Style x:Key="IconButtonNoBorder" TargetType="{x:Type Button}">
                 <Setter Property="Width" Value="25"/>
                 <Setter Property="Height" Value="25"/>
                 <Setter Property="SnapsToDevicePixels" Value="true"/>
@@ -259,7 +259,7 @@
                       CornerRadius="0" 
                       BorderThickness="0"
                       BorderBrush="#FFC2C2C2"
-                      Background="White"
+                      Background="{TemplateBinding Background}"
                       RenderTransformOrigin="0.5,0.5"
                       Padding="0">
                                 <DockPanel>
@@ -272,7 +272,10 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="Foreground" Value="#FFf58026"/>
+                                    <Setter Property="Foreground" Value="{StaticResource Color_Main}"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Foreground" Value="{StaticResource Color_FadedMain}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -283,13 +286,12 @@
             <Style x:Key="BigButton" TargetType="{x:Type Button}">
                 <Setter Property="SnapsToDevicePixels" Value="true"/>
                 <Setter Property="OverridesDefaultStyle" Value="true"/>
-                <Setter Property="Height" Value="40"/>
+                <Setter Property="Height" Value="Auto"/>
                 <Setter Property="Width" Value="Auto"/>
-                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="FontSize" Value="20"/>
-                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontWeight" Value="Bold"/>
                 <Setter Property="Foreground" Value="#FF6c6c6c"/>
-                <Setter Property="FontFamily" Value="{StaticResource Font_Regular}"/>
+                <Setter Property="FontFamily" Value="{StaticResource Font_Bold}"/>
                 <Setter Property="Opacity" Value="1"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -297,12 +299,9 @@
                             <Border x:Name="ButtonBorder" 
                       CornerRadius="0" 
                       BorderThickness="0" 
-                      Background="White"
-                      RenderTransformOrigin="0.5,0.5"
-                      Padding="0,5,0,5">
+                      Background="Transparent">
                                 <DockPanel>
                                     <ContentPresenter x:Name="ButtonContentPresenter"
-                                  Margin="15,0,0,0"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   RecognizesAccessKey="True"/>
@@ -310,11 +309,10 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="Foreground" Value="#000000"/>
-                                    <Setter TargetName="ButtonBorder" Property="Background" Value="#FFf58026"/>
+                                    <Setter Property="Foreground" Value="{StaticResource Color_Main}"/>
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="true">
-                                    <Setter Property="Foreground" Value="#ffffdeb9"/>
+                                    <Setter Property="Foreground" Value="{StaticResource Color_FadedMain}"/>
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="false">
                                     <Setter Property="Foreground" Value="#FFDBDBDB"/>

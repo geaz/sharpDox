@@ -18,11 +18,11 @@ namespace SharpDox.Build.Context.Step
 
         private readonly SDBuildStrings _sdBuildStrings;
         private readonly BuildMessenger _buildMessenger;
-        private readonly SharpDoxConfig _sharpDoxConfig;
+        private readonly ICoreConfigSection _coreConfigSection;
 
-        public ParseStep(SDBuildStrings sdBuildStrings, SharpDoxConfig sharpDoxConfig, BuildMessenger buildMessenger)
+        public ParseStep(SDBuildStrings sdBuildStrings, ICoreConfigSection coreConfigSection, BuildMessenger buildMessenger)
         {
-            _sharpDoxConfig = sharpDoxConfig;
+            _coreConfigSection = coreConfigSection;
             _sdBuildStrings = sdBuildStrings;
             _buildMessenger = buildMessenger;
         }
@@ -51,7 +51,7 @@ namespace SharpDox.Build.Context.Step
 
         private void GetProjectInfos()
         {
-            var potentialReadMes = Directory.EnumerateFiles(Path.GetDirectoryName(_sharpDoxConfig.InputPath), "*readme*");
+            var potentialReadMes = Directory.EnumerateFiles(Path.GetDirectoryName(_coreConfigSection.InputPath), "*readme*");
             if (potentialReadMes.Any())
             {
                 foreach (var readme in potentialReadMes)
@@ -73,19 +73,19 @@ namespace SharpDox.Build.Context.Step
             }
             else
             {
-                _repository.ProjectInfo.Description.Add("default", _sharpDoxConfig.Description);
+                _repository.ProjectInfo.Description.Add("default", _coreConfigSection.Description);
             }
 
-            _repository.ProjectInfo.DocLanguage = _sharpDoxConfig.DocLanguage;
-            _repository.ProjectInfo.LogoPath = _sharpDoxConfig.LogoPath;
-            _repository.ProjectInfo.Author = _sharpDoxConfig.Author;
-            _repository.ProjectInfo.ProjectName = _sharpDoxConfig.ProjectName;
-            _repository.ProjectInfo.VersionNumber = _sharpDoxConfig.VersionNumber;
+            _repository.ProjectInfo.DocLanguage = _coreConfigSection.DocLanguage;
+            _repository.ProjectInfo.LogoPath = _coreConfigSection.LogoPath;
+            _repository.ProjectInfo.Author = _coreConfigSection.Author;
+            _repository.ProjectInfo.ProjectName = _coreConfigSection.ProjectName;
+            _repository.ProjectInfo.VersionNumber = _coreConfigSection.VersionNumber;
         }
 
         private void GetImages()
         {
-            var images = Directory.EnumerateFiles(Path.GetDirectoryName(_sharpDoxConfig.InputPath), "sdi.*", SearchOption.AllDirectories);
+            var images = Directory.EnumerateFiles(Path.GetDirectoryName(_coreConfigSection.InputPath), "sdi.*", SearchOption.AllDirectories);
             foreach (var image in images)
             {
                 _repository.Images.Add(image);
@@ -94,14 +94,14 @@ namespace SharpDox.Build.Context.Step
 
         private void ParseArticles()
         {
-            var articleParser = new ArticleParser(_sharpDoxConfig.InputPath, _repository);
+            var articleParser = new ArticleParser(_coreConfigSection.InputPath, _repository);
             _repository.Articles = articleParser.ParseArticles();
         }
 
         private void ParseNamespaces()
         {
             var pi = 0;
-            var namespaceParser = new NamespaceParser(_repository, _excludedIdentifiers, _sharpDoxConfig);
+            var namespaceParser = new NamespaceParser(_repository, _excludedIdentifiers, _coreConfigSection);
             namespaceParser.OnItemParseStart += (n, i, t) => { PostProgress(_sdBuildStrings.ParsingNamespace + ": " + n, i, t, pi, _solution.Projects.Count); };
 
             for (int i = 0; i < _solution.Projects.Count; i++)

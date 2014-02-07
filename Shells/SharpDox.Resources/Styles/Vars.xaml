@@ -4,16 +4,19 @@
     <SolidColorBrush x:Key="BorderColor_MainWindow">#FFC2C2C2</SolidColorBrush>
 
     <SolidColorBrush x:Key="Color_Main">#FFF58026</SolidColorBrush>
-    <SolidColorBrush x:Key="Color_FadedMain">#FFEAB891</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_FadedMain">#FFFFDEB9</SolidColorBrush>
     <SolidColorBrush x:Key="Color_Blue">#FF0066CC</SolidColorBrush>
     <SolidColorBrush x:Key="Color_LogoFont">#FF706F6F</SolidColorBrush>
     <SolidColorBrush x:Key="Color_BodyFont">#FF272624</SolidColorBrush>
     <SolidColorBrush x:Key="Color_HeaderFont">#FF272624</SolidColorBrush>
     <SolidColorBrush x:Key="Color_MouseOverFont">#FF000000</SolidColorBrush>
     <SolidColorBrush x:Key="Color_PressedFont">#FFFFFFFF</SolidColorBrush>
-    <SolidColorBrush x:Key="Color_FadedFont">#FF979797</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_FadedFont">#FFF7F7F7</SolidColorBrush>
     <SolidColorBrush x:Key="Color_PageFont">#FF7F7F7F</SolidColorBrush>
-    
+
+    <SolidColorBrush x:Key="Color_FadedGray">#7D6b6b6b</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_FadedRed">#7DD60000</SolidColorBrush>
+
     <FontFamily x:Key="Font_Regular">/SharpDox.Resources;component/Fonts/#Open Sans Regular</FontFamily>
     <FontFamily x:Key="Font_Bold">/SharpDox.Resources;component/Fonts/#Open Sans Bold</FontFamily>
     <FontFamily x:Key="Font_Light">/SharpDox.Resources;component/Fonts/#Open Sans Light</FontFamily>

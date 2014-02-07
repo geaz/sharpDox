@@ -14,10 +14,10 @@ namespace SharpDox.Build.Parser
     {
         private List<string> _descriptionFiles;
 
-        internal NamespaceParser(SDRepository repository, List<string> excludedIdentifiers, SharpDoxConfig sharpDoxConfig)
+        internal NamespaceParser(SDRepository repository, List<string> excludedIdentifiers, ICoreConfigSection coreConfigSection)
             : base(repository, excludedIdentifiers)
         {
-            _descriptionFiles = Directory.EnumerateFiles(Path.GetDirectoryName(sharpDoxConfig.InputPath), "*.sdnd", SearchOption.AllDirectories).ToList();
+            _descriptionFiles = Directory.EnumerateFiles(Path.GetDirectoryName(coreConfigSection.InputPath), "*.sdnd", SearchOption.AllDirectories).ToList();
         }
 
         internal void ParseProjectNamespaces(CSharpProject project)

@@ -9,7 +9,7 @@ namespace SharpDox.GUI.Pages
 {
     public partial class GeneralSettings : IPage
     {
-        public GeneralSettings(SDGuiStrings strings, SharpDoxConfig config)
+        public GeneralSettings(SDGuiStrings strings, ICoreConfigSection config)
 		{
             DataContext = config;
             Strings = strings;

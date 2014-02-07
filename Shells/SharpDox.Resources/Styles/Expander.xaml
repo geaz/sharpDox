@@ -27,7 +27,8 @@
                             VerticalAlignment="Center"
                             ContentSource="Content"
                             TextBlock.Foreground="{StaticResource Color_BodyFont}"
-                            TextBlock.FontFamily="{StaticResource Font_Regular}"/>
+                            TextBlock.FontFamily="{TemplateBinding FontFamily}"
+                            TextBlock.FontSize="{TemplateBinding FontSize}" />
                 </Grid>
                 <ControlTemplate.Triggers>
                     <Trigger Property="IsChecked" Value="True">

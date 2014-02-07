@@ -114,7 +114,7 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="Combobox" TargetType="{x:Type ComboBox}">
+            <Style x:Key="ComboBox" TargetType="{x:Type ComboBox}">
                 <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
                 <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="True"/>
                 <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>

@@ -12,10 +12,10 @@ namespace SharpDox.GUI.ViewModels
 {
     internal class VisibilityViewModel : ViewModelBase
     {
-        private readonly SharpDoxConfig _sharpDoxConfig;
+        private readonly ICoreConfigSection _sharpDoxConfig;
         private readonly IBuildController _buildController;
 
-        public VisibilityViewModel(SharpDoxConfig sharpDoxConfig, IBuildController buildController, IBuildMessenger buildMessenger)
+        public VisibilityViewModel(ICoreConfigSection sharpDoxConfig, IBuildController buildController, IBuildMessenger buildMessenger)
         {
             _sharpDoxConfig = sharpDoxConfig;
             _buildController = buildController;

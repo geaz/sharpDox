@@ -8,7 +8,7 @@ namespace SharpDox.GUI.Pages
 {
     public partial class VisibilitySettings : IPage
     {
-        public VisibilitySettings(SDGuiStrings strings, SharpDoxConfig sharpdoxConfig, IBuildController buildController, IBuildMessenger buildMessenger)
+        public VisibilitySettings(SDGuiStrings strings, ICoreConfigSection sharpdoxConfig, IBuildController buildController, IBuildMessenger buildMessenger)
         {
             Strings = strings;
 

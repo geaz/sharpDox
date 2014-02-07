@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="BootStrapper.cs" />
     <Compile Include="AppEntry.cs" />
+    <Compile Include="Config\CoreStrings.cs" />
+    <Compile Include="Config\CoreConfigSection.cs" />
     <Compile Include="Log4NetTraceListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ContainerConfig.cs" />

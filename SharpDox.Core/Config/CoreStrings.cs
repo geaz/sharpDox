@@ -1,4 +1,6 @@
-﻿namespace SharpDox.Sdk.Local
+﻿using SharpDox.Sdk.Local;
+
+namespace SharpDox.Core.Config
 {
     /// <default>
     ///     <summary>
@@ -10,8 +12,19 @@
     ///     Alle Zeichenketten die von der Haupt-Anwendung genutzt werden.
     ///     </summary>
     /// </de>
-    public class SharpDoxStrings : ILocalStrings
+    public class CoreStrings : ILocalStrings
     {
+        private string _configTitle = "General Settings";
+        private string _projectName = "Project Name";
+        private string _versionNumber = "Version Number";
+        private string _author = "Author";
+        private string _logoPath = "Logo Path";
+        private string _inputPath = "Input Path";
+        private string _excludedIdentifiers = "Excluded Identifiers";
+        private string _exporters = "Exporters";
+        private string _outputPath = "Output Path";
+        private string _docLanguage = "Doc Language";
+
         private string _startSd = "Starting sharpDox ...";
         private string _noShells = "No shell registered. At least one shell is necessary to run sharpDox.";
         private string _moreShells = "More than one shell registered. Which one should be started?";
@@ -111,6 +124,66 @@
         {
             get { return _moreShells; }
             set { _moreShells = value; }
+        }
+
+        public string ConfigTitle
+        {
+            get { return _configTitle; }
+            set { _configTitle = value; }
+        }
+
+        public string ProjectName
+        {
+            get { return _projectName; }
+            set { _projectName = value; }
+        }
+
+        public string VersionNumber
+        {
+            get { return _versionNumber; }
+            set { _versionNumber = value; }
+        }
+
+        public string Author
+        {
+            get { return _author; }
+            set { _author = value; }
+        }
+
+        public string LogoPath
+        {
+            get { return _logoPath; }
+            set { _logoPath = value; }
+        }
+
+        public string InputPath
+        {
+            get { return _inputPath; }
+            set { _inputPath = value; }
+        }
+
+        public string ExcludedIdentifiers
+        {
+            get { return _excludedIdentifiers; }
+            set { _excludedIdentifiers = value; }
+        }
+
+        public string Exporters
+        {
+            get { return _exporters; }
+            set { _exporters = value; }
+        }
+
+        public string OutputPath
+        {
+            get { return _outputPath; }
+            set { _outputPath = value; }
+        }
+
+        public string DocLanguage
+        {
+            get { return _docLanguage; }
+            set { _docLanguage = value; }
         }
     }
 }

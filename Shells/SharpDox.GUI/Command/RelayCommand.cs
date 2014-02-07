@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace SharpDox.GUI.Command
 {
-    internal class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 

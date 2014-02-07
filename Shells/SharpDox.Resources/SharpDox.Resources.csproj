@@ -217,6 +217,12 @@
     <Resource Include="Icons\Structure_sealed.png" />
     <Resource Include="Icons\Structure_shortcut.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharpDox.Sdk\SharpDox.Sdk.csproj">
+      <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
+      <Name>SharpDox.Sdk</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SharpDox.Core\bin\Debug\$(ProjectName).dll"</PostBuildEvent>

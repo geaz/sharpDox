@@ -1,4 +1,5 @@
-﻿using SharpDox.Sdk.Local;
+﻿using System;
+using SharpDox.Sdk.Local;
 
 namespace SharpDox.Local
 {
@@ -22,11 +23,27 @@ namespace SharpDox.Local
             {
                 if (localString is T)
                 {
-                    localStrings = (T) localString;
+                    localStrings = (T)localString;
                 }
             }
 
             return localStrings;
+        }
+
+        public string GetLocalString(Type localType, string stringName)
+        {
+            var localString = string.Empty;
+
+            foreach (var localStrings in _localStrings)
+            {
+                if (localStrings.GetType() == localType)
+                {
+                    var value = localStrings.GetType().GetProperty(stringName).GetValue(localStrings, null);
+                    localString = value != null ? value.ToString() : string.Empty;
+                }
+            }
+
+            return localString;
         }
     }
 }

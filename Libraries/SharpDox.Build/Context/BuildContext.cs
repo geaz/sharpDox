@@ -11,16 +11,16 @@ namespace SharpDox.Build.Context
     {
         private readonly SDBuildStrings _sdBuildStrings;
         private readonly BuildMessenger _buildMessenger;
-        private readonly SharpDoxConfig _sharpDoxConfig;
+        private readonly ICoreConfigSection _coreConfigSection;
         private readonly Steps _steps;
 
-        public BuildContext(SharpDoxConfig sharpDoxConfig, SDBuildStrings sdBuildStrings, IConfigController configController, BuildMessenger buildMessenger, IExporter[] allExporters)
+        public BuildContext(ICoreConfigSection coreConfigSection, SDBuildStrings sdBuildStrings, IConfigController configController, BuildMessenger buildMessenger, IExporter[] allExporters)
         {
-            _sharpDoxConfig = sharpDoxConfig;
+            _coreConfigSection = coreConfigSection;
             _sdBuildStrings = sdBuildStrings;
             _buildMessenger = buildMessenger;
 
-            _steps = new Steps(sharpDoxConfig, sdBuildStrings, configController, buildMessenger, allExporters);
+            _steps = new Steps(coreConfigSection, sdBuildStrings, configController, buildMessenger, allExporters);
         }
 
         public virtual void BuildDocumentation()
@@ -36,7 +36,7 @@ namespace SharpDox.Build.Context
                 var solution = _steps.LoadStep.LoadSolution();
 
                 _buildMessenger.ExecuteOnBuildProgress(30);
-                var repository = _steps.ParseStep.ParseSolution(solution, _sharpDoxConfig.ExcludedIdentifiers.ToList());
+                var repository = _steps.ParseStep.ParseSolution(solution, _coreConfigSection.ExcludedIdentifiers.ToList());
 
                 _buildMessenger.ExecuteOnBuildProgress(60);
                 _steps.ExportStep.ExportSolution(repository);

@@ -15,15 +15,15 @@ namespace SharpDox.Config
         private XmlDocument _recentConfigs = new XmlDocument();
 
         private readonly IConfigSection[] _configSections;
-        private readonly SharpDoxConfig _sharpDoxConfig;
+        private readonly ICoreConfigSection _coreConfigSection;
         private readonly ConfigSerializer _configSerializer;
 
         public event Action OnRecentProjectsChanged;
 
-        public ConfigController(IConfigSection[] configSections, SharpDoxConfig sharpDoxConfig)
+        public ConfigController(IConfigSection[] configSections, ICoreConfigSection coreConfigSection)
         {
             _configSections = configSections;
-            _sharpDoxConfig = sharpDoxConfig;
+            _coreConfigSection = coreConfigSection;
             _configSerializer = new ConfigSerializer();
 
             RecentProjects = new List<KeyValuePair<string, string>>();
@@ -46,24 +46,24 @@ namespace SharpDox.Config
                                
                 _configSerializer.SetDeserializedConfigs(XDocument.Load(fileToLoad), _configSections);
 
-                _sharpDoxConfig.PathToConfig = fileToLoad;
-                _sharpDoxConfig.ConfigFileName = Path.GetFileNameWithoutExtension(fileToLoad);
-                _sharpDoxConfig.IsSaved = true;
+                _coreConfigSection.PathToConfig = fileToLoad;
+                _coreConfigSection.ConfigFileName = Path.GetFileNameWithoutExtension(fileToLoad);
+                _coreConfigSection.IsSaved = true;
 
-                AddRecentConfig(_sharpDoxConfig.ConfigFileName, _sharpDoxConfig.PathToConfig);
+                AddRecentConfig(_coreConfigSection.ConfigFileName, _coreConfigSection.PathToConfig);
             }
         }
 
         public void Save()
         {
-            if (!String.IsNullOrEmpty(_sharpDoxConfig.PathToConfig))
+            if (!String.IsNullOrEmpty(_coreConfigSection.PathToConfig))
             {
                 var xml = _configSerializer.GetSerializedConfigs(_configSections);
-                xml.Save(_sharpDoxConfig.PathToConfig);
+                xml.Save(_coreConfigSection.PathToConfig);
 
-                _sharpDoxConfig.IsSaved = true;
+                _coreConfigSection.IsSaved = true;
 
-                AddRecentConfig(_sharpDoxConfig.ConfigFileName, _sharpDoxConfig.PathToConfig);
+                AddRecentConfig(_coreConfigSection.ConfigFileName, _coreConfigSection.PathToConfig);
             }
         }
 
@@ -71,15 +71,15 @@ namespace SharpDox.Config
         {
             if (!String.IsNullOrEmpty(fileToSave))
             {
-                _sharpDoxConfig.PathToConfig = fileToSave;
-                _sharpDoxConfig.ConfigFileName = Path.GetFileNameWithoutExtension(fileToSave);
+                _coreConfigSection.PathToConfig = fileToSave;
+                _coreConfigSection.ConfigFileName = Path.GetFileNameWithoutExtension(fileToSave);
 
                 var xml = _configSerializer.GetSerializedConfigs(_configSections);
                 xml.Save(fileToSave);
 
-                _sharpDoxConfig.IsSaved = true;
+                _coreConfigSection.IsSaved = true;
 
-                AddRecentConfig(_sharpDoxConfig.ConfigFileName, _sharpDoxConfig.PathToConfig);
+                AddRecentConfig(_coreConfigSection.ConfigFileName, _coreConfigSection.PathToConfig);
             }
         }
 
@@ -108,7 +108,7 @@ namespace SharpDox.Config
         {
             foreach (var config in configSections)
             {
-                config.PropertyChanged += (o, e) => { if (e.PropertyName != "IsSaved") _sharpDoxConfig.IsSaved = false; };
+                config.PropertyChanged += (o, e) => { if (e.PropertyName != "IsSaved") _coreConfigSection.IsSaved = false; };
             }
         }
 

@@ -3,6 +3,7 @@ using System.Reflection;
 using Autofac;
 using SharpDox.Build;
 using SharpDox.Config;
+using SharpDox.Core.Config;
 using SharpDox.Local;
 using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Local;
@@ -41,14 +42,14 @@ namespace SharpDox.Core
         private void RegisterLocalStrings()
         {
             _containerBuilder.RegisterType<LocalController>().AsSelf().SingleInstance();
-            _containerBuilder.RegisterType<SharpDoxStrings>().AsSelf().As<ILocalStrings>().SingleInstance();
+            _containerBuilder.RegisterType<CoreStrings>().AsSelf().As<ILocalStrings>().SingleInstance();
             _containerBuilder.RegisterType<SDBuildStrings>().AsSelf().As<ILocalStrings>().SingleInstance();
         }
 
         private void RegisterConfiguration()
         {
             _containerBuilder.RegisterType<ConfigController>().AsSelf().As<IConfigController>().SingleInstance();
-            _containerBuilder.RegisterType<SharpDoxConfig>().AsSelf().As<IConfigSection>().SingleInstance();
+            _containerBuilder.RegisterType<CoreConfigSection>().AsSelf().As<ICoreConfigSection>().As<IConfigSection>().SingleInstance();
         }
 
         private void RegisterBuilder()

@@ -6,14 +6,14 @@ namespace SharpDox.Build.Context
 {
     internal class Steps
     {
-        public Steps(SharpDoxConfig sharpDoxConfig, SDBuildStrings sdBuildStrings, IConfigController configController, BuildMessenger buildMessenger, IExporter[] allExporters = null)
+        public Steps(ICoreConfigSection coreConfigSection, SDBuildStrings sdBuildStrings, IConfigController configController, BuildMessenger buildMessenger, IExporter[] allExporters = null)
         {
-            PreBuildStep = new PreBuildStep(sharpDoxConfig, allExporters, buildMessenger, sdBuildStrings);
-            LoadStep = new LoadStep(sharpDoxConfig, sdBuildStrings, buildMessenger);
-            ParseStep = new ParseStep(sdBuildStrings, sharpDoxConfig, buildMessenger);
+            PreBuildStep = new PreBuildStep(coreConfigSection, allExporters, buildMessenger, sdBuildStrings);
+            LoadStep = new LoadStep(coreConfigSection, sdBuildStrings, buildMessenger);
+            ParseStep = new ParseStep(sdBuildStrings, coreConfigSection, buildMessenger);
             StructureParseStep = new StructureParseStep(sdBuildStrings, buildMessenger);
-            ExportStep = new ExportStep(sharpDoxConfig, sdBuildStrings, buildMessenger, allExporters);
-            EndStep = new EndStep(configController, sharpDoxConfig);
+            ExportStep = new ExportStep(coreConfigSection, sdBuildStrings, buildMessenger, allExporters);
+            EndStep = new EndStep(configController, coreConfigSection);
         }
 
         public PreBuildStep PreBuildStep { get; set; }
