@@ -5,6 +5,7 @@
         Colorpicker,
         Folderpicker,
         Filepicker,
-        ComboBox
+        ComboBox,
+        CheckBoxList
     }
 }

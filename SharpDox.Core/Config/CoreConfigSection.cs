@@ -185,6 +185,7 @@ namespace SharpDox.Core.Config
             }
         }
 
+        [ConfigEditor(EditorType.CheckBoxList)]
         [Name(typeof(CoreStrings), "Exporters")]
         public ObservableCollection<string> ActivatedExporters
         {

@@ -3,6 +3,7 @@ using SharpDox.Local;
 using SharpDox.Sdk.Config;
 using System.Windows.Controls;
 using SharpDox.Sdk.Config.Attributes;
+using SharpDox.Sdk.Exporter;
 
 namespace SharpDox.GUI.Controls.ConfigGrid
 {
@@ -10,9 +11,11 @@ namespace SharpDox.GUI.Controls.ConfigGrid
     {
         private readonly IConfigSection[] _configSections;
         private readonly LocalController _localController;
+        private readonly IExporter[] _allExporters;
 
-        public ConfigGridControl(IConfigSection[] configSections, LocalController localController)
+        public ConfigGridControl(IConfigSection[] configSections, IExporter[] allExporters, LocalController localController)
         {
+            _allExporters = allExporters;
             _localController = localController;
             _configSections = configSections;
 
@@ -33,8 +36,8 @@ namespace SharpDox.GUI.Controls.ConfigGrid
         {
             var displayNameAttribute = (NameAttribute)Attribute.GetCustomAttribute(configSection.GetType(), typeof(NameAttribute));
             if (displayNameAttribute != null)
-            {        
-                var configSectionControl = new ConfigSectionControl(_localController);
+            {
+                var configSectionControl = new ConfigSectionControl(_localController, _allExporters);
                 configSectionControl.SectionHeader = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
                 configSectionControl.ConfigSection = configSection;
 

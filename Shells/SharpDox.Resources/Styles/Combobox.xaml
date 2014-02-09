@@ -4,6 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
 
         <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Vars.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Checkbox.xaml"></ResourceDictionary> 
         
         <ResourceDictionary>
 
@@ -50,7 +51,7 @@
                     Focusable="False" />
             </ControlTemplate>
             
-            <Style TargetType="{x:Type ComboBoxItem}" x:Key="ComboBoxItem">
+            <Style x:Key="ComboBoxItem">
                 <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
                 <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
                 <Setter Property="TextElement.Foreground"  Value="{StaticResource Color_BodyFont}"/>
@@ -69,6 +70,28 @@
                                 <Trigger Property="ComboBoxItem.IsHighlighted" Value="True">
                                     <Setter Property="Panel.Background" TargetName="Border" Value="{StaticResource Color_Main}"/>
                                 </Trigger>
+                                <Trigger Property="UIElement.IsEnabled" Value="False">
+                                    <Setter Property="TextElement.Foreground" Value="{StaticResource Color_BodyFont}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="CheckBoxComboBoxItem" BasedOn="{StaticResource ComboBoxItem}">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                            <Border
+                              Name="Border"
+                              Background="White"
+                              SnapsToDevicePixels="True"
+                              Padding="5" Margin="0,0,0,0">
+                                <CheckBox IsChecked="{Binding Path=IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{Binding Name}" Style="{StaticResource CheckBox}"
+                                  Tag="{RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}" Command="{Binding Path=SelectionChanged, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
                                 <Trigger Property="UIElement.IsEnabled" Value="False">
                                     <Setter Property="TextElement.Foreground" Value="{StaticResource Color_BodyFont}"/>
                                 </Trigger>
@@ -183,6 +206,86 @@
                                 <Trigger Property="ComboBox.IsEditable" Value="True">
                                     <Setter Property="KeyboardNavigation.IsTabStop" Value="False"/>
                                     <Setter Property="UIElement.Visibility" TargetName="PART_EditableTextBox" Value="Visible"/>
+                                    <Setter Property="UIElement.Visibility" TargetName="ContentSite" Value="Hidden"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <Style x:Key="CheckBoxComboBox" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource ComboBox}">
+                <Setter Property="ItemContainerStyle" Value="{StaticResource CheckBoxComboBoxItem}"/>
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Grid>
+                                <ToggleButton
+                                    ClickMode="Press"
+                                    Name="ToggleButton"
+                                    IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                    Focusable="False"
+                                    Grid.Column="2"
+                                    Template="{StaticResource ComboBoxToggleButtonTemplate}"/>
+                                <ContentPresenter
+                                    Margin="5,5,25,5"
+                                    HorizontalAlignment="Left"
+                                    Name="ContentSite"
+                                    VerticalAlignment="Center"
+                                    ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}"
+                                    Content="{TemplateBinding ComboBox.SelectionBoxItem}"
+                                    IsHitTestVisible="False" />
+                                <TextBox
+                                    Margin="5,5,25,5"
+                                    HorizontalAlignment="Left"
+                                    Background="Transparent"
+                                    VerticalAlignment="Center"
+                                    Style="{x:Null}"
+                                    IsReadOnly="True"
+                                    Text="{Binding Path=Text, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                    Focusable="False"
+                                    xml:space="preserve"
+                                    Template="{StaticResource ComboBoxTextBoxTemplate}"/>
+                                <Popup
+                                    Placement="Bottom"
+                                    Name="Popup"
+                                    Focusable="False"
+                                    AllowsTransparency="True"
+                                    IsOpen="{TemplateBinding ComboBox.IsDropDownOpen}"
+                                    PopupAnimation="Fade">
+                                  <Grid
+                                      MinWidth="{TemplateBinding FrameworkElement.ActualWidth}"
+                                      MaxHeight="{TemplateBinding ComboBox.MaxDropDownHeight}"
+                                      Name="DropDown"
+                                      SnapsToDevicePixels="True">
+                                    <Border
+                                        BorderBrush="{DynamicResource BorderColor_MainWindow}"
+                                        BorderThickness="1"
+                                        Name="DropDownBorder" Background="White"/>
+                                    <ScrollViewer
+                                        Margin="4,6,4,6"
+                                        SnapsToDevicePixels="True">
+                                      <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                  </Grid>
+                                </Popup>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="ItemsControl.HasItems" Value="False">
+                                    <Setter Property="FrameworkElement.MinHeight" TargetName="DropDownBorder" Value="95"/>
+                                </Trigger>
+                                <Trigger Property="UIElement.IsEnabled" Value="False">
+                                    <Setter Property="TextElement.Foreground" Value="{StaticResource Color_FadedMain}"/>
+                                </Trigger>
+                                <Trigger Property="ItemsControl.IsGrouping" Value="True">
+                                    <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                                </Trigger>
+                                <Trigger Property="Window.AllowsTransparency" SourceName="Popup" Value="True">
+                                    <Setter Property="Border.CornerRadius" TargetName="DropDownBorder" Value="0"/>
+                                    <Setter Property="FrameworkElement.Margin" TargetName="DropDownBorder" Value="0,2,0,0"/>
+                                </Trigger>
+                                <Trigger Property="ComboBox.IsEditable" Value="True">
+                                    <Setter Property="KeyboardNavigation.IsTabStop" Value="False"/>
                                     <Setter Property="UIElement.Visibility" TargetName="ContentSite" Value="Hidden"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>

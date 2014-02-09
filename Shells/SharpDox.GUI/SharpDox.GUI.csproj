@@ -71,6 +71,9 @@
     <Compile Include="Controls\ConfigGrid\ConfigSectionControl.xaml.cs">
       <DependentUpon>ConfigSectionControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ConfigGrid\ConfigCheckBoxListControl.xaml.cs">
+      <DependentUpon>ConfigCheckBoxListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\BuildWindow.xaml.cs">
       <DependentUpon>BuildWindow.xaml</DependentUpon>
     </Compile>
@@ -122,6 +125,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ConfigGrid\ConfigSectionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ConfigGrid\ConfigCheckBoxListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
