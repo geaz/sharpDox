@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Xml.Linq;
 using SharpDox.Sdk.Config;
 using System.Collections.ObjectModel;
+using System;
 
 namespace SharpDox.Config
 {
@@ -105,7 +106,7 @@ namespace SharpDox.Config
                 }
                 else if (property.PropertyType.Name == "ObservableCollection`1")
                 {
-                    property.SetValue(config, new ObservableCollection<string>(item.Attribute("value").Value.Split(';').ToList()), null);
+                    property.SetValue(config, new ObservableCollection<string>(item.Attribute("value").Value.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList()), null);
                 }
                 else
                 {

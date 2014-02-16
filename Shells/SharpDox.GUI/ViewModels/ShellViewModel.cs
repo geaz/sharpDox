@@ -25,14 +25,22 @@ namespace SharpDox.GUI.ViewModels
 
         public ShellViewModel(SDGuiStrings strings, IConfigController configController, IBuildController buildController, Action onCloseHandle)
         {
-            _buildController = buildController;
             _onCloseHandle = onCloseHandle;
+
+            _buildController = buildController;
+            _buildController.BuildMessenger.OnBuildProgress += (i) => { BuildProgress = i; };
+            _buildController.BuildMessenger.OnStepProgress += (i) => { StepProgress = i; };            
+
             _configController = configController;
             _configController.OnRecentProjectsChanged += RecentProjectsChanged;
 
             Strings = strings;
+            BuildButtonText = Strings.Build;
+
             Config = configController.GetConfigSection<ICoreConfigSection>();
             ConfigSections = configController.GetAllConfigSections().ToList();
+
+            _buildWindow = new BuildView(Strings, _buildController.BuildMessenger);
 
             RecentProjectsChanged();
         }
@@ -184,6 +192,65 @@ namespace SharpDox.GUI.ViewModels
             }
         }
 
+        private int _buildProgress;
+        public int BuildProgress
+        {
+            get { return _buildProgress; }
+            set
+            {
+                _buildProgress = value;
+                OnPropertyChanged("BuildProgress");
+            }
+        }
+
+        private int _stepProgress;
+        public int StepProgress
+        {
+            get { return _stepProgress; }
+            set
+            {
+                _stepProgress = value;
+                OnPropertyChanged("StepProgress");
+            }
+        }
+
+        private string _buildButtonText;
+        public string BuildButtonText
+        {
+            get { return _buildButtonText; }
+            set
+            {
+                _buildButtonText = value;
+                OnPropertyChanged("BuildButtonText");
+            }
+        }
+
+        private RelayCommand _buildButtonCommand;
+        public RelayCommand BuildButtonCommand
+        {
+            get
+            {
+                return _buildButtonCommand ?? new RelayCommand(() =>
+                {
+                    if (BuildButtonText == Strings.Build)
+                    {
+                        BuildButtonText = Strings.Abort;
+                        _buildController.StartBuild(_configController.GetConfigSection<ICoreConfigSection>(), true);
+                    }
+                    else
+                    {
+                        BuildButtonText = Strings.Build;
+                        _buildController.Stop();
+                    }
+                }, true);
+            }
+            set
+            {
+                _buildButtonCommand = value;
+                OnPropertyChanged("BuildButtonCommand");
+            }
+        }
+
         private RelayCommand _openBuildWindowCommand;
         public RelayCommand OpenBuildWindowCommand
         {
@@ -191,7 +258,6 @@ namespace SharpDox.GUI.ViewModels
             {
                 return _openBuildWindowCommand ?? new RelayCommand(() =>
                 {
-                    _buildWindow = _buildWindow ?? new BuildView(Strings, _buildController.BuildMessenger);
                     _buildWindow.Show();
                 }, true);
             }

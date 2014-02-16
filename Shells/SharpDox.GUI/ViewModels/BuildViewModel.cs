@@ -27,7 +27,16 @@ namespace SharpDox.GUI.ViewModels
             Text = _outputMessage.ToString();
         }
 
-        public string Text { get; set; }
+        private string _text;
+        public string Text
+        {
+            get { return _text; }
+            set
+            {
+                _text = value;
+                OnPropertyChanged("Text");
+            }
+        }
 
         private RelayCommand _closeCommand;
         public RelayCommand CloseCommand

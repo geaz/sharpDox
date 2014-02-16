@@ -10,6 +10,7 @@ namespace SharpDox.GUI
         private string _noneSelected = "none selected";
         private string _excluded = "excluded";
         private string _elements = "element(s)";
+        private string _abort = "Abort";
 
         private string _build = "Build";
         private string _generalSettings = "General Settings";
@@ -238,6 +239,12 @@ namespace SharpDox.GUI
         {
             get { return _elements; }
             set { _elements = value; }
+        }
+
+        public string Abort
+        {
+            get { return _abort; }
+            set { _abort = value; }
         }
 
         public string NoneSelected

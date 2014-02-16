@@ -13,6 +13,7 @@
                 <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                 <Setter Property="Foreground" Value="{StaticResource Color_BodyFont}"/>
                 <Setter Property="FontFamily" Value="{StaticResource Font_Regular}"/>
+                <Setter Property="FontSize" Value="13"/>
                 <Setter Property="AllowDrop" Value="true"/>
                 <Setter Property="Template">
                     <Setter.Value>

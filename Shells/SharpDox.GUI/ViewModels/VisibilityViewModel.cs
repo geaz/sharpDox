@@ -24,6 +24,8 @@ namespace SharpDox.GUI.ViewModels
 
             sharpDoxConfig.PropertyChanged += ConfigChanged;
             buildController.BuildMessenger.OnParseCompleted += ParseCompleted;
+
+            RefreshTreeView();
         }
 
         private void ConfigChanged(object sender, PropertyChangedEventArgs args)

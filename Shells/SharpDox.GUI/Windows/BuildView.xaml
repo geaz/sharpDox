@@ -33,7 +33,7 @@
             <Border Grid.Row="1" Background="{StaticResource Color_Main}"/>
             
             <Grid Grid.Row="2" Margin="15">
-                <TextBox Text="{Binding Text}" Style="{StaticResource TextBox}" IsReadOnly="True" TextWrapping="Wrap" Background="White"/>
+                <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBox}" IsReadOnly="True" TextWrapping="Wrap" Background="White"/>
             </Grid>
         </Grid>
     </Border>
