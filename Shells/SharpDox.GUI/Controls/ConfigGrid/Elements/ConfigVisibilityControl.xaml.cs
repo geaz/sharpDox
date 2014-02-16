@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using SharpDox.GUI.Windows;
 using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Build;
+using System.ComponentModel;
 
 namespace SharpDox.GUI.Controls.ConfigGrid
 {
@@ -32,15 +33,22 @@ namespace SharpDox.GUI.Controls.ConfigGrid
             InitializeComponent();
         }
 
-        void ExcludedIdentifiersChanged(object sender, EventArgs e)
+        void ExcludedIdentifiersChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (_coreConfigSection.ExcludedIdentifiers.Count == 0)
+            if (e != null && e.PropertyName == "ExcludedIdentifiers")
+            {
+                if (_coreConfigSection.ExcludedIdentifiers.Count == 0)
+                {
+                    Text = string.Format("{0} {1} {2}", _strings.None, _strings.Elements, _strings.Excluded);
+                }
+                else
+                {
+                    Text = string.Format("{0} {1} {2}", _coreConfigSection.ExcludedIdentifiers.Count, _strings.Elements, _strings.Excluded);
+                }
+            }
+            else if (e == null)
             {
                 Text = string.Format("{0} {1} {2}", _strings.None, _strings.Elements, _strings.Excluded);
-            }
-            else
-            {
-                Text = string.Format("{0} {1} {2}", _coreConfigSection.ExcludedIdentifiers.Count, _strings.Elements, _strings.Excluded);
             }
         }
 
