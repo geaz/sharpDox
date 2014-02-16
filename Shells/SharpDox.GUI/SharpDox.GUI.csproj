@@ -59,42 +59,48 @@
     <Compile Include="Controls\ConfigGrid\ConfigGridControl.xaml.cs">
       <DependentUpon>ConfigGridControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ConfigGrid\ConfigFileSystemControl.xaml.cs">
+    <Compile Include="Controls\ConfigGrid\Elements\ConfigFileSystemControl.xaml.cs">
       <DependentUpon>ConfigFileSystemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ConfigGrid\ConfigComboBoxControl.xaml.cs">
+    <Compile Include="Controls\ConfigGrid\Elements\ConfigComboBoxControl.xaml.cs">
       <DependentUpon>ConfigComboBoxControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ConfigGrid\ConfigTextControl.xaml.cs">
+    <Compile Include="Controls\ConfigGrid\Elements\ConfigTextControl.xaml.cs">
       <DependentUpon>ConfigTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ConfigGrid\ConfigSectionControl.xaml.cs">
       <DependentUpon>ConfigSectionControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ConfigGrid\ConfigCheckBoxListControl.xaml.cs">
+    <Compile Include="Controls\ConfigGrid\Elements\ConfigCheckBoxListControl.xaml.cs">
       <DependentUpon>ConfigCheckBoxListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\BuildWindow.xaml.cs">
-      <DependentUpon>BuildWindow.xaml</DependentUpon>
+    <Compile Include="Controls\ConfigGrid\Elements\ConfigVisibilityControl.xaml.cs">
+      <DependentUpon>ConfigVisibilityControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ExporterSelection.xaml.cs">
-      <DependentUpon>ExporterSelection.xaml</DependentUpon>
+    <Compile Include="Controls\ConfigGrid\Elements\ConfigBoolControl.xaml.cs">
+      <DependentUpon>ConfigBoolControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\VisibilitySettings.xaml.cs">
-      <DependentUpon>VisibilitySettings.xaml</DependentUpon>
+    <Compile Include="Controls\ConfigGrid\Elements\ConfigColorControl.xaml.cs">
+      <DependentUpon>ConfigColorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\GeneralSettings.xaml.cs">
-      <DependentUpon>GeneralSettings.xaml</DependentUpon>
+    <Compile Include="ViewModels\BuildViewModel.cs" />
+    <Compile Include="Windows\BuildView.xaml.cs">
+      <DependentUpon>BuildView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LanguageList.cs" />
+    <Compile Include="Windows\VisibilityEditorView.xaml.cs">
+      <DependentUpon>VisibilityEditorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="Controls\ColorSelector.xaml.cs">
+      <DependentUpon>ColorSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Converter\BoolToValueConverter.cs" />
+    <Compile Include="Resources\Converter\MultiBoolToForegroundConverter.cs" />
     <Compile Include="SDGuiStrings.cs" />
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ExporterListBoxItemViewModel.cs" />
-    <Compile Include="ViewModels\ExporterViewModel.cs" />
     <Compile Include="ViewModels\TreeModel\FieldViewModel.cs" />
     <Compile Include="ViewModels\TreeModel\EventViewModel.cs" />
     <Compile Include="ViewModels\TreeModel\PropertyViewModel.cs" />
@@ -112,15 +118,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ConfigGrid\ConfigFileSystemControl.xaml">
+    <Page Include="Controls\ConfigGrid\Elements\ConfigFileSystemControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ConfigGrid\ConfigComboBoxControl.xaml">
+    <Page Include="Controls\ConfigGrid\Elements\ConfigComboBoxControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ConfigGrid\ConfigTextControl.xaml">
+    <Page Include="Controls\ConfigGrid\Elements\ConfigTextControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -128,24 +134,59 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ConfigGrid\ConfigCheckBoxListControl.xaml">
+    <Page Include="Controls\ConfigGrid\Elements\ConfigCheckBoxListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\BuildWindow.xaml">
+    <Page Include="Controls\ConfigGrid\Elements\ConfigVisibilityControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\ExporterSelection.xaml">
+    <Page Include="Controls\ConfigGrid\Elements\ConfigBoolControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\VisibilitySettings.xaml">
+    <Page Include="Controls\ConfigGrid\Elements\ConfigColorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\GeneralSettings.xaml">
+    <Page Include="Windows\BuildView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\VisibilityEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ColorSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\SharpDox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Checkbox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Combobox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Expander.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Label.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Progressbar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Textbox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Vars.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Shell.xaml">
@@ -166,12 +207,319 @@
       <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
       <Name>SharpDox.Sdk</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SharpDox.Resources\SharpDox.Resources.csproj">
-      <Project>{5e38e43f-b1ca-4a71-8ee6-5ef297b9328c}</Project>
-      <Name>SharpDox.Resources</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\color.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Class_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Class_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Class_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Class_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Class_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Class_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Class_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Constant_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Constant_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Constant_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Constant_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Constant_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Constant_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Constant_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Delegate_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Delegate_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Delegate_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Delegate_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Delegate_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Delegate_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Delegate_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Enum_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Enum_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Enum_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Enum_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Enum_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Enum_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Enum_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\EnumItem_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\EnumItem_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\EnumItem_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\EnumItem_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\EnumItem_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\EnumItem_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\EnumItem_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\EnumPrivate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Event_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Event_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Event_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Event_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Event_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Event_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Event_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Field_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Field_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Field_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Field_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Field_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Field_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Field_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Interface_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Interface_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Interface_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Interface_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Interface_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Interface_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Interface_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Method_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Method_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Method_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Method_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Method_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Method_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Method_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\MethodOverload_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\MethodOverload_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\MethodOverload_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\MethodOverload_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\MethodOverload_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\MethodOverload_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\MethodOverload_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Namespace_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Namespace_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Namespace_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Namespace_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Namespace_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Namespace_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Namespace_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Properties_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Properties_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Properties_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Properties_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Properties_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Properties_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Properties_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Structure_friend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Structure_internal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Structure_private.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Structure_protected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Structure_public.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Structure_sealed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Structure_shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\Fontawesome.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\OpenSans-Bold.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\OpenSans-BoldItalic.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\OpenSans-ExtraBold.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\OpenSans-ExtraBoldItalic.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\OpenSans-Italic.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\OpenSans-Light.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\OpenSans-LightItalic.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\OpenSans-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\OpenSans-Semibold.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\OpenSans-SemiboldItalic.ttf" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(SolutionDir)SharpDox.Core\bin\Debug\shells"

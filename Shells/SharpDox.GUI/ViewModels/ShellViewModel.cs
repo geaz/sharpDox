@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.Win32;
 using SharpDox.GUI.Command;
+using SharpDox.GUI.Windows;
+using SharpDox.Sdk.Build;
 using SharpDox.Sdk.Config;
 using System.Linq;
 
@@ -15,18 +17,22 @@ namespace SharpDox.GUI.ViewModels
 
     internal class ShellViewModel : ViewModelBase
     {
+        private BuildView _buildWindow;
+
         private readonly IConfigController _configController;
+        private readonly IBuildController _buildController;
         private readonly Action _onCloseHandle;
 
-        public ShellViewModel(SDGuiStrings strings, IConfigController configController, IConfigSection[] configSections, ICoreConfigSection sharpDoxConfig, Action onCloseHandle)
+        public ShellViewModel(SDGuiStrings strings, IConfigController configController, IBuildController buildController, Action onCloseHandle)
         {
+            _buildController = buildController;
             _onCloseHandle = onCloseHandle;
             _configController = configController;
             _configController.OnRecentProjectsChanged += RecentProjectsChanged;
 
             Strings = strings;
-            Config = sharpDoxConfig;
-            ConfigSections = configSections.ToList();
+            Config = configController.GetConfigSection<ICoreConfigSection>();
+            ConfigSections = configController.GetAllConfigSections().ToList();
 
             RecentProjectsChanged();
         }
@@ -175,6 +181,24 @@ namespace SharpDox.GUI.ViewModels
             {
                 _saveToConfigCommand = value;
                 OnPropertyChanged("SaveToConfigCommand");
+            }
+        }
+
+        private RelayCommand _openBuildWindowCommand;
+        public RelayCommand OpenBuildWindowCommand
+        {
+            get
+            {
+                return _openBuildWindowCommand ?? new RelayCommand(() =>
+                {
+                    _buildWindow = _buildWindow ?? new BuildView(Strings, _buildController.BuildMessenger);
+                    _buildWindow.Show();
+                }, true);
+            }
+            set
+            {
+                _openBuildWindowCommand = value;
+                OnPropertyChanged("OpenBuildWindowCommand");
             }
         }
     }

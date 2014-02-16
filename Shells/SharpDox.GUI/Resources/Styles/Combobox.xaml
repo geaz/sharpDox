@@ -3,8 +3,8 @@
     
     <ResourceDictionary.MergedDictionaries>
 
-        <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Vars.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Checkbox.xaml"></ResourceDictionary> 
+        <ResourceDictionary Source="Vars.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="Checkbox.xaml"></ResourceDictionary> 
         
         <ResourceDictionary>
 
@@ -111,7 +111,7 @@
                         <ControlTemplate TargetType="{x:Type ComboBoxItem}">
                             <Border
                               Name="Border"
-                              Background="White"
+                              Background="Transparent"
                               SnapsToDevicePixels="True"
                               Padding="0" Margin="0,0,0,5">
                                 <ContentPresenter
@@ -301,6 +301,8 @@
                 <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
                 <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
                 <Setter Property="TextElement.Foreground" Value="{StaticResource Color_BodyFont}"/>
+                <Setter Property="TextElement.FontFamily" Value="{StaticResource Font_Regular}"/>
+                <Setter Property="TextElement.FontSize" Value="13"/>
                 <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
                 <Setter Property="ItemContainerStyle" Value="{StaticResource ColorComboBoxItem}"/>
                 <Setter Property="Control.Template">

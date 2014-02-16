@@ -157,7 +157,7 @@ namespace SharpDox.Core.Config
         }
 
         [Required]
-        [ConfigEditor(EditorType.Folderpicker)]
+        [ConfigEditor(EditorType.Filepicker)]
         [Name(typeof(CoreStrings), "InputPath")]
         public string InputPath
         {
@@ -169,33 +169,6 @@ namespace SharpDox.Core.Config
                     _inputPath = value;
                     OnPropertyChanged("InputPath");
                 }
-            }
-        }
-
-        [Name(typeof(CoreStrings), "ExcludedIdentifiers")]
-        public ObservableCollection<string> ExcludedIdentifiers
-        {
-            get { return _excludedIdentifiers ?? (_excludedIdentifiers = new ObservableCollection<string>()); }
-            set
-            {
-                _excludedIdentifiers = value;
-                if (_excludedIdentifiers != null)
-                    _excludedIdentifiers.CollectionChanged += (s, a) => OnPropertyChanged("ExcludedIdentifiers");
-                OnPropertyChanged("ExcludedIdentifiers");
-            }
-        }
-
-        [ConfigEditor(EditorType.CheckBoxList)]
-        [Name(typeof(CoreStrings), "Exporters")]
-        public ObservableCollection<string> ActivatedExporters
-        {
-            get { return _activatedExporters ?? (_activatedExporters = new ObservableCollection<string>()); }
-            set
-            {
-                _activatedExporters = value;
-                if (_activatedExporters != null)
-                    _activatedExporters.CollectionChanged += (s, a) => OnPropertyChanged("ActivatedExporters");
-                OnPropertyChanged("ActivatedExporters");
             }
         }
 
@@ -228,6 +201,33 @@ namespace SharpDox.Core.Config
                     _docLanguage = value;
                     OnPropertyChanged("DocLanguage");
                 }
+            }
+        }
+
+        [Name(typeof(CoreStrings), "ExcludedIdentifiers")]
+        public ObservableCollection<string> ExcludedIdentifiers
+        {
+            get { return _excludedIdentifiers ?? (_excludedIdentifiers = new ObservableCollection<string>()); }
+            set
+            {
+                _excludedIdentifiers = value;
+                if (_excludedIdentifiers != null)
+                    _excludedIdentifiers.CollectionChanged += (s, a) => OnPropertyChanged("ExcludedIdentifiers");
+                OnPropertyChanged("ExcludedIdentifiers");
+            }
+        }
+
+        [ConfigEditor(EditorType.CheckBoxList)]
+        [Name(typeof(CoreStrings), "Exporters")]
+        public ObservableCollection<string> ActivatedExporters
+        {
+            get { return _activatedExporters ?? (_activatedExporters = new ObservableCollection<string>()); }
+            set
+            {
+                _activatedExporters = value;
+                if (_activatedExporters != null)
+                    _activatedExporters.CollectionChanged += (s, a) => OnPropertyChanged("ActivatedExporters");
+                OnPropertyChanged("ActivatedExporters");
             }
         }
 

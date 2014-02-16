@@ -66,5 +66,17 @@ namespace SharpDox.Sdk.Build
         ///     </summary>
         /// </de>
         void Stop();
+
+        /// <default>
+        ///     <summary>
+        ///     Gets the <c>BuildMessenger</c> which outputs all build messages.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Holt den <c>BuildMessenger</c> über den alle Nachrichten des Bauvorgangs ausgegeben werden.
+        ///     </summary>
+        /// </de>
+        IBuildMessenger BuildMessenger { get; }
     }
 }

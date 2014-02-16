@@ -2,7 +2,7 @@
     
     <ResourceDictionary.MergedDictionaries>
 
-        <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Vars.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="Vars.xaml"></ResourceDictionary>
 
         <ResourceDictionary>
 
@@ -37,7 +37,7 @@
                 <Setter Property="FontFamily" Value="{StaticResource Font_Light}"/>
             </Style>
             <Style x:Key="Description" TargetType="{x:Type TextBlock}">
-                <Setter Property="Foreground" Value="{StaticResource Color_FadedFont}"/>
+                <Setter Property="Foreground" Value="#FFF7F7F7"/>
                 <Setter Property="FontSize" Value="13"/>
                 <Setter Property="FontFamily" Value="{StaticResource Font_Light}"/>
             </Style>

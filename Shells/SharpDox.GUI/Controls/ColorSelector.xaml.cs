@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SharpDox.Resources.Controls
+namespace SharpDox.GUI.Controls
 {
     public partial class ColorSelector : UserControl
     {
@@ -104,18 +105,20 @@ namespace SharpDox.Resources.Controls
 
         private void SelectedColor_Changed(object sender, EventArgs eventArgs)
         {
-            var colorPreview = (Rectangle)colorSelector.Template.FindName("colorPreview", colorSelector);
-            if (colorPreview != null) colorPreview.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(SelectedColor));
+            if (SelectedColor != null && CheckValidFormatHtmlColor(SelectedColor))
+            {
+                var colorPreview = (Rectangle)colorSelector.Template.FindName("colorPreview", colorSelector);
+                if (colorPreview != null) colorPreview.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(SelectedColor));
+            }
         }
 
         private void ColorSelector_KeyUp(object sender, KeyEventArgs e)
         {
-            try
+            if (CheckValidFormatHtmlColor(colorSelector.Text))
             {
                 var color = (Color)ColorConverter.ConvertFromString(colorSelector.Text);
                 SelectedColor = GetHexValue(color);
             }
-            catch (FormatException){}
         }
         
         private void ColorPointer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -153,6 +156,17 @@ namespace SharpDox.Resources.Controls
         {
             if (epDefault != null)
                 epDefault.IsExpanded = false;
+        }
+
+        private bool CheckValidFormatHtmlColor(string inputColor)
+        {
+            if (Regex.Match(inputColor, "^#(?:[0-9a-fA-F]{3}){1,2}$").Success)
+            {
+                return true;
+            }
+
+            var result = System.Drawing.Color.FromName(inputColor);
+            return result.IsKnownColor;
         }
 
         public String SelectedColor

@@ -82,7 +82,21 @@ namespace SharpDox.Sdk.Config
         ///     <param name="fileToSave">Der Pfad für die Konfigurationsdatei</param>
         /// </de>
         void SaveTo(string fileToSave);
-        
+
+        /// <default>
+        ///     <summary>
+        ///     Gets all config sections of the current config file.
+        ///     </summary>
+        ///     <returns>Returns all config sections.</returns>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Holz alle Konfigurationssektionen der aktuellenKonfigurationsdatei.
+        ///     </summary>
+        ///     <returns>Gibt alle Konfigurationssektionen zurück.</returns>
+        /// </de>
+        IEnumerable<IConfigSection> GetAllConfigSections(); 
+            
         /// <default>
         ///     <summary>
         ///     Gets a specific config section of the current config file.

@@ -14,14 +14,16 @@ namespace SharpDox.GUI.ViewModels
     {
         private readonly ICoreConfigSection _sharpDoxConfig;
         private readonly IBuildController _buildController;
+        private readonly Action _onCloseHandle;
 
-        public VisibilityViewModel(ICoreConfigSection sharpDoxConfig, IBuildController buildController, IBuildMessenger buildMessenger)
+        public VisibilityViewModel(ICoreConfigSection sharpDoxConfig, IBuildController buildController, Action onCloseHandle)
         {
             _sharpDoxConfig = sharpDoxConfig;
             _buildController = buildController;
+            _onCloseHandle = onCloseHandle;
 
             sharpDoxConfig.PropertyChanged += ConfigChanged;
-            buildMessenger.OnParseCompleted += ParseCompleted;
+            buildController.BuildMessenger.OnParseCompleted += ParseCompleted;
         }
 
         private void ConfigChanged(object sender, PropertyChangedEventArgs args)
@@ -74,6 +76,20 @@ namespace SharpDox.GUI.ViewModels
         {
             get { return _treeView; }
             set { _treeView = value; OnPropertyChanged("TreeView"); }
+        }
+
+        private RelayCommand _closeCommand;
+        public RelayCommand CloseCommand
+        {
+            get
+            {
+                return _closeCommand ?? new RelayCommand(() => _onCloseHandle(), true);
+            }
+            set
+            {
+                _closeCommand = value;
+                OnPropertyChanged("CloseCommand");
+            }
         }
 
         private ParameterRelayCommand<string> _showHideCommand;

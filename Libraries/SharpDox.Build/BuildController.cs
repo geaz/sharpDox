@@ -11,21 +11,21 @@ namespace SharpDox.Build
         private Thread _buildThread;
 
         private readonly SDBuildStrings _sdBuildStrings;
-        private readonly BuildMessenger _buildMessenger;
         private readonly IExporter[] _allExporters;
         private readonly IConfigController _configController;
 
-        public BuildController(SDBuildStrings sdBuildStrings, IConfigController configController, IBuildMessenger buildMessenger, IExporter[] allExporters)
+        public BuildController(SDBuildStrings sdBuildStrings, IConfigController configController, IExporter[] allExporters, IBuildMessenger buildMessenger)
         {
             _configController = configController;
             _sdBuildStrings = sdBuildStrings;
-            _buildMessenger = (BuildMessenger)buildMessenger;
             _allExporters = allExporters;
+
+            BuildMessenger = buildMessenger;
         }
 
         public void StartParse(ICoreConfigSection coreConfigSection, bool thread)
         {
-            var parseContext = new ParseContext(coreConfigSection, _sdBuildStrings, _configController, _buildMessenger);
+            var parseContext = new ParseContext(coreConfigSection, _sdBuildStrings, _configController, BuildMessenger as BuildMessenger);
 
             if (thread)
             {
@@ -41,7 +41,7 @@ namespace SharpDox.Build
 
         public void StartBuild(ICoreConfigSection sharpDoxConfig, bool thread)
         {
-            var buildContext = new BuildContext(sharpDoxConfig, _sdBuildStrings, _configController, _buildMessenger, _allExporters);
+            var buildContext = new BuildContext(sharpDoxConfig, _sdBuildStrings, _configController, BuildMessenger as BuildMessenger, _allExporters);
 
             if (thread)
             {
@@ -63,5 +63,7 @@ namespace SharpDox.Build
                 _buildThread = null;
             }
         }
+
+        public IBuildMessenger BuildMessenger { get; private set; }
     }
 }

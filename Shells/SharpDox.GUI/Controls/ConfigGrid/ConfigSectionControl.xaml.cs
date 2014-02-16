@@ -8,7 +8,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using SharpDox.Sdk.Config.Lists;
 using SharpDox.Sdk.Exporter;
-using System.Linq;
+using SharpDox.Sdk.Build;
 
 namespace SharpDox.GUI.Controls.ConfigGrid
 {
@@ -16,15 +16,19 @@ namespace SharpDox.GUI.Controls.ConfigGrid
     {
         public static readonly DependencyProperty SectionHeaderProperty = DependencyProperty.Register("SectionHeader", typeof(string), typeof(ConfigSectionControl));
         public static readonly DependencyProperty IsExpandedProperty = DependencyProperty.Register("IsExpanded", typeof(bool), typeof(ConfigSectionControl));
-        
-        public readonly LocalController _localController;
-        private readonly IExporter[] _allExporters;
 
-        public ConfigSectionControl(LocalController localController, IExporter[] allExporters)
+        private readonly LocalController _localController;
+        private readonly IExporter[] _allExporters;
+        private readonly IBuildController _buildController;
+        private readonly ICoreConfigSection _coreConfigSection;
+
+        public ConfigSectionControl(LocalController localController, ICoreConfigSection coreConfigSection, IExporter[] allExporters, IBuildController buildController)
         {
             _localController = localController;
+            _coreConfigSection = coreConfigSection;
             _allExporters = allExporters;
-            
+            _buildController = buildController;
+
             DataContext = this;
             InitializeComponent();
         }
@@ -45,7 +49,31 @@ namespace SharpDox.GUI.Controls.ConfigGrid
                     var requiredAttribute = (RequiredAttribute)Attribute.GetCustomAttribute(configItem, typeof(RequiredAttribute));
                     var editorTypeAttribute = (ConfigEditorAttribute)Attribute.GetCustomAttribute(configItem, typeof(ConfigEditorAttribute));
 
-                    if(editorTypeAttribute == null && configItem.PropertyType == typeof(string))
+                    if (ConfigSection.Guid == new Guid("FEACBCE2-8290-4D90-BB05-373B9D7DBBFC") && configItem.Name == "ExcludedIdentifiers")
+                    {
+                        var visibilityControl = new ConfigVisibilityControl(_localController.GetLocalStrings<SDGuiStrings>(), _coreConfigSection, _buildController);
+                        visibilityControl.ConfigItemDisplayName = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
+
+                        configItemPanel.Children.Add(visibilityControl);
+                    }
+                    else if (editorTypeAttribute != null && editorTypeAttribute.Editor == EditorType.CheckBoxList 
+                        && ConfigSection.Guid == new Guid("FEACBCE2-8290-4D90-BB05-373B9D7DBBFC")
+                        && configItem.Name == "ActivatedExporters")
+                    {
+                        var exporterList = new CheckBoxList(true);
+                        foreach (var exporter in _allExporters)
+                        {
+                            exporterList.Add(exporter.ExporterName);
+                        }
+
+                        var checkBoxListControl = new ConfigCheckBoxListControl(_localController.GetLocalStrings<SDGuiStrings>());
+                        checkBoxListControl.ConfigItemDisplayName = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
+                        checkBoxListControl.SourceList = exporterList;
+                        checkBoxListControl.SetBinding(ConfigCheckBoxListControl.SelectedItemsProperty, b);
+
+                        configItemPanel.Children.Add(checkBoxListControl);
+                    }
+                    else if(editorTypeAttribute == null && configItem.PropertyType == typeof(string))
                     {          
                         var textItemControl = new ConfigTextControl();
                         textItemControl.ConfigItemDisplayName = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
@@ -56,11 +84,19 @@ namespace SharpDox.GUI.Controls.ConfigGrid
 
                         configItemPanel.Children.Add(textItemControl);
                     }
-                    else if(editorTypeAttribute != null && editorTypeAttribute.Editor == EditorType.ComboBox && editorTypeAttribute.SourceListType != null)
+                    else if (editorTypeAttribute == null && configItem.PropertyType == typeof(bool))
+                    {
+                        var boolItemControl = new ConfigBoolControl();
+                        boolItemControl.ConfigItemDisplayName = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
+                        boolItemControl.SetBinding(ConfigBoolControl.ConfigItemValueProperty, b);
+
+                        configItemPanel.Children.Add(boolItemControl);
+                    }
+                    else if (editorTypeAttribute != null && editorTypeAttribute.Editor == EditorType.ComboBox && editorTypeAttribute.SourceListType != null)
                     {
                         var dropDownControl = new ConfigComboBoxControl();
                         dropDownControl.ConfigItemDisplayName = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
-                        dropDownControl.SourceList = (ComboBoxList) Activator.CreateInstance(editorTypeAttribute.SourceListType);
+                        dropDownControl.SourceList = (ComboBoxList)Activator.CreateInstance(editorTypeAttribute.SourceListType);
                         dropDownControl.SetBinding(ConfigComboBoxControl.SelectedValueProperty, b);
                         dropDownControl.WaterMarkText = requiredAttribute != null ? _localController.GetLocalStrings<SDGuiStrings>().Mandatory
                                                                                     : _localController.GetLocalStrings<SDGuiStrings>().Optional;
@@ -68,26 +104,15 @@ namespace SharpDox.GUI.Controls.ConfigGrid
 
                         configItemPanel.Children.Add(dropDownControl);
                     }
-                    else if (editorTypeAttribute != null && editorTypeAttribute.Editor == EditorType.CheckBoxList && ConfigSection.Guid == new Guid("FEACBCE2-8290-4D90-BB05-373B9D7DBBFC")
-                            && configItem.Name == "ActivatedExporters")
+                    else if (editorTypeAttribute != null && editorTypeAttribute.Editor == EditorType.Colorpicker)
                     {
-                        var exporterList = new CheckBoxList(true);
-                        foreach (var exporter in _allExporters)
-                        {
-                            exporterList.Add(exporter.ExporterName);
-                        }
+                        var colorControl = new ConfigColorControl();
+                        colorControl.ConfigItemDisplayName = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
+                        colorControl.SetBinding(ConfigColorControl.ConfigItemValueProperty, b);
 
-                        var checkBoxListControl = new ConfigCheckBoxListControl();
-                        checkBoxListControl.ConfigItemDisplayName = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
-                        checkBoxListControl.SourceList = exporterList;
-                        //checkBoxListControl.SetBinding(ConfigCheckBoxListControl.SelectedValueProperty, b);
-                        //checkBoxListControl.WaterMarkText = requiredAttribute != null ? _localController.GetLocalStrings<SDGuiStrings>().Mandatory
-                                                                                    //: _localController.GetLocalStrings<SDGuiStrings>().Optional;
-                        //checkBoxListControl.WaterMarkColor = requiredAttribute != null ? (SolidColorBrush)TryFindResource("Color_FadedRed") : (SolidColorBrush)TryFindResource("Color_FadedGray");
-
-                        configItemPanel.Children.Add(checkBoxListControl);
+                        configItemPanel.Children.Add(colorControl);
                     }
-                    else if(editorTypeAttribute != null && (editorTypeAttribute.Editor == EditorType.Filepicker || editorTypeAttribute.Editor == EditorType.Folderpicker))
+                    else if (editorTypeAttribute != null && (editorTypeAttribute.Editor == EditorType.Filepicker || editorTypeAttribute.Editor == EditorType.Folderpicker))
                     {
                         var fileSystemControl = new ConfigFileSystemControl();
                         fileSystemControl.ConfigItemDisplayName = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);

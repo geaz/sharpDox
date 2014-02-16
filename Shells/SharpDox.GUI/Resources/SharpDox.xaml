@@ -8,6 +8,5 @@
         <ResourceDictionary Source="Styles/Label.xaml"/>
         <ResourceDictionary Source="Styles/Buttons.xaml"/>
         <ResourceDictionary Source="Styles/Expander.xaml"/>
-        <ResourceDictionary Source="Styles/Listbox.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary> 

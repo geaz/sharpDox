@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace SharpDox.Resources.Converter
+namespace SharpDox.GUI.Resources.Converter
 {
     public class MultiBoolToForegroundConverter : IMultiValueConverter
     {

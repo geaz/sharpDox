@@ -83,6 +83,11 @@ namespace SharpDox.Config
             }
         }
 
+        public IEnumerable<IConfigSection> GetAllConfigSections()
+        {
+            return _configSections;
+        }
+
         public T GetConfigSection<T>()
         {
             return (T)_configSections.SingleOrDefault(c => c is T);

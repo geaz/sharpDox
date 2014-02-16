@@ -2,7 +2,7 @@
     
     <ResourceDictionary.MergedDictionaries>
 
-        <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Buttons.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="Buttons.xaml"></ResourceDictionary>
         
         <ResourceDictionary>
 
@@ -22,7 +22,7 @@
                       CornerRadius="0" 
                       Padding="5"
                       BorderBrush="{StaticResource BorderColor_MainWindow}"
-                      BorderThickness="1" >
+                      BorderThickness="1" Background="{TemplateBinding Background}" >
                                 <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
                             </Border>
                             <ControlTemplate.Triggers>

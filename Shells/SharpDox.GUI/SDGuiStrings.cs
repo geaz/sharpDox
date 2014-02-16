@@ -6,6 +6,10 @@ namespace SharpDox.GUI
     {
         private string _mandatory = "required";
         private string _optional = "optional";
+        private string _none = "none";
+        private string _noneSelected = "none selected";
+        private string _excluded = "excluded";
+        private string _elements = "element(s)";
 
         private string _build = "Build";
         private string _generalSettings = "General Settings";
@@ -216,6 +220,30 @@ namespace SharpDox.GUI
         {
             get { return _exporterSelection; }
             set { _exporterSelection = value; }
+        }
+
+        public string None
+        {
+            get { return _none; }
+            set { _none = value; }
+        }
+
+        public string Excluded
+        {
+            get { return _excluded; }
+            set { _excluded = value; }
+        }
+
+        public string Elements
+        {
+            get { return _elements; }
+            set { _elements = value; }
+        }
+
+        public string NoneSelected
+        {
+            get { return _noneSelected; }
+            set { _noneSelected = value; }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using SharpDox.GUI.Controls.ConfigGrid;
 using SharpDox.GUI.ViewModels;
@@ -6,6 +7,7 @@ using SharpDox.Local;
 using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Exporter;
 using SharpDox.Sdk.UI;
+using SharpDox.Sdk.Build;
 
 namespace SharpDox.GUI
 {
@@ -13,14 +15,15 @@ namespace SharpDox.GUI
     {
         public event Action OnClose;
 
-        public Shell(SDGuiStrings strings, ICoreConfigSection sharpDoxConfig, IExporter[] allExporters, IConfigSection[] configSections, IConfigController configController, LocalController localController)
+        public Shell(IConfigController configController, IExporter[] allExporters, LocalController localController, IBuildController buildController)
         {
-            DataContext = new ShellViewModel(strings, configController, configSections, sharpDoxConfig, ExecuteOnClose);
-            Strings = strings;
+            var guiStrings = localController.GetLocalStrings<SDGuiStrings>();
+            DataContext = new ShellViewModel(guiStrings, configController, buildController, ExecuteOnClose);
+            Strings = guiStrings;
 
             InitializeComponent();
 
-            svBody.Content = new ConfigGridControl(configSections, allExporters, localController);
+            svBody.Content = new ConfigGridControl(configController, allExporters, localController, buildController);
 
             MouseLeftButtonDown += (s, a) => DragMove();
         }

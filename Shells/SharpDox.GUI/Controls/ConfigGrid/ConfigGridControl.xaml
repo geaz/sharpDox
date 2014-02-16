@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SharpDox.Resources;component/SharpDox.xaml"/>
+                <ResourceDictionary Source="/SharpDox.GUI;component/Resources/SharpDox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>

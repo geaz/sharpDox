@@ -2,7 +2,7 @@
     
     <ResourceDictionary.MergedDictionaries>
 
-        <ResourceDictionary Source="/SharpDox.Resources;component/Styles/Vars.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="Vars.xaml"></ResourceDictionary>
 
         <ResourceDictionary>
 

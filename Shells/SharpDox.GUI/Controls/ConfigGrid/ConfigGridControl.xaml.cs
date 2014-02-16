@@ -1,23 +1,27 @@
 ﻿using System;
+using System.Linq;
 using SharpDox.Local;
 using SharpDox.Sdk.Config;
 using System.Windows.Controls;
 using SharpDox.Sdk.Config.Attributes;
 using SharpDox.Sdk.Exporter;
+using SharpDox.Sdk.Build;
 
 namespace SharpDox.GUI.Controls.ConfigGrid
 {
     public partial class ConfigGridControl : UserControl
     {
-        private readonly IConfigSection[] _configSections;
+        private readonly IConfigController _configController;
         private readonly LocalController _localController;
         private readonly IExporter[] _allExporters;
+        private readonly IBuildController _buildController;
 
-        public ConfigGridControl(IConfigSection[] configSections, IExporter[] allExporters, LocalController localController)
+        public ConfigGridControl(IConfigController configController, IExporter[] allExporters, LocalController localController, IBuildController buildController)
         {
             _allExporters = allExporters;
             _localController = localController;
-            _configSections = configSections;
+            _configController = configController;
+            _buildController = buildController;
 
             InitializeComponent();
             InitializeGrid();
@@ -25,7 +29,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
 
         private void InitializeGrid()
         {
-            foreach (var configSection in _configSections)
+            foreach (var configSection in _configController.GetAllConfigSections())
             {
                 AddSection(configSection);
             }
@@ -37,7 +41,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
             var displayNameAttribute = (NameAttribute)Attribute.GetCustomAttribute(configSection.GetType(), typeof(NameAttribute));
             if (displayNameAttribute != null)
             {
-                var configSectionControl = new ConfigSectionControl(_localController, _allExporters);
+                var configSectionControl = new ConfigSectionControl(_localController, _configController.GetConfigSection<ICoreConfigSection>(), _allExporters, _buildController);
                 configSectionControl.SectionHeader = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
                 configSectionControl.ConfigSection = configSection;
 
