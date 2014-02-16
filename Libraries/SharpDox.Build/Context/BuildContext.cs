@@ -47,7 +47,7 @@ namespace SharpDox.Build.Context
                 _buildMessenger.ExecuteOnBuildProgress(100);
                 _buildMessenger.ExecuteOnStepMessage(string.Empty);
                 _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.BuildSuccess);
-                _buildMessenger.ExecuteOnBuildStopped();
+                _buildMessenger.ExecuteOnBuildCompleted();
             }
             catch (Exception ex)
             {
@@ -55,23 +55,29 @@ namespace SharpDox.Build.Context
                 {
                     _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.BuildStopped);
                     _buildMessenger.ExecuteOnBuildStopped();
+
+                    _buildMessenger.ExecuteOnStepProgress(0);
+                    _buildMessenger.ExecuteOnBuildProgress(0);
                 }
                 else if (ex is SDBuildException)
                 {
                     Trace.TraceError(ex.ToString());
                     _buildMessenger.ExecuteOnBuildMessage(ex.Message);
                     _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.CouldNotEndBuild);
-                    _buildMessenger.ExecuteOnBuildStopped();
+                    _buildMessenger.ExecuteOnBuildFailed();
+
+                    _buildMessenger.ExecuteOnStepProgress(100);
+                    _buildMessenger.ExecuteOnBuildProgress(100);
                 }
                 else
                 {
                     Trace.TraceError(ex.ToString());
                     _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.CouldNotEndBuild);
-                    _buildMessenger.ExecuteOnBuildStopped();
-                }
+                    _buildMessenger.ExecuteOnBuildFailed();
 
-                _buildMessenger.ExecuteOnStepProgress(0);
-                _buildMessenger.ExecuteOnBuildProgress(0);
+                    _buildMessenger.ExecuteOnStepProgress(100);
+                    _buildMessenger.ExecuteOnBuildProgress(100);
+                }
             }
         }
     }

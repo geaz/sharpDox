@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SharpDox.GUI.Command;
 using SharpDox.Sdk.Config.Lists;
+using System.Collections.ObjectModel;
 
 namespace SharpDox.GUI.Controls.ConfigGrid
 {
@@ -11,7 +12,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
         public static readonly DependencyProperty ConfigItemDisplayNameProperty = DependencyProperty.Register("ConfigItemDisplayName", typeof(string), typeof(ConfigCheckBoxListControl));
         public static readonly DependencyProperty SourceListProperty = DependencyProperty.Register("SourceList", typeof(CheckBoxList), typeof(ConfigCheckBoxListControl), new FrameworkPropertyMetadata(null, OnSourceListChanged));
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(ConfigCheckBoxListControl));
-        public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.Register("SelectedItems", typeof(string), typeof(ConfigCheckBoxListControl));
+        public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.Register("SelectedItems", typeof(ObservableCollection<string>), typeof(ConfigCheckBoxListControl));
 
         public readonly SDGuiStrings _strings;
 
@@ -25,7 +26,8 @@ namespace SharpDox.GUI.Controls.ConfigGrid
 
         private void UpdateText()
         {
-            SelectedItems = Text = string.Join("; ", SourceList.Where(i => i.IsChecked).Select(i => i.Name));
+            SelectedItems = new ObservableCollection<string>(SourceList.Where(i => i.IsChecked).Select(i => i.Name));
+            Text = string.Join("; ", SourceList.Where(i => i.IsChecked).Select(i => i.Name));
             if (string.IsNullOrEmpty(Text))
             {
                 Text = _strings.NoneSelected;
@@ -56,9 +58,9 @@ namespace SharpDox.GUI.Controls.ConfigGrid
             set { SetValue(TextProperty, value); }
         }
 
-        public string SelectedItems
+        public ObservableCollection<string> SelectedItems
         {
-            get { return (string)GetValue(SelectedItemsProperty); }
+            get { return (ObservableCollection<string>)GetValue(SelectedItemsProperty); }
             set { SetValue(SelectedItemsProperty, value); }
         }
 

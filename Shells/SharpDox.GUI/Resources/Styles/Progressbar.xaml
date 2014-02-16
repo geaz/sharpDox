@@ -11,7 +11,6 @@
                 <Setter Property="OverridesDefaultStyle" Value="True"/>
                 <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
                 <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                <Setter Property="Foreground" Value="{StaticResource Color_Main}"/>
                 <Setter Property="Background" Value="White"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -23,11 +22,7 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                                 <Grid x:Name="PART_Track" >
-                                    <Rectangle x:Name="PART_Indicator" HorizontalAlignment="Left">
-                                        <Rectangle.Fill>
-                                            <SolidColorBrush Color="#FFF58026"></SolidColorBrush>
-                                        </Rectangle.Fill>
-                                    </Rectangle>
+                                    <Rectangle x:Name="PART_Indicator" HorizontalAlignment="Left" Fill="{TemplateBinding Foreground}"/>
                                 </Grid>
                             </Border>
                         </ControlTemplate>

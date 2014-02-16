@@ -12,6 +12,8 @@ namespace SharpDox.Build
         public event Action<string> OnStepMessage;
         public event Action<int> OnBuildProgress;
         public event Action<int> OnStepProgress;
+        public event Action OnBuildCompleted;
+        public event Action OnBuildFailed;
         public event Action OnBuildStopped;
 
         internal void ExecuteOnParseCompleted(SDRepository repository)
@@ -59,6 +61,24 @@ namespace SharpDox.Build
             if (OnBuildStopped != null)
             {
                 OnBuildStopped();
+            }
+            ExecuteOnStepMessage("");
+        }
+
+        internal void ExecuteOnBuildFailed()
+        {
+            if (OnBuildFailed != null)
+            {
+                OnBuildFailed();
+            }
+            ExecuteOnStepMessage("");
+        }
+
+        internal void ExecuteOnBuildCompleted()
+        {
+            if (OnBuildCompleted != null)
+            {
+                OnBuildCompleted();
             }
             ExecuteOnStepMessage("");
         }

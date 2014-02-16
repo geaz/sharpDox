@@ -88,5 +88,9 @@ namespace SharpDox.Sdk.Build
         ///     </summary>
         /// </de>
         event Action OnBuildStopped;
+
+        event Action OnBuildFailed;
+
+        event Action OnBuildCompleted;
     }
 }
