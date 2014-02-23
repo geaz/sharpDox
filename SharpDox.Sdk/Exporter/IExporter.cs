@@ -113,29 +113,5 @@ namespace SharpDox.Sdk.Exporter
         ///     </summary>
         /// </de>
         string ExporterName { get; }
-
-        /// <default>
-        ///     <summary>
-        ///     Name of the author. This will be shown in the exporter selection.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Der Name des Autoren. Wird in der Exporterauswahl angezeigt.
-        ///     </summary>
-        /// </de>
-        string Author { get; }
-
-        /// <default>
-        ///     <summary>
-        ///     A exporter description. This will be shown in the exporter selection.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Eine Exporterbeschreibung. Wird in der Exporterauswahl angezeigt.
-        ///     </summary>
-        /// </de>
-        string Description { get; }
     }
 }

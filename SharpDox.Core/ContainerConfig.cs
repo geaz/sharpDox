@@ -83,8 +83,7 @@ namespace SharpDox.Core
             foreach (var possiblePlugin in possiblePlugins)
             {
                 var pluginAssembly = Assembly.LoadFrom(possiblePlugin);
-
-                _containerBuilder.RegisterAssemblyTypes(pluginAssembly).Where(o => typeof(IPage).IsAssignableFrom(o)).As<IPage>().SingleInstance();                
+               
                 _containerBuilder.RegisterAssemblyTypes(pluginAssembly).Where(o => typeof(IShell).IsAssignableFrom(o)).As<IShell>().SingleInstance();
                 _containerBuilder.RegisterAssemblyTypes(pluginAssembly).Where(o => typeof(IConfigSection).IsAssignableFrom(o)).AsSelf().As<IConfigSection>().SingleInstance();
                 _containerBuilder.RegisterAssemblyTypes(pluginAssembly).Where(o => typeof(ILocalStrings).IsAssignableFrom(o)).AsSelf().As<ILocalStrings>().SingleInstance();

@@ -37,10 +37,10 @@ namespace SharpDox.GUI.ViewModels
             _onCloseHandle = onCloseHandle;
 
             _buildController = buildController;
-            _buildController.BuildMessenger.OnBuildProgress += (i) => { BuildProgress = i; };
+            _buildController.BuildMessenger.OnBuildProgress += (i) => { if (i == 0) ChangeProgress(Color.FromArgb(255, 38, 156, 245)); BuildProgress = i; };
             _buildController.BuildMessenger.OnStepProgress += (i) => { StepProgress = i; };
-            _buildController.BuildMessenger.OnBuildCompleted += () => { ChangeProgress(Color.FromArgb(125, 156, 245, 38)); };
-            _buildController.BuildMessenger.OnBuildFailed += () => { ChangeProgress(Color.FromArgb(125, 245, 38, 52)); };
+            _buildController.BuildMessenger.OnBuildCompleted += () => { ChangeProgress(Color.FromArgb(255, 156, 245, 38)); };
+            _buildController.BuildMessenger.OnBuildFailed += () => { ChangeProgress(Color.FromArgb(255, 245, 38, 52)); };
 
             _configController = configController;
             _configController.OnRecentProjectsChanged += RecentProjectsChanged;            
@@ -251,7 +251,6 @@ namespace SharpDox.GUI.ViewModels
                     if (BuildButtonText == Strings.Build)
                     {
                         BuildButtonText = Strings.Abort;
-                        ProgressColor = new SolidColorBrush(Color.FromArgb(125, 38, 156, 245));
                         _buildController.StartBuild(_configController.GetConfigSection<ICoreConfigSection>(), true);
                     }
                     else
@@ -285,7 +284,7 @@ namespace SharpDox.GUI.ViewModels
             }
         }
 
-        private SolidColorBrush _progressColor = new SolidColorBrush(Color.FromArgb(125, 38, 156, 245));
+        private SolidColorBrush _progressColor = new SolidColorBrush(Color.FromArgb(255, 38, 156, 245));
         public SolidColorBrush ProgressColor
         {
             get { return _progressColor; }

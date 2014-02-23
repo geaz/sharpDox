@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:SharpDox.GUI.Controls"
              mc:Ignorable="d" d:DesignHeight="27"
-             x:Name="ColorControl" d:DesignWidth="250">
+             x:Name="ColorControl" d:DesignWidth="400">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -17,7 +17,7 @@
 
     <Grid Margin="0,0,0,2">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="135"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         

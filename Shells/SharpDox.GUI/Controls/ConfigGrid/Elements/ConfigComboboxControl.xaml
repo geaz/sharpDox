@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" d:DesignHeight="27"
-             x:Name="ComboBoxControl" d:DesignWidth="250">
+             x:Name="ComboBoxControl" d:DesignWidth="400">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -17,7 +17,7 @@
 
     <Grid Margin="0,0,0,2">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="135"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Label Content="{Binding ConfigItemDisplayName}" Style="{StaticResource BodyText}" Grid.Column="0" Background="White" Margin="0,0,2,0" />

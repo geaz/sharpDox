@@ -29,7 +29,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
 
         private void InitializeGrid()
         {
-            foreach (var configSection in _configController.GetAllConfigSections())
+            foreach (var configSection in _configController.GetAllConfigSections().Reverse())
             {
                 AddSection(configSection);
             }

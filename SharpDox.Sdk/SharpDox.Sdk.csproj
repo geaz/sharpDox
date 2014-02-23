@@ -54,7 +54,6 @@
     <Compile Include="Local\ILocalStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Templater.cs" />
-    <Compile Include="UI\IPage.cs" />
     <Compile Include="UI\IShell.cs" />
   </ItemGroup>
   <ItemGroup>
