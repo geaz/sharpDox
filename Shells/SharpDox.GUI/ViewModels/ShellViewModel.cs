@@ -28,40 +28,39 @@ namespace SharpDox.GUI.ViewModels
 
         public ShellViewModel(SDGuiStrings strings, IConfigController configController, IBuildController buildController, Action onCloseHandle)
         {
+            _onCloseHandle = onCloseHandle;
+            _buildController = buildController;
+            _buildController.BuildMessenger.OnStepMessage += (s) => StepMessage = s;
+
+            _configController = configController;
+
             Strings = strings;
-            BuildButtonText = Strings.Build;
 
             Config = configController.GetConfigSection<ICoreConfigSection>();
             ConfigSections = configController.GetAllConfigSections().ToList();
 
-            _onCloseHandle = onCloseHandle;
+            ProgressBarViewModel = new ProgressBarViewModel(buildController, strings);
+                        
+            _configController.OnRecentProjectsChanged += RecentProjectsChanged;
 
-            _buildController = buildController;
-            _buildController.BuildMessenger.OnBuildProgress += (i) => { if (i == 0) ChangeProgress(Color.FromArgb(255, 38, 156, 245)); BuildProgress = i; };
-            _buildController.BuildMessenger.OnStepProgress += (i) => { StepProgress = i; };
-            _buildController.BuildMessenger.OnBuildCompleted += () => { ChangeProgress(Color.FromArgb(255, 156, 245, 38)); };
-            _buildController.BuildMessenger.OnBuildFailed += () => { ChangeProgress(Color.FromArgb(255, 245, 38, 52)); };
-
-            _configController = configController;
-            _configController.OnRecentProjectsChanged += RecentProjectsChanged;            
-
-            _buildWindow = new BuildView(Strings, _buildController.BuildMessenger);
+            _buildWindow = new BuildView(Strings, buildController.BuildMessenger);
 
             RecentProjectsChanged();
         }
 
         public SDGuiStrings Strings { get; private set; }
         public ICoreConfigSection Config { get; private set; }
+        public ProgressBarViewModel ProgressBarViewModel { get; private set; }
 
-        private void ChangeProgress(Color color)
+        private string _stepMessage;
+        public string StepMessage
         {
-            Application.Current.Dispatcher.BeginInvoke(
-                DispatcherPriority.Background,
-                new Action(() =>
-                {
-                    BuildButtonText = Strings.Build;
-                    ProgressColor = new SolidColorBrush(color);
-                }));
+            get { return _stepMessage; }
+            set
+            {
+                _stepMessage = value;
+                OnPropertyChanged("StepMessage");
+            }
         }
 
         private void RecentProjectsChanged()
@@ -208,39 +207,6 @@ namespace SharpDox.GUI.ViewModels
             }
         }
 
-        private int _buildProgress;
-        public int BuildProgress
-        {
-            get { return _buildProgress; }
-            set
-            {
-                _buildProgress = value;
-                OnPropertyChanged("BuildProgress");
-            }
-        }
-
-        private int _stepProgress;
-        public int StepProgress
-        {
-            get { return _stepProgress; }
-            set
-            {
-                _stepProgress = value;
-                OnPropertyChanged("StepProgress");
-            }
-        }
-
-        private string _buildButtonText;
-        public string BuildButtonText
-        {
-            get { return _buildButtonText; }
-            set
-            {
-                _buildButtonText = value;
-                OnPropertyChanged("BuildButtonText");
-            }
-        }
-
         private RelayCommand _buildButtonCommand;
         public RelayCommand BuildButtonCommand
         {
@@ -248,14 +214,12 @@ namespace SharpDox.GUI.ViewModels
             {
                 return _buildButtonCommand ?? new RelayCommand(() =>
                 {
-                    if (BuildButtonText == Strings.Build)
+                    if (ProgressBarViewModel.BuildButtonText == Strings.Build)
                     {
-                        BuildButtonText = Strings.Abort;
                         _buildController.StartBuild(_configController.GetConfigSection<ICoreConfigSection>(), true);
                     }
                     else
                     {
-                        BuildButtonText = Strings.Build;
                         _buildController.Stop();
                     }
                 }, true);
@@ -281,17 +245,6 @@ namespace SharpDox.GUI.ViewModels
             {
                 _openBuildWindowCommand = value;
                 OnPropertyChanged("OpenBuildWindowCommand");
-            }
-        }
-
-        private SolidColorBrush _progressColor = new SolidColorBrush(Color.FromArgb(255, 38, 156, 245));
-        public SolidColorBrush ProgressColor
-        {
-            get { return _progressColor; }
-            set
-            {
-                _progressColor = value;
-                OnPropertyChanged("ProgressColor");
             }
         }
     }

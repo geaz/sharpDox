@@ -41,22 +41,26 @@ namespace SharpDox.Build.Context
                 if (ex is ThreadAbortException)
                 {
                     _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.ParseStopped);
-                }
-                else if (ex is SDBuildException)
-                {
-                    Trace.TraceError(ex.ToString());
-                    _buildMessenger.ExecuteOnBuildMessage(ex.Message);
-                    _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.CouldNotEndParse);
+
+                    _buildMessenger.ExecuteOnStepProgress(0);
+                    _buildMessenger.ExecuteOnBuildProgress(0);
+                    _buildMessenger.ExecuteOnParseStopped();
                 }
                 else
                 {
                     Trace.TraceError(ex.ToString());
-                    _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.CouldNotEndParse);
-                }
 
-                _buildMessenger.ExecuteOnStepProgress(0);
-                _buildMessenger.ExecuteOnBuildProgress(0);
-                _buildMessenger.ExecuteOnParseCompleted(null);
+                    if(ex is SDBuildException)
+                    {
+                        _buildMessenger.ExecuteOnBuildMessage(ex.Message);
+                    }
+                    
+                    _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.CouldNotEndParse);
+
+                    _buildMessenger.ExecuteOnStepProgress(100);
+                    _buildMessenger.ExecuteOnBuildProgress(100);
+                    _buildMessenger.ExecuteOnParseFailed();
+                }
             }
         }
     }

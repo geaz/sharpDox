@@ -28,6 +28,10 @@ namespace SharpDox.Sdk.Build
         ///     </summary>
         /// </de>
         event Action<SDRepository> OnParseCompleted;
+                
+        event Action OnParseFailed;
+
+        event Action OnParseStopped;
 
         /// <default>
         ///     <summary>

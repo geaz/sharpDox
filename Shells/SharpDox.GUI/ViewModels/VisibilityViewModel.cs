@@ -23,9 +23,9 @@ namespace SharpDox.GUI.ViewModels
             _onCloseHandle = onCloseHandle;
 
             sharpDoxConfig.PropertyChanged += ConfigChanged;
-            buildController.BuildMessenger.OnParseCompleted += ParseCompleted;
 
-            RefreshTreeView();
+            buildController.BuildMessenger.OnParseCompleted += ParseCompleted;
+            buildController.BuildMessenger.OnParseFailed += ParseStopped;
         }
 
         private void ConfigChanged(object sender, PropertyChangedEventArgs args)
@@ -56,6 +56,17 @@ namespace SharpDox.GUI.ViewModels
                         }
                     }
 
+                    IsTreeRefreshing = false;
+                }));
+        }
+
+        private void ParseStopped()
+        {
+            Application.Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Background,
+                new Action(() =>
+                {
+                    TreeView = new VisibilityItemList();
                     IsTreeRefreshing = false;
                 }));
         }

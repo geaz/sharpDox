@@ -6,21 +6,41 @@ namespace SharpDox.Build
 {
     public class BuildMessenger : IBuildMessenger
     {
-        public event Action<SDRepository> OnParseCompleted;
-
         public event Action<string> OnBuildMessage;
         public event Action<string> OnStepMessage;
+
         public event Action<int> OnBuildProgress;
         public event Action<int> OnStepProgress;
+
         public event Action OnBuildCompleted;
         public event Action OnBuildFailed;
         public event Action OnBuildStopped;
+
+        public event Action<SDRepository> OnParseCompleted;
+        public event Action OnParseFailed;
+        public event Action OnParseStopped;
 
         internal void ExecuteOnParseCompleted(SDRepository repository)
         {
             if (OnParseCompleted != null)
             {
                 OnParseCompleted(repository);
+            }
+        }
+
+        internal void ExecuteOnParseFailed()
+        {
+            if (OnParseFailed != null)
+            {
+                OnParseFailed();
+            }
+        }
+
+        internal void ExecuteOnParseStopped()
+        {
+            if (OnParseStopped != null)
+            {
+                OnParseStopped();
             }
         }
 

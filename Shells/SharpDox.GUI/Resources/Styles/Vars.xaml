@@ -19,19 +19,19 @@
     <SolidColorBrush x:Key="Color_FadedGray">#7D6b6b6b</SolidColorBrush>
     <SolidColorBrush x:Key="Color_FadedRed">#7DD60000</SolidColorBrush>
 
-    <FontFamily x:Key="Font_Regular">/SharpDox.Resources;component/Fonts/#Open Sans Regular</FontFamily>
-    <FontFamily x:Key="Font_Bold">/SharpDox.Resources;component/Fonts/#Open Sans Bold</FontFamily>
-    <FontFamily x:Key="Font_Light">/SharpDox.Resources;component/Fonts/#Open Sans Light</FontFamily>
-    <FontFamily x:Key="Font_Italic">/SharpDox.Resources;component/Fonts/#Open Sans Italic</FontFamily>
-    <FontFamily x:Key="Font_Icons">/SharpDox.Resources;component/Fonts/#FontAwesome Regular</FontFamily>
-    
-    <FontFamily x:Key="fontBoldItalic">/SharpDox.Resources;component/Fonts/#Open Sans Bold Italic</FontFamily>
-    <FontFamily x:Key="fontExtraBold">/SharpDox.Resources;component/Fonts/#Open Sans Extrabold</FontFamily>
-    <FontFamily x:Key="fontExtraBoldItalic">/SharpDox.Resources;component/Fonts/#Open Sans Extrabold Italic</FontFamily>
-    
-    <FontFamily x:Key="fontLightItalic">/SharpDox.Resources;component/Fonts/#Open Sans Light Italic</FontFamily>
-    <FontFamily x:Key="fontSemibold">/SharpDox.Resources;component/Fonts/#Open Sans Semibold</FontFamily>
-    <FontFamily x:Key="fontSemiboldItalic">/SharpDox.Resources;component/Fonts/#Open Sans Semibold Italic</FontFamily>
+    <FontFamily x:Key="Font_Regular">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Regular</FontFamily>
+    <FontFamily x:Key="Font_Bold">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Bold</FontFamily>
+    <FontFamily x:Key="Font_Light">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Light</FontFamily>
+    <FontFamily x:Key="Font_Italic">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Italic</FontFamily>
+    <FontFamily x:Key="Font_Icons">/SharpDox.GUI;component/Resources/Fonts/#FontAwesome Regular</FontFamily>
+
+    <FontFamily x:Key="fontBoldItalic">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Bold Italic</FontFamily>
+    <FontFamily x:Key="fontExtraBold">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Extrabold</FontFamily>
+    <FontFamily x:Key="fontExtraBoldItalic">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Extrabold Italic</FontFamily>
+
+    <FontFamily x:Key="fontLightItalic">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Light Italic</FontFamily>
+    <FontFamily x:Key="fontSemibold">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Semibold</FontFamily>
+    <FontFamily x:Key="fontSemiboldItalic">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Semibold Italic</FontFamily>
     
     <SolidColorBrush x:Key="borderColor">#FFE8E8E6</SolidColorBrush>
     

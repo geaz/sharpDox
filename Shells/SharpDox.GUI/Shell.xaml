@@ -6,8 +6,8 @@
         xmlns:controls="clr-namespace:SharpDox.GUI.Controls"
         x:Class="SharpDox.GUI.Shell" x:Name="Window"
         Title="SharpDox" mc:Ignorable="d"
-        ResizeMode="CanResizeWithGrip" WindowStartupLocation="Manual" WindowStyle="None" Height="450" Width="500"
-        FontSize="12" MinWidth="500" MinHeight="450" Left="300" Top="300" 
+        ResizeMode="CanResizeWithGrip" WindowStartupLocation="Manual" WindowStyle="None" Height="550" Width="500"
+        FontSize="12" MinWidth="500" MinHeight="550" Left="300" Top="300" 
         AllowsTransparency="True"
         Background="White">
 
@@ -28,6 +28,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="50" />
+                <RowDefinition Height="30" />
             </Grid.RowDefinitions>
             
             <!-- Header -->
@@ -140,18 +141,36 @@
             <!-- Footer -->
             <Border Grid.Row="4" Background="{StaticResource BackColor_MainWindow}" BorderBrush="{StaticResource Color_Main}" BorderThickness="0,1,0,0" VerticalAlignment="Top">
                 <Grid Height="50">
-                    <ProgressBar Name="pbStepProgress" Foreground="{Binding ProgressColor, UpdateSourceTrigger=PropertyChanged}" Value="{Binding StepProgress, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ProgressBar}" BorderThickness="0" Height="25" VerticalAlignment="Top" SmallChange="1"/>
-                    <ProgressBar Name="pbBuildProgress" Foreground="{Binding ProgressColor, UpdateSourceTrigger=PropertyChanged}" Value="{Binding BuildProgress, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ProgressBar}" BorderThickness="0" Height="25" VerticalAlignment="Bottom" SmallChange="1"/>
-
+                    <Grid Background="#33FFFFFF">
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Content="{Binding ProgressBarViewModel.BuildButtonText, UpdateSourceTrigger=PropertyChanged}" Command="{Binding BuildButtonCommand}" Style="{StaticResource BigButton}" Grid.Column="0" />
+                            <Button Content="&#xf14c;" Command="{Binding OpenBuildWindowCommand}" Style="{StaticResource IconButtonNoBorder}" Grid.Column="1" VerticalAlignment="Bottom" Width="15" Margin="-2,0,0,-2"  FontSize="10" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        
+            <!-- Progress -->
+            <Border Grid.Row="5" Background="{StaticResource BackColor_MainWindow}" BorderBrush="{StaticResource BorderColor_MainWindow}" BorderThickness="0,1,0,0" VerticalAlignment="Top">
+                <Grid Height="30">                    
+                    <ProgressBar Name="pbStepProgress" Foreground="{Binding ProgressBarViewModel.ProgressColor, UpdateSourceTrigger=PropertyChanged}" Value="{Binding ProgressBarViewModel.StepProgress, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ProgressBar}" BorderThickness="0" Height="15" VerticalAlignment="Top" SmallChange="1"/>
+                    <ProgressBar Name="pbBuildProgress" Foreground="{Binding ProgressBarViewModel.ProgressColor, UpdateSourceTrigger=PropertyChanged}" Value="{Binding ProgressBarViewModel.BuildProgress, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ProgressBar}" BorderThickness="0" Height="15" VerticalAlignment="Bottom" SmallChange="1"/>
+                    <Label Content="{Binding StepMessage, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Small}" VerticalAlignment="Center" Margin="55,0,5,0"/>
+                    
                     <Grid Width="50" HorizontalAlignment="Left">
-                        <Label FontFamily="{StaticResource Font_Icons}" Content="&#xF021;" HorizontalAlignment="Center" VerticalAlignment="Stretch" VerticalContentAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                        <Label Foreground="#FF545454" Visibility="{Binding ProgressBarViewModel.StaticIndicatorVisible, Converter={StaticResource BoolToVis}, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font_Icons}" Content="{Binding ProgressBarViewModel.ProgressIndicator, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
+                        <Label Foreground="#FF545454" Visibility="{Binding ProgressBarViewModel.DynamicIndicatorVisible, Converter={StaticResource BoolToVis}, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font_Icons}" Content="{Binding ProgressBarViewModel.ProgressIndicator, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Stretch" VerticalContentAlignment="Center" RenderTransformOrigin="0.5,0.5">
                             <Label.RenderTransform>
                                 <RotateTransform />
                             </Label.RenderTransform>
                             <Label.Style>
                                 <Style BasedOn="{StaticResource BodyText}" TargetType="Label">
                                     <Setter Property="Foreground" Value="Black" />
-                                    <Setter Property="FontSize" Value="18" />
+                                    <Setter Property="FontSize" Value="14" />
                                     <Style.Triggers>
                                         <Trigger Property="Visibility" Value="Visible">
                                             <Trigger.EnterActions>
@@ -166,17 +185,6 @@
                                 </Style>
                             </Label.Style>
                         </Label>
-                    </Grid>
-
-                    <Grid Margin="50,0,0,0" Background="#33FFFFFF">
-                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Button Content="{Binding BuildButtonText, UpdateSourceTrigger=PropertyChanged}" Command="{Binding BuildButtonCommand}" Style="{StaticResource BigButton}" Grid.Column="0" />
-                            <Button Content="&#xf14c;" Command="{Binding OpenBuildWindowCommand}" Style="{StaticResource IconButtonNoBorder}" Grid.Column="1" VerticalAlignment="Bottom" Width="15" Margin="-2,0,0,-2"  FontSize="10" />
-                        </Grid>
                     </Grid>
                 </Grid>
             </Border>

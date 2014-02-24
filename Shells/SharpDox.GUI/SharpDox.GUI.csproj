@@ -84,6 +84,7 @@
       <DependentUpon>ConfigColorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BuildViewModel.cs" />
+    <Compile Include="ViewModels\ProgressBarViewModel.cs" />
     <Compile Include="Windows\BuildView.xaml.cs">
       <DependentUpon>BuildView.xaml</DependentUpon>
     </Compile>

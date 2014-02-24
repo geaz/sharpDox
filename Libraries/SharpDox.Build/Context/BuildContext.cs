@@ -59,22 +59,18 @@ namespace SharpDox.Build.Context
                     _buildMessenger.ExecuteOnStepProgress(0);
                     _buildMessenger.ExecuteOnBuildProgress(0);
                 }
-                else if (ex is SDBuildException)
-                {
-                    Trace.TraceError(ex.ToString());
-                    _buildMessenger.ExecuteOnBuildMessage(ex.Message);
-                    _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.CouldNotEndBuild);
-                    _buildMessenger.ExecuteOnBuildFailed();
-
-                    _buildMessenger.ExecuteOnStepProgress(100);
-                    _buildMessenger.ExecuteOnBuildProgress(100);
-                }
                 else
                 {
-                    Trace.TraceError(ex.ToString());
-                    _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.CouldNotEndBuild);
-                    _buildMessenger.ExecuteOnBuildFailed();
+                    Trace.TraceError(ex.ToString());                    
 
+                    if (ex is SDBuildException)
+                    {
+                        _buildMessenger.ExecuteOnBuildMessage(ex.Message);
+                    }
+
+                    _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.CouldNotEndBuild);
+
+                    _buildMessenger.ExecuteOnBuildFailed();
                     _buildMessenger.ExecuteOnStepProgress(100);
                     _buildMessenger.ExecuteOnBuildProgress(100);
                 }

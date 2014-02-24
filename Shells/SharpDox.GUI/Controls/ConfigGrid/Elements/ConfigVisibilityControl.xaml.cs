@@ -39,7 +39,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
             {
                 if (_coreConfigSection.ExcludedIdentifiers.Count == 0)
                 {
-                    Text = string.Format("{0} {1} {2}", _strings.None, _strings.Elements, _strings.Excluded);
+                    Text = string.Format("{0} {1} {2}", _strings.No, _strings.Elements, _strings.Excluded);
                 }
                 else
                 {
@@ -48,7 +48,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
             }
             else if (e == null)
             {
-                Text = string.Format("{0} {1} {2}", _strings.None, _strings.Elements, _strings.Excluded);
+                Text = string.Format("{0} {1} {2}", _strings.No, _strings.Elements, _strings.Excluded);
             }
         }
 
