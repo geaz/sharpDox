@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SharpDox.Model\SharpDox.Model.csproj">
+      <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
+      <Name>SharpDox.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SharpDox.Sdk\SharpDox.Sdk.csproj">
       <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
       <Name>SharpDox.Sdk</Name>

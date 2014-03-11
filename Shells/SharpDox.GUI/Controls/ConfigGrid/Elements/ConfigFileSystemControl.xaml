@@ -27,7 +27,7 @@
             <Grid>
                 <TextBlock FontFamily="{StaticResource Font_Italic}" FontSize="13" Margin="7,5,5,5" Text="{Binding WaterMarkText}" Foreground="{Binding WaterMarkColor}"
                            Visibility="{Binding ElementName=tbValue, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <TextBox Name="tbValue" Background="Transparent" Text="{Binding ConfigItemValue}" BorderThickness="0" FontFamily="{StaticResource Font_Regular}" 
+                <TextBox Name="tbValue" Background="Transparent" Text="{Binding ConfigItemValue, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" FontFamily="{StaticResource Font_Regular}" 
                          FontSize="13" Padding="5,5,0,5"/>
             </Grid>
         </Border>

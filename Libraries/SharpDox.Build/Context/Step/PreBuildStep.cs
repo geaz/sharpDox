@@ -40,13 +40,16 @@ namespace SharpDox.Build.Context.Step
 
                 if (!Directory.Exists(_coreConfigSection.OutputPath))
                     throw new SDBuildException(_sdBuildStrings.OutputPathNotFound);
-
+                
                 foreach (var exporter in _allExporters)
                 {
-                    exporter.OnRequirementsWarning += (m) => _buildMessenger.ExecuteOnBuildMessage(m);
-                    if (!exporter.CheckRequirements())
+                    if (_coreConfigSection.ActivatedExporters.Contains(exporter.ExporterName))
                     {
-                        throw new SDBuildException(_sdBuildStrings.RequirementError);
+                        exporter.OnRequirementsWarning += (m) => _buildMessenger.ExecuteOnBuildMessage(m);
+                        if (!exporter.CheckRequirements())
+                        {
+                            throw new SDBuildException(_sdBuildStrings.RequirementError);
+                        }
                     }
                 }
             }

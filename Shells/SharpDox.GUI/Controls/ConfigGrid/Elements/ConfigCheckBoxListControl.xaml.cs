@@ -12,7 +12,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
         public static readonly DependencyProperty ConfigItemDisplayNameProperty = DependencyProperty.Register("ConfigItemDisplayName", typeof(string), typeof(ConfigCheckBoxListControl));
         public static readonly DependencyProperty SourceListProperty = DependencyProperty.Register("SourceList", typeof(CheckBoxList), typeof(ConfigCheckBoxListControl), new FrameworkPropertyMetadata(null, OnSourceListChanged));
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(ConfigCheckBoxListControl));
-        public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.Register("SelectedItems", typeof(ObservableCollection<string>), typeof(ConfigCheckBoxListControl));
+        public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.Register("SelectedItems", typeof(ObservableCollection<string>), typeof(ConfigCheckBoxListControl), new FrameworkPropertyMetadata(null, OnSelectedItemsChanged));
 
         public readonly SDGuiStrings _strings;
 
@@ -25,8 +25,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
         }
 
         private void UpdateText()
-        {
-            SelectedItems = new ObservableCollection<string>(SourceList.Where(i => i.IsChecked).Select(i => i.Name));
+        {            
             Text = string.Join("; ", SourceList.Where(i => i.IsChecked).Select(i => i.Name));
             if (string.IsNullOrEmpty(Text))
             {
@@ -37,6 +36,25 @@ namespace SharpDox.GUI.Controls.ConfigGrid
         private static void OnSourceListChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = (ConfigCheckBoxListControl)d;
+            control.SelectedItems = new ObservableCollection<string>(control.SourceList.Where(i => i.IsChecked).Select(i => i.Name));
+            control.UpdateText();
+        }
+
+        private static void OnSelectedItemsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = (ConfigCheckBoxListControl)d;
+            foreach(var item in control.SourceList)
+            {
+                item.IsChecked = false;
+            }
+            foreach(var item in control.SelectedItems)
+            {
+                var sourceElement = control.SourceList.SingleOrDefault(element => element.Name == item);
+                if(sourceElement != null)
+                {
+                    sourceElement.IsChecked = true;
+                }
+            }
             control.UpdateText();
         }
 

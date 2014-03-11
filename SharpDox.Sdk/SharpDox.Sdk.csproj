@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Build\IBuildController.cs" />
     <Compile Include="Build\IBuildMessenger.cs" />
+    <Compile Include="Config\Attributes\ExcludeAttribute.cs" />
     <Compile Include="Config\Attributes\RequiredAttribute.cs" />
     <Compile Include="Config\Attributes\ConfigEditorAttribute.cs" />
     <Compile Include="Config\Attributes\NameAttribute.cs" />

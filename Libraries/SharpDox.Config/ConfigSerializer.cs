@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using SharpDox.Sdk.Config;
 using System.Collections.ObjectModel;
 using System;
+using SharpDox.Sdk.Config.Attributes;
 
 namespace SharpDox.Config
 {
@@ -97,20 +98,24 @@ namespace SharpDox.Config
 
         private void GetAndSetConfigValue(IConfigSection config, XElement item)
         {
-            var property = config.GetType().GetProperty(item.Attribute("key").Value);
+            var property = config.GetType().GetProperty(item.Attribute("key").Value);            
             if (property != null)
             {
-                if(property.PropertyType.Name == "Boolean")
+                var excludeAttribute = (ExcludeAttribute)Attribute.GetCustomAttribute(property, typeof(ExcludeAttribute));
+                if(excludeAttribute == null)
                 {
-                    property.SetValue(config, item.Attribute("value").Value.ToLower() == "true", null);
-                }
-                else if (property.PropertyType.Name == "ObservableCollection`1")
-                {
-                    property.SetValue(config, new ObservableCollection<string>(item.Attribute("value").Value.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList()), null);
-                }
-                else
-                {
-                    property.SetValue(config, item.Attribute("value").Value, null);
+                    if(property.PropertyType.Name == "Boolean")
+                    {
+                        property.SetValue(config, item.Attribute("value").Value.ToLower() == "true", null);
+                    }
+                    else if (property.PropertyType.Name == "ObservableCollection`1")
+                    {
+                        property.SetValue(config, new ObservableCollection<string>(item.Attribute("value").Value.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList()), null);
+                    }
+                    else
+                    {
+                        property.SetValue(config, item.Attribute("value").Value, null);
+                    }
                 }
             }
         }

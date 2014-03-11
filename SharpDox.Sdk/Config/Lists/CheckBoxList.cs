@@ -5,9 +5,9 @@ namespace SharpDox.Sdk.Config.Lists
 {
     public class CheckBoxNode
     {
-        public CheckBoxNode(bool isChecked, string name)
+        public CheckBoxNode(string name)
         {
-            IsChecked = isChecked;
+            IsChecked = false;
             Name = name;
         }
 
@@ -17,16 +17,9 @@ namespace SharpDox.Sdk.Config.Lists
 
     public class CheckBoxList : List<CheckBoxNode>
     {
-        private readonly bool _defaultIsChecked;
-
-        public CheckBoxList(bool defaultIsChecked)
-        {
-            _defaultIsChecked = defaultIsChecked;
-        }
-
         public void Add(string name)
         {
-            Add(new CheckBoxNode(_defaultIsChecked, name));
+            Add(new CheckBoxNode(name));
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Xml;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
+using SharpDox.Sdk.Config.Attributes;
 
 namespace SharpDox.Config
 {
@@ -129,7 +130,8 @@ namespace SharpDox.Config
         {
             foreach (var property in config.GetType().GetProperties())
             {
-                if (property.CanWrite)
+                var excludeAttribute = (ExcludeAttribute)Attribute.GetCustomAttribute(property, typeof(ExcludeAttribute));
+                if (property.CanWrite && excludeAttribute == null)
                 {
                     if (property.PropertyType.Name == "ObservableCollection`1")
                     {

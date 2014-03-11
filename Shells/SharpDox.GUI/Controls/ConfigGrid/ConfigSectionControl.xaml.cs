@@ -60,7 +60,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
                         && ConfigSection.Guid == new Guid("FEACBCE2-8290-4D90-BB05-373B9D7DBBFC")
                         && configItem.Name == "ActivatedExporters")
                     {
-                        var exporterList = new CheckBoxList(true);
+                        var exporterList = new CheckBoxList();
                         foreach (var exporter in _allExporters)
                         {
                             exporterList.Add(exporter.ExporterName);
