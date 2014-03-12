@@ -24,20 +24,10 @@ namespace SharpDox.GUI.Controls.ConfigGrid
             InitializeComponent();
         }
 
-        private void UpdateText()
-        {            
-            Text = string.Join("; ", SourceList.Where(i => i.IsChecked).Select(i => i.Name));
-            if (string.IsNullOrEmpty(Text))
-            {
-                Text = _strings.NoneSelected;
-            }
-        }
-
         private static void OnSourceListChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = (ConfigCheckBoxListControl)d;
             control.SelectedItems = new ObservableCollection<string>(control.SourceList.Where(i => i.IsChecked).Select(i => i.Name));
-            control.UpdateText();
         }
 
         private static void OnSelectedItemsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -47,6 +37,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
             {
                 item.IsChecked = false;
             }
+
             foreach(var item in control.SelectedItems)
             {
                 var sourceElement = control.SourceList.SingleOrDefault(element => element.Name == item);
@@ -56,6 +47,20 @@ namespace SharpDox.GUI.Controls.ConfigGrid
                 }
             }
             control.UpdateText();
+        }
+
+        private void UpdateText()
+        {
+            Text = string.Join("; ", SourceList.Where(i => i.IsChecked).Select(i => i.Name));
+            if (string.IsNullOrEmpty(Text))
+            {
+                Text = _strings.NoneSelected;
+            }
+        }
+
+        private void UpdateList()
+        {
+            SelectedItems = new ObservableCollection<string>(SourceList.Where(i => i.IsChecked).Select(i => i.Name));
         }
 
         public string ConfigItemDisplayName
@@ -84,7 +89,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
 
         public RelayCommand SelectionChanged
         {
-            get { return new RelayCommand(UpdateText, true);}
+            get { return new RelayCommand(UpdateList, true); }
         }
     }
 }

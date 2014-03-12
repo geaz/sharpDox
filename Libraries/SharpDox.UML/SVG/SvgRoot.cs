@@ -64,6 +64,18 @@ namespace SharpDox.UML.SVG
         public XmlDocument Document { get; set; }
         public double Width { get { return double.Parse(_width.Value, CultureInfo.InvariantCulture); } set { _width.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
         public double Height { get { return double.Parse(_height.Value, CultureInfo.InvariantCulture); } set { _height.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
-        public double Scale { get { return _currentScale; } set { _transform.Value = string.Format("scale({0})", value.ToString("0.00", CultureInfo.InvariantCulture)); _currentScale = value; } }
+        
+        public double Scale 
+        { 
+            get { return _currentScale; } 
+            set 
+            {
+                Height = Height * value;
+                Width = Width * value;
+
+                _transform.Value = string.Format("scale({0})", value.ToString("0.00", CultureInfo.InvariantCulture));
+                _currentScale = value; 
+            } 
+        }
     }
 }
