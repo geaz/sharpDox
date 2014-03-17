@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2010
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C3092F55-794C-4623-8C77-67BB1343339C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.Core", "SharpDox.Core\SharpDox.Core.csproj", "{8E519972-D18F-47E4-8E82-ABC3B3D43311}"
@@ -34,6 +34,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.ConsoleHelper", "Libraries\SharpDox.ConsoleHelper\SharpDox.ConsoleHelper.csproj", "{C163B044-A70B-43AD-849C-E3315647EC34}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.GUI", "Shells\SharpDox.GUI\SharpDox.GUI.csproj", "{25A379AC-786A-49E1-821C-5CC97EB149CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{08A8E4CC-A939-4504-B0ED-8B7FD6FAC3B5}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

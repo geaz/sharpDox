@@ -18,8 +18,21 @@ namespace SharpDox.Model.Documentation
     {
         public SDArticle()
         {
+            Guid = Guid.NewGuid();
             Children = new List<SDArticle>();
         }
+
+        /// <default>
+        ///     <summary>
+        ///     Returns the guid of the article.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert die GUID des Artikels.
+        ///     </summary>
+        /// </de>
+        public Guid Guid { get; set; }
 
         /// <default>
         ///     <summary>
