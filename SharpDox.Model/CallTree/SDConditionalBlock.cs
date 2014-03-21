@@ -60,7 +60,7 @@ namespace SharpDox.Model.CallTree
         ///     <summary>
         ///     Setzt oder liefert die Bedingung.
         ///     </summary>
-        ///     <example><c>if(x = y)</c></example>
+        ///     <example>Ein kleiner test <c>if(x = y)</c> mit inline code</example>
         /// </de>
         public string Expression { get; set; }
 

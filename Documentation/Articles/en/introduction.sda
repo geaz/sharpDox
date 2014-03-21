@@ -9,7 +9,7 @@ If you only need one shell please delete the other ones.
 
 To create your first documentation it is suggested to start the GUI of **sharpDox**. 
 The GUI helps you to create a config for your documentation. Exporters are able to provide 
-additional settings which are available from the _exportsettings_ menu.
+additional settings which are available as additional categories.
 
 ![Introduction]({{image-link:sdi.en.introduction.png}})
 
@@ -18,8 +18,7 @@ Besides the chm documentation, which is delivered together with **sharpDox**, it
 the exporter and drop it into the _plugin_ folder of **sharpDox**. The new exporter will 
 be registered during a restart of **sharpDox** and gets executed during the build process (find [here]({{article-link:Create a exporter}}) a tutorial to create an own exporter).
 
-If you provided all needed settings, the documentation is ready to build. Just go to the 
-_Build_ option and press _Start_. After the successful build your documentation is located 
-in the given output path. **sharpDox** created a subfolder for each registered exporter.
+If you provided all needed settings, the documentation is ready to build. Press _Build_ to start the build process. After the successful build your documentation is located 
+in the given output path. **sharpDox** creates a subfolder for each registered exporter.
 
 Have fun with **sharpDox**!

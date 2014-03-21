@@ -36,7 +36,7 @@ namespace SharpDox.Model.Documentation.Token
                 switch (token.Role)
                 {
                     case SDTokenRole.Paragraph:
-                        text += string.Format("{0}{1}{2}", "<p>", token.Text, "</p>");
+                        text += string.Format("<p>{0}</p>", token.Text);
                         break;
                     case SDTokenRole.Code:
                         var splittedText = token.Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
@@ -44,7 +44,9 @@ namespace SharpDox.Model.Documentation.Token
                         {
                             splittedText[i] = "    " + splittedText[i];
                         }
-                        text += ((SDCodeToken)token).IsInline ? token.Text : string.Join(Environment.NewLine, splittedText);
+                        text += ((SDCodeToken)token).IsInline ? 
+                                    string.Format("<span class=\"inline-code\">{0}</span>", token.Text) : 
+                                    string.Join(Environment.NewLine, splittedText);
                         break;
                     default:
                         text += token.Text;
