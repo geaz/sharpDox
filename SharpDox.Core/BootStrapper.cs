@@ -32,6 +32,7 @@ namespace SharpDox.Core
         {
             ConsoleWriter.PrintConsoleHeader("sharpDox " + _sdVersion);
             Console.WriteLine(_strings.StartSD);
+            Console.WriteLine();
 
             if (AnyShellExists())
             {
@@ -41,7 +42,6 @@ namespace SharpDox.Core
             }
             else
             {
-                ConsoleWriter.PrintConsoleHeader("sharpDox " + _sdVersion);
                 Console.WriteLine(_strings.NoShells);
                 Console.ReadKey();
             }
@@ -49,8 +49,6 @@ namespace SharpDox.Core
 
         private void BuildDIContainer()
         {
-            ConsoleWriter.PrintConsoleHeader("sharpDox " + _sdVersion);
-
             var setupContext = new ContainerConfig();
             _container = setupContext.BuildContainer();
             _strings = _container.Resolve<CoreStrings>();
@@ -91,8 +89,8 @@ namespace SharpDox.Core
 
             while (!int.TryParse(input, out shellNr) || shellNr > _shells.Count - 1 || shellNr < 0)
             {
-                ConsoleWriter.PrintConsoleHeader("sharpDox " + _sdVersion);
                 input = PrintShellSelection();
+                Console.WriteLine();
             }
 
             return shellNr;
@@ -120,10 +118,6 @@ namespace SharpDox.Core
             if (shell.IsGui)
             {
                 ConsoleHider.HideConsoleWindow();
-            }
-            else
-            {
-                ConsoleWriter.PrintConsoleHeader("sharpDox " + sharpDoxVersion);
             }
 
             shell.Start(_args);
