@@ -36,6 +36,18 @@ namespace SharpDox.Model.Documentation
 
         /// <default>
         ///     <summary>
+        ///     Returns the filename of the article.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert den Dateinamen des Artikels.
+        ///     </summary>
+        /// </de>
+        public string Filename { get; set; }
+
+        /// <default>
+        ///     <summary>
         ///     Returns the title of the article.
         ///     </summary>
         /// </default>

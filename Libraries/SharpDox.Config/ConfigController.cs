@@ -96,7 +96,7 @@ namespace SharpDox.Config
 
         private void GetRecentConfigs()
         {
-            var recentFile = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "recent.xml");
+            var recentFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "recent.xml");
             if (File.Exists(recentFile))
             {
                 _recentConfigs.Load(recentFile);

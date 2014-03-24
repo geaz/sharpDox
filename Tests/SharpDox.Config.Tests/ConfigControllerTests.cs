@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SharpDox.Core.Config;
 using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Local;
 
@@ -15,7 +16,7 @@ namespace SharpDox.Config.Tests
             var wasRaised = false;
 
             // System under Test
-            var configController = new ConfigController(new IConfigSection[] { testConfig }, new SharpDoxConfig(new SharpDoxStrings()));
+            var configController = new ConfigController(new IConfigSection[] { testConfig }, new CoreConfigSection(new CoreStrings()));
             testConfig.PropertyChanged += (a, s) => { wasRaised = true; };
 
             // Act

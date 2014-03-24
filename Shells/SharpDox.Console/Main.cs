@@ -36,7 +36,7 @@ namespace SharpDox.Console
 
                 _buildMessenger.OnBuildMessage += System.Console.WriteLine;
 
-                _buildController.StartBuild(_configController.GetConfigSection<SharpDoxConfig>(), false);
+                _buildController.StartBuild(_configController.GetConfigSection<ICoreConfigSection>(), false);
             }
             else
             {

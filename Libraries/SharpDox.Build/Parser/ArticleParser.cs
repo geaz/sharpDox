@@ -72,6 +72,7 @@ namespace SharpDox.Build.Parser
         private SDArticle GetArticle(string line, string language)
         {
             var splitted = line.Split('#');
+            var articleFilename = string.Empty;
             var articleContent = string.Empty;
 
             if (splitted.Length > 1)
@@ -82,14 +83,15 @@ namespace SharpDox.Build.Parser
                 }
                 else
                 {
-                    var articleFileName = language.ToLower() != "default" ? string.Format("{0}.{1}", language, splitted[1]) : splitted[1];
-                    var articleFile = _articles.SingleOrDefault(a => Path.GetFileNameWithoutExtension(a) == articleFileName);
+                    articleFilename = language.ToLower() != "default" ? string.Format("{0}.{1}", language, splitted[1]) : splitted[1];
+                    var articleFile = _articles.SingleOrDefault(a => Path.GetFileNameWithoutExtension(a) == articleFilename);
                     articleContent = !string.IsNullOrEmpty(articleFile) ? File.ReadAllText(articleFile) : string.Empty;
                 }
             }
 
             var article = new SDArticle();
             article.Title = GetNavTitle(splitted[0]);
+            article.Filename = articleFilename;
             article.Content = articleContent;
 
             return article;
