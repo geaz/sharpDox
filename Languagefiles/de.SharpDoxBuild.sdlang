@@ -23,3 +23,4 @@ StartingBuild = Starte Bauvorgang ...
 BuildSuccess = Bauvorgang erfolgreich beendet.
 BuildStopped = Bauvorgang wurde gestoppt!
 CouldNotEndBuild = Die Dokumentation konnte nicht erstellt werden.
+RequirementError = Es gab ein Problem mit den Vorraussetzungen eines oder mehrere Exportern. Siehe Bauausgabe für weitere Informationen.

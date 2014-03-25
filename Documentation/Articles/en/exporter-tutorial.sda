@@ -1,5 +1,5 @@
 This tutorial gives an overview about creating custom exporters for **sharpDox**. To accomplish this 
-task we will develop a plugin which creates a new setting page, own settings and an exporter to 
+task we will develop a plugin which creates own settings and an exporter to 
 create a csv output for each method in a solution.
 
 First of all create a library project in Visual Studio and reference the _SharpDox.Model_, 
@@ -9,10 +9,15 @@ class. Create a class _CSVConfig.cs_ with the following content:
 	using System;
 	using System.ComponentModel;
 	using SharpDox.Sdk.Config;
+	using SharpDox.Sdk.Config.Attributes;
 
 	namespace CSVExporter
 	{
 		// The class implements the interface IConfigSection
+		// Set the group name for the propertygrid.
+		// Otherwise your configuration settings will not be shown!
+		// Use the property name of the string as the second parameter.
+		[Name(typeof(CSVStrings), "CSV")]
 		public class CSVConfig : IConfigSection
 		{
 			// The ConfigController will register on this event to get notified
@@ -26,6 +31,10 @@ class. Create a class _CSVConfig.cs_ with the following content:
 
 			// This is our new configitem
 			private string _divider = string.Empty;
+
+			// We define some attribute for the property grid
+			[Required]
+			[Name(typeof(CSVStrings), "Divider")]
 			public string Divider { get { return _divider; } set { _divider = value; OnPropertyChanged("Divider"); } }
 
 			// This guid identifies the configsection in 
@@ -34,58 +43,8 @@ class. Create a class _CSVConfig.cs_ with the following content:
 		}
 	}
 
-In this plugin we only create a setting to define the divider for the csv file.
-To let the user choose this divider we will create a config page.
-
-Create a wpf usercontrol, _CSVConfigPage_. Because of referencing the _SharpDox.Ressources_ 
-library we are able to use the wpf design of **sharpDox** in the new usercontrol. 
-The following two examples show the implementation of the config page.
-
-	using SharpDox.Sdk.UI;
-
-	namespace CSVExporter
-	{
-		public partial class CSVConfigPage : IPage
-		{
-			public CSVConfigPage(CSVConfig csvConfig)
-			{
-				DataContext = csvConfig;
-				InitializeComponent();
-			}
-
-			public string PageName { get { return "CSV"; } }
-			public new int Height { get { return int.Parse(mainGrid.Height.ToString()); } }
-			public new int Width { get { return int.Parse(mainGrid.Width.ToString()); } }
-		}
-	}
-
-Next the xaml file for the usercontrol:
-
-	<UserControl x:Class="CSVExporter.CSVConfigPage"
-				 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-				 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-				 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-				 mc:Ignorable="d" 
-				 d:DesignHeight="50" d:DesignWidth="385">
-		
-		<UserControl.Resources>
-			<ResourceDictionary>
-				<ResourceDictionary.MergedDictionaries>
-					<ResourceDictionary Source="/SharpDox.Resources;component/Resources/SharpDox.xaml"/>
-				</ResourceDictionary.MergedDictionaries>
-			</ResourceDictionary>
-		</UserControl.Resources>
-
-		<Grid Name="mainGrid" Height="50" Width="385">
-			<StackPanel Height="Auto" HorizontalAlignment="Left" Margin="15,0,15,0" Name="stackPanel2" VerticalAlignment="Top" Width="Auto">
-				<DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,0,0,0" Name="dockPanel1" VerticalAlignment="Top" Width="355">
-					<Label Content="Divider:" Width="150" Height="Auto" Name="label1" Style="{StaticResource BodyText}" />
-					<TextBox Height="Auto" Name="tbDivider" Width="Auto" DockPanel.Dock="Right" Tag="Divider" Text="{Binding Divider}" Style="{StaticResource TextBox}" />
-				</DockPanel>
-			</StackPanel>
-		</Grid>
-	</UserControl>
+In this plugin we only create a setting to define the divider for the csv file. Because of the given attributes
+**sharpDox** knows how to integrate the settings into the propertygrid.
 
 The last step is to create the csv exporter. Create a new class _CSVExport.cs_ with the following content:
 
@@ -93,13 +52,18 @@ The last step is to create the csv exporter. Create a new class _CSVExport.cs_ w
 	using System.IO;
 	using System.Linq;
 	using SharpDox.Model.Repository;
-	using SharpDox.Model.Repository.Types;
 	using SharpDox.Sdk.Exporter;
 
 	namespace CSVExporter
 	{
 		public class CSVExport : IExporter
 		{
+			/// <summary>
+			/// sharpDox listens on this event to get any warnings.
+			/// All messages will be shown in the build window.
+			/// </summary>
+			public event Action<string> OnRequirementsWarning;
+
 			/// <summary>
 			/// sharpDox listens on this event to get any status
 			/// messages. All messages will be shown in the progressbar.
@@ -120,7 +84,13 @@ The last step is to create the csv exporter. Create a new class _CSVExport.cs_ w
 				_csvConfig = csvConfig;
 			}
 
-			// The export function gets the parsed solution and the  output path.
+			// This function just returns true. No requirements to check for.
+			public bool CheckRequirements()
+			{
+				return true;
+			}
+
+			// The export function gets the parsed solution and the output path.
 			public void Export(SDRepository repository, string outputPath)
 			{
 				var csv = string.Empty;
@@ -155,15 +125,7 @@ The last step is to create the csv exporter. Create a new class _CSVExport.cs_ w
 
 			// The name of the exporter will be used to 
 			// create a subdirectory in the output path.
-			public string ExporterName { get { return "csv"; } }
-			
-			// Name of the plugin author.
-			// Used in the exporter selection.
-			public string Author { get { return "Gerrit 'Geaz' Gazic"; } }
-
-			// Small description of the plugin.
-			// Used in the exporter selection.
-			public string Description { get { return "A small csv example plugin for sharpDox"; } }
+			public string ExporterName { get { return "CSV"; } }
 		}
 	}
 

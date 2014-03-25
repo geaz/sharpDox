@@ -1,6 +1,6 @@
 Dieses Tutorial soll einen Überblick darüber geben, wie einfach neue Plugins für **sharpDox** 
-erstellt werden können. Dafür wird ein Plugin erstellt, welches eine neue Einstellungsseite mit 
-eigenen Einstellungen in der GUI registriert und einen CSV Export für alle Methoden erstellt.
+erstellt werden können. Dafür wird ein Plugin erstellt, welches eine neue Einstellung registriert
+und einen CSV Export für alle Methoden erstellt.
 
 Dazu wird zunächst ein neues Klassenbiliotheks-Projekt in Visual Studio angelegt. Benötigt 
 werden Referenzen auf _SharpDox.Model_, _SharpDox.Sdk_, _SharpDox.Ressources_ und _System.Xaml_. 
@@ -11,6 +11,12 @@ _CSVConfig.cs_ mit folgendem Inhalt angelegt:
 	using System.ComponentModel;
 	using SharpDox.Sdk.Config;
 
+	// Diese Klasse implementiert das IConfigSection Interface.
+    // Mit dem Name-Attribute der Klasse wird der Gruppenname innerhalb der GUI gestetzt.
+    // Dieser muss angegeben werden, da die Konfiguration ansonsten nicht angezeigt wird!
+    // Der zweite Parameter des Attributs gibt den Namen der String-Property innerhalb des Typen
+	// CSVStrings an.
+	[Name(typeof(CSVStrings), "CSV")]
 	namespace CSVExporter
 	{
 		// Die Klasse implementiert das Interface IConfigSection
@@ -28,6 +34,10 @@ _CSVConfig.cs_ mit folgendem Inhalt angelegt:
 
 			// Die ist die eigentliche Einstellung.
 			private string _divider = string.Empty;
+			
+			// Ein paar Attribute für das Propertygrid der GUI
+			[Required]
+			[Name(typeof(CSVStrings), "Divider")]
 			public string Divider { get { return _divider; } set { _divider = value; OnPropertyChanged("Divider"); } }
 
 			// Hier muss eine GUID eingefügt werden.
@@ -39,59 +49,8 @@ _CSVConfig.cs_ mit folgendem Inhalt angelegt:
 	}
 
 In diesem Beispiel wird lediglich eine Einstellung zur Angabe des Trennzeichens hinzugefügt. 
-Damit diese Konfiguration von einem Benutzer verwendet werden kann, wird eine Konfigurationsseite 
-in der GUI benötigt.
-
-Dazu wird ein WPF Benutzersteuerelement _CSVConfigPage_ erstellt. Durch die Referenzierung der 
-Bibliothek _SharpDox.Ressources_ können die WPF Designs von sharpDox für jede Konfigurationsseite 
-verwendet werden. Dazu sind lediglich Verweise in der XAML Datei notwendig. Die folgenden zwei 
-Codebeispiele zeigen die Implementierung der Konfigurationsseite.
-
-	using SharpDox.Sdk.UI;
-
-	namespace CSVExporter
-	{
-		public partial class CSVConfigPage : IPage
-		{
-			public CSVConfigPage(CSVConfig csvConfig)
-			{
-				DataContext = csvConfig;
-				InitializeComponent();
-			}
-
-			public string PageName { get { return "CSV"; } }
-			public new int Height { get { return int.Parse(mainGrid.Height.ToString()); } }
-			public new int Width { get { return int.Parse(mainGrid.Width.ToString()); } }
-		}
-	}
-
-Und die XAML-Datei:
-
-	<UserControl x:Class="CSVExporter.CSVConfigPage"
-				 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-				 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-				 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-				 mc:Ignorable="d" 
-				 d:DesignHeight="50" d:DesignWidth="385">
-		
-		<UserControl.Resources>
-			<ResourceDictionary>
-				<ResourceDictionary.MergedDictionaries>
-					<ResourceDictionary Source="/SharpDox.Resources;component/Resources/SharpDox.xaml"/>
-				</ResourceDictionary.MergedDictionaries>
-			</ResourceDictionary>
-		</UserControl.Resources>
-
-		<Grid Name="mainGrid" Height="50" Width="385">
-			<StackPanel Height="Auto" HorizontalAlignment="Left" Margin="15,0,15,0" Name="stackPanel2" VerticalAlignment="Top" Width="Auto">
-				<DockPanel Height="Auto" HorizontalAlignment="Left" Margin="0,0,0,0" Name="dockPanel1" VerticalAlignment="Top" Width="355">
-					<Label Content="Trennzeichen:" Width="150" Height="Auto" Name="label1" Style="{StaticResource BodyText}" />
-					<TextBox Height="Auto" Name="tbDivider" Width="Auto" DockPanel.Dock="Right" Tag="Divider" Text="{Binding Divider}" Style="{StaticResource TextBox}" />
-				</DockPanel>
-			</StackPanel>
-		</Grid>
-	</UserControl>
+Durch die Angaben der Attribute wird die Konfiguration automatisch im Propertygrid der GUI angezeigt und
+in der Konfigurationsdatei von **sharpDox** integriert.
 
 Der letzte Schritt zur Erstellung des CSV Exporters ist der Exportvorgang selbst. Dazu wird eine 
 Datei _CSVExport.cs_ mit folgendem Inhalt erstellt:
@@ -106,6 +65,12 @@ Datei _CSVExport.cs_ mit folgendem Inhalt erstellt:
 	{
 		public class CSVExport : IExporter
 		{
+			/// <summary>
+			/// An diesem Event lauscht sharpDox, um über Warnungen während
+			/// der Überprüfung der Vorraussetzungen benachrichtigt zu werden.
+			/// Sollte eine Warnung auftreten, wird der Bauvorgang abgebrochen.
+			public event Action<string> OnRequirementsWarning;
+			
 			/// <summary>
 			/// An diesem Event lauscht sharpDox, um über Statusnachrichten
 			/// beachrichtigt zu werden. Die Nachrichten werden im 
@@ -168,14 +133,6 @@ Datei _CSVExport.cs_ mit folgendem Inhalt erstellt:
 			// Der Name wird des Exporter wird als Unterordner im Ausgabepfad erzeugt.
 			// Der komplette Ausgabepfad wird der Export-Funktion übergeben.
 			public string ExporterName { get { return "csv"; } }
-			
-			// Der Name des Plugin-Autors.
-			// Wird in der Exporter-Auswahl angezeigt.
-			public string Author { get { return "Gerrit 'Geaz' Gazic"; } }
-
-			// Eine kleine Plugin-Beschreibung.
-			// Wird in der Exporter-Auswahl angezeigt.
-			public string Description { get { return "A small csv example plugin for sharpDox"; } }
 		}
 	}
 

@@ -126,60 +126,160 @@ namespace SharpDox.Core.Config
             set { _moreShells = value; }
         }
 
+        /// <default>
+        ///     <summary>
+        ///     Localized Text: "General Settings"
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Lokalisierter Text: "General Settings"
+        ///     </summary>
+        /// </de>
         public string ConfigTitle
         {
             get { return _configTitle; }
             set { _configTitle = value; }
         }
 
+        /// <default>
+        ///     <summary>
+        ///     Localized Text: "Project Name"
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Lokalisierter Text: "Project Name"
+        ///     </summary>
+        /// </de>
         public string ProjectName
         {
             get { return _projectName; }
             set { _projectName = value; }
         }
 
+        /// <default>
+        ///     <summary>
+        ///     Localized Text: "Version Number"
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Lokalisierter Text: "Version Number"
+        ///     </summary>
+        /// </de>
         public string VersionNumber
         {
             get { return _versionNumber; }
             set { _versionNumber = value; }
         }
 
+        /// <default>
+        ///     <summary>
+        ///     Localized Text: "Author"
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Lokalisierter Text: "Author"
+        ///     </summary>
+        /// </de>
         public string Author
         {
             get { return _author; }
             set { _author = value; }
         }
 
+        /// <default>
+        ///     <summary>
+        ///     Localized Text: "Logo Path"
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Lokalisierter Text: "Logo Path"
+        ///     </summary>
+        /// </de>
         public string LogoPath
         {
             get { return _logoPath; }
             set { _logoPath = value; }
         }
 
+        /// <default>
+        ///     <summary>
+        ///     Localized Text: "Input Path"
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Lokalisierter Text: "Input Path"
+        ///     </summary>
+        /// </de>
         public string InputPath
         {
             get { return _inputPath; }
             set { _inputPath = value; }
         }
 
+        /// <default>
+        ///     <summary>
+        ///     Localized Text: "Excluded Identifiers"
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Lokalisierter Text: "Excluded Identifiers"
+        ///     </summary>
+        /// </de>
         public string ExcludedIdentifiers
         {
             get { return _excludedIdentifiers; }
             set { _excludedIdentifiers = value; }
         }
 
+        /// <default>
+        ///     <summary>
+        ///     Localized Text: "Exporters"
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Lokalisierter Text: "Exporters"
+        ///     </summary>
+        /// </de>
         public string Exporters
         {
             get { return _exporters; }
             set { _exporters = value; }
         }
 
+        /// <default>
+        ///     <summary>
+        ///     Localized Text: "Output Path"
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Lokalisierter Text: "Output Path"
+        ///     </summary>
+        /// </de>
         public string OutputPath
         {
             get { return _outputPath; }
             set { _outputPath = value; }
         }
 
+        /// <default>
+        ///     <summary>
+        ///     Localized Text: "Doc Language"
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Lokalisierter Text: "Doc Language"
+        ///     </summary>
+        /// </de>
         public string DocLanguage
         {
             get { return _docLanguage; }
