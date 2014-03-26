@@ -3,13 +3,14 @@ erstellt werden können. Dafür wird ein Plugin erstellt, welches eine neue Eins
 und einen CSV Export für alle Methoden erstellt.
 
 Dazu wird zunächst ein neues Klassenbiliotheks-Projekt in Visual Studio angelegt. Benötigt 
-werden Referenzen auf _SharpDox.Model_, _SharpDox.Sdk_, _SharpDox.Ressources_ und _System.Xaml_. 
+werden Verweise auf _SharpDox.Model_ und _SharpDox.Sdk_. 
 Der erste Schritt ist die Erstellung der Konfigurationsklasse. Dazu wird eine neue Klasse 
 _CSVConfig.cs_ mit folgendem Inhalt angelegt:
 
 	using System;
 	using System.ComponentModel;
 	using SharpDox.Sdk.Config;
+	using SharpDox.Sdk.Config.Attributes;
 
 	// Diese Klasse implementiert das IConfigSection Interface.
     // Mit dem Name-Attribute der Klasse wird der Gruppenname innerhalb der GUI gestetzt.

@@ -2,8 +2,8 @@ This tutorial gives an overview about creating custom exporters for **sharpDox**
 task we will develop a plugin which creates own settings and an exporter to 
 create a csv output for each method in a solution.
 
-First of all create a library project in Visual Studio and reference the _SharpDox.Model_, 
-_SharpDox.Sdk_, _SharpDox.Ressources_ and _System.Xaml_. In the first step we create the config 
+First of all create a library project in Visual Studio and reference the _SharpDox.Model_ and 
+_SharpDox.Sdk_. In the first step we create the config 
 class. Create a class _CSVConfig.cs_ with the following content:
 
 	using System;
