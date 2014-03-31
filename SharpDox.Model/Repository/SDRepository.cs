@@ -19,6 +19,9 @@ namespace SharpDox.Model.Repository
     [Serializable]
     public class SDRepository
     {
+        private Dictionary<string, string> _uniqueMethodUrls = new Dictionary<string, string>();
+        private Dictionary<string, int> _methodNameCount = new Dictionary<string, int>();
+
         public SDRepository()
         {
             ProjectInfo = new SDProjectInfo();
@@ -56,13 +59,19 @@ namespace SharpDox.Model.Repository
         public void AddMethod(SDMethod sdMethod)
         {
             if (!Methods.ContainsKey(sdMethod.Identifier))
+            {
+                sdMethod.InternalIdentifier = GetUniqueShortMethodIdentifier(sdMethod);
                 Methods.Add(sdMethod.Identifier, sdMethod);
+            }
         }
 
         public void AddMember(SDMember sdMember)
         {
             if (!Members.ContainsKey(sdMember.Identifier))
+            {
+                sdMember.InternalIdentifier = sdMember.Name;
                 Members.Add(sdMember.Identifier, sdMember);
+            }
         }
 
         public void AddNamespaceTypeRelation(string namespaceIdentifier, string typeIdentifier)
@@ -236,6 +245,25 @@ namespace SharpDox.Model.Repository
         public List<SDMethod> GetAllMethods()
         {
             return Methods.Select(n => n.Value).ToList();
+        }
+
+        private string GetUniqueShortMethodIdentifier(SDMethod sdMethod)
+        {
+            if (!_uniqueMethodUrls.ContainsKey(sdMethod.Identifier))
+            {
+                if (!_methodNameCount.ContainsKey(sdMethod.Name))
+                {
+                    _methodNameCount.Add(sdMethod.Name, 1);
+                }
+                else
+                {
+                    _methodNameCount[sdMethod.Name]++;
+                }
+
+                _uniqueMethodUrls.Add(sdMethod.Identifier, string.Format("{0}{1}", sdMethod.Name, _methodNameCount[sdMethod.Name]));
+            }
+
+            return _uniqueMethodUrls[sdMethod.Identifier];
         }
 
         /// <default>
