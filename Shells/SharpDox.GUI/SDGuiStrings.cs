@@ -25,6 +25,7 @@ namespace SharpDox.GUI
         private string _hidePrivate = "Hide all private members";
         private string _hideProtected = "Hide all protected members";
         private string _hideInternal = "Hide all internal members";
+        private string _visibilitySettings = "Visibility Settings";
 
         public string DisplayName { get { return "SharpDoxGui"; } }
 
@@ -152,6 +153,12 @@ namespace SharpDox.GUI
         {
             get { return _noneSelected; }
             set { _noneSelected = value; }
+        }
+
+        public string VisibilitySettings
+        {
+            get { return _visibilitySettings; }
+            set { _visibilitySettings = value; }
         }
     }
 }

@@ -48,15 +48,15 @@ namespace SharpDox.Model.Repository.Members
 
         /// <default>
         ///     <summary>
-        ///     Gets the unique identifier inside the specific type.
+        ///     Gets the shortened unique identifier of the member.
         ///     </summary>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Liefert den eindeutigen Identifikator innerhalb seines Typen.
+        ///     Liefert den gekürzten eindeutigen Identifikator des Mitglieds.
         ///     </summary>     
         /// </de>
-        public string InternalIdentifier { get; set; }
+        public string ShortIdentifier { get; set; }
 
         /// <default>
         ///     <summary>

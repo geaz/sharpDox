@@ -54,10 +54,10 @@ namespace SharpDox.Build.Context
                 if (ex is ThreadAbortException)
                 {
                     _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.BuildStopped);
-                    _buildMessenger.ExecuteOnBuildStopped();
-
                     _buildMessenger.ExecuteOnStepProgress(0);
                     _buildMessenger.ExecuteOnBuildProgress(0);
+
+                    _buildMessenger.ExecuteOnBuildStopped();
                 }
                 else
                 {
@@ -68,11 +68,11 @@ namespace SharpDox.Build.Context
                         _buildMessenger.ExecuteOnBuildMessage(ex.Message);
                     }
 
-                    _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.CouldNotEndBuild);
-
-                    _buildMessenger.ExecuteOnBuildFailed();
+                    _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.CouldNotEndBuild);                                        
                     _buildMessenger.ExecuteOnStepProgress(100);
                     _buildMessenger.ExecuteOnBuildProgress(100);
+
+                    _buildMessenger.ExecuteOnBuildFailed();
                 }
             }
         }

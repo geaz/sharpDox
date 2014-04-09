@@ -19,7 +19,9 @@ namespace SharpDox.Model.Repository
     [Serializable]
     public class SDRepository
     {
-        private Dictionary<string, string> _uniqueMethodUrls = new Dictionary<string, string>();
+        private Dictionary<string, string> _uniqueShortTypeIdentifier = new Dictionary<string, string>();
+        private Dictionary<string, int> _typeNameCount = new Dictionary<string, int>();
+        private Dictionary<string, string> _uniqueShortMethodIdentifier = new Dictionary<string, string>();
         private Dictionary<string, int> _methodNameCount = new Dictionary<string, int>();
 
         public SDRepository()
@@ -53,14 +55,17 @@ namespace SharpDox.Model.Repository
         public void AddType(SDType sdType)
         {
             if (!Types.ContainsKey(sdType.Identifier))
+            {
+                sdType.ShortIdentifier = GetUniqueShortTypeIdentifier(sdType);
                 Types.Add(sdType.Identifier, sdType);
+            }
         }
 
         public void AddMethod(SDMethod sdMethod)
         {
             if (!Methods.ContainsKey(sdMethod.Identifier))
             {
-                sdMethod.InternalIdentifier = GetUniqueShortMethodIdentifier(sdMethod);
+                sdMethod.ShortIdentifier = GetUniqueShortMethodIdentifier(sdMethod);
                 Methods.Add(sdMethod.Identifier, sdMethod);
             }
         }
@@ -69,7 +74,7 @@ namespace SharpDox.Model.Repository
         {
             if (!Members.ContainsKey(sdMember.Identifier))
             {
-                sdMember.InternalIdentifier = sdMember.Name;
+                sdMember.ShortIdentifier = sdMember.Name;
                 Members.Add(sdMember.Identifier, sdMember);
             }
         }
@@ -249,21 +254,32 @@ namespace SharpDox.Model.Repository
 
         private string GetUniqueShortMethodIdentifier(SDMethod sdMethod)
         {
-            if (!_uniqueMethodUrls.ContainsKey(sdMethod.Identifier))
+            return GetUniquieShortIdentifier(sdMethod.Identifier, sdMethod.Name, _methodNameCount, _uniqueShortMethodIdentifier);
+        }
+
+        private string GetUniqueShortTypeIdentifier(SDType sdType)
+        {
+            return GetUniquieShortIdentifier(sdType.Identifier, sdType.Name, _typeNameCount, _uniqueShortTypeIdentifier);
+        }
+
+        private string GetUniquieShortIdentifier(string identifier, string name, Dictionary<string, int> nameCount, Dictionary<string, string> uniqueIdentifiers)
+        {
+            if (!uniqueIdentifiers.ContainsKey(identifier))
             {
-                if (!_methodNameCount.ContainsKey(sdMethod.Name))
+                if (!nameCount.ContainsKey(name))
                 {
-                    _methodNameCount.Add(sdMethod.Name, 1);
+                    nameCount.Add(name, 1);
                 }
                 else
                 {
-                    _methodNameCount[sdMethod.Name]++;
+                    nameCount[name]++;
                 }
 
-                _uniqueMethodUrls.Add(sdMethod.Identifier, string.Format("{0}{1}", sdMethod.Name, _methodNameCount[sdMethod.Name]));
+                uniqueIdentifiers.Add(identifier, string.Format("{0}{1}", name, nameCount[name] == 1
+                                                                                ? string.Empty : nameCount[name].ToString()));
             }
 
-            return _uniqueMethodUrls[sdMethod.Identifier];
+            return uniqueIdentifiers[identifier];
         }
 
         /// <default>

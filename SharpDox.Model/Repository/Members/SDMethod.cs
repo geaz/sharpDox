@@ -206,7 +206,17 @@ namespace SharpDox.Model.Repository.Members
         ///     Liefert die Signatur der Methode.
         ///     </summary>
         /// </de>
-        public string Signature { get { return Identifier; } }
+        public string Signature
+        {
+            get
+            {
+                var typeParam = TypeParameters.Select(parameter => parameter.Name).ToList();
+                var typeParamText = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
+                var param = Parameters.Select(parameter => parameter.ParamType.Name + " " + parameter.Name).ToList();
+
+                return Name + typeParamText + "(" + string.Join(", ", param) + ")";
+            }
+        }
 
         /// <default>
         ///     <summary>
@@ -222,14 +232,10 @@ namespace SharpDox.Model.Repository.Members
         {
             get
             {
-                var typeParam = TypeParameters.Select(parameter => parameter.Name).ToList();
-                var typeParamText = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
-                var param = Parameters.Select(parameter => parameter.ParamType.Name + " " + parameter.Name).ToList();
-
                 var desc = IsAbstract ? "abstract" : string.Empty;
                 desc = IsVirtual ? "virtual" : desc;
 
-                var syntaxItems = new string[] { Accessibility, desc, ReturnType.NameWithTypeArguments, Name + typeParamText + "(" + string.Join(", ", param) + ")" };
+                var syntaxItems = new string[] { Accessibility, desc, ReturnType.NameWithTypeArguments, Signature };
                 syntaxItems = syntaxItems.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
                 return string.Join(" ", syntaxItems);
