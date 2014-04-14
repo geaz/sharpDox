@@ -30,17 +30,17 @@ namespace SharpDox.Build
 
         public static string GetIdentifier(this IEvent eve)
         {
-            return string.Format("{0}.{1}", eve.DeclaringType.GetIdentifier(), eve.Name);
+            return string.Format("event#{0}.{1}", eve.DeclaringType.GetIdentifier(), eve.Name);
         }
 
         public static string GetIdentifier(this IField field)
         {
-            return string.Format("{0}.{1}", field.DeclaringType.GetIdentifier(), field.Name);
+            return string.Format("field#{0}.{1}", field.DeclaringType.GetIdentifier(), field.Name);
         }
 
         public static string GetIdentifier(this IProperty property)
         {
-            return string.Format("{0}.{1}", property.DeclaringType.GetIdentifier(), property.Name);
+            return string.Format("property#{0}.{1}", property.DeclaringType.GetIdentifier(), property.Name);
         }
     } 
 }
