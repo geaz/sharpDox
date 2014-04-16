@@ -232,7 +232,20 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert den Namen des Typen.
         ///     </summary>     
         /// </de>
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+
+                if (value == "Void" || value == "Object")
+                {
+                    _name = _name.ToLower();
+                }
+            }
+        }
 
         /// <default>
         ///     <summary>

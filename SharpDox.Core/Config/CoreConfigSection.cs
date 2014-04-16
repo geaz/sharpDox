@@ -141,7 +141,7 @@ namespace SharpDox.Core.Config
             }
         }
 
-        [ConfigEditor(EditorType.Filepicker)]
+        [ConfigEditor(EditorType.Filepicker, "Image File(.png; .jpg; .bmp)|*.png; *.jpg; *.bmp")]
         [Name(typeof(CoreStrings), "LogoPath")]
         public string LogoPath
         {
@@ -157,7 +157,7 @@ namespace SharpDox.Core.Config
         }
 
         [Required]
-        [ConfigEditor(EditorType.Filepicker)]
+        [ConfigEditor(EditorType.Filepicker, "Solution/Project (*.sln; *.csproj)|*.sln; *.csproj")]
         [Name(typeof(CoreStrings), "InputPath")]
         public string InputPath
         {

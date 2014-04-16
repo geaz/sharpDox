@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C3092F55-794C-4623-8C77-67BB1343339C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.Core", "SharpDox.Core\SharpDox.Core.csproj", "{8E519972-D18F-47E4-8E82-ABC3B3D43311}"
@@ -21,8 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.Build", "Libraries\SharpDox.Build\SharpDox.Build.csproj", "{65180DA0-D8CF-4A7B-BD1C-DBA841883DD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.Build.Tests", "Tests\SharpDox.Build.Tests\SharpDox.Build.Tests.csproj", "{01652931-D84D-49A4-8392-B089E4635469}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.Model", "SharpDox.Model\SharpDox.Model.csproj", "{7880D6BD-3EEF-44AB-964F-61B0F35EFE51}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.UML.Tests", "Tests\SharpDox.UML.Tests\SharpDox.UML.Tests.csproj", "{B8F2B6A8-EB08-48F3-BA1C-B11CDF63F852}"
@@ -41,6 +41,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{08A8E4
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.Build.Tests", "Tests\SharpDox.Build.Tests\SharpDox.Build.Tests.csproj", "{3910FF8A-F168-4B44-A6B0-5C4B7A9DE2EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.TestProject", "Tests\SharpDox.TestProject\SharpDox.TestProject.csproj", "{64CA3C14-F6D6-421F-A802-340FECB41698}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.RegressionTests", "Tests\SharpDox.RegressionTests\SharpDox.RegressionTests.csproj", "{0A886C13-DD26-46AD-822C-0B118501512C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,10 +82,6 @@ Global
 		{65180DA0-D8CF-4A7B-BD1C-DBA841883DD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65180DA0-D8CF-4A7B-BD1C-DBA841883DD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65180DA0-D8CF-4A7B-BD1C-DBA841883DD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01652931-D84D-49A4-8392-B089E4635469}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01652931-D84D-49A4-8392-B089E4635469}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01652931-D84D-49A4-8392-B089E4635469}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01652931-D84D-49A4-8392-B089E4635469}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7880D6BD-3EEF-44AB-964F-61B0F35EFE51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7880D6BD-3EEF-44AB-964F-61B0F35EFE51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7880D6BD-3EEF-44AB-964F-61B0F35EFE51}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -104,6 +106,18 @@ Global
 		{25A379AC-786A-49E1-821C-5CC97EB149CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25A379AC-786A-49E1-821C-5CC97EB149CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25A379AC-786A-49E1-821C-5CC97EB149CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3910FF8A-F168-4B44-A6B0-5C4B7A9DE2EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3910FF8A-F168-4B44-A6B0-5C4B7A9DE2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3910FF8A-F168-4B44-A6B0-5C4B7A9DE2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3910FF8A-F168-4B44-A6B0-5C4B7A9DE2EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64CA3C14-F6D6-421F-A802-340FECB41698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64CA3C14-F6D6-421F-A802-340FECB41698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64CA3C14-F6D6-421F-A802-340FECB41698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64CA3C14-F6D6-421F-A802-340FECB41698}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A886C13-DD26-46AD-822C-0B118501512C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A886C13-DD26-46AD-822C-0B118501512C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A886C13-DD26-46AD-822C-0B118501512C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A886C13-DD26-46AD-822C-0B118501512C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,8 +125,10 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C5BDFE84-D597-42CF-BAE5-C5F94268A77D} = {C3092F55-794C-4623-8C77-67BB1343339C}
 		{FBFBAB4B-29AC-47CD-B3DA-309FAAF8D0DE} = {C3092F55-794C-4623-8C77-67BB1343339C}
-		{01652931-D84D-49A4-8392-B089E4635469} = {C3092F55-794C-4623-8C77-67BB1343339C}
 		{B8F2B6A8-EB08-48F3-BA1C-B11CDF63F852} = {C3092F55-794C-4623-8C77-67BB1343339C}
+		{3910FF8A-F168-4B44-A6B0-5C4B7A9DE2EF} = {C3092F55-794C-4623-8C77-67BB1343339C}
+		{64CA3C14-F6D6-421F-A802-340FECB41698} = {C3092F55-794C-4623-8C77-67BB1343339C}
+		{0A886C13-DD26-46AD-822C-0B118501512C} = {C3092F55-794C-4623-8C77-67BB1343339C}
 		{52ECC690-3F03-4820-8FE4-2C07C7B33409} = {B31D7989-25F8-4468-BF06-ADC904683296}
 		{58745D89-8F8F-4E69-A749-C4280B0ABF4E} = {B31D7989-25F8-4468-BF06-ADC904683296}
 		{65180DA0-D8CF-4A7B-BD1C-DBA841883DD4} = {B31D7989-25F8-4468-BF06-ADC904683296}

@@ -15,7 +15,14 @@ namespace SharpDox.Sdk.Config.Attributes
             SourceListType = sourceListType;
         }
 
+        public ConfigEditorAttribute(EditorType editorType, string openFileFilter)
+        {
+            Editor = editorType;
+            OpenFileFilter = openFileFilter;
+        }
+
         public EditorType Editor { get; set; }
         public Type SourceListType { get; set; }
+        public string OpenFileFilter { get; set; }
     }
 }

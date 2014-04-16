@@ -138,6 +138,18 @@ namespace SharpDox.Model.Repository.Members
 
         /// <default>
         ///     <summary>
+        ///     Gets or sets a value indicating whether the method is static or not.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert einen Wert der angibt, ob diese Methode "static" ist oder nicht.
+        ///     </summary>
+        /// </de>
+        public bool IsStatic { get; set; }
+
+        /// <default>
+        ///     <summary>
         ///     Gets or sets the namespace of the method.
         ///     </summary>
         /// </default>
@@ -234,6 +246,7 @@ namespace SharpDox.Model.Repository.Members
             {
                 var desc = IsAbstract ? "abstract" : string.Empty;
                 desc = IsVirtual ? "virtual" : desc;
+                desc = IsStatic ? "static" : desc;
 
                 var syntaxItems = new string[] { Accessibility, desc, ReturnType.NameWithTypeArguments, Signature };
                 syntaxItems = syntaxItems.Where(s => !string.IsNullOrEmpty(s)).ToArray();

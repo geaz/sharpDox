@@ -68,6 +68,7 @@ namespace SharpDox.Build.Parser
                 IsPublic = method.IsPublic,
                 IsSealed = method.IsSealed,
                 IsVirtual = method.IsVirtual,
+                IsStatic = method.IsStatic,
                 Documentation = _documentationParser.ParseDocumentation(method),
                 Region = new SDRegion
                 {

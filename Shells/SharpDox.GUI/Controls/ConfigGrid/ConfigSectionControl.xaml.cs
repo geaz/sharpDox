@@ -158,6 +158,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
             fileSystemControl.WaterMarkText = requiredAttribute != null ? _localController.GetLocalStrings<SDGuiStrings>().Mandatory : _localController.GetLocalStrings<SDGuiStrings>().Optional;
             fileSystemControl.WaterMarkColor = requiredAttribute != null ? (SolidColorBrush)TryFindResource("Color_FadedRed") : (SolidColorBrush)TryFindResource("Color_FadedGray");
             fileSystemControl.IsFileSelector = editorTypeAttribute.Editor == EditorType.Filepicker;
+            fileSystemControl.OpenFileFilter = editorTypeAttribute.OpenFileFilter;
 
             configItemPanel.Children.Add(fileSystemControl);
         }

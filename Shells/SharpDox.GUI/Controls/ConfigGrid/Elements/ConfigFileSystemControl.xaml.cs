@@ -30,6 +30,11 @@ namespace SharpDox.GUI.Controls.ConfigGrid
                 ButtonCommand = new RelayCommand(() => 
                 {
                     var dlg = new OpenFileDialog();
+                    if (!string.IsNullOrEmpty(OpenFileFilter))
+                    {
+                        dlg.Filter = OpenFileFilter;
+                    }
+
                     if (dlg.ShowDialog() == true)
                     {
                         ConfigItemValue = dlg.FileName;
@@ -98,5 +103,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
             get { return (RelayCommand)GetValue(ButtonCommandProperty); }
             set { SetValue(ButtonCommandProperty, value); }
         }
+
+        public string OpenFileFilter { get; set; }
     }
 }

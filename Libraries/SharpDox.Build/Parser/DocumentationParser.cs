@@ -79,8 +79,8 @@ namespace SharpDox.Build.Parser
                         if (!sdDocumentation.Params.ContainsKey(paramKey))
                             sdDocumentation.Params.Add(paramKey, ParseContentTokens(child));
                         break;
-                    case "exceptions":
-                        var exKey = child.GetAttribute("name") ?? "exceptions";
+                    case "exception":
+                        var exKey = child.GetAttribute("cref") ?? "exception";
                         if (!sdDocumentation.Exceptions.ContainsKey(exKey))
                             sdDocumentation.Exceptions.Add(exKey, ParseContentTokens(child));
                         break;

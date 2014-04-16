@@ -50,7 +50,7 @@ namespace SharpDox.UML.SVG
         }
 
         public XmlElement XmlElement { get; set; }
-        public string Text { get { return XmlElement.InnerXml; } set { XmlElement.InnerXml = string.Format("<![CDATA[{0}]]>", value.Replace("]]>", "]]&gt;")); } }
+        public string Text { get { return XmlElement.InnerXml; } set { XmlElement.InnerXml = string.Format("<![CDATA[{0}]]>", value.Replace("]]>", "]]&gt;").Replace("]", "] ")); } }
         public double X { get { return double.Parse(_x.Value, CultureInfo.InvariantCulture); } set { _x.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
         public double Y { get { return double.Parse(_y.Value, CultureInfo.InvariantCulture); } set { _y.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
         public string Fill { get { return _fill.Value; } set { _fill.Value = value; } }

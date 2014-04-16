@@ -39,7 +39,7 @@ namespace SharpDox.Build.Loader
             }
             else if (FileIsProject(pathToSolutionFile))
             {
-                LoadProjectFile(Path.GetFileName(pathToSolutionFile), Path.GetDirectoryName(pathToSolutionFile));
+                LoadProjectFile(Path.GetFileNameWithoutExtension(pathToSolutionFile), pathToSolutionFile);
             }
 
             LoadProjectCompilations();
