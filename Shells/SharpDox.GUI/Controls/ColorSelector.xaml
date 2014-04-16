@@ -41,7 +41,7 @@
             <Expander BorderThickness="1,0,1,1" Background="White"  Header="{Binding ElementName=ColorSelectorControl, Path=CustomHeaderText}" Name="epCustom" IsExpanded="False" Template="{StaticResource Expander}" HorizontalAlignment="Right" Width="220" Expanded="epCustom_Expanded">
                 <Border Width="200" BorderBrush="{StaticResource BorderColor_MainWindow}" BorderThickness="1" Margin="5,5,5,8" HorizontalAlignment="Center">
                     <Grid>
-                        <Image x:Name="image" Width="200" Height="160" Source="/SharpDox.Resources;component/Images/color.png"/>
+                        <Image x:Name="image" Width="200" Height="160" Source="/SharpDox.GUI;component/Resources/Images/color.png"/>
                         <Canvas x:Name="colorCanvas" Width="200" Height="160" 
                             Background="Transparent" MouseMove="ColorCanvas_MouseMove" MouseLeftButtonDown="ColorCanvas_MouseLeftButtonDown">
                             <Ellipse x:Name="colorPointer" Width="10" Height="10" Stroke="Black" Fill="Transparent" MouseLeftButtonDown="ColorPointer_MouseLeftButtonDown" />
