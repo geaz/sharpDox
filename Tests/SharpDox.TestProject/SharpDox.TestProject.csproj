@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Regression1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Regression5.cs" />
     <Compile Include="Regression4.cs" />
     <Compile Include="Regression3.cs" />
     <Compile Include="Regression2.cs" />

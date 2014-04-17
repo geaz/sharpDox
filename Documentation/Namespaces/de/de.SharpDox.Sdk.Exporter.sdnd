@@ -24,11 +24,7 @@ Der Exporter-Namensraum beinhaltet alle Interfaces um einen eigenen Exporter zu 
 	        }
 	
 	        public string ExporterName { get { return "example"; } }
-			
-			public string Author { get { return "example"; } }
-			
-			public string Description { get { return "example"; } }
 	    }
 	}
 
-Ein ausführlicheres Beispiel ist [hier]({{article-link:Erstellen eines Exporters}}) zu finden.
+Ein ausführlicheres Beispiel ist [hier]({{article-link:de.exporter-tutorial}}) zu finden.

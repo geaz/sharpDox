@@ -49,6 +49,7 @@ namespace SharpDox.Build.Parser
             sdType.IsProjectStranger = false;
             AddParsedTypeArguments(sdType, type.TypeArguments);
             AddParsedTypeParameters(sdType, type.GetDefinition().TypeParameters);
+            AddParsedNestedTypes(sdType, type.GetNestedTypes());
             AddParsedBaseTypes(sdType, type.DirectBaseTypes);
             AddParsedInterfaces(sdType, type.DirectBaseTypes);            
             AddParsedProperties(sdType, type);
@@ -62,6 +63,21 @@ namespace SharpDox.Build.Parser
             AddParsedTypeArguments(sdType, type.TypeArguments);
             AddParsedBaseTypes(sdType, type.DirectBaseTypes);
             AddParsedInterfaces(sdType, type.DirectBaseTypes);            
+        }
+
+        private void AddParsedNestedTypes(SDType sdType, IEnumerable<IType> nestedTypes)
+        {
+            foreach (var nestedType in nestedTypes)
+            {
+                if (nestedType.Kind != TypeKind.Interface)
+                {
+                    var type = GetParsedType(nestedType);
+                    if (sdType.NestedTypes.SingleOrDefault((i => i.Identifier == type.Identifier)) == null && type.Fullname != "System.Object")
+                    {
+                        sdType.NestedTypes.Add(type);
+                    }
+                }
+            }
         }
 
         private void AddParsedBaseTypes(SDType sdType, IEnumerable<IType> directBaseTypes)

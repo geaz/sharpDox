@@ -30,11 +30,11 @@ Die Platzhalter werden statt einer URL genutzt (In den Beispielen wird die Markd
 
 > **Beispiel:** \[LinkText]({{"namespace-link:SharpDox.Sdk}})
 
-**Typ** - {{type-link:[Identifier]}}
+**Typ** - {{"type-link:[Identifier]}}
 > **Beispiel:** \[LinkText]({{"type-link:SharpDox.Sdk.Templater}})
 
-**Artikel** - {{article-link:[ArticleTitle]}}
-> **Beispiel:** \[LinkText]({{"article-link:Erstellen eines Exporters}})
+**Artikel** - {{"article-link:[ArticleFilename]}}
+> **Beispiel:** \[LinkText]({{"article-link:de.exporter-tutorial}})
 
 **Bilder** - Innerhalb der Solution können Bilder abgelegt werden die in Beschreibungen und Artikeln genutzt werden können. Die Bilder für die Dokumentation müssen mit dem Prefix _sdi.*_ beginnen.
 

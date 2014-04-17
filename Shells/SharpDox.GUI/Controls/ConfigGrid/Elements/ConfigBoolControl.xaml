@@ -22,8 +22,8 @@
         
         <Label Content="{Binding ConfigItemDisplayName}" Style="{StaticResource BodyText}" Grid.Column="0" Background="White" Margin="0,0,2,0" />
         
-        <Border Background="White" Grid.Column="1">
-            <CheckBox Style="{StaticResource CheckBox}" IsChecked="{Binding ConfigItemValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+        <Border Background="White" Grid.Column="1" Padding="5 0">
+            <CheckBox Style="{StaticResource CheckBox}" IsChecked="{Binding ConfigItemValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" />
         </Border>
         
     </Grid>

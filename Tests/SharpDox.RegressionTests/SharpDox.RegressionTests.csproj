@@ -38,7 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Moq">
-      <HintPath>..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
+      <HintPath>..\..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Regression1.cs" />
     <Compile Include="Regression2.cs" />
+    <Compile Include="Regression5.cs" />
     <Compile Include="Regression4.cs" />
     <Compile Include="Regression3.cs" />
     <Compile Include="TestConfig.cs" />

@@ -39,6 +39,7 @@ namespace SharpDox.Model.Repository
 			Methods = new List<SDMethod>();
             Events = new List<SDEvent>();
 			Properties = new List<SDProperty>();
+            NestedTypes = new List<SDType>();
         }
 
         /// <default>
@@ -432,6 +433,18 @@ namespace SharpDox.Model.Repository
         ///     </summary>     
         /// </de>
 		public List<SDProperty> Properties { get; private set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets or sets a list of all nested types.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert eine Liste aller eingebetteter Typen.
+        ///     </summary>     
+        /// </de>
+        public List<SDType> NestedTypes { get; private set; }
 
         /// <default>
         ///     <summary>

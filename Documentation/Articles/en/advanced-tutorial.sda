@@ -46,11 +46,11 @@ Use the placeholder instead of an url (the examples use the markdown syntax - pl
 
 > **Example:** \[LinkText]({{"namespace-link:SharpDox.Sdk}})
 
-**Type** - {{type-link:[Identifier]}}
+**Type** - {{"type-link:[Identifier]}}
 > **Example:** \[LinkText]({{"type-link:SharpDox.Sdk.Templater}}")
 
-**Article** - {{article-link:[ArticleTitle]}}
-> **Example:** \[LinkText]({{"article-link:Create a exporter}})
+**Article** - {{"article-link:[ArticleFilename]}}
+> **Example:** \[LinkText]({{"article-link:exporter-tutorial}})
 
 **Image** - You are able to copy images into the solution path to use them within articles and descriptions. Just use the _sdi._ prefix to mark the image for **sharpDox**.
 

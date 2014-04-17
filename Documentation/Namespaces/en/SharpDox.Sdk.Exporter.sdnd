@@ -24,11 +24,7 @@ The exporter namespace provides the interface to implement custom exporters for 
 	        }
 	
 	        public string ExporterName { get { return "example"; } }
-			
-			public string Author { get { return "example"; } }
-			
-			public string Description { get { return "example"; } }
 	    }
 	}
 
-Look [here]({{article-link:Create a exporter}}) for an advanced tutorial.
+Look [here]({{article-link:exporter-tutorial}}) for an advanced tutorial.
