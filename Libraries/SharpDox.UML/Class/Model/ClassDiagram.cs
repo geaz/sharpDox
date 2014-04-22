@@ -26,6 +26,10 @@ namespace SharpDox.UML.Class.Model
             Name = name;
             Accessibility = string.Format("{0} {1} {2}", accessibility, attribute, kind);
 
+            BaseTypes = new List<ClassDiagram>();
+            ImplementedInterfaces = new List<ClassDiagram>();
+            Uses = new List<ClassDiagram>();
+            UsedBy = new List<ClassDiagram>();
             ConstructorRows = new List<ClassDiagramRow>();
             MethodRows = new List<ClassDiagramRow>();
             FieldRows = new List<ClassDiagramRow>();
@@ -42,15 +46,9 @@ namespace SharpDox.UML.Class.Model
             _renderedDiagram.SaveAsPng(outputFilepath);
         }
 
-        public string ToSvg(double maxWidth)
+        public string ToSvg()
         {
             _renderedSvgDiagram = _classDiagramSvgRenderer.RenderDiagram(this); 
-
-            if (_renderedSvgDiagram.Width > maxWidth)
-            {
-                _renderedSvgDiagram.Scale = maxWidth / _renderedSvgDiagram.Width;
-            }
-
             return _renderedSvgDiagram.ToString();
         }
 
@@ -58,6 +56,10 @@ namespace SharpDox.UML.Class.Model
         public string Accessibility { get; set; }
         public string Name { get; set; }
 
+        public List<ClassDiagram> BaseTypes { get; private set; }
+        public List<ClassDiagram> ImplementedInterfaces { get; private set; }
+        public List<ClassDiagram> Uses { get; private set; }
+        public List<ClassDiagram> UsedBy { get; private set; }
         public List<ClassDiagramRow> FieldRows { get; private set; }
         public List<ClassDiagramRow> ConstructorRows { get; private set; }
         public List<ClassDiagramRow> MethodRows { get; private set; }

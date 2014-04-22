@@ -262,7 +262,8 @@ namespace SharpDox.Model.Repository
         {
             get
             {
-                return Name + GetTypeArgumentText();
+                var upperName = char.ToUpper(Name[0]) + Name.Substring(1);
+                return upperName + GetTypeArgumentText();
             }
         }
 

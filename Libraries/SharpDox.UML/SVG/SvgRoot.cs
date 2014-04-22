@@ -5,33 +5,17 @@ namespace SharpDox.UML.SVG
 {
     internal class SvgRoot
     {
-        private readonly XmlElement _root;
-        private readonly XmlElement _g;
-        private readonly XmlAttribute _width;
-        private readonly XmlAttribute _height;
-        private readonly XmlAttribute _transform;
-
-        private double _currentScale;
-
         public SvgRoot(double height, double width)
         {
             Document = new XmlDocument();
 
-            _height = Document.CreateAttribute("height");
-            _width = Document.CreateAttribute("width");
-            _transform = Document.CreateAttribute("transform");
+            GraphicsElement = CreateElement("g");
 
-            _g = CreateElement("g");
-            _g.Attributes.Append(_transform);
+            Root = CreateElement("svg");
+            Root.AppendChild(GraphicsElement);
 
-            _root = CreateElement("svg");
-            _root.Attributes.Append(_height);
-            _root.Attributes.Append(_width);
-            _root.AppendChild(_g);
-
-            Document.AppendChild(_root);
+            Document.AppendChild(Root);
             
-
             Height = height;
             Width = width;
         }
@@ -53,7 +37,13 @@ namespace SharpDox.UML.SVG
 
         public void AppendChild(XmlElement element)
         {
-            _g.AppendChild(element);
+            GraphicsElement.AppendChild(element);
+        }
+
+        public void ImportAppendToRoot(XmlNode node)
+        {
+            var importedNode = Document.ImportNode(node, true);
+            Root.AppendChild(importedNode);
         }
 
         public new string ToString()
@@ -62,20 +52,9 @@ namespace SharpDox.UML.SVG
         }
 
         public XmlDocument Document { get; set; }
-        public double Width { get { return double.Parse(_width.Value, CultureInfo.InvariantCulture); } set { _width.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
-        public double Height { get { return double.Parse(_height.Value, CultureInfo.InvariantCulture); } set { _height.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
-        
-        public double Scale 
-        { 
-            get { return _currentScale; } 
-            set 
-            {
-                Height = Height * value;
-                Width = Width * value;
-
-                _transform.Value = string.Format("scale({0})", value.ToString("0.00", CultureInfo.InvariantCulture));
-                _currentScale = value; 
-            } 
-        }
+        public XmlElement Root { get; set; }
+        public XmlElement GraphicsElement { get; set; }
+        public double Height { get; set; }
+        public double Width { get; set; }
     }
 }

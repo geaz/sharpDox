@@ -49,15 +49,9 @@ namespace SharpDox.UML.Sequence.Model
             _renderedDiagram.SaveAsPng(outputFilepath);
         }
 
-        public string ToSvg(double maxWidth)
+        public string ToSvg()
         {
             _renderedSvgDiagram = _sequenceDiagramSvgRenderer.RenderDiagram(this);
-
-            if (_renderedSvgDiagram.Width > maxWidth)
-            {
-                _renderedSvgDiagram.Scale = maxWidth / _renderedSvgDiagram.Width;
-            }
-
             return _renderedSvgDiagram.ToString();
         }
 

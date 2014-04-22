@@ -37,9 +37,8 @@
         ///     <summary>
         ///     Diese Methode erstellt eine SVG-Repräsentation des Diagramms.
         ///     </summary>
-        ///     <param name="maxWidth">Falls das Diagramm breiter als der Wert ist, wird das Diagramm auf diesen Wert skaliert.</param>
         ///     <returns>Die SVG-Repräsentation</returns>
         /// </de>
-        string ToSvg(double maxWidth);
+        string ToSvg();
     }
 }
