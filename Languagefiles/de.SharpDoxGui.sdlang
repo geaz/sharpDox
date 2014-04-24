@@ -1,3 +1,7 @@
+Text = Text
+LinkText = Link Text
+Link = Link Url
+LinkTitle = Link Titel
 Mandatory = erforderlich
 Optional = optional
 Build = Bauen
