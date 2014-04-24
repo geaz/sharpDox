@@ -18,7 +18,7 @@ namespace SharpDox.Model.Repository
     ///     </summary>     
     /// </de>
     [Serializable]
-    public class SDType
+    public class SDType : IComparable<SDType>
     {
         public SDType(string identifier, string name, SDNamespace sdNamespace)
         {
@@ -27,38 +27,19 @@ namespace SharpDox.Model.Repository
             Name = name;
             Namespace = sdNamespace;
 
-            BaseTypes = new List<SDType>();
-            ImplementedInterfaces = new List<SDType>();
-            UsedBy = new List<SDType>();
-            Uses = new List<SDType>();
+            BaseTypes = new SortedList<SDType>();
+            ImplementedInterfaces = new SortedList<SDType>();
+            UsedBy = new SortedList<SDType>();
+            Uses = new SortedList<SDType>();
 
-            TypeParameters = new List<SDTypeParameter>();
-            TypeArguments = new List<SDType>();
-			Fields = new List<SDField>();
-            Constructors = new List<SDMethod>();
-			Methods = new List<SDMethod>();
-            Events = new List<SDEvent>();
-			Properties = new List<SDProperty>();
-            NestedTypes = new List<SDType>();
-        }
-
-        /// <default>
-        ///     <summary>
-        ///     Sorts all members of this type.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Sortiert alle Mitglieder dieses Typen.
-        ///     </summary>     
-        /// </de>
-        public void SortMembers()
-        {
-            Fields.Sort();
-            Constructors.Sort();
-            Methods.Sort();
-            Events.Sort();
-            Properties.Sort();
+            TypeParameters = new SortedList<SDTypeParameter>();
+            TypeArguments = new SortedList<SDType>();
+            Fields = new SortedList<SDField>();
+            Constructors = new SortedList<SDMethod>();
+            Methods = new SortedList<SDMethod>();
+            Events = new SortedList<SDEvent>();
+			Properties = new SortedList<SDProperty>();
+            NestedTypes = new SortedList<SDType>();
         }
 
         private string GetTypeArgumentText()
@@ -313,7 +294,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Typ-Argumente.
         ///     </summary>     
         /// </de>
-        public List<SDType> TypeArguments { get; private set; }
+        public SortedList<SDType> TypeArguments { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -325,7 +306,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Typ-Parameter.
         ///     </summary>     
         /// </de>
-        public List<SDTypeParameter> TypeParameters { get; private set; }
+        public SortedList<SDTypeParameter> TypeParameters { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -337,7 +318,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Basistypen.
         ///     </summary>     
         /// </de>
-        public List<SDType> BaseTypes { get; private set; }
+        public SortedList<SDType> BaseTypes { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -349,7 +330,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller implementierter Interfaces.
         ///     </summary>     
         /// </de>
-        public List<SDType> ImplementedInterfaces { get; private set; }
+        public SortedList<SDType> ImplementedInterfaces { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -361,7 +342,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller <c>SDType</c>s die diesen Typen benutzen.
         ///     </summary>     
         /// </de>
-        public List<SDType> UsedBy { get; set; }
+        public SortedList<SDType> UsedBy { get; set; }
 
         /// <default>
         ///     <summary>
@@ -373,7 +354,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller <c>SDType</c>s die von diesem Typen benutzt werden.
         ///     </summary>     
         /// </de>
-        public List<SDType> Uses { get; set; }
+        public SortedList<SDType> Uses { get; set; }
 
         /// <default>
         ///     <summary>
@@ -385,7 +366,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller <c>SDField</c>s.
         ///     </summary>     
         /// </de>
-		public List<SDField> Fields { get; private set; }
+        public SortedList<SDField> Fields { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -397,7 +378,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Konstruktoren.
         ///     </summary>     
         /// </de>
-        public List<SDMethod> Constructors { get; private set; }
+        public SortedList<SDMethod> Constructors { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -409,7 +390,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Methoden.
         ///     </summary>     
         /// </de>
-		public List<SDMethod> Methods { get; private set; }
+        public SortedList<SDMethod> Methods { get; private set; }
         
         /// <default>
         ///     <summary>
@@ -421,7 +402,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Events.
         ///     </summary>     
         /// </de>
-        public List<SDEvent> Events { get; private set; }
+        public SortedList<SDEvent> Events { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -433,7 +414,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Eigenschaften.
         ///     </summary>     
         /// </de>
-		public List<SDProperty> Properties { get; private set; }
+        public SortedList<SDProperty> Properties { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -445,7 +426,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller eingebetteter Typen.
         ///     </summary>     
         /// </de>
-        public List<SDType> NestedTypes { get; private set; }
+        public SortedList<SDType> NestedTypes { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -516,6 +497,25 @@ namespace SharpDox.Model.Repository
 
                 return string.Join(" ", syntax);
             }
+        }
+
+        /// <default>
+        ///     <summary>
+        ///     Comparer to sort the a list with SDTypes.
+        ///     </summary>
+        ///     <param name="other">SDType to compare with</param>
+        ///     <returns>A value indicating, if the current SDType is lower or greater then the given one.</returns>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Vergleichsmethode, um eine Liste mit <c>SDType</c>s zu sortieren.
+        ///     </summary>
+        ///     <param name="other">Ein anderer <c>SDType</c> mit dem dieser verglichen werden soll.</param>
+        ///     <returns>Ein Wert der angibt, ob der aktuelle <c>SDType</c> "größer" oder "kleiner" als der angegebene ist.</returns>    
+        /// </de>
+        public int CompareTo(SDType other)
+        {
+            return Identifier.CompareTo(other.Identifier);
         }
     }
 }

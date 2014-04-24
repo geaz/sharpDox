@@ -17,20 +17,20 @@ namespace SharpDox.UML.Sequence
         private int _openBlocks = 0;
         private Size _diagramSize;
         private SvgRoot _svgRoot;
+        private SvgGraphic _svgGraphic;
         private Dictionary<Guid, double> _nodeMiddlePoints;
 
         public SvgRoot RenderDiagram(SequenceDiagram sequenceDiagram)
         {
             _nodeMiddlePoints = new Dictionary<Guid, double>();
             _diagramSize = new Size(0.5, 80.5);
-            _svgRoot = new SvgRoot(0, 0);
+            _svgRoot = new SvgRoot();
+            _svgGraphic = new SvgGraphic(_svgRoot);
+            _svgRoot.Add(_svgGraphic);
 
             DrawAllNodes(sequenceDiagram);
             DrawAllDiagramElements(sequenceDiagram);
             DrawVerticalLines(sequenceDiagram);
-
-            _svgRoot.Height = _diagramSize.Height;
-            _svgRoot.Width = _diagramSize.Width;
 
             return _svgRoot;
         }
@@ -59,8 +59,8 @@ namespace SharpDox.UML.Sequence
             var link = new SvgLink(_svgRoot, node.Text, string.Format("{{{{type-link:{0}}}}}", node.TypeIdentifier), textPosition.X + 15, textPosition.Y + 22);
             link.Text.FontSize = 12;
 
-            _svgRoot.AppendChild(rectangle.XmlElement);
-            _svgRoot.AppendChild(link.XmlElement);
+            _svgGraphic.Add(rectangle);
+            _svgGraphic.Add(link);
 
             _nodeMiddlePoints.Add(node.ID, textSize.Width / 2 + textPosition.X);
         }
@@ -105,7 +105,7 @@ namespace SharpDox.UML.Sequence
             var textWidth = connection.Text.GetWidth(12, Fonts.FontLight);
             var link = new SvgLink(_svgRoot, connection.Text, string.Format("{{{{method-link:{0}}}}}", connection.CalledMethodIdentifier), callerNodeMiddlePoint + 10, _diagramSize.Height + 10);
             link.Text.FontSize = 12;
-            _svgRoot.AppendChild(link.XmlElement);
+            _svgGraphic.Add(link);
 
             if ((textWidth + callerNodeMiddlePoint + 10) > _diagramSize.Width)
             {
@@ -146,9 +146,9 @@ namespace SharpDox.UML.Sequence
                 path3.StrokeWidth = 1;
                 path3.Stroke = "#979797";
 
-                _svgRoot.AppendChild(path.XmlElement);
-                _svgRoot.AppendChild(path2.XmlElement);
-                _svgRoot.AppendChild(path3.XmlElement);
+                _svgGraphic.Add(path);
+                _svgGraphic.Add(path2);
+                _svgGraphic.Add(path3);
             }
             else
             {
@@ -159,7 +159,7 @@ namespace SharpDox.UML.Sequence
                 path.StrokeWidth = 1;
                 path.Stroke = "#979797";
 
-                _svgRoot.AppendChild(path.XmlElement);
+                _svgGraphic.Add(path);
             }
 
             _diagramSize.Height += 20;
@@ -174,7 +174,7 @@ namespace SharpDox.UML.Sequence
             var arrow = new SvgPolygon(_svgRoot, points);
             arrow.Stroke = arrow.Fill = "#979797";
 
-            _svgRoot.AppendChild(arrow.XmlElement);
+            _svgGraphic.Add(arrow);
 
             _diagramSize.Height += ROWOFFSET;
         }
@@ -187,7 +187,7 @@ namespace SharpDox.UML.Sequence
             var textWidth = ("return " + connection.Text).GetWidth(12, Fonts.FontLight);
             var text = new SvgText(_svgRoot, "return " + connection.Text, calledNodeMiddlePoint + 10, _diagramSize.Height + 10);
             text.FontSize = 12;
-            _svgRoot.AppendChild(text.XmlElement);
+            _svgGraphic.Add(text);
 
             if ((textWidth + calledNodeMiddlePoint + 10) > _diagramSize.Width)
             {
@@ -200,7 +200,7 @@ namespace SharpDox.UML.Sequence
                     callerNodeMiddlePoint.ToString("0.00", CultureInfo.InvariantCulture)));
             path.StrokeWidth = 1;
             path.Stroke = "#979797";
-            _svgRoot.AppendChild(path.XmlElement);
+            _svgGraphic.Add(path);
 
             var startX = (int)calledNodeMiddlePoint;
             var startY = (int)_diagramSize.Height + 20;
@@ -209,7 +209,7 @@ namespace SharpDox.UML.Sequence
             var arrow = new SvgPolygon(_svgRoot, points);
             arrow.Stroke = arrow.Fill = "#979797";
 
-            _svgRoot.AppendChild(arrow.XmlElement);
+            _svgGraphic.Add(arrow);
 
             _diagramSize.Height += 35;
         }
@@ -219,7 +219,7 @@ namespace SharpDox.UML.Sequence
             var textWidth = block.Text.GetWidth(12, Fonts.FontLight);
             var text = new SvgText(_svgRoot, block.Text, 20 + _openBlocks * 15, _diagramSize.Height + 10);
             text.FontSize = 10;
-            _svgRoot.AppendChild(text.XmlElement);
+            _svgGraphic.Add(text);
 
             // Setzen der Breite des Diagramms auf die eventuell größere Breite des Textes
             if ((textWidth + 20 + _openBlocks * 15) > _diagramSize.Width)
@@ -235,7 +235,7 @@ namespace SharpDox.UML.Sequence
 
             var text = new SvgText(_svgRoot, "end", 20 + _openBlocks * 15, _diagramSize.Height);
             text.FontSize = 10;
-            _svgRoot.AppendChild(text.XmlElement);
+            _svgGraphic.Add(text);
 
             _diagramSize.Height += 20;
         }
@@ -251,7 +251,7 @@ namespace SharpDox.UML.Sequence
                 path.StrokeWidth = 1;
                 path.Stroke = "#979797";
 
-                _svgRoot.AppendChild(path.XmlElement);
+                _svgGraphic.Add(path);
             }
         }
     }

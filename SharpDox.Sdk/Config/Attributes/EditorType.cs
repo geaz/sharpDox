@@ -82,6 +82,18 @@
         ///     Falls dieser Editortyp genutzt werden soll muss eine Sourcelist angeben werden.
         ///     </remarks>
         /// </de>
-        CheckBoxList
+        CheckBoxList,
+
+        /// <default>
+        ///     <summary>
+        ///     A markdown control to help creating markdown text.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Ein Markdown-Control, das bei der Erstellung von Markdown-Syntax unterstützt.
+        ///     </summary>
+        /// </de>
+        Markdown
     }
 }

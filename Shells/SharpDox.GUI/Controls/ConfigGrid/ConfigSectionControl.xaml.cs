@@ -67,6 +67,10 @@ namespace SharpDox.GUI.Controls.ConfigGrid
                     {
                         CreateCheckboxListControl(displayNameAttribute, (CheckBoxList)Activator.CreateInstance(editorTypeAttribute.SourceListType) ,b);
                     }
+                    else if(editorTypeAttribute != null && editorTypeAttribute.Editor == EditorType.Markdown)
+                    {
+                        CreateMarkdownControl(displayNameAttribute, requiredAttribute, b);
+                    }
                     else if(editorTypeAttribute == null && configItem.PropertyType == typeof(string))
                     {
                         CreateTextboxControl(displayNameAttribute, requiredAttribute, b);
@@ -107,6 +111,17 @@ namespace SharpDox.GUI.Controls.ConfigGrid
             checkBoxListControl.SetBinding(ConfigCheckBoxListControl.SelectedItemsProperty, b);
 
             configItemPanel.Children.Add(checkBoxListControl);
+        }
+
+        private void CreateMarkdownControl(NameAttribute displayNameAttribute, RequiredAttribute requiredAttribute, Binding b)
+        {
+            var markdownItemControl = new ConfigMarkdownControl(_localController.GetLocalStrings<SDGuiStrings>());
+            markdownItemControl.ConfigItemDisplayName = _localController.GetLocalString(displayNameAttribute.LocalType, displayNameAttribute.DisplayName);
+            markdownItemControl.SetBinding(ConfigMarkdownControl.ConfigItemValueProperty, b);
+            markdownItemControl.WaterMarkText = requiredAttribute != null ? _localController.GetLocalStrings<SDGuiStrings>().Mandatory : _localController.GetLocalStrings<SDGuiStrings>().Optional;
+            markdownItemControl.WaterMarkColor = requiredAttribute != null ? (SolidColorBrush)TryFindResource("Color_FadedRed") : (SolidColorBrush)TryFindResource("Color_FadedGray");
+
+            configItemPanel.Children.Add(markdownItemControl);
         }
 
         private void CreateTextboxControl(NameAttribute displayNameAttribute, RequiredAttribute requiredAttribute, Binding b)

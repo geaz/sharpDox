@@ -1,4 +1,5 @@
 ﻿using ICSharpCode.NRefactory.TypeSystem;
+using SharpDox.Model;
 using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace SharpDox.Build.Parser
             ParseMethodList(sdType.Methods, methods, false);
         }
 
-        private void ParseMethodList(List<SDMethod> sdMethodList, IEnumerable<IMethod> methodList, bool isCtor)
+        private void ParseMethodList(SortedList<SDMethod> sdMethodList, IEnumerable<IMethod> methodList, bool isCtor)
         {
             foreach (var method in methodList)
             {
@@ -117,7 +118,7 @@ namespace SharpDox.Build.Parser
             MinimalParseMethodList(sdType.Methods, methods, false);
         }
 
-        private static void MinimalParseMethodList(List<SDMethod> sdMethods, IEnumerable<IMethod> methods, bool isCtor)
+        private static void MinimalParseMethodList(SortedList<SDMethod> sdMethods, IEnumerable<IMethod> methods, bool isCtor)
         {
             foreach (var method in methods)
             {

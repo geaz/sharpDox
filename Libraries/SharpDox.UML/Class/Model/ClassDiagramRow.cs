@@ -11,8 +11,8 @@ namespace SharpDox.UML.Class
         public ClassDiagramRow(string identifier, string type, string accessibility, string text)
         {
             Identifier = identifier;
-            Accessibility = accessibility; //Icon = Icons.GetIcon(type, accessibility);
-            Text = text; //new FormattedText(text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, Fonts.FontLight, 12, Brushes.Black);
+            Accessibility = accessibility;
+            Text = text;
             Type = type;
         }
 

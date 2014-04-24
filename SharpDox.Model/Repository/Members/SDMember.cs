@@ -146,7 +146,7 @@ namespace SharpDox.Model.Repository.Members
         /// </de>
         public int CompareTo(SDMember other)
         {
-            return Name.CompareTo(other.Name);
+            return Identifier.CompareTo(other.Identifier);
         }
     }
 }

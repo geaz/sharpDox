@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace SharpDox.UML.SVG
 {
-    internal class SvgImage
+    internal class SvgImage : SvgElement
     {
         private XmlAttribute _width;
         private XmlAttribute _height;
@@ -12,9 +12,9 @@ namespace SharpDox.UML.SVG
         private XmlAttribute _preserveAspectRatio;
         private XmlAttribute _href;
 
-        public SvgImage(SvgRoot svg, double x, double y, double width, double height, string href)
+        public SvgImage(SvgRoot rootSvg, double x, double y, double width, double height, string href) : base(rootSvg, "image")
         {
-            CreateElement(svg);
+            CreateElement();
 
             X = x;
             Y = y;
@@ -23,26 +23,23 @@ namespace SharpDox.UML.SVG
             Href = href;
         }
 
-        private void CreateElement(SvgRoot svg)
+        private void CreateElement()
         {
-            XmlElement = svg.CreateElement("image");
+            _width = _rootSvg.CreateAttribute("width");
+            _height = _rootSvg.CreateAttribute("height");
+            _x = _rootSvg.CreateAttribute("x");
+            _y = _rootSvg.CreateAttribute("y");
+            _preserveAspectRatio = _rootSvg.CreateAttribute("preserveAspectRatio");
+            _href = _rootSvg.CreateAttribute("xlink:href", "xlink");
 
-            _width = svg.CreateAttribute("width");
-            _height = svg.CreateAttribute("height");
-            _x = svg.CreateAttribute("x");
-            _y = svg.CreateAttribute("y");
-            _preserveAspectRatio = svg.CreateAttribute("preserveAspectRatio");
-            _href = svg.CreateAttribute("href", "xlink");
-
-            XmlElement.Attributes.Append(_width);
-            XmlElement.Attributes.Append(_height);
-            XmlElement.Attributes.Append(_x);
-            XmlElement.Attributes.Append(_y);
-            XmlElement.Attributes.Append(_preserveAspectRatio);
-            XmlElement.Attributes.Append(_href);
+            Attributes.Append(_width);
+            Attributes.Append(_height);
+            Attributes.Append(_x);
+            Attributes.Append(_y);
+            Attributes.Append(_preserveAspectRatio);
+            Attributes.Append(_href);
         }
 
-        public XmlElement XmlElement { get; set; }
         public double X { get { return double.Parse(_x.Value, CultureInfo.InvariantCulture); } set { _x.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
         public double Y { get { return double.Parse(_y.Value, CultureInfo.InvariantCulture); } set { _y.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
         public double Width { get { return double.Parse(_width.Value, CultureInfo.InvariantCulture); } set { _width.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }

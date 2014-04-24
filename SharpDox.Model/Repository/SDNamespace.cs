@@ -14,7 +14,7 @@ namespace SharpDox.Model.Repository
     ///     </summary>     
     /// </de>
     [Serializable]
-    public class SDNamespace
+    public class SDNamespace : IComparable<SDNamespace>
     {
         public SDNamespace(string fullname)
         {
@@ -23,9 +23,9 @@ namespace SharpDox.Model.Repository
             Fullname = fullname;
             IsProjectStranger = false;
 
-            Types = new List<SDType>();
-            Uses = new List<SDNamespace>();
-            UsedBy = new List<SDNamespace>();
+            Types = new SortedList<SDType>();
+            Uses = new SortedList<SDNamespace>();
+            UsedBy = new SortedList<SDNamespace>();
         }
 
         /// <default>
@@ -110,7 +110,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller beinhalteten Typen.
         ///     </summary>     
         /// </de>
-        public List<SDType> Types { get; private set; }
+        public SortedList<SDType> Types { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -122,7 +122,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Namensräume, die innerhalb diesem genutzt werden.
         ///     </summary>     
         /// </de>
-        public List<SDNamespace> Uses { get; private set; }
+        public SortedList<SDNamespace> Uses { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -134,6 +134,25 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Namensräume, die diesen Namensraum nutzen.
         ///     </summary>     
         /// </de>
-        public List<SDNamespace> UsedBy { get; private set; }
+        public SortedList<SDNamespace> UsedBy { get; private set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Comparer to sort the a list with SDNamespaces.
+        ///     </summary>
+        ///     <param name="other">SDNamespace to compare with</param>
+        ///     <returns>A value indicating, if the current SDNamespace is lower or greater then the given one.</returns>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Vergleichsmethode, um eine Liste mit <c>SDNamespace</c>s zu sortieren.
+        ///     </summary>
+        ///     <param name="other">Ein anderer <c>SDNamespace</c> mit dem dieser verglichen werden soll.</param>
+        ///     <returns>Ein Wert der angibt, ob der aktuelle <c>SDNamespace</c> "größer" oder "kleiner" als der angegebene ist.</returns>    
+        /// </de>
+        public int CompareTo(SDNamespace other)
+        {
+            return Identifier.CompareTo(other.Identifier);
+        }
     }
 }

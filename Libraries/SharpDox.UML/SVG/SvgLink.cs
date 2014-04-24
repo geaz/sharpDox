@@ -2,14 +2,14 @@
 
 namespace SharpDox.UML.SVG
 {
-    internal class SvgLink
+    internal class SvgLink : SvgElement
     {
         private XmlAttribute _href;
 
-        public SvgLink(SvgRoot svg, string text, string href, double x, double y)
+        public SvgLink(SvgRoot rootSvg, string text, string href, double x, double y) : base(rootSvg, "a")
         {
-            Text = new SvgText(svg, text, x, y);
-            CreateElement(svg);
+            Text = new SvgText(rootSvg, text, x, y);
+            CreateElement();
 
             Text.Fill = "#1382CE";
             Text.OnMouseOut = "this.setAttribute('fill', '#1382CE')";
@@ -20,16 +20,14 @@ namespace SharpDox.UML.SVG
             Text.Y = y;
         }
 
-        private void CreateElement(SvgRoot svg)
+        private void CreateElement()
         {
-            XmlElement = svg.CreateElement("a");
-            _href = svg.CreateAttribute("href", "xlink");
+            _href = _rootSvg.CreateAttribute("xlink:href", "xlink");
 
-            XmlElement.Attributes.Append(_href);
-            XmlElement.AppendChild(Text.XmlElement);
+            Attributes.Append(_href);
+            AppendChild(Text);
         }
 
-        public XmlElement XmlElement { get; set; }
         public SvgText Text { get; set; }
         public string Href { get { return _href.Value; } set { _href.Value = value; } }
     }

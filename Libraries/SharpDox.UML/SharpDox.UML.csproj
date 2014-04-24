@@ -52,6 +52,7 @@
     <Compile Include="Class\Renderer\ClassDiagramPngRenderer.cs" />
     <Compile Include="Class\Model\ClassDiagramRow.cs" />
     <Compile Include="Class\Renderer\ClassDiagramSvgRenderer.cs" />
+    <Compile Include="Class\Renderer\ConnectedClassDiagramSvgRenderer.cs" />
     <Compile Include="ISDDiagram.cs" />
     <Compile Include="Ressources\Fonts.cs" />
     <Compile Include="Ressources\Icons.cs" />
@@ -67,6 +68,8 @@
     <Compile Include="Sequence\Renderer\SequenceDiagramPngRenderer.cs" />
     <Compile Include="Sequence\Model\SequenceDiagram.cs" />
     <Compile Include="DiagramExtensions.cs" />
+    <Compile Include="SVG\SvgElement.cs" />
+    <Compile Include="SVG\SvgGraphic.cs" />
     <Compile Include="SVG\SvgPolygon.cs" />
     <Compile Include="SVG\SvgImage.cs" />
     <Compile Include="SVG\SvgPath.cs" />

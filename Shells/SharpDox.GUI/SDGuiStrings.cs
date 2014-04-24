@@ -4,6 +4,10 @@ namespace SharpDox.GUI
 {
     public class SDGuiStrings : ILocalStrings
     {
+        private string _text = "Text";
+        private string _linkText = "Link Text";
+        private string _link = "Link Url";
+        private string _linkTitle = "Link Title";
         private string _mandatory = "required";
         private string _optional = "optional";
         private string _no = "no";
@@ -28,6 +32,30 @@ namespace SharpDox.GUI
         private string _visibilitySettings = "Visibility Settings";
 
         public string DisplayName { get { return "SharpDoxGui"; } }
+
+        public string Text
+        {
+            get { return _text; }
+            set { _text = value; }
+        }
+
+        public string LinkText
+        {
+            get { return _linkText; }
+            set { _linkText = value; }
+        }
+
+        public string Link
+        {
+            get { return _link; }
+            set { _link = value; }
+        }
+
+        public string LinkTitle
+        {
+            get { return _linkTitle; }
+            set { _linkTitle = value; }
+        }
 
         public string Mandatory
         {

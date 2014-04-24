@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace SharpDox.UML.SVG
 {
-    internal class SvgRectangle
+    internal class SvgRectangle : SvgElement
     {
         private XmlAttribute _width;
         private XmlAttribute _height;
@@ -13,9 +13,9 @@ namespace SharpDox.UML.SVG
         private XmlAttribute _stroke;
         private XmlAttribute _strokeWidth;
 
-        public SvgRectangle(SvgRoot svg, double x, double y, double width, double height)
+        public SvgRectangle(SvgRoot rootSvg, double x, double y, double width, double height) : base(rootSvg, "rect")
         {
-            CreateElement(svg);
+            CreateElement();
 
             X = x;
             Y = y;
@@ -23,28 +23,25 @@ namespace SharpDox.UML.SVG
             Height = height;
         }
 
-        private void CreateElement(SvgRoot svg)
+        private void CreateElement()
         {
-            XmlElement = svg.CreateElement("rect");
+            _height = _rootSvg.CreateAttribute("height");
+            _width = _rootSvg.CreateAttribute("width");
+            _x = _rootSvg.CreateAttribute("x");
+            _y = _rootSvg.CreateAttribute("y");
+            _fill = _rootSvg.CreateAttribute("fill");
+            _stroke = _rootSvg.CreateAttribute("stroke");
+            _strokeWidth = _rootSvg.CreateAttribute("stroke-width");
 
-            _height = svg.CreateAttribute("height");
-            _width = svg.CreateAttribute("width");
-            _x = svg.CreateAttribute("x");
-            _y = svg.CreateAttribute("y");
-            _fill = svg.CreateAttribute("fill");
-            _stroke = svg.CreateAttribute("stroke");
-            _strokeWidth = svg.CreateAttribute("stroke-width");
-
-            XmlElement.Attributes.Append(_height);
-            XmlElement.Attributes.Append(_width);
-            XmlElement.Attributes.Append(_x);
-            XmlElement.Attributes.Append(_y);
-            XmlElement.Attributes.Append(_fill);
-            XmlElement.Attributes.Append(_stroke);
-            XmlElement.Attributes.Append(_strokeWidth);
+            Attributes.Append(_height);
+            Attributes.Append(_width);
+            Attributes.Append(_x);
+            Attributes.Append(_y);
+            Attributes.Append(_fill);
+            Attributes.Append(_stroke);
+            Attributes.Append(_strokeWidth);
         }
 
-        public XmlElement XmlElement { get; set; }
         public double Width { get { return double.Parse(_width.Value, CultureInfo.InvariantCulture); } set { _width.Value = value.ToString("0"); } }
         public double Height { get { return double.Parse(_height.Value, CultureInfo.InvariantCulture); } set { _height.Value = value.ToString("0"); } }
         public double X { get { return double.Parse(_x.Value, CultureInfo.InvariantCulture); } set { _x.Value = value.ToString("0.50", CultureInfo.InvariantCulture); } }

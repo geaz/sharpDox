@@ -12,7 +12,7 @@ namespace SharpDox.UML.Class.Model
     internal class ClassDiagram : ISDDiagram
     {
         private readonly ClassDiagramPngRenderer _classDiagramPngRenderer;
-        private readonly ClassDiagramSvgRenderer _classDiagramSvgRenderer;
+        private readonly ConnectedClassDiagramSvgRenderer _classDiagramSvgRenderer;
 
         private DrawingVisual _renderedDiagram;
         private SvgRoot _renderedSvgDiagram;
@@ -20,7 +20,7 @@ namespace SharpDox.UML.Class.Model
         public ClassDiagram(string typeIdentifier, string name, string kind, string accessibility, string attribute)
         {
             _classDiagramPngRenderer = new ClassDiagramPngRenderer();
-            _classDiagramSvgRenderer = new ClassDiagramSvgRenderer();
+            _classDiagramSvgRenderer = new ConnectedClassDiagramSvgRenderer();
 
             TypeIdentifier = typeIdentifier;
             Name = name;
@@ -30,6 +30,7 @@ namespace SharpDox.UML.Class.Model
             ImplementedInterfaces = new List<ClassDiagram>();
             Uses = new List<ClassDiagram>();
             UsedBy = new List<ClassDiagram>();
+
             ConstructorRows = new List<ClassDiagramRow>();
             MethodRows = new List<ClassDiagramRow>();
             FieldRows = new List<ClassDiagramRow>();
@@ -48,7 +49,7 @@ namespace SharpDox.UML.Class.Model
 
         public string ToSvg()
         {
-            _renderedSvgDiagram = _classDiagramSvgRenderer.RenderDiagram(this); 
+            _renderedSvgDiagram = _classDiagramSvgRenderer.RenderConnectedDiagram(this); 
             return _renderedSvgDiagram.ToString();
         }
 
@@ -60,6 +61,7 @@ namespace SharpDox.UML.Class.Model
         public List<ClassDiagram> ImplementedInterfaces { get; private set; }
         public List<ClassDiagram> Uses { get; private set; }
         public List<ClassDiagram> UsedBy { get; private set; }
+
         public List<ClassDiagramRow> FieldRows { get; private set; }
         public List<ClassDiagramRow> ConstructorRows { get; private set; }
         public List<ClassDiagramRow> MethodRows { get; private set; }

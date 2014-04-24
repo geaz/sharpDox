@@ -3,58 +3,30 @@ using System.Xml;
 
 namespace SharpDox.UML.SVG
 {
-    internal class SvgRoot
+    internal class SvgRoot : XmlDocument
     {
-        public SvgRoot(double height, double width)
+        private readonly XmlElement _root;
+
+        public SvgRoot()
         {
-            Document = new XmlDocument();
-
-            GraphicsElement = CreateElement("g");
-
-            Root = CreateElement("svg");
-            Root.AppendChild(GraphicsElement);
-
-            Document.AppendChild(Root);
-            
-            Height = height;
-            Width = width;
+            _root = CreateElement("svg");
+            AppendChild(_root);
         }
 
-        public XmlElement CreateElement(string name)
+        public void Add(SvgElement element)
         {
-            return Document.CreateElement(name);
+            _root.AppendChild((XmlElement)element);
         }
 
-        public XmlAttribute CreateAttribute(string name)
+        public void ImportAdd(SvgElement element)
         {
-            return Document.CreateAttribute(name);
-        }
-
-        public XmlAttribute CreateAttribute(string name, string xmlNamespace)
-        {
-            return Document.CreateAttribute(xmlNamespace, name, xmlNamespace);
-        }
-
-        public void AppendChild(XmlElement element)
-        {
-            GraphicsElement.AppendChild(element);
-        }
-
-        public void ImportAppendToRoot(XmlNode node)
-        {
-            var importedNode = Document.ImportNode(node, true);
-            Root.AppendChild(importedNode);
+            var importedNode = ImportNode(element, true);
+            _root.AppendChild(importedNode);
         }
 
         public new string ToString()
         {
-            return Document.OuterXml;
+            return OuterXml;
         }
-
-        public XmlDocument Document { get; set; }
-        public XmlElement Root { get; set; }
-        public XmlElement GraphicsElement { get; set; }
-        public double Height { get; set; }
-        public double Width { get; set; }
     }
 }

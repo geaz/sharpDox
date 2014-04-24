@@ -15,7 +15,7 @@
     </UserControl.Resources>
 
     <Border Background="{StaticResource BackColor_MainWindow}">
-        <StackPanel Margin="0,5,0,0" Name="configPanel">
+        <StackPanel Margin="0,5" Name="configPanel">
         </StackPanel>
     </Border>
 </UserControl>

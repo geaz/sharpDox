@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace SharpDox.UML.SVG
 {
-    internal class SvgText
+    internal class SvgText : SvgElement
     {
         private XmlAttribute _x;
         private XmlAttribute _y;
@@ -15,42 +15,39 @@ namespace SharpDox.UML.SVG
         private XmlAttribute _onMouseOver;
         private XmlAttribute _onMouseOut;
 
-        public SvgText(SvgRoot svg, string text, double x, double y)
+        public SvgText(SvgRoot rootSvg, string text, double x, double y) : base(rootSvg, "text")
         {
-            CreateElement(svg);
+            CreateElement();
 
             X = x;
             Y = y;
             Text = text;
         }
 
-        private void CreateElement(SvgRoot svg)
+        private void CreateElement()
         {
-            XmlElement = svg.CreateElement("text");
+            _x = _rootSvg.CreateAttribute("x");
+            _y = _rootSvg.CreateAttribute("y");
+            _fill = _rootSvg.CreateAttribute("fill");
+            _style = _rootSvg.CreateAttribute("style");
+            _textAnchor = _rootSvg.CreateAttribute("text-anchor");
+            _fontFamily = _rootSvg.CreateAttribute("font-family");
+            _fontSize = _rootSvg.CreateAttribute("font-size");
+            _onMouseOver = _rootSvg.CreateAttribute("onmouseover");
+            _onMouseOut = _rootSvg.CreateAttribute("onmouseout");
 
-            _x = svg.CreateAttribute("x");
-            _y = svg.CreateAttribute("y");
-            _fill = svg.CreateAttribute("fill");
-            _style = svg.CreateAttribute("style");
-            _textAnchor = svg.CreateAttribute("text-anchor");
-            _fontFamily = svg.CreateAttribute("font-family");
-            _fontSize = svg.CreateAttribute("font-size");
-            _onMouseOver = svg.CreateAttribute("onmouseover");
-            _onMouseOut = svg.CreateAttribute("onmouseout");
-
-            XmlElement.Attributes.Append(_x);
-            XmlElement.Attributes.Append(_y);
-            XmlElement.Attributes.Append(_fill);
-            XmlElement.Attributes.Append(_style);
-            XmlElement.Attributes.Append(_textAnchor);
-            XmlElement.Attributes.Append(_fontFamily);
-            XmlElement.Attributes.Append(_fontSize);
-            XmlElement.Attributes.Append(_onMouseOver);
-            XmlElement.Attributes.Append(_onMouseOut);
+            Attributes.Append(_x);
+            Attributes.Append(_y);
+            Attributes.Append(_fill);
+            Attributes.Append(_style);
+            Attributes.Append(_textAnchor);
+            Attributes.Append(_fontFamily);
+            Attributes.Append(_fontSize);
+            Attributes.Append(_onMouseOver);
+            Attributes.Append(_onMouseOut);
         }
 
-        public XmlElement XmlElement { get; set; }
-        public string Text { get { return XmlElement.InnerXml; } set { XmlElement.InnerXml = string.Format("<![CDATA[{0}]]>", value.Replace("]]>", "]]&gt;").Replace("]", "] ")); } }
+        public string Text { get { return InnerXml; } set { InnerXml = string.Format("<![CDATA[{0}]]>", value.Replace("]]>", "]]&gt;").Replace("]", "] ")); } }
         public double X { get { return double.Parse(_x.Value, CultureInfo.InvariantCulture); } set { _x.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
         public double Y { get { return double.Parse(_y.Value, CultureInfo.InvariantCulture); } set { _y.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
         public string Fill { get { return _fill.Value; } set { _fill.Value = value; } }

@@ -3,34 +3,35 @@ using System.Xml;
 
 namespace SharpDox.UML.SVG
 {
-    internal class SvgPath
+    internal class SvgPath : SvgElement
     {
         private XmlAttribute _d;
         private XmlAttribute _stroke;
         private XmlAttribute _strokeWidth;
+        private XmlAttribute _strokeDashArray;
 
-        public SvgPath(SvgRoot svg, string d)
+        public SvgPath(SvgRoot rootSvg, string d) : base(rootSvg, "path")
         {
-            CreateElement(svg);
+            CreateElement();
             D = d;
         }
 
-        private void CreateElement(SvgRoot svg)
+        private void CreateElement()
         {
-            XmlElement = svg.CreateElement("path");
+            _d = _rootSvg.CreateAttribute("d");
+            _stroke = _rootSvg.CreateAttribute("stroke");
+            _strokeWidth = _rootSvg.CreateAttribute("stroke-width");
+            _strokeDashArray = _rootSvg.CreateAttribute("stroke-dasharray");
 
-            _d = svg.CreateAttribute("d");
-            _stroke = svg.CreateAttribute("stroke");
-            _strokeWidth = svg.CreateAttribute("stroke-width");
-
-            XmlElement.Attributes.Append(_d);
-            XmlElement.Attributes.Append(_stroke);
-            XmlElement.Attributes.Append(_strokeWidth);
+            Attributes.Append(_d);
+            Attributes.Append(_stroke);
+            Attributes.Append(_strokeWidth);
+            Attributes.Append(_strokeDashArray);
         }
 
-        public XmlElement XmlElement { get; set; }
         public string D { get { return _d.Value; } set { _d.Value = value; } }
         public string Stroke { get { return _stroke.Value; } set { _stroke.Value = value; } }
         public double StrokeWidth { get { return double.Parse(_strokeWidth.Value, CultureInfo.InvariantCulture); } set { _strokeWidth.Value = value.ToString("0"); } }
+        public string StrokeDashArray { get { return _strokeDashArray.Value; } set { _strokeDashArray.Value = value; } }
     }
 }

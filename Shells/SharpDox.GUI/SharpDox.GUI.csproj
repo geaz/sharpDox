@@ -65,6 +65,9 @@
     <Compile Include="Controls\ConfigGrid\Elements\ConfigComboBoxControl.xaml.cs">
       <DependentUpon>ConfigComboBoxControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ConfigGrid\Elements\ConfigMarkdownControl.xaml.cs">
+      <DependentUpon>ConfigMarkdownControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ConfigGrid\Elements\ConfigTextControl.xaml.cs">
       <DependentUpon>ConfigTextControl.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ConfigGrid\Elements\ConfigComboBoxControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ConfigGrid\Elements\ConfigMarkdownControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

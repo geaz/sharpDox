@@ -8,14 +8,14 @@ namespace SharpDox.UML.Class
 {
     internal class ClassDiagramParser
     {
-        public ClassDiagram CreateClassDiagram(SDType type, bool connectedDiagram = true)
+        public ClassDiagram CreateClassDiagram(SDType type, bool parseConnectedDiagrams = true)
         {
             var attribute = type.IsAbstract && type.Kind.ToLower() != "interface" ? "abstract" : string.Empty;
             attribute = type.IsStatic ? "static" : attribute;
 
             var classDiagram = new ClassDiagram(type.Identifier, type.Name, type.Kind, type.Accessibility, attribute);
 
-            if (connectedDiagram)
+            if (parseConnectedDiagrams)
             {
                 ParseTypes(classDiagram.BaseTypes, type.BaseTypes);
                 ParseTypes(classDiagram.ImplementedInterfaces, type.ImplementedInterfaces);

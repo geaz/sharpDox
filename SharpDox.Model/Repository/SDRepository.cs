@@ -27,7 +27,7 @@ namespace SharpDox.Model.Repository
         public SDRepository()
         {
             ProjectInfo = new SDProjectInfo();
-            Namespaces = new Dictionary<string, SDNamespace>();
+            Namespaces = new SortedDictionary<string, SDNamespace>();
             Types = new Dictionary<string, SDType>();
             Methods = new Dictionary<string, SDMethod>();
             Members = new Dictionary<string, SDMember>();
@@ -330,7 +330,7 @@ namespace SharpDox.Model.Repository
         /// </de>
         public List<string> Images { get; private set; }
 
-        private Dictionary<string, SDNamespace> Namespaces { get; set; }
+        private SortedDictionary<string, SDNamespace> Namespaces { get; set; }
 
         private Dictionary<string, SDType> Types { get; set; }
 
