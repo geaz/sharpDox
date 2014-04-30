@@ -91,13 +91,26 @@ namespace SharpDox.UML.Class
                 ACCESSIBILITY_LABEL_Y);
             accessibility.FontSize = 11;
 
-            var name = new SvgLink(
-                _svgRoot,
-                _classDiagram.Name,
-                string.Format("{{{{type-link:{0}}}}}", _classDiagram.TypeIdentifier),
-                (_diagramSize.Width - _classDiagram.Name.GetWidth(14, Fonts.FontLight)) / 2, 
-                CLASSLABEL_Y);
-            name.Text.FontSize = 14;
+            SvgElement name;
+            if (_classDiagram.IsProjectStranger)
+            {
+                name = new SvgText(
+                    _svgRoot,
+                    _classDiagram.Name,
+                    (_diagramSize.Width - _classDiagram.Name.GetWidth(14, Fonts.FontLight)) / 2,
+                    CLASSLABEL_Y);
+                ((SvgText)name).FontSize = 14;
+            }
+            else
+            {
+                name = new SvgLink(
+                    _svgRoot,
+                    _classDiagram.Name,
+                    string.Format("{{{{type-link:{0}}}}}", _classDiagram.TypeIdentifier),
+                    (_diagramSize.Width - _classDiagram.Name.GetWidth(14, Fonts.FontLight)) / 2,
+                    CLASSLABEL_Y);
+                ((SvgLink)name).Text.FontSize = 14;
+            }
 
             var path = new SvgPath(
                 _svgRoot, 
@@ -147,13 +160,26 @@ namespace SharpDox.UML.Class
                     16,
                     string.Format("data:image/png;base64,{0}", Icons.GetBase64Icon(classDiagramRows[i].Type, classDiagramRows[i].Accessibility)));
 
-                var text = new SvgLink(
-                    _svgRoot,
-                    classDiagramRows[i].Text,
-                    string.Format("{{{{{0}-link:{1}}}}}", memberType, classDiagramRows[i].Identifier), 
-                    40,
-                    FIRSTROW_OFFSET_Y + ((i + rowCountOffset) * 25) + (sectionOffset * 10));
-                text.Text.FontSize = 14;
+                SvgElement text;
+                if (_classDiagram.IsProjectStranger)
+                {
+                    text = new SvgText(
+                        _svgRoot,
+                        classDiagramRows[i].Text,
+                        40,
+                        FIRSTROW_OFFSET_Y + ((i + rowCountOffset) * 25) + (sectionOffset * 10));
+                    ((SvgText)text).FontSize = 14;
+                }
+                else
+                {
+                    text = new SvgLink(
+                        _svgRoot,
+                        classDiagramRows[i].Text,
+                        string.Format("{{{{{0}-link:{1}}}}}", memberType, classDiagramRows[i].Identifier),
+                        40,
+                        FIRSTROW_OFFSET_Y + ((i + rowCountOffset) * 25) + (sectionOffset * 10));
+                    ((SvgLink)text).Text.FontSize = 14;
+                }
 
                 _svgGraphic.Add(image);
                 _svgGraphic.Add(text);

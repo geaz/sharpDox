@@ -14,6 +14,7 @@ namespace SharpDox.UML.Class
             attribute = type.IsStatic ? "static" : attribute;
 
             var classDiagram = new ClassDiagram(type.Identifier, type.Name, type.Kind, type.Accessibility, attribute);
+            classDiagram.IsProjectStranger = type.IsProjectStranger;
 
             if (parseConnectedDiagrams)
             {

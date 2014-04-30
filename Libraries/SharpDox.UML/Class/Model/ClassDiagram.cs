@@ -56,6 +56,7 @@ namespace SharpDox.UML.Class.Model
         public string TypeIdentifier { get; set; }
         public string Accessibility { get; set; }
         public string Name { get; set; }
+        public bool IsProjectStranger { get; set; }
 
         public List<ClassDiagram> BaseTypes { get; private set; }
         public List<ClassDiagram> ImplementedInterfaces { get; private set; }
