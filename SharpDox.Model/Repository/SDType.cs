@@ -217,16 +217,15 @@ namespace SharpDox.Model.Repository
         private string _name;
         public string Name
         {
-            get { return _name; }
-            set
+            get 
             {
-                _name = value;
-
-                if (value == "Void" || value == "Object")
+                if (_name == "Void" || _name == "Object")
                 {
-                    _name = _name.ToLower();
+                    return _name.ToLower();
                 }
+                return _name; 
             }
+            set { _name = value; }
         }
 
         /// <default>
@@ -239,14 +238,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert den Namen des Typen inklusive der Typ-Parameter.
         ///     </summary>     
         /// </de>
-        public string NameWithTypeArguments
-        {
-            get
-            {
-                var upperName = char.ToUpper(Name[0]) + Name.Substring(1);
-                return upperName + GetTypeArgumentText();
-            }
-        }
+        public string NameWithTypeArguments { get { return Name + GetTypeArgumentText(); } }
 
         /// <default>
         ///     <summary>
