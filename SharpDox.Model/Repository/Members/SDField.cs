@@ -82,7 +82,13 @@ namespace SharpDox.Model.Repository.Members
         {
             get
             {
-                return string.Join(" ", new string[] { Accessibility, ReturnType.NameWithTypeArguments, Name });
+                var desc = string.Empty;
+                if (IsConst)
+                    desc = "const";
+                else if (IsReadonly)
+                    desc = "readonly";
+
+                return string.Join(" ", new string[] { Accessibility, desc, ReturnType.NameWithTypeArguments, Name });
             }
         }
     }
