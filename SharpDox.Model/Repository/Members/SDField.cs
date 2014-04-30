@@ -34,6 +34,42 @@ namespace SharpDox.Model.Repository.Members
 
         /// <default>
         ///     <summary>
+        ///     Gets or sets a value indicating whether the field is constant or not.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert einen Wert der angibt, ob dieses Feld "konstant" ist oder nicht.
+        ///     </summary>
+        /// </de>
+        public bool IsConst { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets or sets a value indicating whether the field is readonly or not.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert einen Wert der angibt, ob dieses Feld "readonly" ist oder nicht.
+        ///     </summary>
+        /// </de>
+        public bool IsReadonly { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets or sets the constant value.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert den konstanten Wert.
+        ///     </summary>
+        /// </de>
+        public string ConstantValue { get; set; }
+
+        /// <default>
+        ///     <summary>
         ///     Returns the syntax of the field.
         ///     </summary>
         /// </default>

@@ -40,6 +40,9 @@ namespace SharpDox.Build.Parser
                 DeclaringType = _typeParser.GetParsedType(field.DeclaringType),
                 Accessibility = field.Accessibility.ToString().ToLower(),
                 ReturnType = _typeParser.GetParsedType(field.ReturnType),
+                ConstantValue = field.ConstantValue != null ? field.ConstantValue.ToString() : string.Empty,
+                IsConst = field.IsConst,
+                IsReadonly = field.IsReadOnly,
                 Documentation = _documentationParser.ParseDocumentation(field)
             };
 
