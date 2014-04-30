@@ -40,6 +40,30 @@ namespace SharpDox.Sdk.Config
 
         /// <default>
         ///     <summary>
+        ///     Returns the author homepage.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert die Autoren Homepage.
+        ///     </summary>
+        /// </de>
+        string AuthorUrl { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Returns the project homepage.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert die Projekt Homepage.
+        ///     </summary>
+        /// </de>
+        string ProjectUrl { get; set; }
+
+        /// <default>
+        ///     <summary>
         ///     Returns the name of the configuration file.
         ///     </summary>
         /// </default>
@@ -49,18 +73,6 @@ namespace SharpDox.Sdk.Config
         ///     </summary>
         /// </de>
         string ConfigFileName { get; set; }
-
-        /// <default>
-        ///     <summary>
-        ///     Returns the description.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert die Beschreibung.
-        ///     </summary>
-        /// </de>
-        string Description { get; set; }
 
         /// <default>
         ///     <summary>

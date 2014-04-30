@@ -71,10 +71,6 @@ namespace SharpDox.Build.Context.Step
                     }
                 }
             }
-            else
-            {
-                _repository.ProjectInfo.Description.Add("default", _coreConfigSection.Description);
-            }
 
             _repository.ProjectInfo.DocLanguage = _coreConfigSection.DocLanguage;
             _repository.ProjectInfo.LogoPath = _coreConfigSection.LogoPath;

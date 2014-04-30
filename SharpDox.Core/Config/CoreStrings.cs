@@ -24,6 +24,8 @@ namespace SharpDox.Core.Config
         private string _exporters = "Exporters";
         private string _outputPath = "Output Path";
         private string _docLanguage = "Doc Language";
+        private string _projectUrl = "Project Homepage";
+        private string _authorUrl = "Author Homepage";
 
         private string _startSd = "Starting sharpDox ...";
         private string _noShells = "No shell registered. At least one shell is necessary to run sharpDox.";
@@ -188,6 +190,38 @@ namespace SharpDox.Core.Config
         {
             get { return _author; }
             set { _author = value; }
+        }
+
+        /// <default>
+        ///     <summary>
+        ///     Localized Text: "Author Homepage"
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Lokalisierter Text: "Author Homepage"
+        ///     </summary>
+        /// </de>
+        public string AuthorUrl
+        {
+            get { return _authorUrl; }
+            set { _authorUrl = value; }
+        }
+
+        /// <default>
+        ///     <summary>
+        ///     Localized Text: "Project Homepage"
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Lokalisierter Text: "Project Homepage"
+        ///     </summary>
+        /// </de>
+        public string ProjectUrl
+        {
+            get { return _projectUrl; }
+            set { _projectUrl = value; }
         }
 
         /// <default>

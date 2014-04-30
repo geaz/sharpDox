@@ -6,8 +6,8 @@
         xmlns:controls="clr-namespace:SharpDox.GUI.Controls"
         x:Class="SharpDox.GUI.Shell" x:Name="Window"
         Title="SharpDox" mc:Ignorable="d"
-        ResizeMode="CanResizeWithGrip" WindowStartupLocation="Manual" WindowStyle="None" Height="550" Width="500"
-        FontSize="12" MinWidth="500" MinHeight="550" Left="300" Top="300" 
+        ResizeMode="CanResizeWithGrip" WindowStartupLocation="Manual" WindowStyle="None" Height="600" Width="500"
+        FontSize="12" MinWidth="500" MinHeight="600" Left="300" Top="300" 
         AllowsTransparency="True"
         Background="White">
 

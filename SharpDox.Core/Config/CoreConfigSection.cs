@@ -14,7 +14,8 @@ namespace SharpDox.Core.Config
         private bool _isSaved;
         private string _author;
         private string _configFileName;
-        private string _description;
+        private string _projectUrl;
+        private string _authorUrl;
         private string _inputPath;
         private string _lastBuild;
         private string _logoPath;
@@ -100,16 +101,16 @@ namespace SharpDox.Core.Config
             }
         }
 
-        [Name(typeof(CoreStrings), "VersionNumber")]
-        public string VersionNumber
+        [Name(typeof(CoreStrings), "ProjectUrl")]
+        public string ProjectUrl
         {
-            get { return _versionNumber; }
+            get { return _projectUrl; }
             set
             {
-                if (_versionNumber != value)
+                if (_projectUrl != value)
                 {
-                    _versionNumber = value;
-                    OnPropertyChanged("VersionNumber");
+                    _projectUrl = value;
+                    OnPropertyChanged("ProjectUrl");
                 }
             }
         }
@@ -128,15 +129,30 @@ namespace SharpDox.Core.Config
             }
         }
 
-        public string Description
+        [Name(typeof(CoreStrings), "AuthorUrl")]
+        public string AuthorUrl
         {
-            get { return _description; }
+            get { return _authorUrl; }
             set
             {
-                if (_description != value)
+                if (_authorUrl != value)
                 {
-                    _description = value;
-                    OnPropertyChanged("Description");
+                    _authorUrl = value;
+                    OnPropertyChanged("AuthorUrl");
+                }
+            }
+        }
+
+        [Name(typeof(CoreStrings), "VersionNumber")]
+        public string VersionNumber
+        {
+            get { return _versionNumber; }
+            set
+            {
+                if (_versionNumber != value)
+                {
+                    _versionNumber = value;
+                    OnPropertyChanged("VersionNumber");
                 }
             }
         }
