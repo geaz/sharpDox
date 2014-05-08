@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Linq;
-using SharpDox.Local;
 using SharpDox.Sdk.Config;
 using System.Windows.Controls;
 using SharpDox.Sdk.Config.Attributes;
 using SharpDox.Sdk.Exporter;
 using SharpDox.Sdk.Build;
+using SharpDox.Sdk.Local;
 
 namespace SharpDox.GUI.Controls.ConfigGrid
 {
     public partial class ConfigGridControl : UserControl
     {
         private readonly IConfigController _configController;
-        private readonly LocalController _localController;
+        private readonly ILocalController _localController;
         private readonly IExporter[] _allExporters;
         private readonly IBuildController _buildController;
 
-        public ConfigGridControl(IConfigController configController, IExporter[] allExporters, LocalController localController, IBuildController buildController)
+        public ConfigGridControl(IConfigController configController, IExporter[] allExporters, ILocalController localController, IBuildController buildController)
         {
             _allExporters = allExporters;
             _localController = localController;

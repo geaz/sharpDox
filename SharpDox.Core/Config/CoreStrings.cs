@@ -19,7 +19,7 @@ namespace SharpDox.Core.Config
         private string _versionNumber = "Version Number";
         private string _author = "Author";
         private string _logoPath = "Logo Path";
-        private string _inputPath = "Input Path";
+        private string _inputFile = "Input File";
         private string _excludedIdentifiers = "Excluded Identifiers";
         private string _exporters = "Exporters";
         private string _outputPath = "Output Path";
@@ -242,18 +242,18 @@ namespace SharpDox.Core.Config
 
         /// <default>
         ///     <summary>
-        ///     Localized Text: "Input Path"
+        ///     Localized Text: "Input File"
         ///     </summary>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Lokalisierter Text: "Input Path"
+        ///     Lokalisierter Text: "Input File"
         ///     </summary>
         /// </de>
-        public string InputPath
+        public string InputFile
         {
-            get { return _inputPath; }
-            set { _inputPath = value; }
+            get { return _inputFile; }
+            set { _inputFile = value; }
         }
 
         /// <default>

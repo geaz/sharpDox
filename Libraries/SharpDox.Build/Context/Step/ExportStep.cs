@@ -1,50 +1,37 @@
 ﻿using System.IO;
 using SharpDox.Sdk.Exporter;
 using SharpDox.Sdk.Config;
-using SharpDox.Model.Repository;
+using SharpDox.Model;
+using System;
 
 namespace SharpDox.Build.Context.Step
 {
-    internal class ExportStep
+    internal class ExportStep : StepBase
     {
-        private readonly IExporter[] _allExporters;
-        private readonly ICoreConfigSection _coreConfigSection;
-        private readonly SDBuildStrings _sdBuildStrings;
-        private readonly BuildMessenger _buildMessenger;
+        public ExportStep(int progressStart, int progressEnd) :
+            base(StepInput.SDBuildStrings.StepExport, new StepRange(progressStart, progressEnd)) { }
 
-        public ExportStep(ICoreConfigSection coreConfigSection, SDBuildStrings sdBuildStrings, BuildMessenger buildMessenger, IExporter[] allExporters)
+        public override SDProject RunStep(SDProject sdProject)
         {
-            _coreConfigSection = coreConfigSection;
-            _sdBuildStrings = sdBuildStrings;
-            _buildMessenger = buildMessenger;
-            _allExporters = allExporters;
+            RunAllExporters(sdProject);
+
+            return sdProject;
         }
 
-        public void ExportSolution(SDRepository repository)
-        {
-            _buildMessenger.ExecuteOnStepProgress(0);
-            _buildMessenger.ExecuteOnStepMessage(string.Empty);
-
-            RunAllExporters(repository);
-
-            _buildMessenger.ExecuteOnStepProgress(100);
-        }
-
-        private void RunAllExporters(SDRepository repository)
+        private void RunAllExporters(SDProject sdProject)
         {
             var i = 0;
-            foreach (var exporter in _allExporters)
+            foreach (var exporter in StepInput.AllExporters)
             {
-                if (_coreConfigSection.ActivatedExporters.Contains(exporter.ExporterName))
+                if (StepInput.CoreConfigSection.ActivatedExporters.Contains(exporter.ExporterName))
                 {
-                    _buildMessenger.ExecuteOnBuildMessage(string.Format(_sdBuildStrings.StartExporter + ": \"{0}\" ...", exporter.ExporterName));
+                    var outputPath = GetOutputPath(StepInput.CoreConfigSection.OutputPath, exporter.ExporterName);
 
-                    var outputPath = GetOutputPath(_coreConfigSection.OutputPath, exporter.ExporterName);
-
-                    exporter.OnStepMessage += (m) => _buildMessenger.ExecuteOnStepMessage(m);
-                    exporter.OnStepProgress += (p) => _buildMessenger.ExecuteOnStepProgress(p);
-                    exporter.Export(repository, outputPath);
+                    exporter.OnStepMessage += ExecuteOnStepMessage;
+                    exporter.OnStepProgress += (p) => ExecuteOnStepProgress((int)(((double)p / StepInput.AllExporters.Length) + (i / StepInput.AllExporters.Length * 100)));
+                    exporter.Export(sdProject, outputPath);
                 }
+                i++;
             }
         }
 

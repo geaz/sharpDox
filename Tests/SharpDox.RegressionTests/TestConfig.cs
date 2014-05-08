@@ -20,7 +20,7 @@ namespace SharpDox.RegressionTests
 
             var configController = Mock.Of<IConfigController>();
             var coreConfig = Mock.Of<ICoreConfigSection>(
-                c => c.InputPath == testProjectPath &&
+                c => c.InputFile == testProjectPath &&
                 c.ProjectName == "TestProject" &&
                 c.DocLanguage == "en");
 

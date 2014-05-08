@@ -53,6 +53,7 @@
     <Compile Include="Config\Lists\CheckBoxList.cs" />
     <Compile Include="Exporter\IExporter.cs" />
     <Compile Include="Local\ILocalStrings.cs" />
+    <Compile Include="Local\ILocalController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Templater.cs" />
     <Compile Include="UI\IShell.cs" />

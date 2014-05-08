@@ -156,9 +156,9 @@
         
             <!-- Progress -->
             <Border Grid.Row="5" Background="{StaticResource BackColor_MainWindow}" BorderBrush="{StaticResource BorderColor_MainWindow}" BorderThickness="0,1,0,0" VerticalAlignment="Top">
-                <Grid Height="30">                    
-                    <ProgressBar Name="pbStepProgress" Foreground="{Binding ProgressBarViewModel.ProgressColor, UpdateSourceTrigger=PropertyChanged}" Value="{Binding ProgressBarViewModel.StepProgress, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ProgressBar}" BorderThickness="0" Height="15" VerticalAlignment="Top" SmallChange="1"/>
-                    <ProgressBar Name="pbBuildProgress" Foreground="{Binding ProgressBarViewModel.ProgressColor, UpdateSourceTrigger=PropertyChanged}" Value="{Binding ProgressBarViewModel.BuildProgress, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ProgressBar}" BorderThickness="0" Height="15" VerticalAlignment="Bottom" SmallChange="1"/>
+                <Grid Height="30">                                        
+                    <ProgressBar Name="pbBuildProgress" Foreground="{Binding ProgressBarViewModel.ProgressColor, UpdateSourceTrigger=PropertyChanged}" Value="{Binding ProgressBarViewModel.BuildProgress, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ProgressBar}" BorderThickness="0" Height="15" VerticalAlignment="Top" SmallChange="1"/>
+                    <ProgressBar Name="pbStepProgress" Foreground="{Binding ProgressBarViewModel.ProgressColor, UpdateSourceTrigger=PropertyChanged}" Value="{Binding ProgressBarViewModel.StepProgress, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ProgressBar}" BorderThickness="0" Height="15" VerticalAlignment="Bottom" SmallChange="1"/>
                     <Label Content="{Binding StepMessage, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Small}" VerticalAlignment="Center" Margin="55,0,5,0"/>
                     
                     <Grid Width="50" HorizontalAlignment="Left">

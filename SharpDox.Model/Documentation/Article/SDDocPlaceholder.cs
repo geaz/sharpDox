@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharpDox.Model.Documentation.Article
+{
+    /// <default>
+    ///     <summary>
+    ///     Represents a placeholder in the documentation.
+    ///     </summary>
+    /// </default>
+    /// <de>
+    ///     <summary>
+    ///     Repräsentiert einen Platzhalter in der Dokumentation.
+    ///     </summary>
+    /// </de>
+    [Serializable]
+    public class SDDocPlaceholder : SDArticle
+    {
+        public string SolutionFile { get; set; }
+    }
+}

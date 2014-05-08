@@ -1,5 +1,4 @@
-﻿using SharpDox.Local;
-using SharpDox.Sdk.Config;
+﻿using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Config.Attributes;
 using System;
 using System.Windows;
@@ -9,6 +8,7 @@ using System.Windows.Media;
 using SharpDox.Sdk.Config.Lists;
 using SharpDox.Sdk.Exporter;
 using SharpDox.Sdk.Build;
+using SharpDox.Sdk.Local;
 
 namespace SharpDox.GUI.Controls.ConfigGrid
 {
@@ -17,12 +17,12 @@ namespace SharpDox.GUI.Controls.ConfigGrid
         public static readonly DependencyProperty SectionHeaderProperty = DependencyProperty.Register("SectionHeader", typeof(string), typeof(ConfigSectionControl));
         public static readonly DependencyProperty IsExpandedProperty = DependencyProperty.Register("IsExpanded", typeof(bool), typeof(ConfigSectionControl));
 
-        private readonly LocalController _localController;
+        private readonly ILocalController _localController;
         private readonly IExporter[] _allExporters;
         private readonly IBuildController _buildController;
         private readonly ICoreConfigSection _coreConfigSection;
 
-        public ConfigSectionControl(LocalController localController, ICoreConfigSection coreConfigSection, IExporter[] allExporters, IBuildController buildController)
+        public ConfigSectionControl(ILocalController localController, ICoreConfigSection coreConfigSection, IExporter[] allExporters, IBuildController buildController)
         {
             _localController = localController;
             _coreConfigSection = coreConfigSection;

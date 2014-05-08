@@ -203,10 +203,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\SharpDox.Local\SharpDox.Local.csproj">
-      <Project>{52ecc690-3f03-4820-8fe4-2c07c7b33409}</Project>
-      <Name>SharpDox.Local</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\SharpDox.Model\SharpDox.Model.csproj">
       <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
       <Name>SharpDox.Model</Name>

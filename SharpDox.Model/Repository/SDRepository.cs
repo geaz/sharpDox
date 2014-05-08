@@ -26,24 +26,10 @@ namespace SharpDox.Model.Repository
 
         public SDRepository()
         {
-            ProjectInfo = new SDProjectInfo();
             Namespaces = new SortedDictionary<string, SDNamespace>();
             Types = new Dictionary<string, SDType>();
             Methods = new Dictionary<string, SDMethod>();
             Members = new Dictionary<string, SDMember>();
-            DocumentationLanguages = new List<string>();
-            Articles = new Dictionary<string, List<SDArticle>>();
-            Images = new List<string>();
-
-            AddDocumentationLanguage("default");
-        }
-
-        public void AddDocumentationLanguage(string twoLetterCode)
-        {
-            if (DocumentationLanguages.SingleOrDefault(d => d == twoLetterCode) == null)
-            {
-                DocumentationLanguages.Add(twoLetterCode);
-            }
         }
 
         public void AddNamespace(SDNamespace sdNamespace)
@@ -254,15 +240,15 @@ namespace SharpDox.Model.Repository
 
         private string GetUniqueShortMethodIdentifier(SDMethod sdMethod)
         {
-            return GetUniquieShortIdentifier(sdMethod.Identifier, sdMethod.Name, _methodNameCount, _uniqueShortMethodIdentifier);
+            return GetUniqueShortIdentifier(sdMethod.Identifier, sdMethod.Name, _methodNameCount, _uniqueShortMethodIdentifier);
         }
 
         private string GetUniqueShortTypeIdentifier(SDType sdType)
         {
-            return GetUniquieShortIdentifier(sdType.Identifier, sdType.Name, _typeNameCount, _uniqueShortTypeIdentifier);
+            return GetUniqueShortIdentifier(sdType.Identifier, sdType.Name, _typeNameCount, _uniqueShortTypeIdentifier);
         }
 
-        private string GetUniquieShortIdentifier(string identifier, string name, Dictionary<string, int> nameCount, Dictionary<string, string> uniqueIdentifiers)
+        private string GetUniqueShortIdentifier(string identifier, string name, Dictionary<string, int> nameCount, Dictionary<string, string> uniqueIdentifiers)
         {
             if (!uniqueIdentifiers.ContainsKey(identifier))
             {
@@ -281,54 +267,6 @@ namespace SharpDox.Model.Repository
 
             return uniqueIdentifiers[identifier];
         }
-
-        /// <default>
-        ///     <summary>
-        ///     Gets the project infos of the parsed solution.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert die Projektinformationen der eingelesenen Lösung.
-        ///     </summary>
-        /// </de>
-        public SDProjectInfo ProjectInfo { get; private set; }
-
-        /// <default>
-        ///     <summary>
-        ///     Gets a list of all available documentation languages.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert eine Liste aller vorhandenen Dokumentationssprachen.
-        ///     </summary>
-        /// </de>
-        public List<string> DocumentationLanguages { get; private set; }
-
-        /// <default>
-        ///     <summary>
-        ///     Gets the structure of the parsed navigation files including all parsed articles.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert die Struktur der eingelesenen Navigationsdateien einschließlich aller Artikel.
-        ///     </summary>
-        /// </de>
-        public Dictionary<string, List<SDArticle>> Articles { get; set; }
-
-        /// <default>
-        ///     <summary>
-        ///     Gets a list of all available images.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert eine Liste aller vorhandenen Bilder.
-        ///     </summary>
-        /// </de>
-        public List<string> Images { get; private set; }
 
         private SortedDictionary<string, SDNamespace> Namespaces { get; set; }
 

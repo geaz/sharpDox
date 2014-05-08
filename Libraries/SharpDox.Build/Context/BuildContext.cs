@@ -1,53 +1,53 @@
-﻿using System;
+﻿using SharpDox.Build.Context.Step;
+using SharpDox.Model;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
-using SharpDox.Sdk.Config;
-using SharpDox.Sdk.Exporter;
 
 namespace SharpDox.Build.Context
 {
     internal class BuildContext
     {
+        private readonly List<StepBase> _buildSteps;
         private readonly SDBuildStrings _sdBuildStrings;
         private readonly BuildMessenger _buildMessenger;
-        private readonly ICoreConfigSection _coreConfigSection;
-        private readonly Steps _steps;
 
-        public BuildContext(ICoreConfigSection coreConfigSection, SDBuildStrings sdBuildStrings, IConfigController configController, BuildMessenger buildMessenger, IExporter[] allExporters)
+        public BuildContext(BuildMessenger buildMessenger, SDBuildStrings sdBuildStrings, List<StepBase> buildSteps)
         {
-            _coreConfigSection = coreConfigSection;
-            _sdBuildStrings = sdBuildStrings;
+            _buildSteps = buildSteps;
             _buildMessenger = buildMessenger;
-
-            _steps = new Steps(coreConfigSection, sdBuildStrings, configController, buildMessenger, allExporters);
+            _sdBuildStrings = sdBuildStrings;
         }
 
-        public virtual void BuildDocumentation()
+        public virtual void StartBuild()
         {
             try
             {
+                _buildMessenger.ExecuteOnBuildProgress(0);
                 _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.StartingBuild);
 
-                _buildMessenger.ExecuteOnBuildProgress(0);
-                _steps.PreBuildStep.CheckConfig(false);
+                var sdProject = new SDProject();
+                foreach (var step in _buildSteps)
+                {
+                    _buildMessenger.ExecuteOnBuildMessage(string.Format(_sdBuildStrings.StartingStep, step.StepName));
+                    _buildMessenger.ExecuteOnBuildProgress(step.StepRange.ProgressStart);
+                    _buildMessenger.ExecuteOnStepProgress(0);
 
-                _buildMessenger.ExecuteOnBuildProgress(10);
-                var solution = _steps.LoadStep.LoadSolution();
+                    step.OnBuildProgress += _buildMessenger.ExecuteOnBuildProgress;
+                    step.OnBuildMessage += _buildMessenger.ExecuteOnBuildMessage;
+                    step.OnStepMessage += _buildMessenger.ExecuteOnStepMessage;
+                    step.OnStepProgress += _buildMessenger.ExecuteOnStepProgress;
 
-                _buildMessenger.ExecuteOnBuildProgress(30);
-                var repository = _steps.ParseStep.ParseSolution(solution, _coreConfigSection.ExcludedIdentifiers.ToList());
+                    sdProject = step.RunStep(sdProject);
 
-                _buildMessenger.ExecuteOnBuildProgress(60);
-                _steps.ExportStep.ExportSolution(repository);
-
-                _buildMessenger.ExecuteOnBuildProgress(90);
-                _steps.EndStep.EndProcess();
+                    _buildMessenger.ExecuteOnStepProgress(100);
+                }
 
                 _buildMessenger.ExecuteOnBuildProgress(100);
                 _buildMessenger.ExecuteOnStepMessage(string.Empty);
                 _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.BuildSuccess);
-                _buildMessenger.ExecuteOnBuildCompleted();
+                _buildMessenger.ExecuteOnBuildCompleted(sdProject);
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace SharpDox.Build.Context
                         _buildMessenger.ExecuteOnBuildMessage(ex.Message);
                     }
 
-                    _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.CouldNotEndBuild);                                        
+                    _buildMessenger.ExecuteOnBuildMessage(_sdBuildStrings.CouldNotEndBuild);
                     _buildMessenger.ExecuteOnStepProgress(100);
                     _buildMessenger.ExecuteOnBuildProgress(100);
 

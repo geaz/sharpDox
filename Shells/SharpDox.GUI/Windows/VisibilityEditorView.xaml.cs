@@ -2,7 +2,6 @@
 using System.Windows;
 using SharpDox.GUI.Controls.ConfigGrid;
 using SharpDox.GUI.ViewModels;
-using SharpDox.Local;
 using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Exporter;
 using SharpDox.Sdk.UI;

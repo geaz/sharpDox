@@ -1,9 +1,9 @@
 ﻿using SharpDox.GUI.Controls.ConfigGrid;
 using SharpDox.GUI.ViewModels;
-using SharpDox.Local;
 using SharpDox.Sdk.Build;
 using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Exporter;
+using SharpDox.Sdk.Local;
 using SharpDox.Sdk.UI;
 using System;
 using System.Windows;
@@ -15,7 +15,7 @@ namespace SharpDox.GUI
     {
         public event Action OnClose;
 
-        public Shell(IConfigController configController, IExporter[] allExporters, LocalController localController, IBuildController buildController)
+        public Shell(IConfigController configController, IExporter[] allExporters, ILocalController localController, IBuildController buildController)
         {
             var guiStrings = localController.GetLocalStrings<SDGuiStrings>();
             DataContext = new ShellViewModel(guiStrings, configController, buildController, ExecuteOnClose);

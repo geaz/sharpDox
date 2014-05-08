@@ -20,7 +20,7 @@ namespace SharpDox.Local.Tests
 
             // Assert
             Assert.IsNotNull(strings);
-            Assert.AreEqual(strings.TestString1, "TestString1");
+            Assert.AreEqual("TestString1", strings.TestString1);
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace SharpDox.Local.Tests
             var strings = localController.GetLocalStrings<TestLocalStrings>();
 
             // Assert
-            Assert.AreEqual(strings.TestString1, "TestString1DE");
+            Assert.AreEqual("TestString1DE", strings.TestString1);
         }
     }
 }

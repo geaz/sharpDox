@@ -3,7 +3,7 @@ using SharpDox.Sdk.Local;
 
 namespace SharpDox.Local
 {
-    public class LocalController
+    public class LocalController : ILocalController
     {
         private readonly ILocalStrings[] _localStrings;
 

@@ -1,15 +1,16 @@
-﻿using System.IO;
-using System.Reflection;
-using Autofac;
+﻿using Autofac;
 using SharpDox.Build;
+using SharpDox.Build.NRefactory;
 using SharpDox.Config;
 using SharpDox.Core.Config;
 using SharpDox.Local;
-using SharpDox.Sdk.Config;
-using SharpDox.Sdk.Local;
 using SharpDox.Sdk.Build;
-using SharpDox.Sdk.UI;
+using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Exporter;
+using SharpDox.Sdk.Local;
+using SharpDox.Sdk.UI;
+using System.IO;
+using System.Reflection;
 
 namespace SharpDox.Core
 {
@@ -41,9 +42,10 @@ namespace SharpDox.Core
 
         private void RegisterLocalStrings()
         {
-            _containerBuilder.RegisterType<LocalController>().AsSelf().SingleInstance();
+            _containerBuilder.RegisterType<LocalController>().AsSelf().As<ILocalController>().SingleInstance();
             _containerBuilder.RegisterType<CoreStrings>().AsSelf().As<ILocalStrings>().SingleInstance();
             _containerBuilder.RegisterType<SDBuildStrings>().AsSelf().As<ILocalStrings>().SingleInstance();
+            _containerBuilder.RegisterType<ParserStrings>().AsSelf().As<ILocalStrings>().SingleInstance();
         }
 
         private void RegisterConfiguration()
@@ -54,6 +56,7 @@ namespace SharpDox.Core
 
         private void RegisterBuilder()
         {
+            _containerBuilder.RegisterType<NRefactoryParser>().As<ICodeParser>();
             _containerBuilder.RegisterType<BuildController>().As<IBuildController>().SingleInstance();
             _containerBuilder.RegisterType<BuildMessenger>().As<IBuildMessenger>().SingleInstance();
         }

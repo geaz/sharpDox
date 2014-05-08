@@ -27,7 +27,7 @@ namespace SharpDox.RegressionTests
             var type = repository.GetTypeByIdentifier("SharpDox.TestProject.Regression5");
 
             // Assert            
-            Assert.AreEqual(type.NestedTypes.Count, 1);
+            Assert.AreEqual(1, type.NestedTypes.Count);
         }
     }
 }

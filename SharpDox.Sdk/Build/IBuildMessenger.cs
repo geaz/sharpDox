@@ -1,5 +1,6 @@
 ﻿using System;
 using SharpDox.Model.Repository;
+using SharpDox.Model;
 
 namespace SharpDox.Sdk.Build
 {
@@ -15,24 +16,6 @@ namespace SharpDox.Sdk.Build
     /// </de>
     public interface IBuildMessenger
     {
-        /// <default>
-        ///     <summary>
-        ///     Gets fired, if the <see cref="IBuildController.StartParse"/> method of the <see cref="IBuildController"/> has finished.
-        ///     The <c>SDRepository</c> can be <c>null</c>, if the parse wasn't successful.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Wird gefeurt, falls die Methode <see cref="IBuildController.StartParse"/> des <see cref="IBuildController"/> beendet wurde.
-        ///     Das <c>SDRepository</c> kann <c>null</c> sein, falls das Einlesen nicht erfolgreich war.
-        ///     </summary>
-        /// </de>
-        event Action<SDRepository> OnParseCompleted;
-                
-        event Action OnParseFailed;
-
-        event Action OnParseStopped;
-
         /// <default>
         ///     <summary>
         ///     Gets fired, if the <c>BuildController</c> sends a message during the build process.
@@ -95,6 +78,18 @@ namespace SharpDox.Sdk.Build
 
         event Action OnBuildFailed;
 
-        event Action OnBuildCompleted;
+        /// <default>
+        ///     <summary>
+        ///     Gets fired, if the <see cref="IBuildController.StartParse"/> or <see cref="IBuildController.StartBuild"/> method of the <see cref="IBuildController"/> has finished.
+        ///     The <c>SDProject</c> can be <c>null</c>, if the build wasn't successful.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Wird gefeurt, falls die Methode <see cref="IBuildController.StartParse"/> oder <see cref="IBuildController.StartBuild"/> des <see cref="IBuildController"/> beendet wurde.
+        ///     Das <c>SDProject</c> kann <c>null</c> sein, falls der Bauvorgang nicht erfolgreich war.
+        ///     </summary>
+        /// </de>
+        event Action<SDProject> OnBuildCompleted;
     }
 }

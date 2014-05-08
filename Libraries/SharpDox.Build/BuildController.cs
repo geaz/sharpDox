@@ -1,8 +1,9 @@
-﻿using System.Threading;
-using SharpDox.Build.Context;
+﻿using SharpDox.Build.Context;
 using SharpDox.Sdk.Build;
-using SharpDox.Sdk.Exporter;
 using SharpDox.Sdk.Config;
+using SharpDox.Sdk.Exporter;
+using System;
+using System.Threading;
 
 namespace SharpDox.Build
 {
@@ -11,47 +12,50 @@ namespace SharpDox.Build
         private Thread _buildThread;
 
         private readonly SDBuildStrings _sdBuildStrings;
-        private readonly IExporter[] _allExporters;
         private readonly IConfigController _configController;
+        private readonly Func<ICodeParser> _codeParser;
+        private readonly IExporter[] _allExporters;
 
-        public BuildController(SDBuildStrings sdBuildStrings, IConfigController configController, IExporter[] allExporters, IBuildMessenger buildMessenger)
+        public BuildController(IBuildMessenger buildMessenger, IConfigController configController, Func<ICodeParser> codeParser, IExporter[] allExporters, SDBuildStrings sdBuildStrings)
         {
-            _configController = configController;
-            _sdBuildStrings = sdBuildStrings;
-            _allExporters = allExporters;
-
             BuildMessenger = buildMessenger;
+            _configController = configController;
+            _codeParser = codeParser;
+            _allExporters = allExporters;
+            _sdBuildStrings = sdBuildStrings;
         }
 
         public void StartParse(ICoreConfigSection coreConfigSection, bool thread)
         {
-            var parseContext = new ParseContext(coreConfigSection, _sdBuildStrings, _configController, BuildMessenger as BuildMessenger);
+            var config = BuildConfig.StructureParseConfig(_configController, _codeParser(), _sdBuildStrings, _allExporters);
+            var context = new BuildContext(BuildMessenger as BuildMessenger, _sdBuildStrings, config);
 
             if (thread)
             {
                 Stop();
-                _buildThread = new Thread(parseContext.ParseSolution);
+                _buildThread = new Thread(context.StartBuild);
                 _buildThread.Start();
             }
             else
             {
-                parseContext.ParseSolution();
+                context.StartBuild();
             }
         }
 
-        public void StartBuild(ICoreConfigSection sharpDoxConfig, bool thread)
+        public void StartBuild(ICoreConfigSection coreConfigSection, bool thread)
         {
-            var buildContext = new BuildContext(sharpDoxConfig, _sdBuildStrings, _configController, BuildMessenger as BuildMessenger, _allExporters);
+            var config = BuildConfig.FullBuildConfig(_configController, _codeParser(), _sdBuildStrings, _allExporters);
+            var context = new BuildContext(BuildMessenger as BuildMessenger, _sdBuildStrings, config);
 
             if (thread)
             {
                 Stop();
-                _buildThread = new Thread(buildContext.BuildDocumentation);
+                _buildThread = new Thread(context.StartBuild);
                 _buildThread.Start();
             }
             else
             {
-                buildContext.BuildDocumentation();
+                context.StartBuild();
             }
         }
 

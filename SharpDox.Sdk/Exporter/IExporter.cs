@@ -1,5 +1,5 @@
-﻿using System;
-using SharpDox.Model.Repository;
+﻿using SharpDox.Model;
+using System;
 
 namespace SharpDox.Sdk.Exporter
 {
@@ -82,7 +82,7 @@ namespace SharpDox.Sdk.Exporter
         ///     Pfad gespeichert werden.
         ///     </param>     
         /// </de>
-        void Export(SDRepository repository, string outputPath);
+        void Export(SDProject sdProject, string outputPath);
 
         /// <default>
         ///     <summary>

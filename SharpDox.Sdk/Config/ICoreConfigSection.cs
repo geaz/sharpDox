@@ -84,7 +84,7 @@ namespace SharpDox.Sdk.Config
         ///     Liefert den Eingabepfad.
         ///     </summary>
         /// </de>
-        string InputPath { get; set; }
+        string InputFile { get; set; }
 
         /// <default>
         ///     <summary>

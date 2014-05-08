@@ -1,23 +1,20 @@
 ﻿using System;
+using SharpDox.Model;
 using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.Context.Step
 {
-    internal class EndStep
+    internal class EndStep : StepBase
     {
-        private readonly ICoreConfigSection _coreConfigSection;
-        private readonly IConfigController _configController;
+        public EndStep(int progressStart, int progressEnd) :
+            base(StepInput.SDBuildStrings.StepEnd, new StepRange(progressStart, progressEnd)) { }
 
-        public EndStep(IConfigController configController, ICoreConfigSection coreConfigSection)
+        public override SDProject RunStep(SDProject sdProject)
         {
-            _configController = configController;
-            _coreConfigSection = coreConfigSection;
-        }
+            StepInput.ConfigController.GetConfigSection<ICoreConfigSection>().LastBuild = DateTime.Now.ToString("d.M.yyyy - HH:mm");
+            StepInput.ConfigController.Save();
 
-        public void EndProcess()
-        {
-            _coreConfigSection.LastBuild = DateTime.Now.ToString("d.M.yyyy - HH:mm");
-            _configController.Save();
+            return sdProject;
         }
     }
 }

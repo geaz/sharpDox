@@ -31,13 +31,9 @@ namespace SharpDox.GUI.ViewModels
             _buildController.BuildMessenger.OnBuildProgress += (i) => { if (i == 0) ChangeProgress(BuildStatus.Running); BuildProgress = i; };
             _buildController.BuildMessenger.OnStepProgress += (i) => { StepProgress = i; };
 
-            _buildController.BuildMessenger.OnBuildCompleted += () => { ChangeProgress(BuildStatus.Success); };
+            _buildController.BuildMessenger.OnBuildCompleted += (p) => { ChangeProgress(BuildStatus.Success); };
             _buildController.BuildMessenger.OnBuildFailed += () => { ChangeProgress(BuildStatus.Error); };
-            _buildController.BuildMessenger.OnBuildStopped += () => { ChangeProgress(BuildStatus.Stopped); }; 
-
-            _buildController.BuildMessenger.OnParseCompleted += (rep) => { ChangeProgress(BuildStatus.Success); };
-            _buildController.BuildMessenger.OnParseFailed += () => { ChangeProgress(BuildStatus.Error); };
-            _buildController.BuildMessenger.OnParseStopped += () => { ChangeProgress(BuildStatus.Stopped); }; 
+            _buildController.BuildMessenger.OnBuildStopped += () => { ChangeProgress(BuildStatus.Stopped); };
         }
 
         private void ChangeProgress(BuildStatus status)

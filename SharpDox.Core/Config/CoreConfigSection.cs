@@ -16,7 +16,7 @@ namespace SharpDox.Core.Config
         private string _configFileName;
         private string _projectUrl;
         private string _authorUrl;
-        private string _inputPath;
+        private string _inputFile;
         private string _lastBuild;
         private string _logoPath;
         private string _outputPath;
@@ -173,17 +173,17 @@ namespace SharpDox.Core.Config
         }
 
         [Required]
-        [ConfigEditor(EditorType.Filepicker, "Solution/Project (*.sln; *.csproj)|*.sln; *.csproj")]
-        [Name(typeof(CoreStrings), "InputPath")]
-        public string InputPath
+        [ConfigEditor(EditorType.Filepicker, "Solution/ Project/ sharpDox Navigation (*.sln; *.csproj; *.sdnav)|*.sln; *.csproj; *.sdnav")]
+        [Name(typeof(CoreStrings), "InputFile")]
+        public string InputFile
         {
-            get { return _inputPath; }
+            get { return _inputFile; }
             set
             {
-                if (_inputPath != value)
+                if (_inputFile != value)
                 {
-                    _inputPath = value;
-                    OnPropertyChanged("InputPath");
+                    _inputFile = value;
+                    OnPropertyChanged("InputFile");
                 }
             }
         }

@@ -1,6 +1,6 @@
-﻿using System;
-using SharpDox.Model.Repository;
+﻿using SharpDox.Model;
 using SharpDox.Sdk.Build;
+using System;
 
 namespace SharpDox.Build
 {
@@ -12,37 +12,9 @@ namespace SharpDox.Build
         public event Action<int> OnBuildProgress;
         public event Action<int> OnStepProgress;
 
-        public event Action OnBuildCompleted;
+        public event Action<SDProject> OnBuildCompleted;
         public event Action OnBuildFailed;
         public event Action OnBuildStopped;
-
-        public event Action<SDRepository> OnParseCompleted;
-        public event Action OnParseFailed;
-        public event Action OnParseStopped;
-
-        internal void ExecuteOnParseCompleted(SDRepository repository)
-        {
-            if (OnParseCompleted != null)
-            {
-                OnParseCompleted(repository);
-            }
-        }
-
-        internal void ExecuteOnParseFailed()
-        {
-            if (OnParseFailed != null)
-            {
-                OnParseFailed();
-            }
-        }
-
-        internal void ExecuteOnParseStopped()
-        {
-            if (OnParseStopped != null)
-            {
-                OnParseStopped();
-            }
-        }
 
         internal void ExecuteOnBuildMessage(string message)
         {
@@ -94,11 +66,11 @@ namespace SharpDox.Build
             ExecuteOnStepMessage("");
         }
 
-        internal void ExecuteOnBuildCompleted()
+        internal void ExecuteOnBuildCompleted(SDProject sdProject)
         {
             if (OnBuildCompleted != null)
             {
-                OnBuildCompleted();
+                OnBuildCompleted(sdProject);
             }
             ExecuteOnStepMessage("");
         }

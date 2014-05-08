@@ -7,6 +7,7 @@ using SharpDox.Model.Repository;
 using SharpDox.GUI.ViewModels.TreeModel;
 using System.Windows;
 using System.Windows.Threading;
+using SharpDox.Model;
 
 namespace SharpDox.GUI.ViewModels
 {
@@ -24,35 +25,37 @@ namespace SharpDox.GUI.ViewModels
 
             sharpDoxConfig.PropertyChanged += ConfigChanged;
 
-            buildController.BuildMessenger.OnParseCompleted += ParseCompleted;
-            buildController.BuildMessenger.OnParseFailed += ParseStopped;
+            buildController.BuildMessenger.OnBuildCompleted += ParseCompleted;
+            buildController.BuildMessenger.OnBuildFailed += ParseStopped;
         }
 
         private void ConfigChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName == "InputPath" && !string.IsNullOrEmpty(_sharpDoxConfig.InputPath))
+            if (args.PropertyName == "InputPath" && !string.IsNullOrEmpty(_sharpDoxConfig.InputFile))
             {
                 RefreshTreeView();
             }
-            else if (args.PropertyName == "InputPath" && string.IsNullOrEmpty(_sharpDoxConfig.InputPath))
+            else if (args.PropertyName == "InputPath" && string.IsNullOrEmpty(_sharpDoxConfig.InputFile))
             {
                 TreeView = new VisibilityItemList();
             }
         }
 
-        private void ParseCompleted(SDRepository repository)
+        private void ParseCompleted(SDProject sdProject)
         {
             Application.Current.Dispatcher.BeginInvoke(
                 DispatcherPriority.Background,
                 new Action(() => {
                     TreeView = new VisibilityItemList();
 
-                    if (repository != null)
+                    if (sdProject != null)
                     {
-                        foreach (var sdNamespace in repository.GetAllNamespaces())
+                        foreach (var repository in sdProject.Repositories)
                         {
-                            TreeView.Add(new NamespaceViewModel(sdNamespace,
-                                _sharpDoxConfig.ExcludedIdentifiers));
+                            foreach (var sdNamespace in repository.Value.GetAllNamespaces())
+                            {
+                                TreeView.Add(new NamespaceViewModel(sdNamespace, _sharpDoxConfig.ExcludedIdentifiers));
+                            }
                         }
                     }
 
