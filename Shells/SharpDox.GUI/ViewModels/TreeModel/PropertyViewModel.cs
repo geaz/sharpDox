@@ -10,7 +10,7 @@ namespace SharpDox.GUI.ViewModels.TreeModel
         {
             Text = property.Name;
             Accessibility = property.Accessibility;
-            Image = string.Format("pack://application:,,,/SharpDox.Resources;component/Icons/Properties_{0}.png", Accessibility);
+            Image = string.Format("pack://application:,,,/SharpDox.GUI;component/Resources/Icons/Properties_{0}.png", Accessibility);
         }
     }
 }

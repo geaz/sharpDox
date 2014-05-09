@@ -4,6 +4,7 @@ using SharpDox.Build.NRefactory.Parser;
 using SharpDox.Model.Repository;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SharpDox.Build.NRefactory
@@ -64,7 +65,7 @@ namespace SharpDox.Build.NRefactory
                 var types = solution.Projects[i].Compilation.MainAssembly.TopLevelTypeDefinitions.ToList();
                 for (int j = 0; j < types.Count; j++)
                 {
-                    PostParseProgress(_parserStrings.ParsingNamespace + ": " + types[j].Namespace, j, types.Count, pi, solution.Projects.Count, 2, 3);
+                    PostParseProgress(_parserStrings.ParsingNamespace + ": " + types[j].Namespace, j, types.Count, pi, solution.Projects.Count, 1, 3);
 
                     var sdNamespace = new SDNamespace(types[j].Namespace);
                     sdRepository.AddNamespace(sdNamespace);
@@ -84,7 +85,7 @@ namespace SharpDox.Build.NRefactory
                     var type = types[j];
                     if (types[j].Kind != TypeKind.Delegate)
                     {
-                        PostParseProgress(_parserStrings.ParsingClass + ": " + string.Format("{0}.{1}", types[j].Namespace, types[j].Name), j, types.Count, pi, solution.Projects.Count, 3, 3);
+                        PostParseProgress(_parserStrings.ParsingClass + ": " + string.Format("{0}.{1}", types[j].Namespace, types[j].Name), j, types.Count, pi, solution.Projects.Count, 2, 3);
 
                         var nameSpace = sdRepository.GetNamespaceByIdentifier(type.Namespace);
                         var namespaceRef = nameSpace ?? new SDNamespace(type.Namespace) { IsProjectStranger = true };
@@ -113,7 +114,7 @@ namespace SharpDox.Build.NRefactory
             var pi = 0;
             var namespaceParser = new NamespaceParser(sdRepository, excludedIdentifiers, solution.SolutionFile);
             namespaceParser.OnDocLanguageFound += ExecuteOnDocLanguageFound;
-            namespaceParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingNamespace + ": " + n, i, t, pi, solution.Projects.Count, 2, 5); };
+            namespaceParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingNamespace + ": " + n, i, t, pi, solution.Projects.Count, 1, 5); };
 
             for (int i = 0; i < solution.Projects.Count; i++)
             {
@@ -126,7 +127,7 @@ namespace SharpDox.Build.NRefactory
         {
             var pi = 0;
             var typeParser = new TypeParser(sdRepository, excludedIdentifiers);
-            typeParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingClass + ": " + n, i, t, pi, solution.Projects.Count, 3, 5); };
+            typeParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingClass + ": " + n, i, t, pi, solution.Projects.Count, 2, 5); };
 
             for (int i = 0; i < solution.Projects.Count; i++)
             {
@@ -139,7 +140,7 @@ namespace SharpDox.Build.NRefactory
         {
             var pi = 0;
             var methodCallParser = new MethodCallParser(sdRepository, solution);
-            methodCallParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingMethod + ": " + n, i, t, pi, sdRepository.GetAllNamespaces().Count, 4, 5); };
+            methodCallParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingMethod + ": " + n, i, t, pi, sdRepository.GetAllNamespaces().Count, 3, 5); };
 
             var namespaces = sdRepository.GetAllNamespaces();
             for (int i = 0; i < namespaces.Count; i++)
@@ -152,14 +153,14 @@ namespace SharpDox.Build.NRefactory
         private void ResolveUses(SDRepository sdRepository)
         {
             var useParser = new UseParser(sdRepository);
-            useParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingUseings + ": " + n, i, t, 0, 1, 5, 5); };
+            useParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingUseings + ": " + n, i, t, 0, 1, 4, 5); };
 
             useParser.ResolveAllUses();
         }
 
         private void PostParseProgress(string message, double itemIndex, double itemTotal, double parentIndex, double parentTotal, int step, int stepsTotal)
         {
-            var percentage = ((((itemIndex / itemTotal) * (100d / parentTotal)) + (parentIndex * (100d / parentTotal))) / stepsTotal) + (step / stepsTotal * 100);
+            var percentage = ((((itemIndex / itemTotal) * (100d / parentTotal)) + (parentIndex * (100d / parentTotal))) / stepsTotal) + ((double)step / (double)stepsTotal * 100d);
 
             ExecuteOnStepMessage(message);
             ExecuteOnStepProgress((int)percentage);

@@ -91,7 +91,10 @@ namespace SharpDox.Build
             }
             else
             {
-                article = new SDArticlePlaceholder();
+                article = new SDArticlePlaceholder
+                {
+                    Title = GetNavTitle(splitted[0])
+                };
             }
 
             return article;

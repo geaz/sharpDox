@@ -17,7 +17,8 @@ namespace SharpDox.Build.Context
 
             config.Add(new ExtendedCheckConfigStep(checkConfig, 0, 15));
             config.Add(new ParseProjectStep(15, 25));
-            config.Add(new ParseCodeStep(25, 90));
+            config.Add(new ParseCodeStep(25, 60));
+            config.Add(new ExportStep(60, 90));
             config.Add(new EndStep(90, 100));
 
             return config;

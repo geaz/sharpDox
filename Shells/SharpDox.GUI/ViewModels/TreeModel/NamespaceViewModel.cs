@@ -9,7 +9,7 @@ namespace SharpDox.GUI.ViewModels.TreeModel
             : base(sdNamespace.Fullname, null, excludedIdentifiers)
         {
             Text = sdNamespace.Fullname;
-            Image = "pack://application:,,,/SharpDox.Resources;component/Icons/Namespace_public.png";
+            Image = "pack://application:,,,/SharpDox.GUI;component/Resources/Icons/Namespace_public.png";
 
             foreach (var sdType in sdNamespace.Types)
             {

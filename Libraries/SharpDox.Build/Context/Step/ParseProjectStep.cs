@@ -17,6 +17,7 @@ namespace SharpDox.Build.Context.Step
         {
             _sdProject = sdProject;
             SetProjectInfos();
+            GetImages();
             ParseDescriptions();
             
             if (Path.GetExtension(StepInput.CoreConfigSection.InputFile) == ".sdnav")
@@ -41,6 +42,15 @@ namespace SharpDox.Build.Context.Step
             _sdProject.Author = StepInput.CoreConfigSection.Author;
             _sdProject.ProjectName = StepInput.CoreConfigSection.ProjectName;
             _sdProject.VersionNumber = StepInput.CoreConfigSection.VersionNumber;
+        }
+
+        private void GetImages()
+        {
+            var images = Directory.EnumerateFiles(Path.GetDirectoryName(StepInput.CoreConfigSection.InputFile), "sdi.*", SearchOption.AllDirectories);
+            foreach (var image in images)
+            {
+                _sdProject.Images.Add(image);
+            }
         }
 
         private void ParseDescriptions()

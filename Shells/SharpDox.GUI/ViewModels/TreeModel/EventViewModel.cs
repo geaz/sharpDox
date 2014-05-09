@@ -10,7 +10,7 @@ namespace SharpDox.GUI.ViewModels.TreeModel
         {
             Text = eve.Name;
             Accessibility = eve.Accessibility;
-            Image = string.Format("pack://application:,,,/SharpDox.Resources;component/Icons/Event_{0}.png", Accessibility);
+            Image = string.Format("pack://application:,,,/SharpDox.GUI;component/Resources/Icons/Event_{0}.png", Accessibility);
         }
     }
 }
