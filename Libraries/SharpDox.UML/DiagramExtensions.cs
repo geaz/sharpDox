@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SharpDox.Model;
 using SharpDox.Model.Repository.Members;
 using SharpDox.Model.Repository;
 using SharpDox.UML.Class;
@@ -43,8 +44,7 @@ namespace SharpDox.UML
         ///     Creates the sequence diagram for the given <c>SDMethod</c>.
         ///     </summary>
         ///     <param name="method">Create the sequence diagram for this <c>SDMethod</c>.</param>
-        ///     <param name="repositoryTypes">The method needs all known types of the current solution. 
-        ///     You are able to get it with the <c>GetAllTypes</c> method of the <c>SDRepository</c>.</param>
+        ///     <param name="sdProject">The method needs the complete parsed sharpDox project.</param>
         ///     <returns>The sequence diagram for the given <c>SDMethod</c>.</returns>
         /// </default>
         /// <de>
@@ -52,13 +52,12 @@ namespace SharpDox.UML
         ///     Erstellt das Sequenzdiagramm für die gegebene <c>SDMethod</c>.
         ///     </summary>
         ///     <param name="method">Erstellt das Sequenzdiagramm für dies <c>SDMethod</c>.</param>
-        ///     <param name="repositoryTypes">Die Methode benötigt alle bekannten Typen der aktuellen Lösung. 
-        ///     Es ist möglich diese mit der <c>GetAllTypes</c> Methode des <c>SDRepository</c> zubekommen.</param>
+        ///     <param name="sdProject">Die Methode benötigt das eingelesene sharpDox Projekt.</param>
         ///     <returns>Das Sequenzdiagramm für die <c>SDMethod</c>.</returns>
         /// </de>
-        public static ISDDiagram GetSequenceDiagram(this SDMethod method, List<SDType> repositoryTypes)
+        public static ISDDiagram GetSequenceDiagram(this SDMethod method, SDProject sdProject)
         {
-            var sequenceDiagramParser = new SequenceDiagramParser(method, repositoryTypes);
+            var sequenceDiagramParser = new SequenceDiagramParser(method, sdProject);
             return sequenceDiagramParser.CreateSequenceDiagram();
         }
 

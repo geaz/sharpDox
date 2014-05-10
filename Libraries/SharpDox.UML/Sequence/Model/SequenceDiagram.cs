@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Media;
-using SharpDox.Model.Repository;
+using SharpDox.Model;
 using SharpDox.UML.Extensions;
 using SharpDox.UML.Sequence.Elements;
 using SharpDox.UML.SVG;
-using System.Globalization;
 
 namespace SharpDox.UML.Sequence.Model
 {
@@ -14,14 +12,14 @@ namespace SharpDox.UML.Sequence.Model
     {
         private readonly SequenceDiagramPngRenderer _sequenceDiagramPngRenderer;
         private readonly SequenceDiagramSvgRenderer _sequenceDiagramSvgRenderer;
-        private readonly List<SDType> _types;
+        private readonly SDProject _sdProject;
 
         private DrawingVisual _renderedDiagram;
         private SvgRoot _renderedSvgDiagram;
 
-        public SequenceDiagram(List<SDType> types)
+        public SequenceDiagram(SDProject sdProject)
         {
-            _types = types;
+            _sdProject = sdProject;
             _sequenceDiagramPngRenderer = new SequenceDiagramPngRenderer();
             _sequenceDiagramSvgRenderer = new SequenceDiagramSvgRenderer();
 
@@ -33,7 +31,7 @@ namespace SharpDox.UML.Sequence.Model
             var node = new SequenceDiagramNode
             {
                 TypeIdentifier = typeIdentifier,
-                Text = _types.Single(t => t.Identifier == typeIdentifier).Fullname
+                Text = _sdProject.GetTypeByIdentifier(typeIdentifier).Fullname
             };
             Nodes.Add(node);
 

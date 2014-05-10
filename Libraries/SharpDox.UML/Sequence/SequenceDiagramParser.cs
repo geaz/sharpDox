@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SharpDox.Model;
 using SharpDox.Model.CallTree;
 using SharpDox.Model.Repository.Members;
-using SharpDox.Model.Repository;
 using SharpDox.UML.Sequence.Elements;
 using SharpDox.UML.Sequence.Model;
 
@@ -14,19 +14,19 @@ namespace SharpDox.UML.Sequence
         private SequenceDiagram _sequenceDiagram;
 
         private readonly SDMethod _method;
-        private readonly List<SDType> _repositoryTypes;
+        private readonly SDProject _sdProject;
 
-        public SequenceDiagramParser(SDMethod method, List<SDType> repositoryTypes = null)
+        public SequenceDiagramParser(SDMethod method, SDProject sdProject = null)
         {
             _method = method;
-            _repositoryTypes = repositoryTypes;
+            _sdProject = sdProject;
         }
 
         public SequenceDiagram CreateSequenceDiagram()
         {
             if(!IsSequenceDiagramEmpty())
             {
-                _sequenceDiagram = new SequenceDiagram(_repositoryTypes);
+                _sequenceDiagram = new SequenceDiagram(_sdProject);
 
                 CreateStartNode(_method.DeclaringType.Identifier, _method.Name, _method.Identifier);
                 ParseAllCalls(_method.Calls);
@@ -115,7 +115,7 @@ namespace SharpDox.UML.Sequence
 
                 composite.AddConnection(caller.ID, called.ID, targetNode.CalledMethod.Name, targetNode.CalledMethod.Identifier);
 
-                var sdType = _repositoryTypes.SingleOrDefault(t => t.Identifier == targetNode.CalledType.Identifier);
+                var sdType = _sdProject.GetTypeByIdentifier(targetNode.CalledType.Identifier);
                 var targetMethod = sdType.Methods.SingleOrDefault(o => o.Identifier == targetNode.CalledMethod.Identifier);
                 if (caller.ID != called.ID && targetMethod.ReturnType != null && targetMethod.ReturnType.Name.ToUpper() != "VOID")
                 {

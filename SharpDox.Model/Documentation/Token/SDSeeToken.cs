@@ -1,5 +1,4 @@
 ﻿using System;
-using SharpDox.Model.Repository;
 
 namespace SharpDox.Model.Documentation.Token
 {

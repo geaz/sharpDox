@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using SharpDox.Model.Repository;
+using SharpDox.Model;
 
 namespace SharpDox.Sdk
 {
@@ -20,7 +20,7 @@ namespace SharpDox.Sdk
     public class Templater
     {
         private string _template;
-        private readonly SDRepository _repository;
+        private readonly SDProject _sdProject;
 
         /// <default>
         ///     <summary>
@@ -28,7 +28,7 @@ namespace SharpDox.Sdk
         ///     You have to create a new instance 
         ///     for each text you want to transform.
         ///     </summary>
-        ///     <param name="repository">The repository of the parsed project.</param>
+        ///     <param name="sdProject">The whole parsed sharpDox project.</param>
         ///     <param name="template">The text you want to transform.</param>
         /// </default>
         /// <de>
@@ -37,12 +37,12 @@ namespace SharpDox.Sdk
         ///     Für jeden Text der transformiert werden soll
         ///     muss eine neue Instanz erstellt werden.
         ///     </summary>
-        ///     <param name="repository">Das Repository des eingelesenen Projekts.</param>
+        ///     <param name="sdProject">Das komplett eingelesene sharpDox Project.</param>
         ///     <param name="template">Der Text der transformiert werden soll.</param>
         /// </de>
-        public Templater(SDRepository repository, string template)
+        public Templater(SDProject sdProject, string template)
         {
-            _repository = repository;
+            _sdProject = sdProject;
             _template = template;
         }
 
@@ -109,7 +109,7 @@ namespace SharpDox.Sdk
             {
                 var splitted = link.Value.Split(new string[] {"}}"}, StringSplitOptions.None);
                 var value = splitted[0].Split(':')[1].Replace("&lt;", "<").Replace("&gt;", ">");
-                var guid = _repository.GetGuidByIdentifier(value);
+                var guid = _sdProject.GetGuidByIdentifier(value);
 
                 _template = _template.Replace(splitted[0] + "}}", transform(linkType, guid, value));
             }

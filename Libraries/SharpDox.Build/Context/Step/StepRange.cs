@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SharpDox.Build.Context.Step
+﻿namespace SharpDox.Build.Context.Step
 {
     internal class StepRange
     {

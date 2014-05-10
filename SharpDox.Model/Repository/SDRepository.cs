@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using SharpDox.Model.Repository.Members;
-using SharpDox.Model.Documentation;
 
 namespace SharpDox.Model.Repository
 {
@@ -161,14 +160,14 @@ namespace SharpDox.Model.Repository
 
         /// <default>
         ///     <summary>
-        ///     Returns a member other than a method/constructor, referenced by its identifier.
+        ///     Returns a member, referenced by its identifier.
         ///     </summary>
         ///     <param name="identifier">The identifier of the member.</param>
         ///     <returns>The member, if it is available.</returns>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Liefert das Mitglied mit dem angegebenen Identifikator (auﬂer Methoden / Konstruktoren).
+        ///     Liefert das Mitglied mit dem angegebenen Identifikator.
         ///     </summary>
         ///     <param name="identifier">Der Identifikator des Mitglieds.</param>
         ///     <returns>Das Mitglied, falls dieses vorhanden ist.</returns>  
