@@ -58,7 +58,7 @@ namespace SharpDox.Build.Context.Step
             ExecuteOnStepMessage(StepInput.SDBuildStrings.ParsingDescriptions);
             ExecuteOnStepProgress(50);
 
-            var potentialReadMes = Directory.EnumerateFiles(Path.GetDirectoryName(StepInput.CoreConfigSection.InputFile), "*readme*");
+            var potentialReadMes = Directory.EnumerateFiles(Path.GetDirectoryName(StepInput.CoreConfigSection.InputFile), "*.sdpd");
             if (potentialReadMes.Any())
             {
                 foreach (var readme in potentialReadMes)
@@ -72,7 +72,7 @@ namespace SharpDox.Build.Context.Step
                             _sdProject.AddDocumentationLanguage(splitted[0].ToLower());
                         }
                     }
-                    else if (splitted.Length > 0 && splitted[0].ToLower() == "readme" && !_sdProject.Description.ContainsKey("default"))
+                    else if (splitted.Length > 0 && splitted[0].ToLower() == "default" && !_sdProject.Description.ContainsKey("default"))
                     {
                         _sdProject.Description.Add("default", File.ReadAllText(readme));
                     }

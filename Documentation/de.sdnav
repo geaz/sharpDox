@@ -1,7 +1,7 @@
--Einführung#Articles\de\de.introduction.sda
+-Einführung#de.introduction
 -Benutzer
---Erstellen von erweiterten Dokumentationen#advanced-tutorial
---Erstellen von mehrsprachigen Dokumentationen#multilang-tutorial
+--Erstellen von erweiterten Dokumentationen#de.advanced-tutorial
+--Erstellen von mehrsprachigen Dokumentationen#de.multilang-tutorial
 -Entwickler
---Erstellen eines Exporters#exporter-tutorial
+--Erstellen eines Exporters#de.exporter-tutorial
 --API#..\SharpDox.sln
