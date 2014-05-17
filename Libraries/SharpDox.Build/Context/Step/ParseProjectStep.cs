@@ -10,8 +10,8 @@ namespace SharpDox.Build.Context.Step
     {
         private SDProject _sdProject;
 
-        public ParseProjectStep(int progressStart, int progressEnd) :
-            base(StepInput.SDBuildStrings.StepParseProject, new StepRange(progressStart, progressEnd)) { }
+        public ParseProjectStep(StepInput stepInput, int progressStart, int progressEnd) :
+            base(stepInput, stepInput.SDBuildStrings.StepParseProject, new StepRange(progressStart, progressEnd)) { }
 
         public override SDProject RunStep(SDProject sdProject)
         {
@@ -19,14 +19,14 @@ namespace SharpDox.Build.Context.Step
             SetProjectInfos();
             GetImages();
             ParseDescriptions();
-            
-            if (Path.GetExtension(StepInput.CoreConfigSection.InputFile) == ".sdnav")
+
+            if (Path.GetExtension(_stepInput.CoreConfigSection.InputFile) == ".sdnav")
             {
                 ParseNavigationFiles();
             }
             else
             {
-                _sdProject.Repositories.Add(StepInput.CoreConfigSection.InputFile, new SDRepository());
+                _sdProject.Repositories.Add(_stepInput.CoreConfigSection.InputFile, new SDRepository());
             }
 
             return _sdProject;
@@ -34,19 +34,19 @@ namespace SharpDox.Build.Context.Step
 
         private void SetProjectInfos()
         {
-            ExecuteOnStepMessage(StepInput.SDBuildStrings.ParsingProject);
+            ExecuteOnStepMessage(_stepInput.SDBuildStrings.ParsingProject);
             ExecuteOnStepProgress(25);
 
-            _sdProject.DocLanguage = StepInput.CoreConfigSection.DocLanguage;
-            _sdProject.LogoPath = StepInput.CoreConfigSection.LogoPath;
-            _sdProject.Author = StepInput.CoreConfigSection.Author;
-            _sdProject.ProjectName = StepInput.CoreConfigSection.ProjectName;
-            _sdProject.VersionNumber = StepInput.CoreConfigSection.VersionNumber;
+            _sdProject.DocLanguage = _stepInput.CoreConfigSection.DocLanguage;
+            _sdProject.LogoPath = _stepInput.CoreConfigSection.LogoPath;
+            _sdProject.Author = _stepInput.CoreConfigSection.Author;
+            _sdProject.ProjectName = _stepInput.CoreConfigSection.ProjectName;
+            _sdProject.VersionNumber = _stepInput.CoreConfigSection.VersionNumber;
         }
 
         private void GetImages()
         {
-            var images = Directory.EnumerateFiles(Path.GetDirectoryName(StepInput.CoreConfigSection.InputFile), "sdi.*", SearchOption.AllDirectories);
+            var images = Directory.EnumerateFiles(Path.GetDirectoryName(_stepInput.CoreConfigSection.InputFile), "sdi.*", SearchOption.AllDirectories);
             foreach (var image in images)
             {
                 _sdProject.Images.Add(image);
@@ -55,10 +55,10 @@ namespace SharpDox.Build.Context.Step
 
         private void ParseDescriptions()
         {
-            ExecuteOnStepMessage(StepInput.SDBuildStrings.ParsingDescriptions);
+            ExecuteOnStepMessage(_stepInput.SDBuildStrings.ParsingDescriptions);
             ExecuteOnStepProgress(50);
 
-            var potentialReadMes = Directory.EnumerateFiles(Path.GetDirectoryName(StepInput.CoreConfigSection.InputFile), "*.sdpd");
+            var potentialReadMes = Directory.EnumerateFiles(Path.GetDirectoryName(_stepInput.CoreConfigSection.InputFile), "*.sdpd");
             if (potentialReadMes.Any())
             {
                 foreach (var readme in potentialReadMes)
@@ -82,11 +82,11 @@ namespace SharpDox.Build.Context.Step
 
         private void ParseNavigationFiles()
         {
-            ExecuteOnStepMessage(StepInput.SDBuildStrings.ParsingNav);
+            ExecuteOnStepMessage(_stepInput.SDBuildStrings.ParsingNav);
             ExecuteOnStepProgress(50);
 
-            var navFileParser = new SDNavParser(StepInput.CoreConfigSection.InputFile);
-            var navFiles = Directory.EnumerateFiles(Path.GetDirectoryName(StepInput.CoreConfigSection.InputFile), "*.sdnav", SearchOption.AllDirectories);
+            var navFileParser = new SDNavParser(_stepInput.CoreConfigSection.InputFile);
+            var navFiles = Directory.EnumerateFiles(Path.GetDirectoryName(_stepInput.CoreConfigSection.InputFile), "*.sdnav", SearchOption.AllDirectories);
             foreach(var navFile in navFiles)
             {
                 _sdProject = navFileParser.ParseNavFile(navFile, _sdProject);

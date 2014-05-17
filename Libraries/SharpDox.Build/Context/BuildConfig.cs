@@ -10,29 +10,29 @@ namespace SharpDox.Build.Context
     {
         public static List<StepBase> FullBuildConfig(IConfigController configController, ICodeParser codeParser, SDBuildStrings sdBuildStrings, IExporter[] allExporters)
         {
-            StepInput.InitStepinput(configController, codeParser, sdBuildStrings, allExporters);
+            var stepInput = new StepInput(configController, codeParser, sdBuildStrings, allExporters);
 
             var config = new List<StepBase>();
-            var checkConfig = new CheckConfigStep(0, 15);
+            var checkConfig = new CheckConfigStep(stepInput, 0, 15);
 
-            config.Add(new ExtendedCheckConfigStep(checkConfig, 0, 15));
-            config.Add(new ParseProjectStep(15, 25));
-            config.Add(new ParseCodeStep(25, 60));
-            config.Add(new ExportStep(60, 90));
-            config.Add(new EndStep(90, 100));
+            config.Add(new ExtendedCheckConfigStep(stepInput, checkConfig, 0, 15));
+            config.Add(new ParseProjectStep(stepInput, 15, 25));
+            config.Add(new ParseCodeStep(stepInput, 25, 60));
+            config.Add(new ExportStep(stepInput, 60, 90));
+            config.Add(new EndStep(stepInput, 90, 100));
 
             return config;
         }
 
         public static List<StepBase> StructureParseConfig(IConfigController configController, ICodeParser codeParser, SDBuildStrings sdBuildStrings, IExporter[] allExporters)
         {
-            StepInput.InitStepinput(configController, codeParser, sdBuildStrings, allExporters);
+            var stepInput = new StepInput(configController, codeParser, sdBuildStrings, allExporters);
 
             var config = new List<StepBase>();
 
-            config.Add(new CheckConfigStep(0, 15));
-            config.Add(new ParseProjectStep(15, 25));
-            config.Add(new StructeParseCodeStep(25, 100));
+            config.Add(new CheckConfigStep(stepInput, 0, 15));
+            config.Add(new ParseProjectStep(stepInput, 15, 25));
+            config.Add(new StructeParseCodeStep(stepInput, 25, 100));
 
             return config;
         }

@@ -8,31 +8,31 @@ namespace SharpDox.Build.Context.Step
     {
         private readonly CheckConfigStep _checkConfigStep;
 
-        public ExtendedCheckConfigStep(CheckConfigStep checkConfigStep, int progressStart, int progressEnd) : 
-            base(StepInput.SDBuildStrings.StepCheckConfig, new StepRange(progressStart, progressEnd)) 
+        public ExtendedCheckConfigStep(StepInput stepInput, CheckConfigStep checkConfigStep, int progressStart, int progressEnd) : 
+            base(stepInput, stepInput.SDBuildStrings.StepCheckConfig, new StepRange(progressStart, progressEnd)) 
         { 
             _checkConfigStep = checkConfigStep;
         }
 
         public override SDProject RunStep(SDProject sdProject)
         {
-            if (string.IsNullOrEmpty(StepInput.CoreConfigSection.DocLanguage))
-                throw new SDBuildException(StepInput.SDBuildStrings.NoDocLanguage);
+            if (string.IsNullOrEmpty(_stepInput.CoreConfigSection.DocLanguage))
+                throw new SDBuildException(_stepInput.SDBuildStrings.NoDocLanguage);
 
-            if (string.IsNullOrEmpty(StepInput.CoreConfigSection.OutputPath))
-                throw new SDBuildException(StepInput.SDBuildStrings.NoOutputPathGiven);
+            if (string.IsNullOrEmpty(_stepInput.CoreConfigSection.OutputPath))
+                throw new SDBuildException(_stepInput.SDBuildStrings.NoOutputPathGiven);
 
-            if (!Directory.Exists(StepInput.CoreConfigSection.OutputPath))
-                throw new SDBuildException(StepInput.SDBuildStrings.OutputPathNotFound);
+            if (!Directory.Exists(_stepInput.CoreConfigSection.OutputPath))
+                throw new SDBuildException(_stepInput.SDBuildStrings.OutputPathNotFound);
 
-            foreach (var exporter in StepInput.AllExporters)
+            foreach (var exporter in _stepInput.AllExporters)
             {
-                if (StepInput.CoreConfigSection.ActivatedExporters.Contains(exporter.ExporterName))
+                if (_stepInput.CoreConfigSection.ActivatedExporters.Contains(exporter.ExporterName))
                 {
                     exporter.OnRequirementsWarning += (m) => ExecuteOnBuildMessage(m);
                     if (!exporter.CheckRequirements())
                     {
-                        throw new SDBuildException(StepInput.SDBuildStrings.RequirementError);
+                        throw new SDBuildException(_stepInput.SDBuildStrings.RequirementError);
                     }
                 }
             }

@@ -10,8 +10,11 @@ namespace SharpDox.Build.Context.Step
         public event Action<int> OnBuildProgress;
         public event Action<int> OnStepProgress;
 
-        protected StepBase(string stepName, StepRange stepRange)
+        protected readonly StepInput _stepInput;
+
+        protected StepBase(StepInput stepInput, string stepName, StepRange stepRange)
         {
+            _stepInput = stepInput;
             StepName = stepName;
             StepRange = stepRange;
         }

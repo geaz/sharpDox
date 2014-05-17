@@ -30,7 +30,7 @@ namespace SharpDox.Build.NRefactory.Parser
 
 		public override void VisitConditionalExpression(ConditionalExpression conditionalExpression)
 		{
-            var token = CreateConditionalBlock(conditionalExpression.Condition.GetText());
+            var token = CreateConditionalBlock(conditionalExpression.Condition.ToString());
             _tokenList.Add(token);
 
             VisitChildren(token.FalseStatements, conditionalExpression.FalseExpression);
@@ -39,7 +39,7 @@ namespace SharpDox.Build.NRefactory.Parser
 
 		public override void VisitIfElseStatement(IfElseStatement ifElseStatement)
 		{
-            var token = CreateConditionalBlock(ifElseStatement.Condition.GetText());
+            var token = CreateConditionalBlock(ifElseStatement.Condition.ToString());
             _tokenList.Add(token);
 
             VisitChildren(token.FalseStatements, ifElseStatement.FalseStatement);
@@ -48,7 +48,7 @@ namespace SharpDox.Build.NRefactory.Parser
 
 		public override void VisitWhileStatement(WhileStatement whileStatement)
 		{
-            var token = CreateBlock(string.Format("while ({0})", whileStatement.Condition.GetText()), SDNodeRole.WhileLoop);
+            var token = CreateBlock(string.Format("while ({0})", whileStatement.Condition.ToString()), SDNodeRole.WhileLoop);
             _tokenList.Add(token);
 
             VisitChildren(token.Statements, whileStatement.EmbeddedStatement);
@@ -56,7 +56,7 @@ namespace SharpDox.Build.NRefactory.Parser
 
 		public override void VisitDoWhileStatement(DoWhileStatement doWhileStatement)
 		{
-            var token = CreateBlock(string.Format("while ({0})", doWhileStatement.Condition.GetText()), SDNodeRole.DoWhileLoop);
+            var token = CreateBlock(string.Format("while ({0})", doWhileStatement.Condition.ToString()), SDNodeRole.DoWhileLoop);
             _tokenList.Add(token);
 
             VisitChildren(token.Statements, doWhileStatement.EmbeddedStatement);
@@ -64,7 +64,7 @@ namespace SharpDox.Build.NRefactory.Parser
 
         public override void VisitSwitchStatement(SwitchStatement switchStatement)
         {
-            var token = CreateBlock(string.Format("switch ({0})", switchStatement.Expression.GetText()), SDNodeRole.Switch);
+            var token = CreateBlock(string.Format("switch ({0})", switchStatement.Expression.ToString()), SDNodeRole.Switch);
             _tokenList.Add(token);
 
             var tmp = _tokenList;
@@ -72,7 +72,7 @@ namespace SharpDox.Build.NRefactory.Parser
 
             foreach (var section in switchStatement.SwitchSections)
             {
-                var caseToken = CreateBlock(string.Join(" ", section.CaseLabels.Select(o => o.GetText())), SDNodeRole.Case);
+                var caseToken = CreateBlock(string.Join(" ", section.CaseLabels.Select(o => o.ToString())), SDNodeRole.Case);
                 _tokenList.Add(caseToken);
 
                 VisitChildren(caseToken.Statements, section);
@@ -81,7 +81,7 @@ namespace SharpDox.Build.NRefactory.Parser
 
         public override void VisitForeachStatement(ForeachStatement foreachStatement)
         {
-            var expression = string.Format("foreach ({0} {1} in {2})", foreachStatement.VariableType.GetText(), foreachStatement.VariableName, foreachStatement.InExpression.GetText());
+            var expression = string.Format("foreach ({0} {1} in {2})", foreachStatement.VariableType.ToString(), foreachStatement.VariableName, foreachStatement.InExpression.ToString());
             var token = CreateBlock(expression, SDNodeRole.ForEach);
             _tokenList.Add(token);
 
@@ -90,9 +90,9 @@ namespace SharpDox.Build.NRefactory.Parser
 
         public override void VisitForStatement(ForStatement forStatement)
         {
-            var initializers = string.Join(" ", forStatement.Initializers.Select(o => o.GetText()));
-            var condition = forStatement.Condition.GetText();
-            var interator = string.Join(" ", forStatement.Iterators.Select(o => o.GetText()));
+            var initializers = string.Join(" ", forStatement.Initializers.Select(o => o.ToString()));
+            var condition = forStatement.Condition.ToString();
+            var interator = string.Join(" ", forStatement.Iterators.Select(o => o.ToString()));
             var expression = string.Format("for ({0}; {1}; {2})", initializers, condition, interator);
 
             var token = CreateBlock(expression, SDNodeRole.ForLoop);

@@ -6,13 +6,13 @@ namespace SharpDox.Build.Context.Step
 {
     internal class EndStep : StepBase
     {
-        public EndStep(int progressStart, int progressEnd) :
-            base(StepInput.SDBuildStrings.StepEnd, new StepRange(progressStart, progressEnd)) { }
+        public EndStep(StepInput stepInput, int progressStart, int progressEnd) :
+            base(stepInput, stepInput.SDBuildStrings.StepEnd, new StepRange(progressStart, progressEnd)) { }
 
         public override SDProject RunStep(SDProject sdProject)
         {
-            StepInput.ConfigController.GetConfigSection<ICoreConfigSection>().LastBuild = DateTime.Now.ToString("d.M.yyyy - HH:mm");
-            StepInput.ConfigController.Save();
+            _stepInput.ConfigController.GetConfigSection<ICoreConfigSection>().LastBuild = DateTime.Now.ToString("d.M.yyyy - HH:mm");
+            _stepInput.ConfigController.Save();
 
             return sdProject;
         }

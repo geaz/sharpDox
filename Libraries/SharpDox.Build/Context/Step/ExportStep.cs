@@ -8,8 +8,8 @@ namespace SharpDox.Build.Context.Step
 {
     internal class ExportStep : StepBase
     {
-        public ExportStep(int progressStart, int progressEnd) :
-            base(StepInput.SDBuildStrings.StepExport, new StepRange(progressStart, progressEnd)) { }
+        public ExportStep(StepInput stepInput, int progressStart, int progressEnd) :
+            base(stepInput, stepInput.SDBuildStrings.StepExport, new StepRange(progressStart, progressEnd)) { }
 
         public override SDProject RunStep(SDProject sdProject)
         {
@@ -21,14 +21,14 @@ namespace SharpDox.Build.Context.Step
         private void RunAllExporters(SDProject sdProject)
         {
             var i = 0;
-            foreach (var exporter in StepInput.AllExporters)
+            foreach (var exporter in _stepInput.AllExporters)
             {
-                if (StepInput.CoreConfigSection.ActivatedExporters.Contains(exporter.ExporterName))
+                if (_stepInput.CoreConfigSection.ActivatedExporters.Contains(exporter.ExporterName))
                 {
-                    var outputPath = GetOutputPath(StepInput.CoreConfigSection.OutputPath, exporter.ExporterName);
+                    var outputPath = GetOutputPath(_stepInput.CoreConfigSection.OutputPath, exporter.ExporterName);
 
                     exporter.OnStepMessage += ExecuteOnStepMessage;
-                    exporter.OnStepProgress += (p) => ExecuteOnStepProgress((int)(((double)p / StepInput.AllExporters.Length) + (i / StepInput.AllExporters.Length * 100)));
+                    exporter.OnStepProgress += (p) => ExecuteOnStepProgress((int)(((double)p / _stepInput.AllExporters.Length) + (i / _stepInput.AllExporters.Length * 100)));
                     exporter.Export(sdProject, outputPath);
                 }
                 i++;

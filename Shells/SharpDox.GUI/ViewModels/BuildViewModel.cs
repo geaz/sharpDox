@@ -8,7 +8,6 @@ namespace SharpDox.GUI.ViewModels
     internal class BuildViewModel : ViewModelBase
     {
         private StringBuilder _outputMessage;
-        private bool _stepMessageOccured;
 
         private readonly Action _onCloseHandle;
 
