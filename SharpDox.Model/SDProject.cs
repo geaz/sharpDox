@@ -231,6 +231,30 @@ namespace SharpDox.Model
 
         /// <default>
         ///     <summary>
+        ///     Gets or sets the project url.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert Projekturl.
+        ///     </summary>     
+        /// </de>
+        public string ProjectUrl { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets or sets the author url.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert die Autorenurl.
+        ///     </summary>     
+        /// </de>
+        public string AuthorUrl { get; set; }
+
+        /// <default>
+        ///     <summary>
         ///     Gets or sets the standard documentation language of the project.
         ///     </summary>
         /// </default>

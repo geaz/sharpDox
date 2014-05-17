@@ -42,6 +42,8 @@ namespace SharpDox.Build.Context.Step
             _sdProject.Author = _stepInput.CoreConfigSection.Author;
             _sdProject.ProjectName = _stepInput.CoreConfigSection.ProjectName;
             _sdProject.VersionNumber = _stepInput.CoreConfigSection.VersionNumber;
+            _sdProject.ProjectUrl = _stepInput.CoreConfigSection.ProjectUrl;
+            _sdProject.AuthorUrl = _stepInput.CoreConfigSection.AuthorUrl;
         }
 
         private void GetImages()
