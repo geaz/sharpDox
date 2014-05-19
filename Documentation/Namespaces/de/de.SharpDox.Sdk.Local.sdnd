@@ -3,7 +3,7 @@ Die Standardsprache in **sharpDox** ist Englisch.
 
 Beim Start von **sharpDox** wird für jede registrierte Sprachdatei eine Datei im _lang/defaults_ Ordner angelegt.
 Zum Beispiel die Datei _en.SharpDox.sdlang_, die alle _Strings_ beinhaltet die im Core von **sharpDox** verwendet werden.
-Falls diese _Strings_ zum Beispiel in das Spanische übersetzt werden sollen, genügt es eine Kopie der Datei in den Ordner _lang_ abzulegen. Diese Datei
+Falls diese _Strings_ zum Beispiel ins Spanische übersetzt werden sollen, genügt es eine Kopie der Datei in den Ordner _lang_ abzulegen. Diese Datei
 muss daraufhin in _es.SharpDox.sdlang_ umbenannt werden. Jede neue Übersetzung muss mit dem zweistelligen ISO-Code der jeweiligen Sprache beginnen.
 Die _Strings_ in dieser Datei können jetzt in das Spanische übersetzt werden.
 
@@ -30,4 +30,4 @@ Hier ein Beispiel, wie eine Sprachdatei mit einem _String_ implementiert werden 
 	    }
 	}
 
-Die Benutzung dieser _Strings_ gestaltet sich analog zu der Benutzung von konfigurationssektionen. Siehe [SharpDox.Sdk.Config]({{namespace-link:SharpDox.Sdk.Config}}) die beschreibung.
+Die Benutzung dieser _Strings_ gestaltet sich analog zu der Benutzung von Konfigurationssektionen. Siehe [SharpDox.Sdk.Config]({{namespace-link:SharpDox.Sdk.Config}}) die Beschreibung.

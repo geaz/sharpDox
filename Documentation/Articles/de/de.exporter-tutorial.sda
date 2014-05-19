@@ -13,7 +13,7 @@ _CSVConfig.cs_ mit folgendem Inhalt angelegt:
 	using SharpDox.Sdk.Config.Attributes;
 
 	// Diese Klasse implementiert das IConfigSection Interface.
-    // Mit dem Name-Attribute der Klasse wird der Gruppenname innerhalb der GUI gestetzt.
+    // Mit dem Name-Attribute der Klasse wird der Gruppenname innerhalb der GUI gesetzt.
     // Dieser muss angegeben werden, da die Konfiguration ansonsten nicht angezeigt wird!
     // Der zweite Parameter des Attributs gibt den Namen der String-Property innerhalb des Typen
 	// CSVStrings an.
@@ -53,14 +53,48 @@ In diesem Beispiel wird lediglich eine Einstellung zur Angabe des Trennzeichens 
 Durch die Angaben der Attribute wird die Konfiguration automatisch im Propertygrid der GUI angezeigt und
 in der Konfigurationsdatei von **sharpDox** integriert.
 
+Als nächstes wird die _CSVStrings_ Klasse erstellt.
+
+	using SharpDox.Sdk.Local;
+
+	namespace CSVExporter
+	{
+		public class CSVStrings : ILocalStrings
+		{
+			// Strings mit der Standardübersetzung
+			private string _csv = "CSV";
+			private string _divider = "Divider";
+
+			// Erstellen einer Eigenschaft.
+			// Keine Auto-Properties, da sonst die Übersetzung nicht funktioniert.
+
+			public string CSV
+			{
+				get { return _csv; }
+				set { _csv = value; }
+			}
+
+			public string Divider
+			{
+				get { return _divider; }
+				set { _divider = value; }
+			}
+
+			// Setzen des Namens der Sprachdatei
+			public string DisplayName { get { return "CSV"; } }
+		}
+	}
+
+
 Der letzte Schritt zur Erstellung des CSV Exporters ist der Exportvorgang selbst. Dazu wird eine 
 Datei _CSVExport.cs_ mit folgendem Inhalt erstellt:
 
+	using SharpDox.Model;
+	using SharpDox.Model.Repository;
+	using SharpDox.Sdk.Exporter;
 	using System;
 	using System.IO;
 	using System.Linq;
-	using SharpDox.Model.Repository;
-	using SharpDox.Sdk.Exporter;
 
 	namespace CSVExporter
 	{
@@ -99,10 +133,10 @@ Datei _CSVExport.cs_ mit folgendem Inhalt erstellt:
 			// verfahren werden wie es gewünscht ist. In diesem Fall wird für jeden 
 			// nicht projektfremden Typen ein Eintrag in einer CSV Datei erstellt.
 			// Diese wird dann im Ausgabepfad gespeichert.
-			public void Export(SDRepository repository, string outputPath)
+			public void Export(SDProject sdProject, string outputPath)
 			{
 				var csv = string.Empty;
-				var types = repository.GetAllTypes().OfType<SDType>().Where(o => !o.IsProjectStranger);
+				var types = sdProject.Repositories.Values.Single().GetAllTypes().OfType<SDType>().Where(o => !o.IsProjectStranger);
 				
 				foreach (var type in types)
 				{

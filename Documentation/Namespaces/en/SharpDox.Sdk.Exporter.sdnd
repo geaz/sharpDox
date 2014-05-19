@@ -1,9 +1,9 @@
 The exporter namespace provides the interface to implement custom exporters for **sharpDox**. Following an example how to implement a custom exporter:
 
-	using System;
+	using SharpDox.Model;
 	using SharpDox.Model.Repository;
 	using SharpDox.Sdk.Exporter;
-	using SharpDox.Sdk.Config;
+	using System;
 
 	namespace ExampleExporter
 	{
@@ -18,7 +18,7 @@ The exporter namespace provides the interface to implement custom exporters for 
 				// Check for requirements
 			}
 	
-	        public void Export(SDRepository repository, string outputPath)
+	        public void Export(SDProject sdProject, string outputPath)
 	        {
 	            //Exportcode
 	        }

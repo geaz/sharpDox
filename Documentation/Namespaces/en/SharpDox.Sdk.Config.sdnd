@@ -3,12 +3,14 @@ sections in the **sharpDox** config file.
 
 Following an example how to implement a config section with a single config item:
 
-	using System.ComponentModel;
 	using System;
+	using System.ComponentModel;
 	using SharpDox.Sdk.Config;
+	using SharpDox.Sdk.Config.Attributes;
 	
 	namespace ExamplePlugin
 	{
+		[Name(typeof(ExampleStrings), "ExampleConfig")]
 	    public class ExampleConfig : IConfigSection
 	    {
 	        public event PropertyChangedEventHandler PropertyChanged;
@@ -20,6 +22,8 @@ Following an example how to implement a config section with a single config item
 	
 	        private string _exampleItem;
 	
+			[Required]
+			[Name(typeof(ExampleStrings), "ExampleItem")]
 	        public string ExampleItem
 	        {
 	            get { return _exampleItem; }
@@ -36,19 +40,20 @@ Following an example how to implement a config section with a single config item
 
 To get access to a config section feed the constructor of your plugin with it. **sharpDox** takes care that the plugin will get the instance of the current config section. Following an example how to get a config section:
 
-	using System;
+	using SharpDox.Model;
 	using SharpDox.Model.Repository;
 	using SharpDox.Sdk.Exporter;
-	using SharpDox.Sdk.Config;
+	using System;
 
 	namespace ExampleExporter
 	{
 	    public class ExampleExporter : IExporter
 	    {
+			public event Action<string> OnRequirementsWarning;
 	        public event Action<string> OnStepMessage;
 	        public event Action<int> OnStepProgress;
 	
-	        private readonly ExampleConfig _exampleConfig;
+			private readonly ExampleConfig _exampleConfig;
 	
 			//Fill the constructor with the config section
 	        public ExampleExporter(ExampleConfig exampleConfig)
@@ -56,7 +61,12 @@ To get access to a config section feed the constructor of your plugin with it. *
 	            _exampleConfig = exampleConfig;
 	        }
 	
-	        public void Export(SDRepository repository, string outputPath)
+			public bool CheckRequirements()
+			{
+				// Check for requirements
+			}
+	
+	        public void Export(SDProject sdProject, string outputPath)
 	        {
 	            //Exportcode
 	        }

@@ -46,13 +46,47 @@ class. Create a class _CSVConfig.cs_ with the following content:
 In this plugin we only create a setting to define the divider for the csv file. Because of the given attributes
 **sharpDox** knows how to integrate the settings into the propertygrid.
 
+Next create the _CSVStrings_ class.
+
+	using SharpDox.Sdk.Local;
+
+	namespace CSVExporter
+	{
+		public class CSVStrings : ILocalStrings
+		{
+			// Strings with a default translation
+			private string _csv = "CSV";
+			private string _divider = "Divider";
+
+			// Create a property for the strings.
+			// Do not use auto-properties. 
+			// Otherwise your default translation will not work!
+
+			public string CSV
+			{
+				get { return _csv; }
+				set { _csv = value; }
+			}
+
+			public string Divider
+			{
+				get { return _divider; }
+				set { _divider = value; }
+			}
+
+			// Set the name of the language file
+			public string DisplayName { get { return "CSV"; } }
+		}
+	}
+
 The last step is to create the csv exporter. Create a new class _CSVExport.cs_ with the following content:
 
+	using SharpDox.Model;
+	using SharpDox.Model.Repository;
+	using SharpDox.Sdk.Exporter;
 	using System;
 	using System.IO;
 	using System.Linq;
-	using SharpDox.Model.Repository;
-	using SharpDox.Sdk.Exporter;
 
 	namespace CSVExporter
 	{
@@ -91,10 +125,10 @@ The last step is to create the csv exporter. Create a new class _CSVExport.cs_ w
 			}
 
 			// The export function gets the parsed solution and the output path.
-			public void Export(SDRepository repository, string outputPath)
+			public void Export(SDProject sdProject, string outputPath)
 			{
 				var csv = string.Empty;
-				var types = repository.GetAllTypes().OfType<SDType>().Where(o => !o.IsProjectStranger);
+				var types = sdProject.Repositories.Values.Single().GetAllTypes().OfType<SDType>().Where(o => !o.IsProjectStranger);
 				
 				foreach (var type in types)
 				{

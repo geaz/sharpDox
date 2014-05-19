@@ -5,7 +5,7 @@ Advanced documentation can include the following pieces:
 ## Code-Documentation ##
 
 **sharpDox** core task is the creation of a code documentation, which gets create out of the inline documentation of a c# solution.
-If there is no custom navigation inside the solution path, **sharpDox** will create a simple standard navigation for you.
+If you use a solution/project as the input of a build process, **sharpDox** will create a simple code documentation.
 
 The code documentation can be included in any position inside a custom navigation (see: Navigation).
 
@@ -13,19 +13,19 @@ The code documentation can be included in any position inside a custom navigatio
   
 It is possible to create a project description which will be used by the chm and html exporter as the startpage. It is possible to write the description in the markdown sytax.
 
-Just create a file with the name _README.md_ anywhere in the solution path. **sharpDox** will parse this file during the build process.
+Just create a file with the name _default.sdpd_ underneath the input file path. **sharpDox** will parse this file during the build process.
 
 > **Creation of projekt descriptions**
 
-> Create a file anywhere in the solution path with the name **README.md** and use the markdown syntax for formatting.
+> Create a file underneath the input file path with the name **default.sdpd** and use the markdown syntax for formatting.
 
 ## Namespace Description ##
 
-With **sharpDox** it is possible to create descriptions for namespaces. Just create a file with the following format anywhere in the solution path: _Name.space.Name.sdn_
+With **sharpDox** it is possible to create descriptions for namespaces. Just create a file with the following format underneath the input file path: _Name.space.Name.sdnd_
 
 > **Creation of namespace descriptions**
 
-> Create a file with the _.sdnd_ extension anywhere in the solution path. Use the markdown syntax for formatting.
+> Create a file with the _.sdnd_ extension underneath the input file path. Use the markdown syntax for formatting.
 > **Example:** SharpDox.Sdk.sdnd - A description for the _SharpDox.Sdk_ namespace.
 
 ##Articles##
@@ -35,7 +35,7 @@ To create a articles just create a file with the _.sda_ extension anywhere in th
 
 >**Creation of articles**
 
-> Create a file with the _.sda_ extension anywhere in the solution path. The name is arbitrary. Use markdown for formatting.
+> Create a file with the _.sda_ extension. The name is arbitrary. Use markdown for formatting.
 
 ##Links##
 You are able to create links inside descirptions and articles to link to other elements within the documention.
@@ -52,7 +52,7 @@ Use the placeholder instead of an url (the examples use the markdown syntax - pl
 **Article** - {{"article-link:[ArticleFilename]}}
 > **Example:** \[LinkText]({{"article-link:exporter-tutorial}})
 
-**Image** - You are able to copy images into the solution path to use them within articles and descriptions. Just use the _sdi._ prefix to mark the image for **sharpDox**.
+**Image** - You are able to copy images underneath the input file path to use them within articles and descriptions. Just use the _sdi._ prefix to mark the image for **sharpDox**.
 
 > **Example:** !\[Shell]({{"image-link:sdi.startSD.png}})
 
@@ -65,15 +65,16 @@ The navigation is the main element of any advanced documentation. The custom nav
 	--Create multilanguage documentation#multilang-tutorial
 	-Developers
 	--Create a exporter#exporter-tutorial
-	--API#SDDoc
+	--API#..\SharpDox.sln
 
-The number hyphens indicates the level of the item followed by the name of the menuitem. _-Introduction_ means that the menuitem with the name _Introduction_ should be on the first position in the first level of the navigation.
-The part behind the _#_ defines the linked article (without the file extension). If a menuitem is missing the _#_ part, it is just a "placeholder" (for example the second line: _-Users_).
+The number hyphens indicates the level of the item followed by the name of the menu item. _-Introduction_ means that the menu item with the name _Introduction_ should be on the first position in the first level of the navigation.
+The part behind the _#_ defines the linked article (without the file extension). If a menu item is missing the _#_ part, it is just a "placeholder" (for example the second line: _-Users_). It is also possible to reference articles by its absolute and relative path.
 
 	--Create advanced documentation#advanced-tutorial
-Means that **sharpDox** should create a child menuitem with the name _Create advanced documentation_ which is linked to the _advanced-tutorial_ article.
+Means that **sharpDox** should create a child menu item with the name _Create advanced documentation_ which is linked to the _advanced-tutorial_ article.
 
-If you want a item to link to the code documentation, use the keyword _SDDoc_ instead of an article name (In the example above: _--API#SDDoc_).
+If you want a item to link to a code documentation, use the path to the solution/project instead of an article name (In the example above: _--API#..\SharpDox.sln_).
+It is possible to include more than one code documentation, if you use a custom navigation.
 
-The navigation file should be created anywhere in the solutionpath with the name _default.sdnav_.
+To build an advanced documentation use the navigation file as the input file.
 

@@ -1,9 +1,9 @@
 Der Exporter-Namensraum beinhaltet alle Interfaces um einen eigenen Exporter zu erstellen. Hier ein kleines Beispiel für den Aufbau eines Exporters:
 
-	using System;
+	using SharpDox.Model;
 	using SharpDox.Model.Repository;
 	using SharpDox.Sdk.Exporter;
-	using SharpDox.Sdk.Config;
+	using System;
 
 	namespace ExampleExporter
 	{
@@ -18,7 +18,7 @@ Der Exporter-Namensraum beinhaltet alle Interfaces um einen eigenen Exporter zu 
 				// Check for requirements
 			}
 	
-	        public void Export(SDRepository repository, string outputPath)
+	        public void Export(SDProject sdProject, string outputPath)
 	        {
 	            //Exportcode
 	        }
