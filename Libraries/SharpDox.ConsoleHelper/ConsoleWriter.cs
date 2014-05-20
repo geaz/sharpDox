@@ -7,7 +7,6 @@ namespace SharpDox.ConsoleHelper
     {
         public static void PrintConsoleHeader(string header)
         {
-            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(header);
             Console.WriteLine();
