@@ -11,13 +11,11 @@ namespace SharpDox.RegressionTests
         public void SvgShouldRenderCorrectlyWithArrayReturnType()
         {
             // Arrange
-            var steps = TestConfig.GetSteps();
+            var sdProject = TestConfig.ParseProject();
                
             // Act
-            var solution = steps.LoadStep.LoadSolution();
-            var repository = steps.ParseStep.ParseSolution(solution, new List<string>());
-            var type = repository.GetTypeByIdentifier("SharpDox.TestProject.Regression2");            
-            var svgDiagram = type.Methods[0].GetSequenceDiagram(repository.GetAllTypes()).ToSvg();
+            var type = sdProject.GetTypeByIdentifier("SharpDox.TestProject.Regression2");
+            var svgDiagram = type.Methods[0].GetSequenceDiagram(sdProject).ToSvg();
 
             // Assert            
             Assert.IsFalse(svgDiagram.Contains("]]]>"));

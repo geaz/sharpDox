@@ -18,12 +18,10 @@ namespace SharpDox.RegressionTests
         public void VoidShouldNotBeUpperCase()
         {
             // Arrange
-            var steps = TestConfig.GetSteps();
+            var sdProject = TestConfig.ParseProject();
                
             // Act
-            var solution = steps.LoadStep.LoadSolution();
-            var repository = steps.ParseStep.ParseSolution(solution, new List<string>());
-            var type = repository.GetTypeByIdentifier("SharpDox.TestProject.Regression1");
+            var type = sdProject.GetTypeByIdentifier("SharpDox.TestProject.Regression1");
 
             // Assert            
             Assert.AreEqual("void", type.Methods[0].ReturnType.Name);

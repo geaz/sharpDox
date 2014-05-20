@@ -19,12 +19,10 @@ namespace SharpDox.RegressionTests
         public void RepositoryShouldContainNestedTypes()
         {
             // Arrange
-            var steps = TestConfig.GetSteps();
+            var sdProject = TestConfig.ParseProject();
                
             // Act
-            var solution = steps.LoadStep.LoadSolution();
-            var repository = steps.ParseStep.ParseSolution(solution, new List<string>());
-            var type = repository.GetTypeByIdentifier("SharpDox.TestProject.Regression5");
+            var type = sdProject.GetTypeByIdentifier("SharpDox.TestProject.Regression5");
 
             // Assert            
             Assert.AreEqual(1, type.NestedTypes.Count);

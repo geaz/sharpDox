@@ -214,7 +214,19 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert den Namen des Typen.
         ///     </summary>     
         /// </de>
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get 
+            {
+                if (_name == "Void" || _name == "Object")
+                {
+                    return _name.ToLower();
+                }
+                return _name; 
+            }
+            set { _name = value; }
+        }
 
         /// <default>
         ///     <summary>
@@ -250,7 +262,17 @@ namespace SharpDox.Model.Repository
         ///     Liefert den vollen Namen des Typen.
         ///     </summary>     
         /// </de>
-        public string Fullname { get { return string.Format("{0}.{1}", Namespace.Fullname, NameWithTypeArguments); } }
+        public string Fullname 
+        { 
+            get 
+            {
+                var nameWithTypeArguments = NameWithTypeArguments;
+                nameWithTypeArguments = nameWithTypeArguments.First().ToString().ToUpper() 
+                                        + String.Join("", nameWithTypeArguments.Skip(1));
+
+                return string.Format("{0}.{1}", Namespace.Fullname, nameWithTypeArguments); 
+            } 
+        }
 
         /// <default>
         ///     <summary>

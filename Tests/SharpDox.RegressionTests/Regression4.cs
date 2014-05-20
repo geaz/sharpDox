@@ -19,12 +19,10 @@ namespace SharpDox.RegressionTests
         public void DocumentationShouldContainExceptions()
         {
             // Arrange
-            var steps = TestConfig.GetSteps();
+            var sdProject = TestConfig.ParseProject();
                
             // Act
-            var solution = steps.LoadStep.LoadSolution();
-            var repository = steps.ParseStep.ParseSolution(solution, new List<string>());
-            var type = repository.GetTypeByIdentifier("SharpDox.TestProject.Regression4");
+            var type = sdProject.GetTypeByIdentifier("SharpDox.TestProject.Regression4");
 
             // Assert            
             Assert.AreEqual(2, type.Methods[0].Documentation["default"].Exceptions.Count);

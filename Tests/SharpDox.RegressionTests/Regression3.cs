@@ -19,12 +19,10 @@ namespace SharpDox.RegressionTests
         public void SyntaxShouldContainStaticKeyword()
         {
             // Arrange
-            var steps = TestConfig.GetSteps();
+            var sdProject = TestConfig.ParseProject();
                
             // Act
-            var solution = steps.LoadStep.LoadSolution();
-            var repository = steps.ParseStep.ParseSolution(solution, new List<string>());
-            var type = repository.GetTypeByIdentifier("SharpDox.TestProject.Regression3");
+            var type = sdProject.GetTypeByIdentifier("SharpDox.TestProject.Regression3");
 
             // Assert            
             Assert.IsTrue(type.Methods[0].Syntax.Contains("static"));

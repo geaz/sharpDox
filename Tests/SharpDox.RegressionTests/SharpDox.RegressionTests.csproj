@@ -64,6 +64,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\SharpDox.Build.NRefactory\SharpDox.Build.NRefactory.csproj">
+      <Project>{96484ac9-7aaa-4d8c-aea3-157630727e8b}</Project>
+      <Name>SharpDox.Build.NRefactory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\SharpDox.Build\SharpDox.Build.csproj">
       <Project>{65180da0-d8cf-4a7b-bd1c-dba841883dd4}</Project>
       <Name>SharpDox.Build</Name>
