@@ -20,7 +20,7 @@ namespace SharpDox.Build.Context.Step
 
         private void RunAllExporters(SDProject sdProject)
         {
-            var i = 0;
+            var i = 0d;
             foreach (var exporter in _stepInput.AllExporters)
             {
                 if (_stepInput.CoreConfigSection.ActivatedExporters.Contains(exporter.ExporterName))
