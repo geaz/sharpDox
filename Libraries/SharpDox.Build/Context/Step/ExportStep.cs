@@ -1,8 +1,5 @@
-﻿using System.IO;
-using SharpDox.Sdk.Exporter;
-using SharpDox.Sdk.Config;
-using SharpDox.Model;
-using System;
+﻿using SharpDox.Model;
+using System.IO;
 
 namespace SharpDox.Build.Context.Step
 {
@@ -28,7 +25,7 @@ namespace SharpDox.Build.Context.Step
                     var outputPath = GetOutputPath(_stepInput.CoreConfigSection.OutputPath, exporter.ExporterName);
 
                     exporter.OnStepMessage += (m) => ExecuteOnStepMessage(string.Format("[{0}] {1}", exporter.ExporterName, m));
-                    exporter.OnStepProgress += (p) => ExecuteOnStepProgress((int)(((double)p / _stepInput.AllExporters.Length) + (i / _stepInput.AllExporters.Length * 100)));
+                    exporter.OnStepProgress += (p) => ExecuteOnStepProgress((int)(((double)p / _stepInput.CoreConfigSection.ActivatedExporters.Count) + (i / _stepInput.CoreConfigSection.ActivatedExporters.Count * 100)));
                     exporter.Export(sdProject, outputPath);
                 }
                 i++;
