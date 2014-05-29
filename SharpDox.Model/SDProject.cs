@@ -26,6 +26,7 @@ namespace SharpDox.Model
             DocumentationLanguages = new List<string>();
             Description = new Dictionary<string, string>();            
             Articles = new Dictionary<string, List<SDArticle>>();
+            Tokens = new Dictionary<string, string>();
             Images = new List<string>();
             Repositories = new Dictionary<string, SDRepository>();
 
@@ -300,6 +301,18 @@ namespace SharpDox.Model
         ///     </summary>
         /// </de>
         public Dictionary<string, List<SDArticle>> Articles { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets all defined text tokens (see file tokens.sdt).
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert alle definierten Text-Bausteine (siehe Datei tokens.sdt).
+        ///     </summary>
+        /// </de>
+        public Dictionary<string, string> Tokens { get; set; }
 
         /// <default>
         ///     <summary>

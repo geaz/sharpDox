@@ -14,6 +14,7 @@ namespace SharpDox.Build
         private string _stepEnd = "Finalizing build";
 
         private string _parsingProject = "Parsing project";
+        private string _parseTokens = "Parsing tokens";
         private string _parsingDescriptions = "Parsing descriptions";
         private string _parsingNav = "Parsing navigation file";
 
@@ -81,6 +82,12 @@ namespace SharpDox.Build
         {
             get { return _parsingProject; }
             set { _parsingProject = value; }
+        }
+
+        public string ParseTokens
+        {
+            get { return _parseTokens; }
+            set { _parseTokens = value; }
         }
 
         public string ParsingDescriptions

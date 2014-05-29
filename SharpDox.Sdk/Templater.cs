@@ -88,6 +88,7 @@ namespace SharpDox.Sdk
         /// </de>
         public string TransformText(Func<string, Guid, string, string> transform)
         {
+            ReplaceTokens();
             ReplaceLink("image", @"{{image-link:[^}}]*}}", transform);
             ReplaceLink("method", @"{{method-link:[^}}]*}}", transform);
             ReplaceLink("constructor", @"{{constructor-link:[^}}]*}}", transform);
@@ -99,6 +100,24 @@ namespace SharpDox.Sdk
             ReplaceLink("article", @"{{article-link:[^}}]*}}", transform);
 
             return _template;
+        }
+
+        private void ReplaceTokens()
+        {
+            var regEx = new Regex(@"{{token:[^}}]*}}");
+            var tokens = regEx.Matches(_template);
+            foreach(Match match in tokens)
+            {
+                var token = match.Value.Remove(match.Value.Length - 2).Remove(0, 2);
+                var key = token.Split(':')[1].Replace("&lt;", "<").Replace("&gt;", ">");
+
+                var tokenValue = "TOKEN_NOT_DEFINED";
+                if (_sdProject.Tokens.ContainsKey(key))
+                {
+                    tokenValue = _sdProject.Tokens[key];
+                }
+                _template = _template.Replace(match.Value, tokenValue);
+            }
         }
 
         private void ReplaceLink(string linkType, string regex, Func<string, Guid, string, string> transform)

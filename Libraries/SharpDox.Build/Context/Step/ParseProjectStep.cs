@@ -18,6 +18,7 @@ namespace SharpDox.Build.Context.Step
             _sdProject = sdProject;
             SetProjectInfos();
             GetImages();
+            ParseTokens();
             ParseDescriptions();
 
             if (Path.GetExtension(_stepInput.CoreConfigSection.InputFile) == ".sdnav")
@@ -52,6 +53,27 @@ namespace SharpDox.Build.Context.Step
             foreach (var image in images)
             {
                 _sdProject.Images.Add(image);
+            }
+        }
+
+        private void ParseTokens()
+        {
+            ExecuteOnStepMessage(_stepInput.SDBuildStrings.ParseTokens);
+            ExecuteOnStepProgress(40);
+
+            var potentialTokenFiles = Directory.EnumerateFiles(Path.GetDirectoryName(_stepInput.CoreConfigSection.InputFile), "*.sdt");
+            if (potentialTokenFiles.Any())
+            {
+                var tokenFile = potentialTokenFiles.First();
+                var lines = File.ReadAllLines(tokenFile);
+                foreach (var line in lines)
+                {
+                    var splitted = line.Split('=');
+                    if (splitted.Length > 1)
+                    {
+                        _sdProject.Tokens.Add(splitted[0].Trim(), splitted[1].Trim());
+                    }
+                }
             }
         }
 
