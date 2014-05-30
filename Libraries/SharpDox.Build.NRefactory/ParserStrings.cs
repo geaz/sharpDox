@@ -7,7 +7,7 @@ namespace SharpDox.Build
         private string _parsingNamespace = "Parsing namespace";
         private string _parsingClass = "Parsing class";
         private string _parsingMethod = "Parsing method";
-        private string _parsingUseings = "Parsing useings";
+        private string _parsingUsings = "Parsing usings";
         private string _readingProject = "Reading project: {0}";  
 
         public string DisplayName { get { return "SharpDoxParse"; } }
@@ -32,8 +32,8 @@ namespace SharpDox.Build
 
         public string ParsingUseings
         {
-            get { return _parsingUseings; }
-            set { _parsingUseings = value; }
+            get { return _parsingUsings; }
+            set { _parsingUsings = value; }
         }
 
         public string ReadingProject

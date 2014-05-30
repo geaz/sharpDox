@@ -1,0 +1,5 @@
+ParsingNamespace = Lese Namespace
+ParsingClass = Lese Typen
+ParsingMethod = Lese Methode
+ParsingUsings = Lese Using
+ReadingProject = Lese Projekt: {0}

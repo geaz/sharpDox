@@ -37,6 +37,20 @@ To create a articles just create a file with the _.sda_ extension anywhere in th
 
 > Create a file with the _.sda_ extension. The name is arbitrary. Use markdown for formatting.
 
+## Tokens ##
+
+It is possible to create a list of tokens which are useable in descriptions and articles.
+
+Just create a file with the name __tokens.sdt__ underneath the input file. 
+
+> **Example**
+
+> File: __tokens.sdt__
+
+> Content: BUILD_SERVER=FooBar
+
+> Using in a article or description (without the "): __{{"tokens:BUILD_SERVER}}__
+
 ##Links##
 You are able to create links inside descirptions and articles to link to other elements within the documention.
 
