@@ -49,7 +49,7 @@ Just create a file with the name __tokens.sdt__ underneath the input file.
 
 > Content: BUILD_SERVER=FooBar
 
-> Using in a article or description (without the "): __{{"tokens:BUILD_SERVER}}__
+> Using in a article or description (without the "): __{{"token:BUILD_SERVER}}__
 
 ##Links##
 You are able to create links inside descirptions and articles to link to other elements within the documention.

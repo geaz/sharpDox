@@ -20,7 +20,7 @@ Um einen Artikel, in einer Markdown-Syntax, zu erstellen, muss lediglich eine Da
 >**Erstellen von Artikeln**
 
 > Lege eine Datei mit der Endung _.sda_ an. Der Name der Datei ist beliebig. Für die Textformatierung kann die Markdown-Syntax genutzt werden.
-## Tokens ##  Es kann eine Liste mit Tokens erstellt werden die innerhalb von Beschreibungen & Artikeln genutzt werden können. Dazu muss eine Datei mit dem Namen _tokens.sdt_ unterhalb der Eingabedatei liegen. Diese Datei wird während des Bauvorgangs eingelesen und den Exportern übergeben.> **Beispiel**> Datei: __tokens.sdt__> Inhalt: BUILD_SERVER=FooBar> Verwendung innerhalb eines Artikels (ohne das "): __{{"tokens:BUILD_SERVER}}__
+## Tokens ##  Es kann eine Liste mit Tokens erstellt werden die innerhalb von Beschreibungen & Artikeln genutzt werden können. Dazu muss eine Datei mit dem Namen _tokens.sdt_ unterhalb der Eingabedatei liegen. Diese Datei wird während des Bauvorgangs eingelesen und den Exportern übergeben.> **Beispiel**> Datei: __tokens.sdt__> Inhalt: BUILD_SERVER=FooBar> Verwendung innerhalb eines Artikels (ohne das "): __{{"token:BUILD_SERVER}}__
 ##Links##
 Innerhalb von Beschreibungen und Artikeln können auf verschiedene Elemente innerhalb der Dokumentation verlinkt werden. Außerdem ist es möglich auf Bilder innerhalb der Lösung zu verlinken.
 
