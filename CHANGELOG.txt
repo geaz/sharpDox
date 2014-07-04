@@ -1,0 +1,158 @@
+Version 0.9.8.9
+
+- 
+
+Version 0.9.8.8
+
+- added token support for descriptions and articles
+- added .sdnav as input file (breaking changes with previous .sdnav files - please adjust them - see "advanced tutorial")
+- added static/readonly keyword support
+- added const values support
+- added author and project link in html export
+- changed diagram zoom in html export
+- made diagram container resizeable
+- improved print in html export
+- improved svg in html export
+- many css and js fixes
+
+Version 0.9.8.7
+
+- extended svg class diagram (visualization of implementing types, base types, uses and users)
+- improved svg panning and zooming
+- added custom footer for the html output
+- added version details to css and js for caching
+- some css fixes
+- added markdown controls for config sections
+- sorting of types and members fixed
+
+Version 0.9.8.6
+
+- Some css changes for the html output
+- Some minor bugfixes
+
+Version 0.9.8.5
+
+- static keyword got ignored fixed
+- error with square brackets in diagrams fixed
+- void keyword no longer uppercase
+- enums, structs & interfaces got own icons in the html output
+- exception documentation tags ignored fixed
+- added syntax highlight in html output
+- added support for project files
+
+Version 0.9.8.4
+
+- Complete rework of the gui and html exporter
+
+Version 0.9.8.3
+
+- CHM Plugin available as plugin now
+- Support for typeparamref tag added
+- Support for seealso tag added
+- Added type constraints to syntax
+- Some fixes
+
+Version 0.9.8.2
+
+- Added exporter selection
+- Reworked html & chm plugins
+- HTML Documentation now working on chrome
+
+Version 0.9.8.1
+
+- Added tooltips and refresh button in visibility settings
+- Added member list in type sites
+- Added constructors in classdiagram
+- Some performance tweaks
+- Error with sequencediagrams fixed
+- Made project name mandatory
+- Fixed a bug with the logo in the html documentation
+- Fixed a bug with linkplaceholders in namespace descriptions
+
+Version 0.9.8
+
+- Added support for articles and custom navigations
+- Added support for multilanguage documentations
+- Added creation of svg diagrams
+- Added a new visibility settings page, which replaces the old namespace-excluder
+- Replaced old new, save and load dialog and added a "recent project" menu
+- Several optimizations
+
+Version 0.9.7.2
+
+- Fixed a bug during the project parsing
+- Fixed several display bugs in the chm
+- Several optimizations
+
+Version 0.9.7.1
+
+- Better support for generics, abstracts, virtuals and statics
+- Fixed a bug in the chm exporter
+
+Version 0.9.7
+
+- Added new namespace exclude control in the gui
+- Added support for namespace description pages (see tutorial: )
+- Added support for readme page
+- Added support to exclude basemembers
+- Style updates for the chm file
+- Fixed a bug in the chm exporter and config page
+
+Version 0.9.6.1
+
+- fixed a bug with the example tags
+- added support for CDATA
+
+Version 0.9.6
+
+- sharpDox Cloud online
+- added doxCloud Exporter
+- two chm exporter bug fixed
+- some other fixes and changes in the core
+
+Version 0.9.5
+
+- Several bugfixes
+- Removed html exporter as default one
+- Added chm exporter as default one
+- Added tooltips in gui
+- Optimized build process
+- Changed GUI Menu
+
+Version 0.9.1
+
+- Changed diagram creation to fix a bug
+- Changed project loading to fix a bug
+
+Version 0.9
+
+- Changed default language to english
+- Added german translation
+- Autoupdater removed
+- Changed interfaces for developers (please see tutorials on sharpdox.de)
+- Added translation feature for plugins
+
+Version 0.8.5
+
+- Es wurde eine Auto-Update Funktionalität eingebaut, diese kann ebenfalls von Plugins genutzt werden (siehe dazu auf sharpdox.geaz.de die Tutorials)
+- Es wurde ein Fortschrittsbalken für den Bauvorgang eingebaut
+- Die Sequenzdiagramme wurden etwas überarbeitet
+- Die Beschreibung von Parametern wurde in die Dokumentation eingebaut
+- Logos werden nun von der HTML Dokumentation verwendet
+- Ein Fehler wurde behoben, welcher den erneuten Bau einer Dokumentation verhinderte
+- Probleme mit der GUI Performance wurden behoben
+- Eine Überprüfung, ob notwendige Daten eingeben wurden, wurde eingebaut
+- Namespaces werden nun korrekt ausgeschlossen
+- Einige Bugs in der HTML Dokumentation wurden entfernt
+
+Version 0.8.1
+
+- Einen Fehler in der HTML-Dokumentation behoben, welcher die korrekte Ausführung im IE verhindert hat
+- Die Bauvorgangsausgabe zeigt nun korrekt an, falls es beim Bauvorgang einen Fehler gab.
+- Die Bauvorgangsausgabe zeigt nun an, welche Klasse aktuell eingelesen wird.
+- Die Logeinträge sind nun mit Zeiten gekennzeichnet.
+- Ein Fehler wurde behoben, welches das Beenden von sharpDox verhindert hat.
+
+Version 0.8
+
+- Erste Veröffentlichung
