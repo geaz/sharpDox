@@ -9,6 +9,7 @@ packages/*
 node_modules/*
 src/packages/*
 !packages/repositories.config
+!src/packages/repositories.config
 
 # Build results
 
