@@ -5,3 +5,9 @@ Create documentation with ease
 The tool creates a model of a given c# solution and passes it to the registered export plugins.
 The plugins transform the model to a defined output. **sharpDox** comes with a chm & html export plugin which
 demonstrate the possibilities of the tool.
+
+[This](http://doc.sharpdox.de/en) is an example for a html documentation.
+
+If you want to try the latests development version go to my site at [AppVeyor](https://ci.appveyor.com/project/Geaz/sharpdox/history).
+
+[![Build status](https://ci.appveyor.com/api/projects/status/l0umm4g8opf6kifn)](https://ci.appveyor.com/project/Geaz/sharpdox)
