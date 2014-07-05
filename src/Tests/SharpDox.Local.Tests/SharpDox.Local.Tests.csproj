@@ -58,6 +58,11 @@
     <Compile Include="TestLocalStrings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lang\de.TestStrings.sdlang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Libraries\SharpDox.Local\SharpDox.Local.csproj">
       <Project>{52ecc690-3f03-4820-8fe4-2c07c7b33409}</Project>
       <Name>SharpDox.Local</Name>
@@ -66,11 +71,6 @@
       <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
       <Name>SharpDox.Sdk</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="lang\de.TestStrings.sdlang">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

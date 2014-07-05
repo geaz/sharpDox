@@ -59,9 +59,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\SharpDox.Build\SharpDox.Build.csproj">
-      <Project>{65180da0-d8cf-4a7b-bd1c-dba841883dd4}</Project>
-      <Name>SharpDox.Build</Name>
+    <ProjectReference Include="..\..\Libraries\SharpDox.Config\SharpDox.Config.csproj">
+      <Project>{58745d89-8f8f-4e69-a749-c4280b0abf4e}</Project>
+      <Name>SharpDox.Config</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\SharpDox.UML\SharpDox.UML.csproj">
       <Project>{3cb8094e-ffe2-4ef1-8366-e6b9c91d4831}</Project>

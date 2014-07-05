@@ -54,20 +54,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\SharpDox.Build\SharpDox.Build.csproj">
-      <Project>{65180da0-d8cf-4a7b-bd1c-dba841883dd4}</Project>
-      <Name>SharpDox.Build</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SharpDox.Model\SharpDox.Model.csproj">
-      <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
-      <Name>SharpDox.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SharpDox.Sdk\SharpDox.Sdk.csproj">
-      <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
-      <Name>SharpDox.Sdk</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
