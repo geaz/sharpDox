@@ -4,4 +4,4 @@
 --Erstellen von mehrsprachigen Dokumentationen#de.multilang-tutorial
 -Entwickler
 --Erstellen eines Exporters#de.exporter-tutorial
---API#..\SharpDox.sln
+--API#..\src\SharpDox.sln
