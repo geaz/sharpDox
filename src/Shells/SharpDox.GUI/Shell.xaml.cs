@@ -25,8 +25,8 @@ namespace SharpDox.GUI
 
             svBody.Content = new ConfigGridControl(configController, allExporters, localController, buildController);
 
-            MouseLeftButtonDown += (s, a) => OnMouseDown(s, a);
-            MouseLeftButtonUp += (s, a) => OnMouseUp(s, a);
+            MouseLeftButtonDown += OnMouseDown;
+            MouseLeftButtonUp += OnMouseUp;
         }
 
         public void Start(string[] args)
@@ -46,10 +46,10 @@ namespace SharpDox.GUI
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 // this prevents win7 aerosnap
-                if (this.ResizeMode != System.Windows.ResizeMode.NoResize)
+                if (ResizeMode != System.Windows.ResizeMode.NoResize)
                 {
-                    this.ResizeMode = System.Windows.ResizeMode.NoResize;
-                    this.UpdateLayout();
+                    ResizeMode = System.Windows.ResizeMode.NoResize;
+                    UpdateLayout();
                 }
 
                 DragMove();
@@ -58,11 +58,11 @@ namespace SharpDox.GUI
 
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (this.ResizeMode == System.Windows.ResizeMode.NoResize)
+            if (ResizeMode == System.Windows.ResizeMode.NoResize)
             {
                 // restore resize grips
-                this.ResizeMode = System.Windows.ResizeMode.CanResizeWithGrip;
-                this.UpdateLayout();
+                ResizeMode = System.Windows.ResizeMode.CanResizeWithGrip;
+                UpdateLayout();
             }
         }
 
