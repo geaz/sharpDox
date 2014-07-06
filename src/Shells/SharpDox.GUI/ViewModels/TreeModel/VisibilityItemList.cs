@@ -1,15 +1,25 @@
 ﻿using System.Collections.ObjectModel;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.GUI.ViewModels.TreeModel
 {
     internal class VisibilityItemList : ObservableCollection<TreeViewItemViewModel>
     {
+        private readonly ICoreConfigSection _sharpDoxConfig;
+
+        public VisibilityItemList(ICoreConfigSection sharpDoxConfig)
+        {
+            _sharpDoxConfig = sharpDoxConfig;
+        }
+
         public void IncludeAll()
         {
             foreach (var item in Items)
             {
                 IncludeItem(item);
             }
+
+            _sharpDoxConfig.ExcludedIdentifiers.Clear();
         }
 
         public void ExcludeAllByAccessibility(string accessibility)

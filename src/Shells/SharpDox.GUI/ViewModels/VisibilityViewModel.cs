@@ -3,7 +3,6 @@ using SharpDox.GUI.Command;
 using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Build;
 using System.ComponentModel;
-using SharpDox.Model.Repository;
 using SharpDox.GUI.ViewModels.TreeModel;
 using System.Windows;
 using System.Windows.Threading;
@@ -37,7 +36,7 @@ namespace SharpDox.GUI.ViewModels
             }
             else if (args.PropertyName == "InputPath" && string.IsNullOrEmpty(_sharpDoxConfig.InputFile))
             {
-                TreeView = new VisibilityItemList();
+                TreeView = new VisibilityItemList(_sharpDoxConfig);
             }
         }
 
@@ -46,7 +45,7 @@ namespace SharpDox.GUI.ViewModels
             Application.Current.Dispatcher.BeginInvoke(
                 DispatcherPriority.Background,
                 new Action(() => {
-                    TreeView = new VisibilityItemList();
+                    TreeView = new VisibilityItemList(_sharpDoxConfig);
 
                     if (sdProject != null)
                     {
@@ -69,7 +68,7 @@ namespace SharpDox.GUI.ViewModels
                 DispatcherPriority.Background,
                 new Action(() =>
                 {
-                    TreeView = new VisibilityItemList();
+                    TreeView = new VisibilityItemList(_sharpDoxConfig);
                     IsTreeRefreshing = false;
                 }));
         }
@@ -87,7 +86,7 @@ namespace SharpDox.GUI.ViewModels
             set { _isTreeRefreshing = value; OnPropertyChanged("IsTreeRefreshing"); }
         }
 
-        private VisibilityItemList _treeView = new VisibilityItemList();
+        private VisibilityItemList _treeView;
         public VisibilityItemList TreeView
         {
             get { return _treeView; }

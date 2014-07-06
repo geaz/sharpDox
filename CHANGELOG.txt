@@ -1,6 +1,8 @@
 Version 0.9.9.*
 
+- html output now usable in IE8
 - references in navigation files are no longer case-sensitive
+- fixed a bug in the 'Excluded Identifiers' window
 
 Version 0.9.8.8
 
