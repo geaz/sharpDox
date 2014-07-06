@@ -114,7 +114,7 @@ namespace SharpDox.Build
             }
             else
             {
-                articleFile = _articles.SingleOrDefault(a => Path.GetFileNameWithoutExtension(a) == articleFileName);
+                articleFile = _articles.SingleOrDefault(a => Path.GetFileNameWithoutExtension(a.ToLower()) == articleFileName.ToLower());
                 if (File.Exists(articleFile))
                 {
                     return articleFile;

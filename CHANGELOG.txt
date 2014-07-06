@@ -1,6 +1,6 @@
-Version 0.9.8.9
+Version 0.9.9.*
 
-- 
+- references in navigation files are no longer case-sensitive
 
 Version 0.9.8.8
 
