@@ -8,6 +8,8 @@ namespace SharpDox.Build
 {
     internal class SDNavParser
     {
+        private List<string> _articleIds = new List<string>(); 
+
         private readonly string _referencePath;
         private readonly IEnumerable<string> _articles;
 
@@ -81,10 +83,12 @@ namespace SharpDox.Build
                 }
                 else if(articleFile != string.Empty)
                 {
-                    article = new SDArticle
+                    var filename = Path.GetFileNameWithoutExtension(articleFile);
+                    article = new SDArticle()
                     {
+                        Id = CreateArticleId(filename),
                         Title = GetNavTitle(splitted[0]),
-                        Filename = Path.GetFileNameWithoutExtension(articleFile),
+                        Filename = filename,
                         Content = File.ReadAllText(articleFile)
                     };
                 }
@@ -103,6 +107,18 @@ namespace SharpDox.Build
         private string GetNavTitle(string navEntry)
         {
             return navEntry.Substring(0, 1) == "-" ? GetNavTitle(navEntry.Substring(1)) : navEntry;
+        }
+
+        private string CreateArticleId(string title, int i = 0)
+        {
+            var id = title;
+            if (_articleIds.Contains(id))
+            {
+                id = CreateArticleId(string.Format("{0}{1}", title, ++i));
+            }
+            _articleIds.Add(id);
+
+            return id;
         }
 
         private string GetArticleFile(string articleFileName)
