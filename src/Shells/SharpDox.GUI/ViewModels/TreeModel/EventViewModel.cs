@@ -1,12 +1,12 @@
-﻿using System.Collections.ObjectModel;
-using SharpDox.Model.Repository.Members;
+﻿using SharpDox.Model.Repository.Members;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.GUI.ViewModels.TreeModel
 {
     internal class EventViewModel : TreeViewItemViewModel
     {
-        public EventViewModel(SDEvent eve, TypeViewModel parent, ObservableCollection<string> excludedIdentifiers)
-            : base(eve.Identifier, parent, excludedIdentifiers)
+        public EventViewModel(SDEvent eve, TypeViewModel parent, ICoreConfigSection sharpDoxConfig)
+            : base(eve.Identifier, parent, sharpDoxConfig)
         {
             Text = eve.Name;
             Accessibility = eve.Accessibility;

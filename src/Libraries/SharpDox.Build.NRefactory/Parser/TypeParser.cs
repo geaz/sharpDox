@@ -3,12 +3,13 @@ using SharpDox.Build.NRefactory.Loader;
 using SharpDox.Model.Repository;
 using System.Collections.Generic;
 using System.Linq;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.NRefactory.Parser
 {
     internal class TypeParser : BaseParser
     {
-        internal TypeParser(SDRepository repository, List<string> excludedIdentifiers) : base(repository, excludedIdentifiers) { }
+        internal TypeParser(SDRepository repository, ICoreConfigSection sharpDoxConfig) : base(repository, sharpDoxConfig) { }
 
         internal void ParseProjectTypes(CSharpProject project)
         {
@@ -18,7 +19,7 @@ namespace SharpDox.Build.NRefactory.Parser
                 if (types[i].Kind != TypeKind.Delegate)
                 {
                     HandleOnItemParseStart(string.Format("{0}.{1}", types[i].Namespace, types[i].Name), i, types.Count);
-                    if (!_excludedIdentifiers.Contains(types[i].GetIdentifier()))
+                    if (!IsMemberExcluded(types[i].GetIdentifier(), types[i].Accessibility.ToString()))
                     {
                         var sdType = GetParsedType(types[i].GetDefinition(), false);
                         _repository.AddNamespaceTypeRelation(types[i].Namespace, sdType.Identifier);
@@ -148,26 +149,26 @@ namespace SharpDox.Build.NRefactory.Parser
 
         private void AddParsedProperties(SDType sdType, IType type)
         {
-            var propertyParser = new PropertyParser(_repository, this, _excludedIdentifiers);
+            var propertyParser = new PropertyParser(_repository, this, _sharpDoxConfig);
             propertyParser.ParseProperties(sdType, type);
         }
 
         private void AddParsedFields(SDType sdType, IType type)
         {
-            var fieldParser = new FieldParser(_repository, this, _excludedIdentifiers);
+            var fieldParser = new FieldParser(_repository, this, _sharpDoxConfig);
             fieldParser.ParseFields(sdType, type);
         }
 
         private void AddParsedConstructorsAndMethods(SDType sdType, IType type)
         {
-            var methodParser = new MethodParser(_repository, this, _excludedIdentifiers);
+            var methodParser = new MethodParser(_repository, this, _sharpDoxConfig);
             methodParser.ParseConstructors(sdType, type);
             methodParser.ParseMethods(sdType, type);
         }
 
         private void AddParsedEvents(SDType sdType, IType type)
         {
-            var eventParser = new EventParser(_repository, this, _excludedIdentifiers);
+            var eventParser = new EventParser(_repository, this, _sharpDoxConfig);
             eventParser.ParseEvents(sdType, type);
         }
 

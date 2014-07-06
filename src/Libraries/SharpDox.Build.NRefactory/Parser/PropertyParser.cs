@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using ICSharpCode.NRefactory.TypeSystem;
+﻿using ICSharpCode.NRefactory.TypeSystem;
 using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
 using System.Linq;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.NRefactory.Parser
 {
@@ -10,7 +10,7 @@ namespace SharpDox.Build.NRefactory.Parser
     {
         private readonly TypeParser _typeParser;
 
-        internal PropertyParser(SDRepository repository, TypeParser typeParser, List<string> excludedIdentifiers) : base(repository, excludedIdentifiers)
+        internal PropertyParser(SDRepository repository, TypeParser typeParser, ICoreConfigSection sharpDoxConfig) : base(repository, sharpDoxConfig)
         {
             _typeParser = typeParser;
         }
@@ -20,7 +20,7 @@ namespace SharpDox.Build.NRefactory.Parser
             var properties = type.GetProperties(null, GetMemberOptions.IgnoreInheritedMembers);
             foreach (var property in properties)
             {
-                if (!_excludedIdentifiers.Contains(property.GetIdentifier()))
+                if (!IsMemberExcluded(property.GetIdentifier(), property.Accessibility.ToString()))
                 {
                     var parsedProperty = GetParsedProperty(property);
                     if (sdType.Properties.SingleOrDefault(p => p.Name == parsedProperty.Name) == null)

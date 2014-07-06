@@ -172,12 +172,48 @@ namespace SharpDox.Sdk.Config
 
         /// <default>
         ///     <summary>
-        ///     Returns all exluded namespaces.
+        ///     Returns whether all private members are excluded.
         ///     </summary>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Liefert alle ausgeschlossenen Namensräume.
+        ///     Liefert einen Wert der angibt, ob alle 'private' Mitglieder ausgeschlossen sind.
+        ///     </summary>
+        /// </de>
+        bool ExcludePrivate { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Returns whether all protected members are excluded.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert einen Wert der angibt, ob alle 'protected' Mitglieder ausgeschlossen sind.
+        ///     </summary>
+        /// </de>
+        bool ExcludeProtected { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Returns whether all internal members are excluded.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert einen Wert der angibt, ob alle 'internal' Mitglieder ausgeschlossen sind.
+        ///     </summary>
+        /// </de>
+        bool ExcludeInternal { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Returns all exluded identifiers.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert alle ausgeschlossenen Identifiers.
         ///     </summary>
         /// </de>
         ObservableCollection<string> ExcludedIdentifiers { get; set; }

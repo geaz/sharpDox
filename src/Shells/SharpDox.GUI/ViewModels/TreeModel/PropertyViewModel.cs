@@ -1,12 +1,12 @@
-﻿using System.Collections.ObjectModel;
-using SharpDox.Model.Repository.Members;
+﻿using SharpDox.Model.Repository.Members;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.GUI.ViewModels.TreeModel
 {
     internal class PropertyViewModel : TreeViewItemViewModel
     {
-        public PropertyViewModel(SDProperty property, TypeViewModel parent, ObservableCollection<string> excludedIdentifiers)
-            : base(property.Identifier, parent, excludedIdentifiers)
+        public PropertyViewModel(SDProperty property, TypeViewModel parent, ICoreConfigSection sharpDoxConfig)
+            : base(property.Identifier, parent, sharpDoxConfig)
         {
             Text = property.Name;
             Accessibility = property.Accessibility;

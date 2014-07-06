@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Collections.Generic;
 using System.Linq;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.GUI.ViewModels.TreeModel
 {
@@ -9,15 +9,16 @@ namespace SharpDox.GUI.ViewModels.TreeModel
     {
         private bool _isHasExcludedChildRunning = false;
 
-        private readonly ObservableCollection<string> _excludedIdentifiers;
+        private readonly ICoreConfigSection _sharpDoxConfig;
 
-        public TreeViewItemViewModel(string identifier, TreeViewItemViewModel parent, ObservableCollection<string> excludedIdentifiers)
+        public TreeViewItemViewModel(string identifier, TreeViewItemViewModel parent, ICoreConfigSection sharpDoxConfig)
         {
-            _excludedIdentifiers = excludedIdentifiers;
+            _sharpDoxConfig = sharpDoxConfig;
 
             Children = new ObservableCollection<TreeViewItemViewModel>();
             Parent = parent;
             Identifier = identifier;
+            IsExcluded = parent != null && parent.IsExcluded || IsExcluded;
         }
 
         public void UpdateHasExcludedChild()
@@ -26,7 +27,6 @@ namespace SharpDox.GUI.ViewModels.TreeModel
         }
 
         public string Text { get; set; }
-        public string Accessibility { get; set; }
         public string Image { get; set; }
         public TreeViewItemViewModel Parent { get; private set; }
         public ObservableCollection<TreeViewItemViewModel> Children { get; private set; }
@@ -35,7 +35,33 @@ namespace SharpDox.GUI.ViewModels.TreeModel
         public string Identifier
         {
             get { return _identifier; }
-            private set { _identifier = value; IsExcluded = _excludedIdentifiers.Contains(value); }
+            private set
+            {
+                _identifier = value; 
+                IsExcluded = _sharpDoxConfig.ExcludedIdentifiers.Contains(value);
+            }
+        }
+
+        private string _accessibility;
+        public string Accessibility
+        {
+            get { return _accessibility; }
+            set
+            {
+                _accessibility = value;
+                if (value.ToLower() == "private" && _sharpDoxConfig.ExcludePrivate)
+                {
+                    IsExcluded = true;
+                }
+                if (value.ToLower() == "protected" && _sharpDoxConfig.ExcludeProtected)
+                {
+                    IsExcluded = true;
+                }
+                if (value.ToLower() == "internal" && _sharpDoxConfig.ExcludeInternal)
+                {
+                    IsExcluded = true;
+                }
+            }
         }
 
         private bool _isExpanded;
@@ -61,10 +87,7 @@ namespace SharpDox.GUI.ViewModels.TreeModel
                     _isHasExcludedChildRunning = true;
 
                     var isExcluded = Children.All(c => c.IsExcluded);
-                    if (IsExcluded != isExcluded)
-                    {
-                        IsExcluded = isExcluded;
-                    }
+                    IsExcluded = isExcluded || IsExcluded;
 
                     _isHasExcludedChildRunning = false;
                 }
@@ -79,15 +102,18 @@ namespace SharpDox.GUI.ViewModels.TreeModel
             get { return _isExcluded; }
             set
             {
+                if (!value && Parent != null && Parent.IsExcluded)
+                    return;
+
                 _isExcluded = value;
 
-                if (value && !_excludedIdentifiers.Contains(Identifier))
+                if (value && !_sharpDoxConfig.ExcludedIdentifiers.Contains(Identifier))
                 {
-                    _excludedIdentifiers.Add(Identifier);
+                    _sharpDoxConfig.ExcludedIdentifiers.Add(Identifier);
                 }
-                else if(!value && _excludedIdentifiers.Contains(Identifier))
+                else if (!value && _sharpDoxConfig.ExcludedIdentifiers.Contains(Identifier))
                 {
-                    _excludedIdentifiers.Remove(Identifier);
+                    _sharpDoxConfig.ExcludedIdentifiers.Remove(Identifier);
                 }
                 
                 if (Parent != null)

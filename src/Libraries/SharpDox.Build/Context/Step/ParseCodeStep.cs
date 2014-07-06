@@ -1,7 +1,5 @@
 ﻿using SharpDox.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SharpDox.Build.Context.Step
 {
@@ -19,7 +17,18 @@ namespace SharpDox.Build.Context.Step
             var solutionList = new List<string>(sdProject.Repositories.Keys);
             foreach (var solution in solutionList)
             {
-                sdProject.Repositories[solution] = _stepInput.CodeParser.GetFullParsedSolution(solution, _stepInput.CoreConfigSection.ExcludedIdentifiers.ToList());
+                sdProject.Repositories[solution] = _stepInput.CodeParser.GetFullParsedSolution(solution, _stepInput.CoreConfigSection);
+                
+                // Because of excluding privates, internals and protected members
+                // it is possible, that a namespace has no visible namespaces at all.
+                // It is necessary to remove empty namespaces.
+                foreach (var sdNamespace in sdProject.Repositories[solution].GetAllNamespaces())
+                {
+                    if (sdNamespace.Types.Count == 0)
+                    {
+                        sdProject.Repositories[solution].RemoveNamespace(sdNamespace);
+                    }
+                }
             }
 
             return sdProject;

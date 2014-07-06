@@ -138,9 +138,9 @@
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom">
                         <Button ToolTip="{Binding ElementName=Window, Path=Strings.IncludeAll}" Command="{Binding IncludeAllCommand}" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF14A;"></Button>
-                        <Button ToolTip="{Binding ElementName=Window, Path=Strings.HidePrivate}" Command="{Binding ShowHideCommand}" CommandParameter="private" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF084;"></Button>
-                        <Button ToolTip="{Binding ElementName=Window, Path=Strings.HideProtected}" Command="{Binding ShowHideCommand}" CommandParameter="protected" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF023;"></Button>
-                        <Button ToolTip="{Binding ElementName=Window, Path=Strings.HideInternal}" Command="{Binding ShowHideCommand}" CommandParameter="internal" Style="{StaticResource IconButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF187;"></Button>
+                        <ToggleButton IsChecked="{Binding ElementName=Window, Path=Config.ExcludePrivate}" ToolTip="{Binding ElementName=Window, Path=Strings.HidePrivate}" Command="{Binding ShowHideCommand}" CommandParameter="private" Style="{StaticResource IconToggleButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF084;"/>
+                        <ToggleButton IsChecked="{Binding ElementName=Window, Path=Config.ExcludeProtected}" ToolTip="{Binding ElementName=Window, Path=Strings.HideProtected}" Command="{Binding ShowHideCommand}" CommandParameter="protected" Style="{StaticResource IconToggleButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF023;"/>
+                        <ToggleButton IsChecked="{Binding ElementName=Window, Path=Config.ExcludeInternal}" ToolTip="{Binding ElementName=Window, Path=Strings.HideInternal}" Command="{Binding ShowHideCommand}" CommandParameter="internal" Style="{StaticResource IconToggleButton}" BorderThickness="1" Margin="0,5,0,0" Content="&#xF187;"/>
                     </StackPanel>
                 </Grid>
             

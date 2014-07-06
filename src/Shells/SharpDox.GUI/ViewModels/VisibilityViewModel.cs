@@ -53,7 +53,7 @@ namespace SharpDox.GUI.ViewModels
                         {
                             foreach (var sdNamespace in repository.Value.GetAllNamespaces())
                             {
-                                TreeView.Add(new NamespaceViewModel(sdNamespace, _sharpDoxConfig.ExcludedIdentifiers));
+                                TreeView.Add(new NamespaceViewModel(sdNamespace, _sharpDoxConfig));
                             }
                         }
                     }
@@ -112,7 +112,7 @@ namespace SharpDox.GUI.ViewModels
         {
             get
             {
-                return _showHideCommand ?? new ParameterRelayCommand<string>(s => TreeView.ExcludeAllByAccessibility(s), true);
+                return _showHideCommand ?? new ParameterRelayCommand<string>(s => TreeView.SwitchAllByAccessibility(s), true);
             }
             set
             {

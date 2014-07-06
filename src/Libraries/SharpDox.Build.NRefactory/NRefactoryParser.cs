@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.NRefactory
 {
@@ -33,13 +34,13 @@ namespace SharpDox.Build.NRefactory
             return sdRepository;
         }
 
-        public SDRepository GetFullParsedSolution(string solutionFile, List<string> excludedIdentifiers)
+        public SDRepository GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig)
         {
             var sdRepository = new SDRepository();
             var solution = LoadSolution(solutionFile, 5);
 
-            ParseNamespaces(solution, sdRepository, excludedIdentifiers);
-            ParseTypes(solution, sdRepository, excludedIdentifiers);
+            ParseNamespaces(solution, sdRepository, sharpDoxConfig);
+            ParseTypes(solution, sdRepository, sharpDoxConfig);
             ParseMethodCalls(solution, sdRepository);
             ResolveUses(sdRepository);
 
@@ -109,10 +110,10 @@ namespace SharpDox.Build.NRefactory
             }
         }
 
-        private void ParseNamespaces(CSharpSolution solution, SDRepository sdRepository, List<string> excludedIdentifiers)
+        private void ParseNamespaces(CSharpSolution solution, SDRepository sdRepository, ICoreConfigSection sharpDoxConfig)
         {
             var pi = 0;
-            var namespaceParser = new NamespaceParser(sdRepository, excludedIdentifiers, solution.SolutionFile);
+            var namespaceParser = new NamespaceParser(sdRepository, sharpDoxConfig, solution.SolutionFile);
             namespaceParser.OnDocLanguageFound += ExecuteOnDocLanguageFound;
             namespaceParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingNamespace + ": " + n, i, t, pi, solution.Projects.Count, 1, 5); };
 
@@ -123,10 +124,10 @@ namespace SharpDox.Build.NRefactory
             }
         }
 
-        private void ParseTypes(CSharpSolution solution, SDRepository sdRepository, List<string> excludedIdentifiers)
+        private void ParseTypes(CSharpSolution solution, SDRepository sdRepository, ICoreConfigSection sharpDoxConfig)
         {
             var pi = 0;
-            var typeParser = new TypeParser(sdRepository, excludedIdentifiers);
+            var typeParser = new TypeParser(sdRepository, sharpDoxConfig);
             typeParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingClass + ": " + n, i, t, pi, solution.Projects.Count, 2, 5); };
 
             for (int i = 0; i < solution.Projects.Count; i++)

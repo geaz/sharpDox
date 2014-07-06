@@ -3,6 +3,7 @@ using ICSharpCode.NRefactory.TypeSystem;
 using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
 using System.Linq;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.NRefactory.Parser
 {
@@ -10,7 +11,7 @@ namespace SharpDox.Build.NRefactory.Parser
     {
         private readonly TypeParser _typeParser;
 
-        internal EventParser(SDRepository repository, TypeParser typeParser, List<string> excludedIdentifiers) : base(repository, excludedIdentifiers)
+        internal EventParser(SDRepository repository, TypeParser typeParser, ICoreConfigSection sharpDoxConfig) : base(repository, sharpDoxConfig)
         {
             _typeParser = typeParser;
         }
@@ -20,7 +21,7 @@ namespace SharpDox.Build.NRefactory.Parser
             var events = type.GetEvents(null, GetMemberOptions.IgnoreInheritedMembers);
             foreach (var eve in events)
             {
-                if (!_excludedIdentifiers.Contains(eve.GetIdentifier()))
+                if (!IsMemberExcluded(eve.GetIdentifier(), eve.Accessibility.ToString()))
                 {
                     var parsedEvent = GetParsedEvent(eve);
                     if (sdType.Events.SingleOrDefault(f => f.Name == parsedEvent.Name) == null)

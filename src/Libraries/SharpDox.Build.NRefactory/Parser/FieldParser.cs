@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using ICSharpCode.NRefactory.TypeSystem;
+﻿using ICSharpCode.NRefactory.TypeSystem;
 using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
 using System.Linq;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.NRefactory.Parser
 {
@@ -10,7 +10,7 @@ namespace SharpDox.Build.NRefactory.Parser
     {
         private readonly TypeParser _typeParser;
 
-        internal FieldParser(SDRepository repository, TypeParser typeParser, List<string> excludedIdentifiers) : base(repository, excludedIdentifiers)
+        internal FieldParser(SDRepository repository, TypeParser typeParser, ICoreConfigSection sharpDoxConfig) : base(repository, sharpDoxConfig)
         {
             _typeParser = typeParser;
         }
@@ -20,7 +20,7 @@ namespace SharpDox.Build.NRefactory.Parser
             var fields = type.GetFields(null, GetMemberOptions.IgnoreInheritedMembers);
             foreach (var field in fields)
             {
-                if (!_excludedIdentifiers.Contains(field.GetIdentifier()))
+                if (!IsMemberExcluded(field.GetIdentifier(), field.Accessibility.ToString()))
                 {
                     var parsedField = GetParsedField(field);
                     if (sdType.Fields.SingleOrDefault(f => f.Name == parsedField.Name) == null)

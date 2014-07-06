@@ -11,6 +11,7 @@ namespace SharpDox.GUI.Windows
         public VisibilityEditorView(SDGuiStrings strings, ICoreConfigSection sharpdoxConfig, IBuildController buildController)
         {
             Strings = strings;
+            Config = sharpdoxConfig;
 
             DataContext = new VisibilityViewModel(sharpdoxConfig, buildController, Hide);
             InitializeComponent();
@@ -45,5 +46,6 @@ namespace SharpDox.GUI.Windows
         }
 
         public SDGuiStrings Strings { get; private set; }
+        public ICoreConfigSection Config { get; private set; }
     }
 }

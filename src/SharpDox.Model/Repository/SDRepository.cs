@@ -37,6 +37,11 @@ namespace SharpDox.Model.Repository
                 Namespaces.Add(sdNamespace.Identifier, sdNamespace);
         }
 
+        public void RemoveNamespace(SDNamespace sdNamespace)
+        {
+            Namespaces.Remove(sdNamespace.Identifier);
+        }
+
         public void AddType(SDType sdType)
         {
             if (!Types.ContainsKey(sdType.Identifier))

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using SharpDox.Model.Repository;
+﻿using SharpDox.Model.Repository;
 using System;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.NRefactory.Parser
 {
@@ -10,14 +10,24 @@ namespace SharpDox.Build.NRefactory.Parser
         internal event Action<string> OnDocLanguageFound;
 
         protected readonly SDRepository _repository;
-        protected readonly List<string> _excludedIdentifiers; 
+        protected readonly ICoreConfigSection _sharpDoxConfig; 
         protected readonly DocumentationParser _documentationParser;
 
-        internal BaseParser(SDRepository repository, List<string> excludedIdentifiers = null)
+        internal BaseParser(SDRepository repository, ICoreConfigSection sharpDoxConfig = null)
         {
             _repository = repository;
-            _excludedIdentifiers = excludedIdentifiers;
+            _sharpDoxConfig = sharpDoxConfig;
             _documentationParser = new DocumentationParser(repository);
+        }
+
+        protected bool IsMemberExcluded(string identifier, string accessibility)
+        {
+            var isExcluded = _sharpDoxConfig.ExcludedIdentifiers.Contains(identifier);
+            isExcluded = accessibility.ToLower() == "private" && _sharpDoxConfig.ExcludePrivate || isExcluded;
+            isExcluded = accessibility.ToLower() == "protected" && _sharpDoxConfig.ExcludeProtected || isExcluded;
+            isExcluded = accessibility.ToLower() == "internal" && _sharpDoxConfig.ExcludeInternal || isExcluded;
+
+            return isExcluded;
         }
 
         protected void HandleOnItemParseStart(string message, int itemIndex, int itemsCount)

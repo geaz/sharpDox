@@ -24,6 +24,9 @@ namespace SharpDox.Core.Config
         private string _pathToConfig;
         private string _projectName;
         private string _versionNumber;
+        private bool _excludePrivate;
+        private bool _excludeProtected;
+        private bool _excludeInternal;
         private ObservableCollection<string> _excludedIdentifiers;
         private ObservableCollection<string> _activatedExporters;
 
@@ -216,6 +219,45 @@ namespace SharpDox.Core.Config
                 {
                     _docLanguage = value;
                     OnPropertyChanged("DocLanguage");
+                }
+            }
+        }
+
+        public bool ExcludePrivate
+        {
+            get { return _excludePrivate; }
+            set
+            {
+                if (_excludePrivate != value)
+                {
+                    _excludePrivate = value;
+                    OnPropertyChanged("ExcludePrivate");
+                }
+            }
+        }
+
+        public bool ExcludeProtected
+        {
+            get { return _excludeProtected; }
+            set
+            {
+                if (_excludeProtected != value)
+                {
+                    _excludeProtected = value;
+                    OnPropertyChanged("ExcludeProtected");
+                }
+            }
+        }
+
+        public bool ExcludeInternal
+        {
+            get { return _excludeInternal; }
+            set
+            {
+                if (_excludeInternal != value)
+                {
+                    _excludeInternal = value;
+                    OnPropertyChanged("ExcludeInternal");
                 }
             }
         }

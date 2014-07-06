@@ -4,6 +4,7 @@ using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
 using System.Collections.Generic;
 using System.Linq;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.NRefactory.Parser
 {
@@ -11,7 +12,7 @@ namespace SharpDox.Build.NRefactory.Parser
     {
         private readonly TypeParser _typeParser;
 
-        internal MethodParser(SDRepository repository, TypeParser typeParser, List<string> excludedIdentifiers) : base(repository, excludedIdentifiers)
+        internal MethodParser(SDRepository repository, TypeParser typeParser, ICoreConfigSection sharpDoxConfig) : base(repository, sharpDoxConfig)
         {
             _typeParser = typeParser;
         }
@@ -35,7 +36,7 @@ namespace SharpDox.Build.NRefactory.Parser
             foreach (var method in methodList)
             {
                 if (sdMethodList.SingleOrDefault((i => i.Identifier == method.GetIdentifier())) == null
-                    && !_excludedIdentifiers.Contains(method.GetIdentifier()))
+                    && !IsMemberExcluded(method.GetIdentifier(), method.Accessibility.ToString()))
                 {
                     var sdMethod = GetParsedMethod(method, isCtor);
                     sdMethodList.Add(sdMethod);

@@ -1,6 +1,6 @@
 ﻿using SharpDox.Model.Repository;
 using System;
-using System.Collections.Generic;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build
 {
@@ -11,6 +11,6 @@ namespace SharpDox.Build
         event Action<int> OnStepProgress;
 
         SDRepository GetStructureParsedSolution(string solutionFile);
-        SDRepository GetFullParsedSolution(string solutionFile, List<string> excludedIdentifiers);
+        SDRepository GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig);
     }
 }

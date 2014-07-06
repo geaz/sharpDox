@@ -20,27 +20,30 @@ namespace SharpDox.GUI.ViewModels.TreeModel
             }
 
             _sharpDoxConfig.ExcludedIdentifiers.Clear();
+            _sharpDoxConfig.ExcludePrivate = false;
+            _sharpDoxConfig.ExcludeProtected = false;
+            _sharpDoxConfig.ExcludeInternal = false;
         }
 
-        public void ExcludeAllByAccessibility(string accessibility)
+        public void SwitchAllByAccessibility(string accessibility)
         {
             foreach (var item in Items)
             {
-                ExcludeItemByAccessibility(item, accessibility);
+                SwitchItemByAccessibility(item, accessibility);
             }
         }
 
-        private void ExcludeItemByAccessibility(TreeViewItemViewModel item, string accessibility)
+        private void SwitchItemByAccessibility(TreeViewItemViewModel item, string accessibility)
         {
             if (item.Accessibility != null && item.Accessibility.ToLower() == accessibility.ToLower())
             {
-                item.IsExcluded = true;
+                item.IsExcluded = !item.IsExcluded;
             }
             else
             {
                 foreach (var child in item.Children)
                 {
-                    ExcludeItemByAccessibility(child, accessibility);
+                    SwitchItemByAccessibility(child, accessibility);
                 }
             }
         }

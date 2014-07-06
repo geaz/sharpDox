@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.NRefactory.Parser
 {
@@ -13,7 +14,7 @@ namespace SharpDox.Build.NRefactory.Parser
     {
         private readonly List<string> _descriptionFiles;
 
-        internal NamespaceParser(SDRepository repository, List<string> excludedIdentifiers, string inputFile) : base(repository, excludedIdentifiers)
+        internal NamespaceParser(SDRepository repository, ICoreConfigSection sharpDoxConfig, string inputFile) : base(repository, sharpDoxConfig)
         {
             _descriptionFiles = Directory.EnumerateFiles(Path.GetDirectoryName(inputFile), "*.sdnd", SearchOption.AllDirectories).ToList();
         }
@@ -24,7 +25,7 @@ namespace SharpDox.Build.NRefactory.Parser
             for (int i = 0; i < types.Count; i++)
             {
                 HandleOnItemParseStart(types[i].Namespace, i, types.Count);
-                if (!_excludedIdentifiers.Contains(types[i].Namespace))
+                if (!_sharpDoxConfig.ExcludedIdentifiers.Contains(types[i].Namespace))
                 {
                     _repository.AddNamespace(GetParsedNamespace(types[i]));
                 }
