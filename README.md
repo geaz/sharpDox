@@ -10,4 +10,4 @@ demonstrate the possibilities of the tool.
 
 If you want to try the latests development version go to my site at [AppVeyor](https://ci.appveyor.com/project/Geaz/sharpdox/history).
 
-[![Build status](https://ci.appveyor.com/api/projects/status/l0umm4g8opf6kifn)](https://ci.appveyor.com/project/Geaz/sharpdox)
+[![Build status](https://ci.appveyor.com/api/projects/status/vwrl041pp9tm5xp6)](https://ci.appveyor.com/project/Geaz/sharpdox)
