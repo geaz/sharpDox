@@ -113,7 +113,7 @@ namespace SharpDox.Build.NRefactory
         private void ParseNamespaces(CSharpSolution solution, SDRepository sdRepository, ICoreConfigSection sharpDoxConfig)
         {
             var pi = 0;
-            var namespaceParser = new NamespaceParser(sdRepository, sharpDoxConfig, solution.SolutionFile);
+            var namespaceParser = new NamespaceParser(sdRepository, sharpDoxConfig, sharpDoxConfig.InputFile);
             namespaceParser.OnDocLanguageFound += ExecuteOnDocLanguageFound;
             namespaceParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingNamespace + ": " + n, i, t, pi, solution.Projects.Count, 1, 5); };
 
