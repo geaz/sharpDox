@@ -24,7 +24,7 @@ namespace SharpDox.Model.Repository
             Fullname = fullname;
             IsProjectStranger = false;
 
-            Description = new SDLanguageItemCollection<SDTemplate>();
+            Descriptions = new SDLanguageItemCollection<SDTemplate>();
             Types = new SortedList<SDType>();
             Uses = new SortedList<SDNamespace>();
             UsedBy = new SortedList<SDNamespace>();
@@ -88,7 +88,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert die Beschreibung des Namensraum.
         ///     </summary>     
         /// </de>
-        public SDLanguageItemCollection<SDTemplate> Description { get; set; }
+        public SDLanguageItemCollection<SDTemplate> Descriptions { get; set; }
 
         /// <default>
         ///     <summary>

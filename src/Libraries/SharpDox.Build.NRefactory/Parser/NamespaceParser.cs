@@ -57,7 +57,7 @@ namespace SharpDox.Build.NRefactory.Parser
             return new SDNamespace(type.Namespace)
             {
                 Assemblyname = ((DefaultResolvedTypeDefinition)type).ParentAssembly.FullAssemblyName,
-                Description = descriptions
+                Descriptions = descriptions
             };
         }
     }

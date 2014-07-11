@@ -90,15 +90,15 @@ namespace SharpDox.Build.Context.Step
                     var splitted = Path.GetFileName(readme).Split('.');
                     if (splitted.Length > 0 && CultureInfo.GetCultures(CultureTypes.NeutralCultures).Any(c => c.TwoLetterISOLanguageName == splitted[0].ToLower()))
                     {
-                        if (!_sdProject.Description.ContainsKey(splitted[0].ToLower()))
+                        if (!_sdProject.Descriptions.ContainsKey(splitted[0].ToLower()))
                         {
-                            _sdProject.Description.Add(splitted[0].ToLower(), File.ReadAllText(readme));
+                            _sdProject.Descriptions.Add(splitted[0].ToLower(), File.ReadAllText(readme));
                             _sdProject.AddDocumentationLanguage(splitted[0].ToLower());
                         }
                     }
-                    else if (splitted.Length > 0 && splitted[0].ToLower() == "default" && !_sdProject.Description.ContainsKey("default"))
+                    else if (splitted.Length > 0 && splitted[0].ToLower() == "default" && !_sdProject.Descriptions.ContainsKey("default"))
                     {
-                        _sdProject.Description.Add("default", File.ReadAllText(readme));
+                        _sdProject.Descriptions.Add("default", File.ReadAllText(readme));
                     }
                 }
             }
