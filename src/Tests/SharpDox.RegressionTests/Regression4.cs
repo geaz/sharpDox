@@ -25,7 +25,7 @@ namespace SharpDox.RegressionTests
             var type = sdProject.GetTypeByIdentifier("SharpDox.TestProject.Regression4");
 
             // Assert            
-            Assert.AreEqual(2, type.Methods[0].Documentation["default"].Exceptions.Count);
+            Assert.AreEqual(2, type.Methods[0].Documentations.GetElementOrDefault("default").Exceptions.Count);
         }
     }
 }

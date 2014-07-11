@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Threading;
 using System.Linq;
 using SharpDox.Sdk.Local;
+using System;
 
 namespace SharpDox.Local
 {
@@ -17,25 +18,48 @@ namespace SharpDox.Local
         private ILocalStrings[] _localStrings;
         private string[] _localizationFiles;
 
-        public void LoadLocalizations(ILocalStrings[] localStrings)
+        public List<LocalStringsItem> LoadLocalizations(ILocalStrings[] localStrings)
         {
             _localStrings = localStrings;
             var appRootFolder = new DirectoryInfo(Path.GetDirectoryName(Assembly.GetAssembly(typeof(LocalCreator)).Location)).Parent.FullName;
             _languageFolderPath = Path.Combine(appRootFolder, LANGUAGEFOLDER);
             _localizationFiles = Directory.GetFiles(_languageFolderPath);
 
-            ParseLocalizations();
+            ParseCurrentLocalization();
+            return GetAllLocalizations();
         }
 
-        private void ParseLocalizations()
+        private void ParseCurrentLocalization()
         {
             foreach (var localStringsItem in _localStrings)
             {
                 if (LocalizationExists(localStringsItem))
                 {
-                    ParseLocalization(localStringsItem);
+                    ParseLocalization(localStringsItem, _currentLanguage);
                 }
             }
+        }
+
+        private List<LocalStringsItem> GetAllLocalizations()
+        {
+            var localStringsCollection = new List<LocalStringsItem>();
+            foreach (var localStringsItem in _localStrings)
+            {
+                localStringsCollection.Add(new LocalStringsItem("default", (ILocalStrings)Activator.CreateInstance(localStringsItem.GetType())));
+            }
+
+            foreach(var localizationFile in _localizationFiles)
+            {
+                var splittedFilename = Path.GetFileNameWithoutExtension(localizationFile).Split('.');
+                var localStrings = _localStrings.SingleOrDefault(l => l.DisplayName == splittedFilename[1]);
+                if(localStrings != null)
+                {
+                    var newLocalStrings = (ILocalStrings)Activator.CreateInstance(localStrings.GetType());
+                    ParseLocalization(newLocalStrings, splittedFilename[0]);
+                    localStringsCollection.Add(new LocalStringsItem(splittedFilename[0], newLocalStrings));
+                }
+            }
+            return localStringsCollection;
         }
 
         private bool LocalizationExists(ILocalStrings localStrings)
@@ -45,9 +69,9 @@ namespace SharpDox.Local
                     o => Path.GetFileName(o) == string.Format("{0}.{1}.sdlang", _currentLanguage, localStrings.DisplayName)) != null;
         }
 
-        private void ParseLocalization(ILocalStrings localStrings)
+        private void ParseLocalization(ILocalStrings localStrings, string language)
         {
-            var loadedStrings = ParseLocalizationFile(localStrings.DisplayName);
+            var loadedStrings = ParseLocalizationFile(localStrings.DisplayName, language);
             foreach (var loadedString in loadedStrings)
             {
                 if (LocalizationStringExists(localStrings, loadedString.Key))
@@ -57,12 +81,12 @@ namespace SharpDox.Local
             }
         }
 
-        private Dictionary<string, string> ParseLocalizationFile(string displayName)
+        private Dictionary<string, string> ParseLocalizationFile(string displayName, string language)
         {
             var strings = new Dictionary<string, string>();
 
             var filePath = Path.Combine(_languageFolderPath,
-                                        string.Format("{0}.{1}.sdlang", _currentLanguage, displayName));
+                                        string.Format("{0}.{1}.sdlang", language, displayName));
 
             var lines = File.ReadAllLines(filePath);
             

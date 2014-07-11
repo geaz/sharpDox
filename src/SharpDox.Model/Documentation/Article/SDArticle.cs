@@ -80,7 +80,7 @@ namespace SharpDox.Model.Documentation.Article
         ///     Liefert den Inhalt des Artikels.
         ///     </summary>
         /// </de>
-        public string Content { get; set; }
+        public SDTemplate Content { get; set; }
 
         /// <default>
         ///     <summary>

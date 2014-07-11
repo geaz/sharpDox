@@ -44,7 +44,7 @@ namespace SharpDox.Build.NRefactory.Parser
                 IsAbstract = property.IsAbstract,
                 IsVirtual = property.IsVirtual,
                 IsOverride = property.IsOverride,
-                Documentation = _documentationParser.ParseDocumentation(property)
+                Documentations = _documentationParser.ParseDocumentation(property)
             };
 
             _repository.AddMember(sdProperty);

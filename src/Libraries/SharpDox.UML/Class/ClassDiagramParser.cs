@@ -10,10 +10,7 @@ namespace SharpDox.UML.Class
     {
         public ClassDiagram CreateClassDiagram(SDType type, bool parseConnectedDiagrams = true)
         {
-            var attribute = type.IsAbstract && type.Kind.ToLower() != "interface" ? "abstract" : string.Empty;
-            attribute = type.IsStatic ? "static" : attribute;
-
-            var classDiagram = new ClassDiagram(type.Identifier, type.Name, type.Kind, type.Accessibility, attribute);
+            var classDiagram = new ClassDiagram(type);
             classDiagram.IsProjectStranger = type.IsProjectStranger;
 
             if (parseConnectedDiagrams)

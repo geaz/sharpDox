@@ -34,12 +34,12 @@ namespace SharpDox.Build.NRefactory
             return sdRepository;
         }
 
-        public SDRepository GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig)
+        public SDRepository GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens)
         {
             var sdRepository = new SDRepository();
             var solution = LoadSolution(solutionFile, 5);
 
-            ParseNamespaces(solution, sdRepository, sharpDoxConfig);
+            ParseNamespaces(solution, sdRepository, sharpDoxConfig, tokens);
             ParseTypes(solution, sdRepository, sharpDoxConfig);
             ParseMethodCalls(solution, sdRepository);
             ResolveUses(sdRepository);
@@ -110,10 +110,10 @@ namespace SharpDox.Build.NRefactory
             }
         }
 
-        private void ParseNamespaces(CSharpSolution solution, SDRepository sdRepository, ICoreConfigSection sharpDoxConfig)
+        private void ParseNamespaces(CSharpSolution solution, SDRepository sdRepository, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens)
         {
             var pi = 0;
-            var namespaceParser = new NamespaceParser(sdRepository, sharpDoxConfig, sharpDoxConfig.InputFile);
+            var namespaceParser = new NamespaceParser(sdRepository, sharpDoxConfig, sharpDoxConfig.InputFile, tokens);
             namespaceParser.OnDocLanguageFound += ExecuteOnDocLanguageFound;
             namespaceParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingNamespace + ": " + n, i, t, pi, solution.Projects.Count, 1, 5); };
 

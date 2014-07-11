@@ -1,4 +1,5 @@
-﻿namespace SharpDox.UML
+﻿using SharpDox.Model.Documentation;
+namespace SharpDox.UML
 {
     /// <default>
     ///     <summary>
@@ -31,14 +32,14 @@
         ///     This method returns a svg representation of this diagram.
         ///     </summary>
         ///     <param name="maxWidth">If the diagram is wider than this value, the diagram gets scaled to this width.</param>
-        ///     <returns>The svg representation</returns>
+        ///     <returns>The svg representation as <c>SDTemplate</c></returns>
         /// </default>
         /// <de>
         ///     <summary>
         ///     Diese Methode erstellt eine SVG-Repräsentation des Diagramms.
         ///     </summary>
-        ///     <returns>Die SVG-Repräsentation</returns>
+        ///     <returns>Die SVG-Repräsentation als <c>SDTemplate</c></returns>
         /// </de>
-        string ToSvg();
+        SDTemplate ToSvg();
     }
 }

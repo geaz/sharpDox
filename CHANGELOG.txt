@@ -6,6 +6,7 @@ Version 0.9.9.*
 - changed the functionality of the hide/show buttons in the 'Excluded Identifiers' window
 - fixed a bug with article names
 - fixed a bug with namespace descriptions
+- some API changes
 
 Version 0.9.8.8
 

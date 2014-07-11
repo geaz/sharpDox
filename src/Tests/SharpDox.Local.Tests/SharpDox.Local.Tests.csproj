@@ -93,8 +93,8 @@
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(ProjectDir)\bin\lang"
-xcopy "$(ProjectDir)\lang\de.TestStrings.sdlang" "$(ProjectDir)\bin\lang" /Y /I</PostBuildEvent>
+    <PostBuildEvent>mkdir "$(ProjectDir)\bin\Debug\lang"
+xcopy "$(ProjectDir)\lang\de.TestStrings.sdlang" "$(ProjectDir)\bin\Debug\lang" /Y /I</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

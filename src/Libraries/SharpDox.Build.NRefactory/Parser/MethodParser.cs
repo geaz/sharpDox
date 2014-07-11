@@ -70,7 +70,7 @@ namespace SharpDox.Build.NRefactory.Parser
                 IsSealed = method.IsSealed,
                 IsVirtual = method.IsVirtual,
                 IsStatic = method.IsStatic,
-                Documentation = _documentationParser.ParseDocumentation(method),
+                Documentations = _documentationParser.ParseDocumentation(method),
                 Region = new SDRegion
                 {
                     BeginColumn = method.Region.BeginColumn,

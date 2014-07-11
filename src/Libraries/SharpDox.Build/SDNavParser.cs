@@ -1,4 +1,5 @@
 ﻿using SharpDox.Model;
+using SharpDox.Model.Documentation;
 using SharpDox.Model.Documentation.Article;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +32,7 @@ namespace SharpDox.Build
             {
                 foreach (var line in File.ReadAllLines(navFile))
                 {
-                    var article = GetArticle(line);
+                    var article = GetArticle(line, sdProject.Tokens);
                     if (article is SDDocPlaceholder)
                     {
                         var solutionFile = ((SDDocPlaceholder)article).SolutionFile;
@@ -65,7 +66,7 @@ namespace SharpDox.Build
             return sdProject;
         }
 
-        private SDArticle GetArticle(string line)
+        private SDArticle GetArticle(string line, Dictionary<string, string> tokens)
         {
             var splitted = line.Split('#');
             SDArticle article = null;
@@ -89,7 +90,7 @@ namespace SharpDox.Build
                         Id = CreateArticleId(filename),
                         Title = GetNavTitle(splitted[0]),
                         Filename = filename,
-                        Content = File.ReadAllText(articleFile)
+                        Content = new SDTemplate(File.ReadAllText(articleFile), tokens)
                     };
                 }
             }

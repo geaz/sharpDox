@@ -5,6 +5,7 @@ using SharpDox.Model;
 using SharpDox.UML.Extensions;
 using SharpDox.UML.Sequence.Elements;
 using SharpDox.UML.SVG;
+using SharpDox.Model.Documentation;
 
 namespace SharpDox.UML.Sequence.Model
 {
@@ -47,10 +48,10 @@ namespace SharpDox.UML.Sequence.Model
             _renderedDiagram.SaveAsPng(outputFilepath);
         }
 
-        public string ToSvg()
+        public SDTemplate ToSvg()
         {
             _renderedSvgDiagram = _sequenceDiagramSvgRenderer.RenderDiagram(this);
-            return _renderedSvgDiagram.ToString();
+            return new SDTemplate(_renderedSvgDiagram.ToString());
         }
 
         public Guid StartNodeID { get; set; }

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Media;
 using SharpDox.Model.Repository;
 using SharpDox.UML.Class.Renderer;
 using SharpDox.UML.Extensions;
 using SharpDox.UML.SVG;
-using System.Globalization;
+using SharpDox.Model.Documentation;
 
 namespace SharpDox.UML.Class.Model
 {
@@ -17,14 +16,17 @@ namespace SharpDox.UML.Class.Model
         private DrawingVisual _renderedDiagram;
         private SvgRoot _renderedSvgDiagram;
 
-        public ClassDiagram(string typeIdentifier, string name, string kind, string accessibility, string attribute)
+        public ClassDiagram(SDType sdType)
         {
             _classDiagramPngRenderer = new ClassDiagramPngRenderer();
             _classDiagramSvgRenderer = new ConnectedClassDiagramSvgRenderer();
 
-            TypeIdentifier = typeIdentifier;
-            Name = name;
-            Accessibility = string.Format("{0} {1} {2}", accessibility, attribute, kind);
+            var attribute = sdType.IsAbstract && sdType.Kind.ToLower() != "interface" ? "abstract" : string.Empty;
+            attribute = sdType.IsStatic ? "static" : attribute;
+
+            TypeIdentifier = sdType.Identifier;
+            Name = sdType.Name;
+            Accessibility = string.Format("{0} {1} {2}", sdType.Accessibility, attribute, sdType.Kind);
 
             BaseTypes = new List<ClassDiagram>();
             ImplementedInterfaces = new List<ClassDiagram>();
@@ -47,10 +49,10 @@ namespace SharpDox.UML.Class.Model
             _renderedDiagram.SaveAsPng(outputFilepath);
         }
 
-        public string ToSvg()
+        public SDTemplate ToSvg()
         {
             _renderedSvgDiagram = _classDiagramSvgRenderer.RenderConnectedDiagram(this); 
-            return _renderedSvgDiagram.ToString();
+            return new SDTemplate(_renderedSvgDiagram.ToString());
         }
 
         public string TypeIdentifier { get; set; }

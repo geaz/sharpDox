@@ -42,6 +42,7 @@
     <Compile Include="LocalController.cs" />
     <Compile Include="LocalCreator.cs" />
     <Compile Include="LocalLoader.cs" />
+    <Compile Include="LocalStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

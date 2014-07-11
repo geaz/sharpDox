@@ -39,7 +39,7 @@ namespace SharpDox.Build.NRefactory.Parser
                 Name = eve.Name,
                 DeclaringType = _typeParser.GetParsedType(eve.DeclaringType),
                 Accessibility = eve.Accessibility.ToString().ToLower(),
-                Documentation = _documentationParser.ParseDocumentation(eve)
+                Documentations = _documentationParser.ParseDocumentation(eve)
             };
 
             _repository.AddMember(sdEvent);

@@ -18,7 +18,7 @@ namespace SharpDox.RegressionTests
             var svgDiagram = type.Methods[0].GetSequenceDiagram(sdProject).ToSvg();
 
             // Assert            
-            Assert.IsFalse(svgDiagram.Contains("]]]>"));
+            Assert.IsFalse(svgDiagram.Template.Contains("]]]>"));
         }
     }
 }

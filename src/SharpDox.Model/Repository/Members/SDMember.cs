@@ -20,6 +20,7 @@ namespace SharpDox.Model.Repository.Members
         protected SDMember()
         {
             Guid = Guid.NewGuid();
+            Documentations = new SDLanguageItemCollection<SDDocumentation>();
         }
 
         /// <default>
@@ -72,15 +73,15 @@ namespace SharpDox.Model.Repository.Members
 
         /// <default>
         ///     <summary>
-        ///     Returns the documentation of the member.
+        ///     Returns the documentation collection of the member.
         ///     </summary>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Liefert die Dokumentation des Mitglieds.
+        ///     Liefert die Dokumentations-Kollektion des Mitglieds.
         ///     </summary>     
         /// </de>
-        public Dictionary<string, SDDocumentation> Documentation { get; set; }
+        public SDLanguageItemCollection<SDDocumentation> Documentations { get; set; }
 
         /// <default>
         ///     <summary>

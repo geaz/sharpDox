@@ -1,46 +1,46 @@
 ﻿using System;
+using System.Linq;
 using SharpDox.Sdk.Local;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace SharpDox.Local
 {
     public class LocalController : ILocalController
     {
-        private readonly ILocalStrings[] _localStrings;
+        private readonly List<LocalStringsItem> _localStrings;
 
         public LocalController(ILocalStrings[] localStrings)
         {
-            _localStrings = localStrings;
-
             new LocalCreator().CreateLocalizations(localStrings);
-            new LocalLoader().LoadLocalizations(localStrings);
+            _localStrings = new LocalLoader().LoadLocalizations(localStrings);
         }
 
         public T GetLocalStrings<T>()
         {
-            var localStrings = default(T);
+            return GetLocalStringsOrDefault<T>(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToLower());
+        }
 
-            foreach (var localString in _localStrings)
+        public T GetLocalStringsOrDefault<T>(string language)
+        {
+            var localStrings = _localStrings.SingleOrDefault(l => l.Language == language && l.LocalStrings is T);
+            if (localStrings == null)
             {
-                if (localString is T)
-                {
-                    localStrings = (T)localString;
-                }
+                localStrings = _localStrings.SingleOrDefault(l => l.Language == "default" && l.LocalStrings is T);
             }
-
-            return localStrings;
+            return localStrings != null ? (T)localStrings.LocalStrings : default(T);
         }
 
         public string GetLocalString(Type localType, string stringName)
         {
             var localString = string.Empty;
 
-            foreach (var localStrings in _localStrings)
+            var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToLower();
+            var localStringItem = _localStrings.SingleOrDefault(l => l.Language == currentLanguage && l.LocalStrings.GetType() == localType);
+            if (localStringItem != null)
             {
-                if (localStrings.GetType() == localType)
-                {
-                    var value = localStrings.GetType().GetProperty(stringName).GetValue(localStrings, null);
-                    localString = value != null ? value.ToString() : string.Empty;
-                }
+                var value = localStringItem.LocalStrings.GetType().GetProperty(stringName).GetValue(localStringItem.LocalStrings, null);
+                localString = value != null ? value.ToString() : string.Empty;
             }
 
             return localString;

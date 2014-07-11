@@ -196,7 +196,7 @@ namespace SharpDox.Build.NRefactory.Parser
                             EndLine = typeDefinition.Region.EndLine,
                             Filename = typeDefinition.Region.FileName
                         },
-                Documentation = _documentationParser.ParseDocumentation(typeDefinition)
+                Documentations = _documentationParser.ParseDocumentation(typeDefinition)
             };
 
             _repository.AddType(sdType);

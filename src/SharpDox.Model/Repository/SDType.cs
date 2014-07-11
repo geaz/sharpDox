@@ -27,6 +27,8 @@ namespace SharpDox.Model.Repository
             Name = name;
             Namespace = sdNamespace;
 
+            Documentations = new SDLanguageItemCollection<SDDocumentation>();
+
             BaseTypes = new SortedList<SDType>();
             ImplementedInterfaces = new SortedList<SDType>();
             UsedBy = new SortedList<SDType>();
@@ -94,7 +96,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert die Dokumentation des Typen.
         ///     </summary>     
         /// </de>
-        public Dictionary<string, SDDocumentation> Documentation { get; set; }
+        public SDLanguageItemCollection<SDDocumentation> Documentations { get; set; }
 
         /// <default>
         ///     <summary>

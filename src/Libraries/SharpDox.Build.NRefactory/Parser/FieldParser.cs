@@ -42,7 +42,7 @@ namespace SharpDox.Build.NRefactory.Parser
                 ConstantValue = field.ConstantValue != null ? field.ConstantValue.ToString() : string.Empty,
                 IsConst = field.IsConst,
                 IsReadonly = field.IsReadOnly,
-                Documentation = _documentationParser.ParseDocumentation(field)
+                Documentations = _documentationParser.ParseDocumentation(field)
             };
 
             _repository.AddMember(sdField);

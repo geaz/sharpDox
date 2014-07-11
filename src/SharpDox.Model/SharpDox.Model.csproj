@@ -48,6 +48,8 @@
     <Compile Include="Documentation\Article\SDDocPlaceholder.cs" />
     <Compile Include="Documentation\Article\SDArticlePlaceholder.cs" />
     <Compile Include="Documentation\Article\SDArticle.cs" />
+    <Compile Include="Documentation\SDLanguageItemCollection.cs" />
+    <Compile Include="Documentation\SDTemplate.cs" />
     <Compile Include="Documentation\Token\SDCodeToken.cs" />
     <Compile Include="Documentation\Token\SDToken.cs" />
     <Compile Include="Documentation\Token\SDTokenList.cs" />

@@ -21,9 +21,9 @@ namespace SharpDox.Build.NRefactory.Parser
             _sdRepository = sdRepository;
         }
 
-        public Dictionary<string, SDDocumentation> ParseDocumentation(IEntity entity)
+        public SDLanguageItemCollection<SDDocumentation> ParseDocumentation(IEntity entity)
         {
-            var docDic = new Dictionary<string, SDDocumentation>();
+            var docDic = new SDLanguageItemCollection<SDDocumentation>();
 
             try
             {
