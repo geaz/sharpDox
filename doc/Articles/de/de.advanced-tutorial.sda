@@ -1,57 +1,46 @@
-Neben der eigentlichen Code-Dokumentation können Artikel, erweiterte Beschreibungen zu Namensräumen und benutzerdefinierte Navigationen erstellt werden.Erweiterte Dokumentationen können aus den folgenden Elementen bestehen:## Code-Dokumentation ##Die Kern Aufgabe von **sharpDox** besteht darin ein Code-Dokumentation aus den Kommentaren einer C#-Solution zu erstellen. Wird als Eingabe während des Bauvorgangs eineSolution oder ein Projekt ausgewählt, baut **sharpDox** eine einfache Code-Dokumentation.Innerhalb einer _komplexen_ Dokumentation kann die Code-Dokumentation in der benutzerdefinierten Navigation an einer beliebigen Stelle angehängt werden (siehe Punkt: Navigation).## Projektbeschreibung ##  Es kann eine Projektbeschreibung angelegt werden, die vom CHM- & HTML-Exporter als Text für die Startseite genutzt wird. Diese Beschreibung kann in der Markdown-Syntax geschrieben werden.Dazu muss eine Datei mit dem Namen _default.sdpd_ unterhalb der Eingabedatei liegen. Diese Datei wird während des Bauvorgangs eingelesen und den Exportern übergeben.> **Erstellen einer erweiterten Projektbeschreibung**
+Neben der eigentlichen Code-Dokumentation können Artikel, erweiterte Beschreibungen zu Namensräumen und benutzerdefinierte Navigationen erstellt werden.Erweiterte Dokumentationen können aus den folgenden Elementen bestehen.### Code-Dokumentation ###Die Kern Aufgabe von *sharpDox* besteht darin ein Code-Dokumentation aus den Kommentaren einer C#-Solution zu erstellen. Wird als Eingabe während des Bauvorgangs eineSolution oder ein Projekt ausgewählt, baut *sharpDox* eine einfache Code-Dokumentation.Innerhalb einer *komplexen Dokumentation kann die Code-Dokumentation in der benutzerdefinierten Navigation an einer beliebigen Stelle angehängt werden (siehe Punkt: Navigation).### Projektbeschreibung ###  Es kann eine Projektbeschreibung angelegt werden, die vom CHM- & HTML-Exporter als Text für die Startseite genutzt wird. Diese Beschreibung kann in der Markdown-Syntax geschrieben werden.Dazu muss eine Datei mit dem Namen _default.sdpd_ unterhalb der Eingabedatei liegen. Diese Datei wird während des Bauvorgangs eingelesen und den Exportern übergeben.
+### Namensraum-Beschreibungen ###
+*sharpDox* ermöglicht es auch für Namensräumen komplexere Beschreibungen zu erstellen. Dazu unterhalb der Eingabedatei eine Datei mit folgendem Format erstellt werden: _Namens.raum.Name.sdnd_
+Für die Textformatierung kann die Markdown-Syntax genutzt werden.Die Datei mit dem Namen *SharpDox.Sdk.sdnd* wird zum Beispiel für den Namensraum *SharpDox.Sdk* genutzt.
 
-> Lege eine Datei **default.sdpd** unterhalb der Eingabedatei an und nutze die Markdown-Syntax für Textformatierungen.
-
-## Namensraum-Beschreibungen ##
-**sharpDox** ermöglicht es auch für Namensräumen komplexere Beschreibungen zu erstellen. Dazu unterhalb der Eingabedatei eine Datei mit folgendem Format erstellt werden: _Namens.raum.Name.sdnd_
-
-> **Erstellen von Namensraum-Beschreibungen**
-
-> Lege eine Datei mit der Endung _.sdnd_ und dem Namen des Namensraum unterhalb der Eingabedatei an. Für die Textformatierung kann die Markdown-Syntax genutzt werden.
-> **Bespiel:** SharpDox.Sdk.sdnd - Eine Beschreibung für den Namensraum _SharpDox.Sdk_.
-
-##Artikel##
-Neben Beschreibungen und der Dokumentation des Codes können in **sharpDox** auch Artikel Bestandteil einer Dokumentation sein.
+###Artikel###
+Neben Beschreibungen und der Dokumentation des Codes können in *sharpDox* auch Artikel Bestandteil einer Dokumentation sein.
 
 Artikel sind dabei zusätzliche Seiten innerhalb der Dokumentation, die über eine benutzerdefinierte Navigation erreichbar sind. Für Artikel ist es zwingend notwendig, dass eine Navigation erstellt wurde. Ansonsten werden Artikel während des Bauvorgangs nicht berücksichtigt.
 
-Um einen Artikel, in einer Markdown-Syntax, zu erstellen, muss lediglich eine Datei mit der Endung _.sda_ in einem beliebigen Ordner erstellt werden. **sharpDox** erkennt alle in der Navigation referenzierten Artikel und liest diese autoamtisch ein. Siehe **Navigation** für Informationen wie diese Artikel verlinkt werden können.
-
->**Erstellen von Artikeln**
-
-> Lege eine Datei mit der Endung _.sda_ an. Der Name der Datei ist beliebig. Für die Textformatierung kann die Markdown-Syntax genutzt werden.
-## Tokens ##  Es kann eine Liste mit Tokens erstellt werden die innerhalb von Beschreibungen & Artikeln genutzt werden können. Dazu muss eine Datei mit dem Namen _tokens.sdt_ unterhalb der Eingabedatei liegen. Diese Datei wird während des Bauvorgangs eingelesen und den Exportern übergeben.> **Beispiel**> Datei: __tokens.sdt__> Inhalt: BUILD_SERVER=FooBar> Verwendung innerhalb eines Artikels (ohne das "): __{{"token:BUILD_SERVER}}__
-##Links##
+Um einen Artikel in einer Markdown-Syntax zu erstellen, muss lediglich eine Datei mit der Endung _.sda_ in einem beliebigen Ordner erstellt werden. *sharpDox* erkennt alle in der Navigation referenzierten Artikel und liest diese automatisch ein. Siehe den Punkt *Navigation* für Informationen wie diese Artikel verlinkt werden können.
+### Tokens ###  Es kann eine Liste mit Tokens erstellt werden die innerhalb von Beschreibungen & Artikeln genutzt werden können. Dazu muss eine Datei mit dem Namen _tokens.sdt_ unterhalb der Eingabedatei liegen. Diese Datei wird während des Bauvorgangs eingelesen und den Exportern übergeben.Pro Zeile der Datei kann ein Token in der Form*TokenName = TokenWert*angelegt werden. Dieser Token kann dann zum Beispiel in einem Artikel genutzt werden.Dazu wird die folgende Syntax genutzt:*{{"token:BUILD_SERVER}}*Bitte das " aus der oberen Syntax entfernen. Dieses wurde eingefügt, damit *sharpDox* nicht versucht das Beispiel zu ersetzen.
+###Links###
 Innerhalb von Beschreibungen und Artikeln können auf verschiedene Elemente innerhalb der Dokumentation verlinkt werden. Außerdem ist es möglich auf Bilder innerhalb der Lösung zu verlinken.
 
-Die Platzhalter werden statt einer URL genutzt (In den Beispielen wird die Markdown-Syntax genutzt - bitte das " aus den Beispielen entfernen):
+Bitte erneut das " aus den Beispielen entfernen.
 
-**Namensraum** - {{"namespace-link:[Fullname]}}
+Namensraum: *{{"namespace-link:[Fullname]}}*
 
-> **Beispiel:** \[LinkText]({{"namespace-link:SharpDox.Sdk}})
+> Beispiel: *\[LinkText]({{"namespace-link:SharpDox.Sdk}})*
 
-**Typ** - {{"type-link:[Identifier]}}
-> **Beispiel:** \[LinkText]({{"type-link:SharpDox.Sdk.Templater}})
+Typ: {{"type-link:[Identifier]}}
+> Beispiel: *\[LinkText]({{"type-link:SharpDox.Sdk.Templater}})*
 
-**Artikel** - {{"article-link:[ArticleFilename]}}
-> **Beispiel:** \[LinkText]({{"article-link:de.exporter-tutorial}})
+Artikel: {{"article-link:[ArticleFilename]}}
+> Beispiel: *\[LinkText]({{"article-link:de.exporter-tutorial}})*
 
-**Bilder** - Unterhalb der Eingabedatei können Bilder abgelegt werden die in Beschreibungen und Artikeln genutzt werden können. Die Bilder für die Dokumentation müssen mit dem Prefix _sdi.*_ beginnen.
+Bilder: Unterhalb der Eingabedatei können Bilder abgelegt werden die in Beschreibungen und Artikeln genutzt werden können. Die Bilder für die Dokumentation müssen mit dem Prefix _sdi.*_ beginnen.
 
-> **Beispiel:** !\[Shell]({{"image-link:sdi.startSD.png}})
+> Beispiel: *!\[Shell]({{"image-link:sdi.startSD.png}})*
 
-##Navigation##
-Das wichtigste Element einer erweiterten Dokumentation ist die Navigation. Mit dieser kann festgelegt werden wie die Struktur der Dokumentation aufgebaut ist. Als Beispiel soll die Navigation der **sharpDox** Dokumentation genommen werden:
+###Navigation###
+Das wichtigste Element einer erweiterten Dokumentation ist die Navigation. Mit dieser kann festgelegt werden wie die Struktur der Dokumentation aufgebaut ist. Als Beispiel soll die Navigation der *sharpDox* Dokumentation genommen werden:
 
 	-Einführung#de.introduction	-Benutzer	--Erstellen von erweiterten Dokumentationen#de.advanced-tutorial	--Erstellen von mehrsprachigen Dokumentationen#de.multilang-tutorial	-Entwickler	--Erstellen eines Exporters#de.exporter-tutorial	--API#..\SharpDox.sln
 
 Die Anzahl der anfänglichen Bindestriche gibt die Dokumentationsebene an. Gefolgt vom Namen des Menüpunktes. _-Einführung_ bedeutet also, dass der Menüpunkt mit dem Namen _Einführung_ an erster Stelle auf der obersten Ebene erstellt werden soll. Getrennt durch ein _#_ folgt darauf der Name des Artikels, ohne Dateiendung, auf den der Menüpunkt verlinken soll. Ist kein Link angegeben, dient der Menüpunkt lediglich als "Platzhalter" (zum Beispiel die zweite Zeile _-Benutzer_).Es ist ebenfalls möglich absolute bzw. relative Pfade zu Artikeln anzugeben.
 
-	--Erstellen von erweiterten Dokumentationen#de.advanced-tutorial
-Bedeutet also, dass **sharpDox** auf der zweiten Ebene, unterhalb des darüberliegenden Elements, einen Menüpunkt mit dem Namen _Erstellen von erweiterten Dokumentationen_ erstellt, der auf den Artikel _advanced-tutorial_ verlinkt.
+	--Erstellen von erweiterten Dokumentationen#de.advanced-tutorial	
+Bedeutet also, dass *sharpDox* auf der zweiten Ebene, unterhalb des darüberliegenden Elements, einen Menüpunkt mit dem Namen _Erstellen von erweiterten Dokumentationen_ erstellt, der auf den Artikel _advanced-tutorial_ verlinkt.
 
 Soll ein Menüpunkt auf eine Code-Dokumentation verlinken wird statt eines Artikelnamens der Pfad zur Solution/Projekt verwendet (relative Pfade sind möglich). (Im Beispiel: _--API#..\SharpDox.sln_).Es ist möglich mehr als eine Code-Dokumentation zu verlinken.
 
-Um eine Dokumentation auf Basis dieser Navigation zu erstellen wird in **sharpDox** die Navigationsdatei als Eingabedatei genutzt.
+Um eine Dokumentation auf Basis dieser Navigation zu erstellen wird in *sharpDox* die Navigationsdatei als Eingabedatei genutzt.
 
 

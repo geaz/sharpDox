@@ -1,25 +1,25 @@
-Mit **sharpDox** ist es möglich mehrsprachige Dokumentationen zu erstellen.
+Mit *sharpDox* ist es möglich mehrsprachige Dokumentationen zu erstellen.
 Für Artikel kann jeder beliebige Name genommen werde, da in der Navigationsdatei direkt auf diesen referenziert wird.
 Bei Navigationen, Namensraum-Beschreibungen und Projektbeschreibungen wird der Dateiname geändert. Hier einige Beispiele:
 
-**Namensraum-Beschreibungen**
+*Namensraum-Beschreibungen*
 
 	Original: SharpDox.Sdk.sdnd
 	Übersetzt: de.SharpDox.Sdk.sdnd
 
-**Projektbeschreibung**
+*Projektbeschreibung*
 
 	Original: default.sdpd
 	Übersetzt: de.sdpd
 
-**Navigation**
+*Navigation*
 
 	Original: default.sdnav
 	Übersetzt: de.sdnav
 
-Da in den Visual Studio Kommentaren keine Mehrsprachigkeit angedacht ist, müssen die Inline-Kommentare etwas verändert werden. Damit kann **sharpDox** mehrsprachige Code-Dokumentationen erstellen.
+Da in den Visual Studio Kommentaren keine Mehrsprachigkeit angedacht ist, müssen die Inline-Kommentare etwas verändert werden. Damit kann *sharpDox* mehrsprachige Code-Dokumentationen erstellen.
 
-**Code-Dokumentation**
+*Code-Dokumentation*
 
 	Original:
 	<summary>SUMMARY</summary>

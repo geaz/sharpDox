@@ -1,77 +1,67 @@
-With **sharpDox** it is possible to create additional Articles, namespace descriptions and custom navigations for your documentation.
+With *sharpDox* it is possible to create additional Articles, namespace descriptions and custom navigations for your documentation.
 
-Advanced documentation can include the following pieces:
+Advanced documentation can consist of the following elements.
 
-## Code-Documentation ##
+### Code-Documentation ###
 
-**sharpDox** core task is the creation of a code documentation, which gets create out of the inline documentation of a c# solution.
-If you use a solution/project as the input of a build process, **sharpDox** will create a simple code documentation.
+*sharpDox* core task is the creation of a code documentation, which gets created out of the inline documentation of a c# solution.
+If you use a solution/project as the input of a build process, *sharpDox* will create a simple code documentation.
 
-The code documentation can be included in any position inside a custom navigation (see: Navigation).
+The code documentation can be included in a custom navigation (see: Navigation).
 
-## Project Description ##
+### Project Description ###
   
-It is possible to create a project description which will be used by the chm and html exporter as the startpage. It is possible to write the description in the markdown sytax.
+It is possible to create a project description which will can be used by the exporters. It is possible to write the description in the markdown sytax.
 
-Just create a file with the name _default.sdpd_ underneath the input file path. **sharpDox** will parse this file during the build process.
+Just create a file with the name _default.sdpd_ underneath the input file path. *sharpDox* will parse this file during the build process.
 
-> **Creation of projekt descriptions**
+### Namespace Description ###
 
-> Create a file underneath the input file path with the name **default.sdpd** and use the markdown syntax for formatting.
+*sharpDox* is able to parse custom descriptions for namespaces. Just create a file with a *.sdnd* extension and write your description in the markdown syntax. *sharpDox* recognizes these files as namespace descriptions.
+If you want a description for the namespace *SharpDox.Sdk*, create the file *SharpDox.Sdk.sdnd*.
 
-## Namespace Description ##
+###Articles###
 
-With **sharpDox** it is possible to create descriptions for namespaces. Just create a file with the following format underneath the input file path: _Name.space.Name.sdnd_
+Besides the code documentation and the description it is also possible to create articles. Articles are additional pages inside the documentation, which are accessible through a custom navigation. It is mandatory to create a custom navigation, if you use articles. Otherwise the articles get ignored.
 
-> **Creation of namespace descriptions**
+To create a articles just create a file with the *.sda* extension anywhere underneath the input file path. The file name is arbitrary. Use the markdown syntax for formatting. Please see *Navigation* for information on how to create a custom navigation.
 
-> Create a file with the _.sdnd_ extension underneath the input file path. Use the markdown syntax for formatting.
-> **Example:** SharpDox.Sdk.sdnd - A description for the _SharpDox.Sdk_ namespace.
+### Tokens ###
 
-##Articles##
-Besides the code documentation and the description it is also possible to create articles. Articles are additional pages inside the documentation, which are accessible through a custom navigation. It is mandatory to create a navigation, if you use articles. Otherwise the articles get ignored.
+It is possible to create a list of tokens which are usable in descriptions and articles.
 
-To create a articles just create a file with the _.sda_ extension anywhere in the solutionpath. You are able to use markdown for formatting. Please see **Navigation** for information on how to link to the articles.
+Just create a file with the name __tokens.sdt__ underneath the input file. This file gets parsed during the build process.
+Create one element per line in the following formatting
 
->**Creation of articles**
+*TokenName = TokenValue*
 
-> Create a file with the _.sda_ extension. The name is arbitrary. Use markdown for formatting.
+For example this token can be used in articles. Use the following syntax to include a token:
 
-## Tokens ##
+*{{"token:BUILD_SERVER}}*
 
-It is possible to create a list of tokens which are useable in descriptions and articles.
+Please remove the " from the example.
 
-Just create a file with the name __tokens.sdt__ underneath the input file. 
+### Links ###
 
-> **Example**
+You are able to create links inside descriptions and articles to link to other elements within the documention. It is also possible to include images.
+Please use the following placeholders and remove the " again.
 
-> File: __tokens.sdt__
+Namespace: *{{"namespace-link:[Fullname]}}*
 
-> Content: BUILD_SERVER=FooBar
+> Example: *\[LinkText]({{"namespace-link:SharpDox.Sdk}})*
 
-> Using in a article or description (without the "): __{{"token:BUILD_SERVER}}__
+Type: *{{"type-link:[Identifier]}}*
+> Example: *\[LinkText]({{"type-link:SharpDox.Sdk.Templater}})*
 
-##Links##
-You are able to create links inside descirptions and articles to link to other elements within the documention.
+Article: *{{"article-link:[ArticleFilename]}}*
+> Example: *\[LinkText]({{"article-link:exporter-tutorial}})*
 
-Use the placeholder instead of an url (the examples use the markdown syntax - please remove the " in the examples):
+Image: You are able to use images underneath the input file path within articles and descriptions. Just use the _sdi._ prefix to mark the image for *sharpDox*.
 
-**Namespace** - {{"namespace-link:[Fullname]}}
+> Example: *!\[Shell]({{"image-link:sdi.startSD.png}})*
 
-> **Example:** \[LinkText]({{"namespace-link:SharpDox.Sdk}})
-
-**Type** - {{"type-link:[Identifier]}}
-> **Example:** \[LinkText]({{"type-link:SharpDox.Sdk.Templater}}")
-
-**Article** - {{"article-link:[ArticleFilename]}}
-> **Example:** \[LinkText]({{"article-link:exporter-tutorial}})
-
-**Image** - You are able to copy images underneath the input file path to use them within articles and descriptions. Just use the _sdi._ prefix to mark the image for **sharpDox**.
-
-> **Example:** !\[Shell]({{"image-link:sdi.startSD.png}})
-
-##Navigation##
-The navigation is the main element of any advanced documentation. The custom navigation file defines the structure of the documentation. The navigation of the **sharpDox** documentation is used for the following example:
+### Navigation ###
+The navigation is the main element of any advanced documentation. The custom navigation file defines the structure of the documentation. The navigation of the *sharpDox* documentation is used for the following example:
 
 	-Introduction#introduction
 	-Users
@@ -82,13 +72,15 @@ The navigation is the main element of any advanced documentation. The custom nav
 	--API#..\SharpDox.sln
 
 The number hyphens indicates the level of the item followed by the name of the menu item. _-Introduction_ means that the menu item with the name _Introduction_ should be on the first position in the first level of the navigation.
-The part behind the _#_ defines the linked article (without the file extension). If a menu item is missing the _#_ part, it is just a "placeholder" (for example the second line: _-Users_). It is also possible to reference articles by its absolute and relative path.
+The part behind the _#_ defines the linked article. Use the article file name, without the extension.
+If a menu item is missing the _#_ part, it is just a "placeholder" (for example the second line: _-Users_). It is also possible to reference articles by its absolute and relative path.
 
 	--Create advanced documentation#advanced-tutorial
-Means that **sharpDox** should create a child menu item with the name _Create advanced documentation_ which is linked to the _advanced-tutorial_ article.
+	
+This implies that *sharpDox* should create a child menu item with the name _Create advanced documentation_ which is linked to the _advanced-tutorial_ article.
 
 If you want a item to link to a code documentation, use the path to the solution/project instead of an article name (In the example above: _--API#..\SharpDox.sln_).
-It is possible to include more than one code documentation, if you use a custom navigation.
+It is possible to include more than one code documentation.
 
 To build an advanced documentation use the navigation file as the input file.
 

@@ -1,11 +1,11 @@
-Dieses Tutorial soll einen Überblick darüber geben, wie einfach neue Plugins für **sharpDox** 
+Dieses Tutorial soll einen Überblick darüber geben, wie einfach neue Plugins für *sharpDox*
 erstellt werden können. Dafür wird ein Plugin erstellt, welches eine neue Einstellung registriert
 und einen CSV Export für alle Methoden erstellt.
 
 Dazu wird zunächst ein neues Klassenbiliotheks-Projekt in Visual Studio angelegt. Benötigt 
-werden Verweise auf _SharpDox.Model_ und _SharpDox.Sdk_. 
+werden Verweise auf *SharpDox.Model* und *SharpDox.Sdk*. 
 Der erste Schritt ist die Erstellung der Konfigurationsklasse. Dazu wird eine neue Klasse 
-_CSVConfig.cs_ mit folgendem Inhalt angelegt:
+*CSVConfig.cs* mit folgendem Inhalt angelegt:
 
 	using System;
 	using System.ComponentModel;
@@ -51,9 +51,9 @@ _CSVConfig.cs_ mit folgendem Inhalt angelegt:
 
 In diesem Beispiel wird lediglich eine Einstellung zur Angabe des Trennzeichens hinzugefügt. 
 Durch die Angaben der Attribute wird die Konfiguration automatisch im Propertygrid der GUI angezeigt und
-in der Konfigurationsdatei von **sharpDox** integriert.
+in der Konfigurationsdatei von *sharpDox* integriert.
 
-Als nächstes wird die _CSVStrings_ Klasse erstellt.
+Als nächstes wird die *CSVStrings* Klasse erstellt.
 
 	using SharpDox.Sdk.Local;
 
@@ -87,7 +87,7 @@ Als nächstes wird die _CSVStrings_ Klasse erstellt.
 
 
 Der letzte Schritt zur Erstellung des CSV Exporters ist der Exportvorgang selbst. Dazu wird eine 
-Datei _CSVExport.cs_ mit folgendem Inhalt erstellt:
+Datei *CSVExport.cs* mit folgendem Inhalt erstellt:
 
 	using SharpDox.Model;
 	using SharpDox.Model.Repository;
@@ -171,7 +171,7 @@ Datei _CSVExport.cs_ mit folgendem Inhalt erstellt:
 		}
 	}
 
-Damit wäre ein komplettes, rudimentäres Plugin für **sharpDox** fertiggestellt. Die resultierende 
-DLL-Datei wird anschließend einfach in den _plugin_ Ordner von **sharpDox** kopiert. 
+Damit wäre ein komplettes, rudimentäres Plugin für *sharpDox* fertiggestellt. Die resultierende 
+DLL-Datei wird anschließend einfach in den *plugin* Ordner von *sharpDox* kopiert. 
 Damit wird das Plugin beim Start registriert. Das Beispiel auf dieser Seite kann 
 [hier](https://github.com/Geaz/SharpDox.Examples.Plugins.CVS "CSV-Exporter") heruntergeladen werden.

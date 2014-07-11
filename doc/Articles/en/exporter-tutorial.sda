@@ -1,10 +1,10 @@
-This tutorial gives an overview about creating custom exporters for **sharpDox**. To accomplish this 
+This tutorial gives an overview about creating custom exporters for *sharpDox*. To accomplish this 
 task we will develop a plugin which creates own settings and an exporter to 
 create a csv output for each method in a solution.
 
-First of all create a library project in Visual Studio and reference the _SharpDox.Model_ and 
-_SharpDox.Sdk_. In the first step we create the config 
-class. Create a class _CSVConfig.cs_ with the following content:
+First of all create a library project in Visual Studio and reference the *SharpDox.Model* and 
+*SharpDox.Sdk*. In the first step we create the config 
+class. Create a class *CSVConfig.cs* with the following content:
 
 	using System;
 	using System.ComponentModel;
@@ -44,7 +44,7 @@ class. Create a class _CSVConfig.cs_ with the following content:
 	}
 
 In this plugin we only create a setting to define the divider for the csv file. Because of the given attributes
-**sharpDox** knows how to integrate the settings into the propertygrid.
+*sharpDox* knows how to integrate the settings into the propertygrid.
 
 Next create the _CSVStrings_ class.
 
@@ -79,7 +79,7 @@ Next create the _CSVStrings_ class.
 		}
 	}
 
-The last step is to create the csv exporter. Create a new class _CSVExport.cs_ with the following content:
+The last step is to create the csv exporter. Create a new class *CSVExport.cs* with the following content:
 
 	using SharpDox.Model;
 	using SharpDox.Model.Repository;
@@ -163,6 +163,6 @@ The last step is to create the csv exporter. Create a new class _CSVExport.cs_ w
 		}
 	}
 
-This is the complete, simple plugin for **sharpDox**. Just copy the created dll file into the 
-_plugin_ folder of **sharpDox**. This way **sharpDox** knows about the plugin and will register 
+This is the complete, simple plugin for *sharpDox*. Just copy the created dll file into the 
+*plugin* folder of *sharpDox*. This way *sharpDox* knows about the plugin and will register 
 it at the start. Please download the example on this site [here](https://github.com/Geaz/SharpDox.Examples.Plugins.CVS "CSV-Exporter").
