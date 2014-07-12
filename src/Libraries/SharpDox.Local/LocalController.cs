@@ -36,7 +36,8 @@ namespace SharpDox.Local
             var localString = string.Empty;
 
             var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToLower();
-            var localStringItem = _localStrings.SingleOrDefault(l => l.Language == currentLanguage && l.LocalStrings.GetType() == localType);
+            var localStringItem = _localStrings.SingleOrDefault(l => l.Language == currentLanguage && l.LocalStrings.GetType() == localType) ??
+                                  _localStrings.SingleOrDefault(l => l.Language == "default" && l.LocalStrings.GetType() == localType);
             if (localStringItem != null)
             {
                 var value = localStringItem.LocalStrings.GetType().GetProperty(stringName).GetValue(localStringItem.LocalStrings, null);
