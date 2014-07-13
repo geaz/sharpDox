@@ -38,6 +38,20 @@ namespace SharpDox.Local.Tests
         }
 
         [TestMethod]
+        public void ShouldGetLocalizedStringByName()
+        {
+            // Arrange
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
+            var localController = new LocalController(new ILocalStrings[] { new TestLocalStrings() });
+
+            // Act
+            var strings = localController.GetLocalString(typeof(TestLocalStrings), "TestString1");
+
+            // Assert
+            Assert.AreEqual("TestString1", strings);
+        }
+
+        [TestMethod]
         public void ShouldGetLocalizedDEStringByName()
         {
             // Arrange
