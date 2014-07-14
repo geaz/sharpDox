@@ -3,9 +3,9 @@ erstellt werden können. Dafür wird ein Plugin erstellt, welches eine neue Eins
 und einen CSV Export für alle Methoden erstellt.
 
 Dazu wird zunächst ein neues Klassenbiliotheks-Projekt in Visual Studio angelegt. Benötigt 
-werden Verweise auf *SharpDox.Model* und *SharpDox.Sdk*. 
+werden Verweise auf `SharpDox.Model` und `SharpDox.Sdk`. 
 Der erste Schritt ist die Erstellung der Konfigurationsklasse. Dazu wird eine neue Klasse 
-*CSVConfig.cs* mit folgendem Inhalt angelegt:
+`CSVConfig.cs` mit folgendem Inhalt angelegt:
 
 	using System;
 	using System.ComponentModel;
@@ -53,7 +53,7 @@ In diesem Beispiel wird lediglich eine Einstellung zur Angabe des Trennzeichens 
 Durch die Angaben der Attribute wird die Konfiguration automatisch im Propertygrid der GUI angezeigt und
 in der Konfigurationsdatei von *sharpDox* integriert.
 
-Als nächstes wird die *CSVStrings* Klasse erstellt.
+Als nächstes wird die `CSVStrings` Klasse erstellt.
 
 	using SharpDox.Sdk.Local;
 
@@ -87,7 +87,7 @@ Als nächstes wird die *CSVStrings* Klasse erstellt.
 
 
 Der letzte Schritt zur Erstellung des CSV Exporters ist der Exportvorgang selbst. Dazu wird eine 
-Datei *CSVExport.cs* mit folgendem Inhalt erstellt:
+Datei `CSVExport.cs` mit folgendem Inhalt erstellt:
 
 	using SharpDox.Model;
 	using SharpDox.Model.Repository;
