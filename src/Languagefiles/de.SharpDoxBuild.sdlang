@@ -19,3 +19,4 @@ OutputPathNotFound = Ausgabepfad konnte nicht gefunden werden.
 BuildStopped = Bauvorgang wurde gestoppt!
 CouldNotEndBuild = Die Dokumentation konnte nicht erstellt werden.
 RequirementError = Es gab ein Problem mit den Vorraussetzungen eines oder mehrere Exportern. Siehe Bauausgabe für weitere Informationen.
+RunningExporter = Starte Exporter: "{0}"

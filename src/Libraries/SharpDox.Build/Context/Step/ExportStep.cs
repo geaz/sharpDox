@@ -24,6 +24,7 @@ namespace SharpDox.Build.Context.Step
                 {
                     var outputPath = GetOutputPath(_stepInput.CoreConfigSection.OutputPath, exporter.ExporterName);
 
+                    ExecuteOnStepMessage(string.Format(_stepInput.SDBuildStrings.RunningExporter, exporter.ExporterName));
                     exporter.OnStepMessage += (m) => ExecuteOnStepMessage(string.Format("[{0}] {1}", exporter.ExporterName, m));
                     exporter.OnStepProgress += (p) => ExecuteOnStepProgress((int)(((double)p / _stepInput.CoreConfigSection.ActivatedExporters.Count) + (i / _stepInput.CoreConfigSection.ActivatedExporters.Count * 100)));
                     exporter.Export(sdProject, outputPath);

@@ -12,6 +12,7 @@ namespace SharpDox.Build
         private string _stepParseCode = "Parsing code";
         private string _stepExport = "Export documentation";
         private string _stepEnd = "Finalizing build";
+        private string _runningExporter = "Starting exporter: \"{0}\"";
 
         private string _parsingProject = "Parsing project";
         private string _parseTokens = "Parsing tokens";
@@ -154,6 +155,12 @@ namespace SharpDox.Build
         {
             get { return _requirementError; }
             set { _requirementError = value; }
+        }
+
+        public string RunningExporter
+        {
+            get { return _runningExporter; }
+            set { _runningExporter = value; }
         }
     }
 }
