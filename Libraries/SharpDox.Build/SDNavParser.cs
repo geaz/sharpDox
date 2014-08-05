@@ -14,7 +14,7 @@ namespace SharpDox.Build
         public SDNavParser(string inputFile)
         {
             _referencePath = Path.GetDirectoryName(inputFile);
-            _articles = Directory.EnumerateFiles(_referencePath, "*.sda", SearchOption.AllDirectories);            
+            _articles = Directory.EnumerateFiles(_referencePath, "*.md", SearchOption.AllDirectories);            
         }
 
         public SDProject ParseNavFile(string navFile, SDProject sdProject)
