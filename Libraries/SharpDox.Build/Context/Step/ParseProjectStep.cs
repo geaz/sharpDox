@@ -3,6 +3,7 @@ using SharpDox.Model.Repository;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace SharpDox.Build.Context.Step
 {
@@ -49,11 +50,21 @@ namespace SharpDox.Build.Context.Step
 
         private void GetImages()
         {
-            var images = Directory.EnumerateFiles(Path.GetDirectoryName(_stepInput.CoreConfigSection.InputFile), "sdi.*", SearchOption.AllDirectories);
+            var pattern = new[] { "*.png", "*.jpg", "*.gif", "*.tiff", "*.bmp", };
+            var images = this.GetFiles(Path.GetDirectoryName(_stepInput.CoreConfigSection.InputFile), pattern, SearchOption.AllDirectories);
             foreach (var image in images)
             {
                 _sdProject.Images.Add(image);
             }
+        }
+
+        private IEnumerable<string> GetFiles(string path,
+                    string[] searchPatterns,
+                    SearchOption searchOption = SearchOption.TopDirectoryOnly)
+        {
+            return searchPatterns.AsParallel()
+                   .SelectMany(searchPattern =>
+                          Directory.EnumerateFiles(path, searchPattern, searchOption));
         }
 
         private void ParseTokens()
@@ -82,7 +93,7 @@ namespace SharpDox.Build.Context.Step
             ExecuteOnStepMessage(_stepInput.SDBuildStrings.ParsingDescriptions);
             ExecuteOnStepProgress(50);
 
-            var potentialReadMes = Directory.EnumerateFiles(Path.GetDirectoryName(_stepInput.CoreConfigSection.InputFile), "*.sdpd");
+            var potentialReadMes = Directory.EnumerateFiles(Path.GetDirectoryName(_stepInput.CoreConfigSection.InputFile), "*pagedefault*.md");
             if (potentialReadMes.Any())
             {
                 foreach (var readme in potentialReadMes)
@@ -96,7 +107,7 @@ namespace SharpDox.Build.Context.Step
                             _sdProject.AddDocumentationLanguage(splitted[0].ToLower());
                         }
                     }
-                    else if (splitted.Length > 0 && splitted[0].ToLower() == "default" && !_sdProject.Description.ContainsKey("default"))
+                    else if (splitted.Length > 0 && splitted[0].ToLower().Contains("default") && !_sdProject.Description.ContainsKey("default"))
                     {
                         _sdProject.Description.Add("default", File.ReadAllText(readme));
                     }
@@ -111,7 +122,7 @@ namespace SharpDox.Build.Context.Step
 
             var navFileParser = new SDNavParser(_stepInput.CoreConfigSection.InputFile);
             var navFiles = Directory.EnumerateFiles(Path.GetDirectoryName(_stepInput.CoreConfigSection.InputFile), "*.sdnav", SearchOption.AllDirectories);
-            foreach(var navFile in navFiles)
+            foreach (var navFile in navFiles)
             {
                 _sdProject = navFileParser.ParseNavFile(navFile, _sdProject);
             }
