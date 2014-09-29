@@ -30,13 +30,14 @@ namespace SharpDox.GUI.ViewModels
 
         private void ConfigChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName == "InputPath" && !string.IsNullOrEmpty(_sharpDoxConfig.InputFile))
+            if (args.PropertyName == "InputFile" && !string.IsNullOrEmpty(_sharpDoxConfig.InputFile))
             {
                 RefreshTreeView();
             }
-            else if (args.PropertyName == "InputPath" && string.IsNullOrEmpty(_sharpDoxConfig.InputFile))
+            else if (args.PropertyName == "InputFile" && string.IsNullOrEmpty(_sharpDoxConfig.InputFile))
             {
                 TreeView = new VisibilityItemList(_sharpDoxConfig);
+                TreeLoaded = false;
             }
         }
 
@@ -54,6 +55,7 @@ namespace SharpDox.GUI.ViewModels
                             foreach (var sdNamespace in repository.Value.GetAllNamespaces())
                             {
                                 TreeView.Add(new NamespaceViewModel(sdNamespace, _sharpDoxConfig));
+                                TreeLoaded = true;
                             }
                         }
                     }
@@ -77,6 +79,13 @@ namespace SharpDox.GUI.ViewModels
         {
             IsTreeRefreshing = true;
             _buildController.StartParse(_sharpDoxConfig, true);     
+        }
+
+        private bool _treeLoaded = false;
+        public bool TreeLoaded
+        {
+            get { return _treeLoaded; }
+            set { _treeLoaded = value; OnPropertyChanged("TreeLoaded"); }
         }
 
         private bool _isTreeRefreshing;

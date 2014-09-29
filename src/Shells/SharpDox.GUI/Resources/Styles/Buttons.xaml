@@ -236,7 +236,8 @@
                                     <Setter Property="Foreground" Value="#ffffdeb9"/>
                                 </Trigger>
                                 <Trigger Property="IsChecked" Value="true">
-                                    <Setter Property="Background" Value="#ffffdeb9"/>
+                                    <Setter Property="Background" Value="#FF3F72DB"/>
+                                    <Setter Property="Foreground" Value="#FF000000"/>
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="false">
                                     <Setter Property="Foreground" Value="#FFDBDBDB"/>

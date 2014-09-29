@@ -16,31 +16,33 @@ namespace SharpDox.GUI.ViewModels.TreeModel
             _sharpDoxConfig = sharpDoxConfig;
 
             Children = new ObservableCollection<TreeViewItemViewModel>();
+            Children.CollectionChanged += (s, a) => UpdateHasExcludedChild();
+
             Parent = parent;
             Identifier = identifier;
-            IsExcluded = parent != null && parent.IsExcluded || IsExcluded;
+            IsExcluded = _sharpDoxConfig.ExcludedIdentifiers.Contains(identifier);
         }
 
         public void UpdateHasExcludedChild()
         {
+            //if all children are excluded, the parent is excluded too
+            if (Children.Count != 0)
+            {
+                _isHasExcludedChildRunning = true;
+                IsExcluded = Children.All(c => c.IsExcluded);
+                _isHasExcludedChildRunning = false;
+            }
+
             OnPropertyChanged("HasExcludedChild");
+            if (Parent != null)
+                Parent.UpdateHasExcludedChild();
         }
 
         public string Text { get; set; }
         public string Image { get; set; }
+        public string Identifier { get; private set; }
         public TreeViewItemViewModel Parent { get; private set; }
         public ObservableCollection<TreeViewItemViewModel> Children { get; private set; }
-
-        private string _identifier;
-        public string Identifier
-        {
-            get { return _identifier; }
-            private set
-            {
-                _identifier = value; 
-                IsExcluded = _sharpDoxConfig.ExcludedIdentifiers.Contains(value);
-            }
-        }
 
         private string _accessibility;
         public string Accessibility
@@ -82,17 +84,7 @@ namespace SharpDox.GUI.ViewModels.TreeModel
         {
             get
             {
-                if (Children.Count != 0)
-                {
-                    _isHasExcludedChildRunning = true;
-
-                    var isExcluded = Children.All(c => c.IsExcluded);
-                    IsExcluded = isExcluded || IsExcluded;
-
-                    _isHasExcludedChildRunning = false;
-                }
-
-                return Children.Any(c => c.IsExcluded);
+                return Children.Any(c => c.IsExcluded || c.HasExcludedChild);
             }
         }
 
@@ -102,7 +94,7 @@ namespace SharpDox.GUI.ViewModels.TreeModel
             get { return _isExcluded; }
             set
             {
-                if (!value && Parent != null && Parent.IsExcluded)
+                if (value == _isExcluded)
                     return;
 
                 _isExcluded = value;

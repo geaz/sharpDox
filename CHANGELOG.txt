@@ -1,8 +1,10 @@
 Version 0.9.9.*
 
+- added a search box in html export
+- added favicon support in html export
 - html output now usable in IE8
 - references in navigation files are no longer case-sensitive
-- fixed a bug in the 'Excluded Identifiers' window
+- fixed some bugs in the 'Excluded Identifiers' window
 - changed the functionality of the hide/show buttons in the 'Excluded Identifiers' window
 - fixed a bug with article names
 - fixed a bug with namespace descriptions
