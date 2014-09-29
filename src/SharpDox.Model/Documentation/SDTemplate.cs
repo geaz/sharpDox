@@ -14,7 +14,6 @@ namespace SharpDox.Model.Documentation
         {
             Template = template;
             _tokens = tokens;
-            _transformedTemplate = Template;
         }
 
         /// <default>
@@ -57,6 +56,8 @@ namespace SharpDox.Model.Documentation
         /// </de>
         public string Transform(Func<string, string, string> transform)
         {
+            _transformedTemplate = Template;
+
             ReplaceTokens();
             ReplaceLink("image", @"{{image-link:[^}}]*}}", transform);
             ReplaceLink("method", @"{{method-link:[^}}]*}}", transform);
