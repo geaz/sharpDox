@@ -21,6 +21,7 @@ x64/
 [Oo]bj/
 
 build/
+nuget/
 !src/SharpDox.Sdk/Build/
 
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
