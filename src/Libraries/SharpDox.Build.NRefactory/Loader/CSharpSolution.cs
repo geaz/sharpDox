@@ -95,6 +95,7 @@ namespace SharpDox.Build.NRefactory.Loader
                     var location = match.Groups["Location"].Value;
                     switch (typeGuid.ToUpperInvariant())
                     {
+                        case "{C3E8C798-5B6F-2EA9-3A09-100A2C098994}": // Unity Project
                         case "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}": // C# project
                             var projectFile = Path.Combine(Directory, location);
                             if (File.Exists(projectFile))
