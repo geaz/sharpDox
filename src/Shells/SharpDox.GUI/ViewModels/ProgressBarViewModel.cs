@@ -1,4 +1,5 @@
-﻿using SharpDox.Sdk.Build;
+﻿using SharpDox.GUI.Windows;
+using SharpDox.Sdk.Build;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,6 @@ namespace SharpDox.GUI.ViewModels
 
     internal class ProgressBarViewModel : ViewModelBase
     {
-        private readonly IBuildController _buildController;
         private readonly SDGuiStrings _strings;
 
         public ProgressBarViewModel(IBuildController buildController, SDGuiStrings strings)
@@ -27,13 +27,12 @@ namespace SharpDox.GUI.ViewModels
             _strings = strings;
             BuildButtonText = strings.Build;
 
-            _buildController = buildController;
-            _buildController.BuildMessenger.OnBuildProgress += (i) => { if (i == 0) ChangeProgress(BuildStatus.Running); BuildProgress = i; };
-            _buildController.BuildMessenger.OnStepProgress += (i) => { StepProgress = i; };
+            buildController.BuildMessenger.OnBuildProgress += (i) => { if (i == 0) ChangeProgress(BuildStatus.Running); BuildProgress = i; };
+            buildController.BuildMessenger.OnStepProgress += (i) => { StepProgress = i; };
 
-            _buildController.BuildMessenger.OnBuildCompleted += (p) => { ChangeProgress(BuildStatus.Success); };
-            _buildController.BuildMessenger.OnBuildFailed += () => { ChangeProgress(BuildStatus.Error); };
-            _buildController.BuildMessenger.OnBuildStopped += () => { ChangeProgress(BuildStatus.Stopped); };
+            buildController.BuildMessenger.OnBuildCompleted += (p) => ChangeProgress(BuildStatus.Success);
+            buildController.BuildMessenger.OnBuildFailed += () => ChangeProgress(BuildStatus.Error);
+            buildController.BuildMessenger.OnBuildStopped += () => ChangeProgress(BuildStatus.Stopped);
         }
 
         private void ChangeProgress(BuildStatus status)

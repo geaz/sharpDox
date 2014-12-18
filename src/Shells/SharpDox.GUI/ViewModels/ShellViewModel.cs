@@ -20,8 +20,7 @@ namespace SharpDox.GUI.ViewModels
 
     internal class ShellViewModel : ViewModelBase
     {
-        private BuildView _buildWindow;
-
+        private readonly BuildView _buildWindow;
         private readonly IConfigController _configController;
         private readonly IBuildController _buildController;
         private readonly Action _onCloseHandle;
@@ -31,6 +30,7 @@ namespace SharpDox.GUI.ViewModels
             _onCloseHandle = onCloseHandle;
             _buildController = buildController;
             _buildController.BuildMessenger.OnStepMessage += (s) => StepMessage = s;
+            _buildController.BuildMessenger.OnBuildFailed += () => Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => _buildWindow.Show()));
 
             _configController = configController;
 
@@ -39,11 +39,11 @@ namespace SharpDox.GUI.ViewModels
             Config = configController.GetConfigSection<ICoreConfigSection>();
             ConfigSections = configController.GetAllConfigSections().ToList();
 
-            ProgressBarViewModel = new ProgressBarViewModel(buildController, strings);
-                        
             _configController.OnRecentProjectsChanged += RecentProjectsChanged;
 
             _buildWindow = new BuildView(Strings, buildController.BuildMessenger);
+
+            ProgressBarViewModel = new ProgressBarViewModel(buildController, strings);
 
             RecentProjectsChanged();
         }
@@ -234,13 +234,7 @@ namespace SharpDox.GUI.ViewModels
         private RelayCommand _openBuildWindowCommand;
         public RelayCommand OpenBuildWindowCommand
         {
-            get
-            {
-                return _openBuildWindowCommand ?? new RelayCommand(() =>
-                {
-                    _buildWindow.Show();
-                }, true);
-            }
+            get { return _openBuildWindowCommand ?? new RelayCommand(() => _buildWindow.Show(), true); }
             set
             {
                 _openBuildWindowCommand = value;
