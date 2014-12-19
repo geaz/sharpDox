@@ -2,6 +2,7 @@
 -Benutzer
 --Erstellen von erweiterten Dokumentationen#de.advanced-tutorial
 --Erstellen von mehrsprachigen Dokumentationen#de.multilang-tutorial
+--Unterstützte Dokumentations-Tags#de.supported-tags
 -Entwickler
 --Erstellen eines Exporters#de.exporter-tutorial
 --API#..\src\SharpDox.sln

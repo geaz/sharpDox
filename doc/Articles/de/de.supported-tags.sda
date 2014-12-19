@@ -1,0 +1,18 @@
+Die folgenden XML Dokumentations-Tags werden von *sharpDox* unterst&uuml;tzt:
+
+- [typeparam](http://msdn.microsoft.com/de-de/library/ms173191.aspx)
+- [param](http://msdn.microsoft.com/de-de/library/8cw818w8.aspx)
+- [exception](http://msdn.microsoft.com/de-de/library/w1htk11d.aspx)
+- [summary](http://msdn.microsoft.com/de-de/library/2d6dt3kf.aspx)
+- [remarks](http://msdn.microsoft.com/de-de/library/3zw4z1ys.aspx)
+- [example](http://msdn.microsoft.com/de-de/library/9w4cf933.aspx)
+- [returns](http://msdn.microsoft.com/de-de/library/4dcfdeds.aspx)
+- [seealso](http://msdn.microsoft.com/de-de/library/xhd7ehkk.aspx)
+- [see](http://msdn.microsoft.com/de-de/library/acd0tfbe.aspx)
+- [typeparamref](http://msdn.microsoft.com/de-de/library/ms173192.aspx)
+- [paramref](http://msdn.microsoft.com/de-de/library/wb7x2fhw.aspx)
+- [code](http://msdn.microsoft.com/de-de/library/f8hahtxf.aspx)
+- [c](http://msdn.microsoft.com/de-de/library/te6h7cxs.aspx)
+- [para](http://msdn.microsoft.com/de-de/library/x640hcd2.aspx)
+
+Zudem wird von *sharpDox* das **&lt;inheritdoc/&gt;** Tag unterst&uuml;tzt.

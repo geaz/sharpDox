@@ -2,6 +2,7 @@
 -Users
 --Create advanced documentation#advanced-tutorial
 --Create multilanguage documentation#multilang-tutorial
+--Supported documentation tags#supported-tags
 -Developers
 --Create a exporter#exporter-tutorial
 --API#..\src\SharpDox.sln
