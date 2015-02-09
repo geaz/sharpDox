@@ -1,3 +1,9 @@
+Version 0.9.10
+
+- The output window opens automatically, if the build fails
+- Fixed a bug with Unity .sln files
+- Some minor bug fixes in the html export
+
 Version 0.9.9.*
 
 - added a search box in html export
