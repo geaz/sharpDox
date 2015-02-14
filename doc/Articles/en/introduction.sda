@@ -1,11 +1,5 @@
 Building code documentation with *sharpDox* is really easy. Just download it, 
-extract the zip file to any location and start the *SharpDox.Core.exe*. 
-
-![Shell]({{image-link:sdi.en.startSD.png}})
-
-Developers are able to create additional shells for *sharpDox*. If more than one shell 
-is available in the folder _shells_, *sharpdox* will ask which one should get started. 
-If you only need one shell please delete the other ones. 
+extract the zip file to any location and start the *SharpDox.Gui.exe* or *SharpDox.Console.exe*. 
 
 To create your first documentation it is suggested to start the GUI of *sharpDox*. 
 The GUI helps you to create a config for your documentation. Exporters are able to provide 

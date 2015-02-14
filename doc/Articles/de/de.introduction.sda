@@ -1,14 +1,6 @@
 Die Benutzung von *sharpDox* gestaltet sich, im Gegensatz zu manch anderen Dokumentationstools, 
 als sehr einfach. Nachdem *sharpDox* heruntergeladen und entpackt wurde, kann es über die 
-*Sharpdox.Core.exe* gestartet werden.
-
-![Shell]({{image-link:sdi.startSD.png}})
-
-Entwicklern ist es möglich, für *sharpDox* neue Benutzeroberflächen zu implementierten. 
-Sind mehrere dieser Benutzeroberflächen im Ordner *shells* von *sharpDox* vorhanden, 
-bietet das Programm dem Benutzer eine Auswahl der registrierten Benutzeroberflächen an. 
-Sollte nur eine Benutzeroberfläche benötigt werden, können die übrigen Oberflächen bedenkenlos 
-aus dem *shells* Ordner entfernt werden.
+*Sharpdox.Gui.exe* oder *SharpDox.Console.exe* gestartet werden.
 
 Es empfiehlt sich *sharpDox* das erstemal mit der GUI zu starten. 
 Mittels der GUI kann die Konfiguration der eigenen Dokumentation einfach angepasst werden. 
