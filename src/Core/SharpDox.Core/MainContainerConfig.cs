@@ -73,7 +73,7 @@ namespace SharpDox.Core
 
         private void RegisterPlugins()
         {
-            var pluginPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "plugins");
+            var pluginPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "plugins");
             if (Directory.Exists(pluginPath))
             {
                 RegisterAllInPath(pluginPath, "*dll");
