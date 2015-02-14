@@ -22,7 +22,7 @@ namespace SharpDox.Model.Documentation
             Summary = new SDTokenList();
             Remarks = new SDTokenList();
             Example = new SDTokenList();
-            Returns = new SDTokenList();
+            Returns = new Dictionary<string, SDTokenList>();
             SeeAlsos = new SDTokenList();
             Exceptions = new Dictionary<string, SDTokenList>();
             Params = new Dictionary<string, SDTokenList>();
@@ -67,15 +67,19 @@ namespace SharpDox.Model.Documentation
 
         /// <default>
         ///     <summary>
-        ///     Gets or sets a list of <c>SDToken</c>s,  representing the returns section.
+        ///     Gets or sets a <c>Dictionary</c> of lists with <c>SDToken</c>s,  representing the returns section.
+        ///     Multiple returns are used by webapi documentation. The key of each return value is the http response
+        ///     code of the webapi method.
         ///     </summary>
         /// </default>
         /// <de>
         ///     <summary>
         ///     Setzt oder liefert eine Liste von <c>SDToken</c>s, welche die "Returns"-Sektion repräsentiert.
+        ///     Meherere "Returns"-Sektionen werden von WebApis genutzt. Wobei der Key des Dictionaries
+        ///     den HTTP-Resultcode der WebApi Methode repräsentiert.
         ///     </summary>
         /// </de>
-        public SDTokenList Returns { get; set; }
+        public Dictionary<string, SDTokenList> Returns { get; set; }
 
         /// <default>
         ///     <summary>

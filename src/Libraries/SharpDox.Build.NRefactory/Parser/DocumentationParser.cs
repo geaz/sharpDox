@@ -95,7 +95,7 @@ namespace SharpDox.Build.NRefactory.Parser
                         sdDocumentation.Example = ParseContentTokens(child);
                         break;
                     case "returns":
-                        sdDocumentation.Returns = ParseContentTokens(child);
+                        AddResultsSection(sdDocumentation.Returns, child);
                         break;
                     case "seealso":
                         sdDocumentation.SeeAlsos.Add(GetSeeRef(child));
@@ -144,6 +144,18 @@ namespace SharpDox.Build.NRefactory.Parser
                 }
             }
             return content;
+        }
+
+        private void AddResultsSection(Dictionary<string, SDTokenList> results, XmlDocumentationElement xmlElement)
+        {
+            if (!string.IsNullOrEmpty(xmlElement.GetAttribute("httpCode")))
+            {
+                results.Add(xmlElement.GetAttribute("httpCode"), ParseContentTokens(xmlElement));
+            }
+            else
+            {
+                results.Add("default", ParseContentTokens(xmlElement));
+            }
         }
 
         private SDToken GetSeeRef(XmlDocumentationElement xmlElement)
