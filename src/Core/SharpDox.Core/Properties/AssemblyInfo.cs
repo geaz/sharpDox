@@ -33,7 +33,6 @@ using System.Runtime.InteropServices;
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("0.9.10")]
+[assembly: AssemblyFileVersion("1.0.0")]
 
 [assembly: InternalsVisibleTo("SharpDox.Config.Tests")]
-[assembly: log4net.Config.XmlConfigurator(Watch = true)]

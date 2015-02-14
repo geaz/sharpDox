@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using Autofac;
+using log4net.Config;
 using SharpDox.Core;
 
 namespace SharpDox.Console
@@ -9,12 +11,21 @@ namespace SharpDox.Console
         [STAThread]
         public static void Main(string[] args)
         {
-            var mainContainerConfig = new MainContainerConfig();
-            mainContainerConfig.RegisterAsSelf<SDConsole>();
-            mainContainerConfig.RegisterStrings<SDConsoleStrings>();
-            var mainContainer = mainContainerConfig.BuildContainer();
+            try
+            {
+                XmlConfigurator.Configure();
 
-            mainContainer.Resolve<SDConsole>().Start(args);
+                var mainContainerConfig = new MainContainerConfig();
+                mainContainerConfig.RegisterAsSelf<SDConsole>();
+                mainContainerConfig.RegisterStrings<SDConsoleStrings>();
+                var mainContainer = mainContainerConfig.BuildContainer();
+                
+                mainContainer.Resolve<SDConsole>().Start(args);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+            }
         }
     }
 }
