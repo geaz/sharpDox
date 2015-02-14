@@ -1,7 +1,7 @@
 ﻿using System;
+using SharpDox.Build;
 using SharpDox.GUI.Command;
 using SharpDox.Sdk.Config;
-using SharpDox.Sdk.Build;
 using System.ComponentModel;
 using SharpDox.GUI.ViewModels.TreeModel;
 using System.Windows;
@@ -13,10 +13,10 @@ namespace SharpDox.GUI.ViewModels
     internal class VisibilityViewModel : ViewModelBase
     {
         private readonly ICoreConfigSection _sharpDoxConfig;
-        private readonly IBuildController _buildController;
+        private readonly BuildController _buildController;
         private readonly Action _onCloseHandle;
 
-        public VisibilityViewModel(ICoreConfigSection sharpDoxConfig, IBuildController buildController, Action onCloseHandle)
+        public VisibilityViewModel(ICoreConfigSection sharpDoxConfig, BuildController buildController, Action onCloseHandle)
         {
             _sharpDoxConfig = sharpDoxConfig;
             _buildController = buildController;

@@ -1,7 +1,6 @@
 ﻿using SharpDox.Build.Context.Step;
 using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Exporter;
-using System;
 using System.Collections.Generic;
 
 namespace SharpDox.Build.Context

@@ -1,21 +1,20 @@
-﻿using SharpDox.GUI.Controls.ConfigGrid;
+﻿using SharpDox.Build;
+using SharpDox.GUI.Controls.ConfigGrid;
 using SharpDox.GUI.ViewModels;
-using SharpDox.Sdk.Build;
 using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Exporter;
 using SharpDox.Sdk.Local;
-using SharpDox.Sdk.UI;
 using System;
 using System.Windows;
 using System.Windows.Input;
 
 namespace SharpDox.GUI
 {
-    public partial class Shell : IShell
+    public partial class Shell
     {
         public event Action OnClose;
 
-        public Shell(IConfigController configController, IExporter[] allExporters, ILocalController localController, IBuildController buildController)
+        public Shell(IConfigController configController, IExporter[] allExporters, ILocalController localController, BuildController buildController)
         {
             var guiStrings = localController.GetLocalStrings<SDGuiStrings>();
             DataContext = new ShellViewModel(guiStrings, configController, buildController, ExecuteOnClose);
@@ -39,6 +38,7 @@ namespace SharpDox.GUI
         {
             if (OnClose != null) OnClose();
             Close();
+            Application.Current.Shutdown();
         }
 
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
@@ -46,9 +46,9 @@ namespace SharpDox.GUI
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 // this prevents win7 aerosnap
-                if (ResizeMode != System.Windows.ResizeMode.NoResize)
+                if (ResizeMode != ResizeMode.NoResize)
                 {
-                    ResizeMode = System.Windows.ResizeMode.NoResize;
+                    ResizeMode = ResizeMode.NoResize;
                     UpdateLayout();
                 }
 
@@ -58,10 +58,10 @@ namespace SharpDox.GUI
 
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (ResizeMode == System.Windows.ResizeMode.NoResize)
+            if (ResizeMode == ResizeMode.NoResize)
             {
                 // restore resize grips
-                ResizeMode = System.Windows.ResizeMode.CanResizeWithGrip;
+                ResizeMode = ResizeMode.CanResizeWithGrip;
                 UpdateLayout();
             }
         }

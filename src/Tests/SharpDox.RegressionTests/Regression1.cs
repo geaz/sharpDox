@@ -1,13 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using SharpDox.Sdk.Build;
-using SharpDox.Sdk.Config;
-using System.Reflection;
-using System.IO;
-using SharpDox.Build.Context;
-using SharpDox.Sdk.Exporter;
-using System.Collections.Generic;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SharpDox.RegressionTests
 {

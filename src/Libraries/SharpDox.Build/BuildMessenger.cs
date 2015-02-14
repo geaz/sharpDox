@@ -1,10 +1,9 @@
 ﻿using SharpDox.Model;
-using SharpDox.Sdk.Build;
 using System;
 
 namespace SharpDox.Build
 {
-    public class BuildMessenger : IBuildMessenger
+    public class BuildMessenger
     {
         public event Action<string> OnBuildMessage;
         public event Action<string> OnStepMessage;

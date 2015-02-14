@@ -1,3 +1,7 @@
+Version 0.9.11
+
+- Created two seperate executes (gui and console)
+
 Version 0.9.10
 
 - The output window opens automatically, if the build fails

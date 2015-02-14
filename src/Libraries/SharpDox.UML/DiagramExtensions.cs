@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SharpDox.Model;
+﻿using SharpDox.Model;
 using SharpDox.Model.Repository.Members;
 using SharpDox.Model.Repository;
 using SharpDox.UML.Class;

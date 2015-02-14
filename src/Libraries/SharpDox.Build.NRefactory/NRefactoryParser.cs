@@ -4,7 +4,6 @@ using SharpDox.Build.NRefactory.Parser;
 using SharpDox.Model.Repository;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using SharpDox.Sdk.Config;
 

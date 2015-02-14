@@ -63,11 +63,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\SharpDox.Local\SharpDox.Local.csproj">
-      <Project>{52ecc690-3f03-4820-8fe4-2c07c7b33409}</Project>
-      <Name>SharpDox.Local</Name>
+    <ProjectReference Include="..\..\Core\SharpDox.Core\SharpDox.Core.csproj">
+      <Project>{8e519972-d18f-47e4-8e82-abc3b3d43311}</Project>
+      <Name>SharpDox.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SharpDox.Sdk\SharpDox.Sdk.csproj">
+    <ProjectReference Include="..\..\Core\SharpDox.Sdk\SharpDox.Sdk.csproj">
       <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
       <Name>SharpDox.Sdk</Name>
     </ProjectReference>

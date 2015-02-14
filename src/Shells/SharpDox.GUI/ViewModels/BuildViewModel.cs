@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
+using SharpDox.Build;
 using SharpDox.GUI.Command;
-using SharpDox.Sdk.Build;
 
 namespace SharpDox.GUI.ViewModels
 {
@@ -11,7 +11,7 @@ namespace SharpDox.GUI.ViewModels
 
         private readonly Action _onCloseHandle;
 
-        public BuildViewModel(IBuildMessenger buildMessenger, Action onCloseHandle)
+        public BuildViewModel(BuildMessenger buildMessenger, Action onCloseHandle)
         {
             _onCloseHandle = onCloseHandle;
             _outputMessage = new StringBuilder();
