@@ -1,6 +1,8 @@
 Create documentation with ease
 ------------------
 
+[![Join the chat at https://gitter.im/Geaz/sharpDox](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Geaz/sharpDox?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 **sharpDox** is a documentation tool to create c# code documentation of any type.
 The tool creates a model of a given c# solution and passes it to the registered export plugins.
 The plugins transform the model to a defined output. **sharpDox** comes with a chm & html export plugin which
