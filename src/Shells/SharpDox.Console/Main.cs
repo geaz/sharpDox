@@ -43,8 +43,6 @@ namespace SharpDox.Console
                 System.Console.WriteLine(_strings.ConfigMissing + " -config " + _strings.Path);
             }
 
-            System.Console.WriteLine(_strings.PressToEnd);
-            System.Console.ReadLine();
         }
         
         public bool IsGui { get { return false; } }
