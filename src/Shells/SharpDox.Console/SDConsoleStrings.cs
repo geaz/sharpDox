@@ -6,7 +6,6 @@ namespace SharpDox.Console
     {
         private string _configMissing = "Please provide a config file.";
         private string _path = "PATH";
-        private string _pressToEnd = "Press enter to exit sharpDox ...";
 
         public string DisplayName { get { return "SharpDoxConsole"; } }
 
@@ -22,10 +21,5 @@ namespace SharpDox.Console
             set { _path = value; }
         }
 
-        public string PressToEnd
-        {
-            get { return _pressToEnd; }
-            set { _pressToEnd = value; }
-        }
     }
 }
