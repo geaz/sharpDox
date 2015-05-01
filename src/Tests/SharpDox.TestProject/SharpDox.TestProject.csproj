@@ -39,8 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InheritDoc.cs" />
     <Compile Include="Regression1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Regression6.cs" />
     <Compile Include="WebApiDoc.cs" />
     <Compile Include="Regression5.cs" />
     <Compile Include="Regression4.cs" />
