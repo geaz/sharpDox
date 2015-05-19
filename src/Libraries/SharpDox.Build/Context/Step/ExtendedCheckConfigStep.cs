@@ -23,7 +23,9 @@ namespace SharpDox.Build.Context.Step
                 throw new SDBuildException(_stepInput.SDBuildStrings.NoOutputPathGiven);
 
             if (!Directory.Exists(_stepInput.CoreConfigSection.OutputPath))
-                throw new SDBuildException(_stepInput.SDBuildStrings.OutputPathNotFound);
+            {
+                Directory.CreateDirectory(_stepInput.CoreConfigSection.OutputPath);
+            }
 
             foreach (var exporter in _stepInput.AllExporters)
             {
