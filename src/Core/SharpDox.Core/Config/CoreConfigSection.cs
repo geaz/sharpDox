@@ -17,11 +17,9 @@ namespace SharpDox.Core.Config
         private string _projectUrl;
         private string _authorUrl;
         private string _inputFile;
-        private string _lastBuild;
         private string _logoPath;
         private string _outputPath;
         private string _docLanguage;
-        private string _pathToConfig;
         private string _projectName;
         private string _versionNumber;
         private bool _excludePrivate;
@@ -59,32 +57,6 @@ namespace SharpDox.Core.Config
                 {
                     _configFileName = value;
                     OnPropertyChanged("ConfigFileName");
-                }
-            }
-        }
-
-        public string PathToConfig
-        {
-            get { return _pathToConfig; }
-            set
-            {
-                if (_pathToConfig != value)
-                {
-                    _pathToConfig = value;
-                    OnPropertyChanged("PathToConfig");
-                }
-            }
-        }
-
-        public string LastBuild
-        {
-            get { return String.IsNullOrEmpty(_lastBuild) ? _strings.Never : _lastBuild; }
-            set
-            {
-                if (_lastBuild != value)
-                {
-                    _lastBuild = value;
-                    OnPropertyChanged("LastBuild");
                 }
             }
         }

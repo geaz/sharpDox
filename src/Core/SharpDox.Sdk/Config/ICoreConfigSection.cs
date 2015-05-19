@@ -88,18 +88,6 @@ namespace SharpDox.Sdk.Config
 
         /// <default>
         ///     <summary>
-        ///     Returns the date of the last documentation build.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert das Datum des letzten Bauvorgangs.
-        ///     </summary>
-        /// </de>
-        string LastBuild { get; set; }
-
-        /// <default>
-        ///     <summary>
         ///     Returns the path to the logo.
         ///     </summary>
         /// </default>
@@ -133,18 +121,6 @@ namespace SharpDox.Sdk.Config
         ///     </summary>
         /// </de>
         string DocLanguage { get; set; }
-
-        /// <default>
-        ///     <summary>
-        ///     Return the path to the actual configuration.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert den Pfad zur aktuellen Konfigutaionsdatei.
-        ///     </summary>
-        /// </de>
-        string PathToConfig { get; set; }
 
         /// <default>
         ///     <summary>
