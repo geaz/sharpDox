@@ -9,8 +9,9 @@ namespace SharpDox.Console
     public static class AppEntry
     {
         [STAThread]
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
+            var exitCode = -1;
             try
             {
                 XmlConfigurator.Configure();
@@ -21,11 +22,13 @@ namespace SharpDox.Console
                 var mainContainer = mainContainerConfig.BuildContainer();
                 
                 mainContainer.Resolve<SDConsole>().Start(args);
+                exitCode = 0;
             }
             catch (Exception ex)
             {
                 Trace.TraceError(ex.ToString());
             }
+            return exitCode;
         }
     }
 }

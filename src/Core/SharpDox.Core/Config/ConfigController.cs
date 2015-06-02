@@ -50,25 +50,19 @@ namespace SharpDox.Core.Config
 
                 _configSerializer.SetDeserializedConfigs(XDocument.Load(fileToLoad), _configSections);
 
-                _coreConfigSection.PathToConfig = new SDPath(fileToLoad);
+                _coreConfigSection.PathToConfig = fileToLoad;
                 _coreConfigSection.ConfigFileName = Path.GetFileNameWithoutExtension(fileToLoad);
                 _coreConfigSection.IsSaved = true;
 
-                AddRecentConfig(_coreConfigSection.ConfigFileName, _coreConfigSection.PathToConfig);
+                AddRecentConfig(_coreConfigSection.ConfigFileName, CurrentConfigPath);
             }
         }
 
         public void Save()
         {
-            var pathToConfig = _coreConfigSection.PathToConfig;
-            if (pathToConfig != null)
+            if (_coreConfigSection.PathToConfig != null)
             {
-                var xml = _configSerializer.GetSerializedConfigs(_configSections);
-                xml.Save(pathToConfig);
-
-                _coreConfigSection.IsSaved = true;
-
-                AddRecentConfig(_coreConfigSection.ConfigFileName, _coreConfigSection.PathToConfig);
+                SaveTo(_coreConfigSection.PathToConfig);
             }
         }
 
@@ -78,7 +72,7 @@ namespace SharpDox.Core.Config
             {
                 Environment.CurrentDirectory = Path.GetDirectoryName(fileToSave);
 
-                _coreConfigSection.PathToConfig = new SDPath(fileToSave);
+                _coreConfigSection.PathToConfig = fileToSave;
                 _coreConfigSection.ConfigFileName = Path.GetFileNameWithoutExtension(fileToSave);
 
                 var xml = _configSerializer.GetSerializedConfigs(_configSections);
@@ -86,7 +80,7 @@ namespace SharpDox.Core.Config
 
                 _coreConfigSection.IsSaved = true;
 
-                AddRecentConfig(_coreConfigSection.ConfigFileName, _coreConfigSection.PathToConfig);
+                AddRecentConfig(_coreConfigSection.ConfigFileName, CurrentConfigPath);
             }
         }
 
@@ -203,5 +197,7 @@ namespace SharpDox.Core.Config
         }
 
         public List<KeyValuePair<string, string>> RecentProjects { get; private set; }
+
+        public string CurrentConfigPath { get; private set; }
     }
 }

@@ -124,14 +124,6 @@
                         </TextBlock>
                     </Label.Content>
                 </Label>
-                <TextBlock Margin="18,-5,18,5" Style="{StaticResource Description}">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0}: {1}">
-                            <Binding Path="Strings.LastBuild" ElementName="Window"/>
-                            <Binding Path="Config.LastBuild"/>
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
             </StackPanel>
 
             <!-- Body -->
