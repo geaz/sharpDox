@@ -112,30 +112,6 @@ namespace SharpDox.Sdk.Config
 
         /// <default>
         ///     <summary>
-        ///     Return the path to the actual configuration.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert den Pfad zur aktuellen Konfigutaionsdatei.
-        ///     </summary>
-        /// </de>
-        SDPath PathToConfig { get; set; }
-
-        /// <default>
-        ///     <summary>
-        ///     Returns the date of the last documentation build.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert das Datum des letzten Bauvorgangs.
-        ///     </summary>
-        /// </de>
-        string LastBuild { get; set; }
-
-        /// <default>
-        ///     <summary>
         ///     Returns the default documentation language.
         ///     </summary>
         /// </default>

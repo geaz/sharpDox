@@ -141,16 +141,16 @@ namespace SharpDox.Sdk.Config
         /// </de>
         List<KeyValuePair<string, string>> RecentProjects { get; }
 
-        ///// <default>
-        /////     <summary>
-        /////     Returns the path of the currently loaded config file.
-        /////     </summary>
-        ///// </default>
-        ///// <de>
-        /////     <summary>
-        /////     Liefert den Pfad der aktuellen Konfigurationsdatei zurück.
-        /////     </summary>
-        ///// </de>>
-        //string CurrentConfigPath { get; }
+        /// <default>
+        ///     <summary>
+        ///     Returns the path of the currently loaded config file.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert den Pfad der aktuellen Konfigurationsdatei zurück.
+        ///     </summary>
+        /// </de>>
+        string CurrentConfigPath { get; }
     }
 }

@@ -50,7 +50,7 @@ namespace SharpDox.Core.Config
 
                 _configSerializer.SetDeserializedConfigs(XDocument.Load(fileToLoad), _configSections);
 
-                _coreConfigSection.PathToConfig = fileToLoad;
+                CurrentConfigPath = fileToLoad;
                 _coreConfigSection.ConfigFileName = Path.GetFileNameWithoutExtension(fileToLoad);
                 _coreConfigSection.IsSaved = true;
 
@@ -60,9 +60,9 @@ namespace SharpDox.Core.Config
 
         public void Save()
         {
-            if (_coreConfigSection.PathToConfig != null)
+            if (!string.IsNullOrEmpty(CurrentConfigPath))
             {
-                SaveTo(_coreConfigSection.PathToConfig);
+                SaveTo(CurrentConfigPath);
             }
         }
 
@@ -72,7 +72,7 @@ namespace SharpDox.Core.Config
             {
                 Environment.CurrentDirectory = Path.GetDirectoryName(fileToSave);
 
-                _coreConfigSection.PathToConfig = fileToSave;
+                CurrentConfigPath = fileToSave;
                 _coreConfigSection.ConfigFileName = Path.GetFileNameWithoutExtension(fileToSave);
 
                 var xml = _configSerializer.GetSerializedConfigs(_configSections);
