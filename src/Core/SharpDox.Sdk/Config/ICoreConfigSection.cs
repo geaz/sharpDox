@@ -84,7 +84,43 @@ namespace SharpDox.Sdk.Config
         ///     Liefert den Eingabepfad.
         ///     </summary>
         /// </de>
-        string InputFile { get; set; }
+        SDPath InputFile { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Returns the path to the logo.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert den Pfad zum Logo.
+        ///     </summary>
+        /// </de>
+        SDPath LogoPath { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Return the output path.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert den Ausgabepfad.
+        ///     </summary>
+        /// </de>
+        SDPath OutputPath { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Return the path to the actual configuration.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert den Pfad zur aktuellen Konfigutaionsdatei.
+        ///     </summary>
+        /// </de>
+        SDPath PathToConfig { get; set; }
 
         /// <default>
         ///     <summary>
@@ -100,30 +136,6 @@ namespace SharpDox.Sdk.Config
 
         /// <default>
         ///     <summary>
-        ///     Returns the path to the logo.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert den Pfad zum Logo.
-        ///     </summary>
-        /// </de>
-        string LogoPath { get; set; }
-
-        /// <default>
-        ///     <summary>
-        ///     Return the output path.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert den Ausgabepfad.
-        ///     </summary>
-        /// </de>
-        string OutputPath { get; set; }
-
-        /// <default>
-        ///     <summary>
         ///     Returns the default documentation language.
         ///     </summary>
         /// </default>
@@ -133,18 +145,6 @@ namespace SharpDox.Sdk.Config
         ///     </summary>
         /// </de>
         string DocLanguage { get; set; }
-
-        /// <default>
-        ///     <summary>
-        ///     Return the path to the actual configuration.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert den Pfad zur aktuellen Konfigutaionsdatei.
-        ///     </summary>
-        /// </de>
-        string PathToConfig { get; set; }
 
         /// <default>
         ///     <summary>

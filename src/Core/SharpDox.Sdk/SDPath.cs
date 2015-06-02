@@ -1,6 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
-namespace SharpDox.Core
+namespace SharpDox.Sdk
 {
     public class SDPath
     {
@@ -9,7 +10,7 @@ namespace SharpDox.Core
             
         }
 
-        public SDPath(string fullPath, string relativePath)
+        public SDPath(string fullPath, string relativePath = null)
             : this()
         {
             FullPath = fullPath;
@@ -19,6 +20,11 @@ namespace SharpDox.Core
         public string RelativePath { get; private set; }
 
         public string FullPath { get; private set; }
+
+        public string ResolvePath()
+        {
+            return ResolvePath(Environment.CurrentDirectory);
+        }
 
         public string ResolvePath(string currentDirectory, bool checkForExistence = false)
         {
@@ -44,10 +50,25 @@ namespace SharpDox.Core
             return FullPath;
         }
 
+        public void UpdatePath()
+        {
+            UpdatePath(FullPath, Environment.CurrentDirectory);
+        }
+
         public void UpdatePath(string fullPath, string basePath)
         {
             FullPath = fullPath;
             RelativePath = PathHelper.GetRelativePath(fullPath, basePath);
+        }
+
+        public static implicit operator string (SDPath path)
+        {
+            return path.ResolvePath();
+        }
+
+        public static implicit operator SDPath (string fullPath)
+        {
+            return new SDPath(fullPath);
         }
     }
 }

@@ -30,11 +30,11 @@ namespace SharpDox.GUI.ViewModels
 
         private void ConfigChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName == "InputFile" && !string.IsNullOrEmpty(_sharpDoxConfig.InputFile))
+            if (args.PropertyName == "InputFile" && _sharpDoxConfig.InputFile != null)
             {
                 RefreshTreeView();
             }
-            else if (args.PropertyName == "InputFile" && string.IsNullOrEmpty(_sharpDoxConfig.InputFile))
+            else if (args.PropertyName == "InputFile" && _sharpDoxConfig.InputFile == null)
             {
                 TreeView = new VisibilityItemList(_sharpDoxConfig);
                 TreeLoaded = false;

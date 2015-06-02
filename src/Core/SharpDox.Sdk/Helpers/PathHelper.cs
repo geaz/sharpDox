@@ -1,4 +1,4 @@
-﻿namespace SharpDox.Core
+﻿namespace SharpDox.Sdk
 {
     using System;
 

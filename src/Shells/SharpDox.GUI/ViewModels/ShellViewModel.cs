@@ -154,7 +154,7 @@ namespace SharpDox.GUI.ViewModels
             {
                 return _saveConfigCommand ?? new RelayCommand(() =>
                 {
-                    if (!string.IsNullOrEmpty(Config.PathToConfig))
+                    if (Config.PathToConfig != null)
                     {
                         _configController.Save();
                     }
