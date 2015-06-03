@@ -105,7 +105,7 @@
     <Compile Include="Controls\ConfigGrid\Elements\ConfigColorControl.xaml.cs">
       <DependentUpon>ConfigColorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\SDPathConverter.cs" />
+    <Compile Include="Resources\Converter\SDPathConverter.cs" />
     <Compile Include="ViewModels\BuildViewModel.cs" />
     <Compile Include="ViewModels\ProgressBarViewModel.cs" />
     <Compile Include="Windows\BuildView.xaml.cs">

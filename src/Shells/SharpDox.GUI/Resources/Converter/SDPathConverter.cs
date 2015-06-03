@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using SharpDox.Sdk;
 
-namespace SharpDox.GUI.Converters
+namespace SharpDox.GUI.Resources.Converter
 {
     public class SDPathConverter : IValueConverter
     {

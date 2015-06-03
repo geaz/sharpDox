@@ -151,6 +151,6 @@ namespace SharpDox.Sdk.Config
         ///     Liefert den Pfad der aktuellen Konfigurationsdatei zurück.
         ///     </summary>
         /// </de>>
-        string CurrentConfigPath { get; }
+        SDPath CurrentConfigPath { get; }
     }
 }

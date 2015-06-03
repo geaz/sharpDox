@@ -51,7 +51,7 @@ namespace SharpDox.Core.Config
 
         public string ConfigFileName
         {
-            get { return string.IsNullOrEmpty(_configFileName) ? "New configuration" : _configFileName; }
+            get { return string.IsNullOrEmpty(_configFileName) ? _strings.NewConfig : _configFileName; }
             set
             {
                 if (_configFileName != value)
