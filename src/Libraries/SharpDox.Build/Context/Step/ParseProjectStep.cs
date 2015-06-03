@@ -30,8 +30,7 @@ namespace SharpDox.Build.Context.Step
                 var projectFile = _stepInput.CoreConfigSection.InputFile;
                 var repository = new SDRepository();
 
-                var targetFxParser = new SDTargetFxParser();
-                repository.TargetFx = targetFxParser.GetTargetFx(projectFile);
+                // TODO: consider to not put solutions inside repositories, or allow subrepositories
 
                 _sdProject.Repositories.Add(projectFile, repository);
             }

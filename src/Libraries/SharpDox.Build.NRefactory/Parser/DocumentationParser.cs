@@ -123,20 +123,29 @@ namespace SharpDox.Build.NRefactory.Parser
                     switch (element.Name.ToLower())
                     {
                         case "see":
-                            content.Add(GetSeeRef(element));
+                            var seeRef = GetSeeRef(element);
+                            if (seeRef != null)
+                            {
+                                content.Add(seeRef);
+                            }
                             break;
+
                         case "typeparamref":
                             content.Add(new SDToken { Role = SDTokenRole.TypeParamRef, Text = element.GetAttribute("name") });
                             break;
+
                         case "paramref":
                             content.Add(new SDToken { Role = SDTokenRole.ParamRef, Text = element.GetAttribute("name") });
                             break;
+
                         case "code":
                             content.Add(new SDCodeToken { Text = text, IsInline = false });
                             break;
+
                         case "c":
                             content.Add(new SDCodeToken { Text = text, IsInline = true });
                             break;
+
                         case "para":
                             content.Add(new SDToken { Text = text, Role = SDTokenRole.Paragraph });
                             break;
@@ -160,24 +169,32 @@ namespace SharpDox.Build.NRefactory.Parser
 
         private SDToken GetSeeRef(XmlDocumentationElement xmlElement)
         {
-            var sdToken = new SDSeeToken();
-            if (xmlElement.ReferencedEntity != null)
+            try
             {
-                var identifier = xmlElement.ReferencedEntity.DeclaringType != null
-                                        ? xmlElement.ReferencedEntity.DeclaringType.GetIdentifier()
-                                        : string.Empty;
+                var sdToken = new SDSeeToken();
 
-                sdToken.Name = xmlElement.ReferencedEntity.Name;
-                sdToken.Namespace = xmlElement.ReferencedEntity.Namespace;
-                sdToken.DeclaringType = identifier;
-                sdToken.Text = xmlElement.ReferencedEntity.Name;
+                if (xmlElement.ReferencedEntity != null)
+                {
+                    var identifier = xmlElement.ReferencedEntity.DeclaringType != null
+                                            ? xmlElement.ReferencedEntity.DeclaringType.GetIdentifier()
+                                            : string.Empty;
+
+                    sdToken.Name = xmlElement.ReferencedEntity.Name;
+                    sdToken.Namespace = xmlElement.ReferencedEntity.Namespace;
+                    sdToken.DeclaringType = identifier;
+                    sdToken.Text = xmlElement.ReferencedEntity.Name;
+                }
+                else
+                {
+                    sdToken.Name = xmlElement.GetAttribute("cref");
+                }
+
+                return sdToken;
             }
-            else
+            catch (Exception)
             {
-                sdToken.Name = xmlElement.GetAttribute("cref");
+                return null;
             }
-
-            return sdToken;
         }
     }
 }

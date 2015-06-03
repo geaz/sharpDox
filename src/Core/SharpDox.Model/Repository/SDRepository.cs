@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using SharpDox.Model.Repository.Members;
 
 namespace SharpDox.Model.Repository
@@ -15,6 +17,7 @@ namespace SharpDox.Model.Repository
     ///     Das Repository beinhaltet alle Informationen der eingelesenen Lösung.
     ///     </summary>     
     /// </de>
+    [DebuggerDisplay("{Name} ({TargetFx.Identifier})")]
     [Serializable]
     public class SDRepository
     {
@@ -33,6 +36,8 @@ namespace SharpDox.Model.Repository
         }
 
         public string Location { get; set; }
+
+        public string Name { get { return !string.IsNullOrEmpty(Location) ? Path.GetFileNameWithoutExtension(Location) : "Unknown"; } }
 
         public SDTargetFx TargetFx { get; set; }
 
