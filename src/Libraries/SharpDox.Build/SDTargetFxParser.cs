@@ -35,13 +35,17 @@ namespace SharpDox.Build
 
             var targetFrameworkIdentifier = string.Empty;
             var targetFrameworkVersion = string.Empty;
+            var targetPlatformIdentifier = string.Empty;
             var targetPlatformVersion = string.Empty;
+            var targetFrameworkProfile = string.Empty;
 
             ReadXPathElementValue(document, "/Project/PropertyGroup/TargetFrameworkIdentifier", s => targetFrameworkIdentifier = s);
             ReadXPathElementValue(document, "/Project/PropertyGroup/TargetFrameworkVersion", s => targetFrameworkVersion = s);
+            ReadXPathElementValue(document, "/Project/PropertyGroup/TargetPlatformIdentifier", s => targetPlatformIdentifier = s);
             ReadXPathElementValue(document, "/Project/PropertyGroup/TargetPlatformVersion", s => targetPlatformVersion = s);
+            ReadXPathElementValue(document, "/Project/PropertyGroup/TargetFrameworkProfile", s => targetFrameworkProfile = s);
 
-            return GetTargetFx(targetFrameworkIdentifier, targetFrameworkVersion, targetPlatformVersion);
+            return GetTargetFx(targetFrameworkIdentifier, targetFrameworkVersion, targetPlatformIdentifier, targetPlatformVersion, targetFrameworkProfile);
         }
 
         private void ReadXPathElementValue(XDocument doc, string xpath, Action<string> setter)
@@ -59,8 +63,14 @@ namespace SharpDox.Build
         }
 
         private SDTargetFx GetTargetFx(string targetFrameworkIdentifier, string targetFrameworkVersion,
-            string targetPlatformVersion)
+            string targetPlatformIdentifier, string targetPlatformVersion, string targetFrameworkProfile)
         {
+            // Note: PCL must be on top (since it also has v4.5)
+            if (targetFrameworkProfile.ToLower().StartsWith("profile"))
+            {
+                return KnownTargetFxs.Pcl;
+            }
+
             if (string.Equals(targetFrameworkVersion, "v4.0", StringComparison.OrdinalIgnoreCase))
             {
                 return KnownTargetFxs.Net40;
@@ -97,14 +107,21 @@ namespace SharpDox.Build
                 }
             }
 
-            if (string.Equals(targetFrameworkIdentifier, "uap", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(targetPlatformIdentifier, "uap", StringComparison.OrdinalIgnoreCase))
             {
                 return KnownTargetFxs.Windows100;
             }
 
-            if (string.Equals(targetFrameworkVersion, "8.1", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(targetPlatformIdentifier, "WindowsPhoneApp", StringComparison.OrdinalIgnoreCase))
             {
-                // TODO: How to make a difference between phone and tablet?
+                if (string.Equals(targetPlatformVersion, "8.1", StringComparison.OrdinalIgnoreCase))
+                {
+                    return KnownTargetFxs.WindowsPhone81Runtime;
+                }
+            }
+
+            if (string.Equals(targetPlatformVersion, "8.1", StringComparison.OrdinalIgnoreCase))
+            {
                 return KnownTargetFxs.Windows81;
             }
 
