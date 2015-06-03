@@ -11,12 +11,6 @@ namespace SharpDox.Build
 {
     public class SDTargetFxParser
     {
-        private static readonly SDTargetFx UnknownTargetFx = new SDTargetFx
-        {
-            Identifier = "Unknown",
-            Name = "Unknown"
-        };
-
         public SDTargetFx GetTargetFx(string projectFile)
         {
             var fileContents = File.ReadAllText(projectFile);
@@ -125,7 +119,7 @@ namespace SharpDox.Build
                 return KnownTargetFxs.Windows81;
             }
 
-            return UnknownTargetFx;
+            return KnownTargetFxs.Unknown;
         }
 
         private bool IsXamarinAndroid(string projectFileContents)

@@ -1,7 +1,5 @@
-﻿using SharpDox.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using SharpDox.Model;
 
 namespace SharpDox.Build.Context.Step
 {
@@ -18,7 +16,12 @@ namespace SharpDox.Build.Context.Step
             var solutionList = new List<string>(sdProject.Repositories.Keys);
             foreach (var solution in solutionList)
             {
-                sdProject.Repositories[solution] = _stepInput.CodeParser.GetStructureParsedSolution(solution);
+                var projectRepositories = _stepInput.CodeParser.GetStructureParsedSolution(solution);
+
+                foreach (var projectRepository in projectRepositories)
+                {
+                    sdProject.Repositories[projectRepository.Location] = projectRepository;
+                }
             }
 
             return sdProject;

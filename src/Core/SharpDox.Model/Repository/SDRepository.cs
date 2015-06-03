@@ -25,11 +25,16 @@ namespace SharpDox.Model.Repository
 
         public SDRepository()
         {
+            TargetFx = KnownTargetFxs.Unknown;
             Namespaces = new SortedDictionary<string, SDNamespace>();
             Types = new Dictionary<string, SDType>();
             Methods = new Dictionary<string, SDMethod>();
             Members = new Dictionary<string, SDMember>();
         }
+
+        public string Location { get; set; }
+
+        public SDTargetFx TargetFx { get; set; }
 
         public void AddNamespace(SDNamespace sdNamespace)
         {

@@ -75,5 +75,11 @@ namespace SharpDox.Model
             Identifier = "PCL",
             Name = "Portable Class Libraries"
         };
+
+        public static readonly SDTargetFx Unknown = new SDTargetFx
+        {
+            Identifier = "Unknown",
+            Name = "Unknown"
+        };
     }
 }

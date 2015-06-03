@@ -27,7 +27,13 @@ namespace SharpDox.Build.Context.Step
             }
             else
             {
-                _sdProject.Repositories.Add(_stepInput.CoreConfigSection.InputFile, new SDRepository());
+                var projectFile = _stepInput.CoreConfigSection.InputFile;
+                var repository = new SDRepository();
+
+                var targetFxParser = new SDTargetFxParser();
+                repository.TargetFx = targetFxParser.GetTargetFx(projectFile);
+
+                _sdProject.Repositories.Add(projectFile, repository);
             }
 
             return _sdProject;
