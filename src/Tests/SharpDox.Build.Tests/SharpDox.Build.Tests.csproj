@@ -53,6 +53,60 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SDTargetFxParserTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\SharpDox.Core\SharpDox.Core.csproj">
+      <Project>{8e519972-d18f-47e4-8e82-abc3b3d43311}</Project>
+      <Name>SharpDox.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\SharpDox.Model\SharpDox.Model.csproj">
+      <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
+      <Name>SharpDox.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\SharpDox.Build\SharpDox.Build.csproj">
+      <Project>{65180da0-d8cf-4a7b-bd1c-dba841883dd4}</Project>
+      <Name>SharpDox.Build</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.NET40.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.NET45.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.NET46.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.PCL.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.SL5.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.WIN100.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.WIN81.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.WP80.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.WPRT81.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.WPSL81.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.Xamarin.Android.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.Xamarin.iOS.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -15,7 +15,7 @@ namespace SharpDox.Model.Repository
     /// <de>
     ///     <summary>
     ///     Repräsentiert einen Typen.
-    ///     </summary>     
+    ///     </summary>
     /// </de>
     [Serializable]
     public class SDType : IComparable<SDType>
@@ -40,7 +40,7 @@ namespace SharpDox.Model.Repository
             Constructors = new SortedList<SDMethod>();
             Methods = new SortedList<SDMethod>();
             Events = new SortedList<SDEvent>();
-			Properties = new SortedList<SDProperty>();
+            Properties = new SortedList<SDProperty>();
             NestedTypes = new SortedList<SDType>();
         }
 
@@ -219,13 +219,13 @@ namespace SharpDox.Model.Repository
         private string _name;
         public string Name
         {
-            get 
+            get
             {
                 if (_name == "Void" || _name == "Object")
                 {
                     return _name.ToLower();
                 }
-                return _name; 
+                return _name;
             }
             set { _name = value; }
         }
@@ -264,16 +264,16 @@ namespace SharpDox.Model.Repository
         ///     Liefert den vollen Namen des Typen.
         ///     </summary>     
         /// </de>
-        public string Fullname 
-        { 
-            get 
+        public string Fullname
+        {
+            get
             {
                 var nameWithTypeArguments = NameWithTypeArguments;
-                nameWithTypeArguments = nameWithTypeArguments.First().ToString().ToUpper() 
+                nameWithTypeArguments = nameWithTypeArguments.First().ToString().ToUpper()
                                         + String.Join("", nameWithTypeArguments.Skip(1));
 
-                return string.Format("{0}.{1}", Namespace.Fullname, nameWithTypeArguments); 
-            } 
+                return string.Format("{0}.{1}", Namespace.Fullname, nameWithTypeArguments);
+            }
         }
 
         /// <default>
@@ -395,7 +395,7 @@ namespace SharpDox.Model.Repository
         ///     </summary>     
         /// </de>
         public SortedList<SDMethod> Methods { get; private set; }
-        
+
         /// <default>
         ///     <summary>
         ///     Gets or sets a list of all events.
