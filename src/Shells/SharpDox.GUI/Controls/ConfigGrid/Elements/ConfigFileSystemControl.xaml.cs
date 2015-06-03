@@ -4,13 +4,14 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using SharpDox.Sdk;
 
 namespace SharpDox.GUI.Controls.ConfigGrid
 {
     public partial class ConfigFileSystemControl : UserControl
     {
         public static readonly DependencyProperty ConfigItemDisplayNameProperty = DependencyProperty.Register("ConfigItemDisplayName", typeof(string), typeof(ConfigFileSystemControl));
-        public static readonly DependencyProperty ConfigItemValueProperty = DependencyProperty.Register("ConfigItemValue", typeof(string), typeof(ConfigFileSystemControl));
+        public static readonly DependencyProperty ConfigItemValueProperty = DependencyProperty.Register("ConfigItemValue", typeof(object), typeof(ConfigFileSystemControl));
         public static readonly DependencyProperty WaterMarkTextProperty = DependencyProperty.Register("WaterMarkText", typeof(string), typeof(ConfigFileSystemControl));
         public static readonly DependencyProperty WaterMarkColorProperty = DependencyProperty.Register("WaterMarkColor", typeof(SolidColorBrush), typeof(ConfigFileSystemControl));
         public static readonly DependencyProperty ButtonTextProperty = DependencyProperty.Register("ButtonText", typeof(string), typeof(ConfigFileSystemControl));
@@ -37,7 +38,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
 
                     if (dlg.ShowDialog() == true)
                     {
-                        ConfigItemValue = dlg.FileName;
+                        ConfigItemValue = new SDPath(dlg.FileName);
                     }
                 }, true);
             }
@@ -49,9 +50,9 @@ namespace SharpDox.GUI.Controls.ConfigGrid
                     var dlg = new System.Windows.Forms.FolderBrowserDialog();
                     dlg.ShowNewFolderButton = true;
                     dlg.ShowDialog();
-                    if (!String.IsNullOrEmpty(dlg.SelectedPath))
+                    if (!string.IsNullOrEmpty(dlg.SelectedPath))
                     {
-                        ConfigItemValue = dlg.SelectedPath;
+                        ConfigItemValue = new SDPath(dlg.SelectedPath);
                     }
                 }, true);
             }
@@ -74,9 +75,9 @@ namespace SharpDox.GUI.Controls.ConfigGrid
             set { SetValue(ConfigItemDisplayNameProperty, value); }
         }
 
-        public string ConfigItemValue
+        public object ConfigItemValue
         {
-            get { return (string)GetValue(ConfigItemValueProperty); }
+            get { return (object)GetValue(ConfigItemValueProperty); }
             set { SetValue(ConfigItemValueProperty, value); }
         }
 

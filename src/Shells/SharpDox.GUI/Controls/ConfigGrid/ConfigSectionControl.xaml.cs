@@ -41,7 +41,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
                 var displayNameAttribute = (NameAttribute)Attribute.GetCustomAttribute(configItem, typeof(NameAttribute));
                 if(displayNameAttribute != null)
                 {
-                    Binding b = new Binding(configItem.Name);
+                    var b = new Binding(configItem.Name);
                     b.Source = configSection;
                     b.Mode = BindingMode.TwoWay;
                     b.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;

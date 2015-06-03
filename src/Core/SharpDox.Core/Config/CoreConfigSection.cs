@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using SharpDox.Sdk;
 using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Config.Attributes;
 
@@ -14,11 +15,11 @@ namespace SharpDox.Core.Config
         private bool _isSaved;
         private string _author;
         private string _configFileName;
+        private SDPath _inputFile;
+        private SDPath _outputPath;
+        private SDPath _logoPath;
         private string _projectUrl;
         private string _authorUrl;
-        private string _inputFile;
-        private string _logoPath;
-        private string _outputPath;
         private string _docLanguage;
         private string _projectName;
         private string _versionNumber;
@@ -50,7 +51,7 @@ namespace SharpDox.Core.Config
 
         public string ConfigFileName
         {
-            get { return string.IsNullOrEmpty(_configFileName) ? _strings.NewConfig : _configFileName; }
+            get { return string.IsNullOrEmpty(_configFileName) ? "New configuration" : _configFileName; }
             set
             {
                 if (_configFileName != value)
@@ -134,7 +135,7 @@ namespace SharpDox.Core.Config
 
         [ConfigEditor(EditorType.Filepicker, "Image File(.png; .jpg; .bmp)|*.png; *.jpg; *.bmp")]
         [Name(typeof(CoreStrings), "LogoPath")]
-        public string LogoPath
+        public SDPath LogoPath
         {
             get { return _logoPath; }
             set
@@ -150,7 +151,7 @@ namespace SharpDox.Core.Config
         [Required]
         [ConfigEditor(EditorType.Filepicker, "Solution/ Project/ sharpDox Navigation (*.sln; *.csproj; *.sdnav)|*.sln; *.csproj; *.sdnav")]
         [Name(typeof(CoreStrings), "InputFile")]
-        public string InputFile
+        public SDPath InputFile
         {
             get { return _inputFile; }
             set
@@ -166,7 +167,7 @@ namespace SharpDox.Core.Config
         [Required]
         [ConfigEditor(EditorType.Folderpicker)]
         [Name(typeof(CoreStrings), "OutputPath")]
-        public string OutputPath
+        public SDPath OutputPath
         {
             get { return _outputPath; }
             set

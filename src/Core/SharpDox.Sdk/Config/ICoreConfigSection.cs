@@ -84,7 +84,7 @@ namespace SharpDox.Sdk.Config
         ///     Liefert den Eingabepfad.
         ///     </summary>
         /// </de>
-        string InputFile { get; set; }
+        SDPath InputFile { get; set; }
 
         /// <default>
         ///     <summary>
@@ -96,7 +96,7 @@ namespace SharpDox.Sdk.Config
         ///     Liefert den Pfad zum Logo.
         ///     </summary>
         /// </de>
-        string LogoPath { get; set; }
+        SDPath LogoPath { get; set; }
 
         /// <default>
         ///     <summary>
@@ -108,7 +108,7 @@ namespace SharpDox.Sdk.Config
         ///     Liefert den Ausgabepfad.
         ///     </summary>
         /// </de>
-        string OutputPath { get; set; }
+        SDPath OutputPath { get; set; }
 
         /// <default>
         ///     <summary>

@@ -58,6 +58,7 @@
     <Compile Include="ConfigControllerTests.cs" />
     <Compile Include="ConfigSerializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SDPathTests.cs" />
     <Compile Include="TestConfig.cs" />
   </ItemGroup>
   <ItemGroup>
