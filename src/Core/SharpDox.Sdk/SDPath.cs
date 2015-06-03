@@ -63,6 +63,11 @@ namespace SharpDox.Sdk
 
         public static implicit operator string (SDPath path)
         {
+            if (path == null)
+            {
+                return null;
+            }
+
             return path.ResolvePath();
         }
 
