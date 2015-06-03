@@ -1,25 +1,16 @@
 ﻿using System;
 using System.IO;
+using SharpDox.Sdk.Helpers;
 
 namespace SharpDox.Sdk
 {
     public class SDPath
     {
-        public SDPath()
-        {
-            
-        }
-
-        public SDPath(string fullPath, string relativePath = null)
-            : this()
+        public SDPath(string fullPath = null, string relativePath = null)
         {
             FullPath = fullPath;
             RelativePath = relativePath;
         }
-
-        public string RelativePath { get; private set; }
-
-        public string FullPath { get; private set; }
 
         public string ResolvePath()
         {
@@ -46,7 +37,6 @@ namespace SharpDox.Sdk
                     return relativeResolvedPath;
                 }
             }
-
             return FullPath;
         }
 
@@ -60,20 +50,19 @@ namespace SharpDox.Sdk
             FullPath = fullPath;
             RelativePath = PathHelper.GetRelativePath(fullPath, basePath);
         }
-
+        
         public static implicit operator string (SDPath path)
         {
-            if (path == null)
-            {
-                return null;
-            }
-
-            return path.ResolvePath();
+            return path != null ? path.ResolvePath() : null;
         }
 
         public static implicit operator SDPath (string fullPath)
         {
             return new SDPath(fullPath);
         }
+
+        public string RelativePath { get; private set; }
+
+        public string FullPath { get; private set; }
     }
 }

@@ -50,7 +50,7 @@ namespace SharpDox.Core.Config
 
                 _configSerializer.SetDeserializedConfigs(XDocument.Load(fileToLoad), _configSections);
 
-                CurrentConfigPath = fileToLoad;
+                CurrentConfigPath = new SDPath(fileToLoad);
                 _coreConfigSection.ConfigFileName = Path.GetFileNameWithoutExtension(fileToLoad);
                 _coreConfigSection.IsSaved = true;
 
@@ -60,7 +60,7 @@ namespace SharpDox.Core.Config
 
         public void Save()
         {
-            if (!string.IsNullOrEmpty(CurrentConfigPath))
+            if (CurrentConfigPath != null)
             {
                 SaveTo(CurrentConfigPath);
             }
@@ -72,7 +72,7 @@ namespace SharpDox.Core.Config
             {
                 Environment.CurrentDirectory = Path.GetDirectoryName(fileToSave);
 
-                CurrentConfigPath = fileToSave;
+                CurrentConfigPath = new SDPath(fileToSave);
                 _coreConfigSection.ConfigFileName = Path.GetFileNameWithoutExtension(fileToSave);
 
                 var xml = _configSerializer.GetSerializedConfigs(_configSections);
@@ -96,11 +96,11 @@ namespace SharpDox.Core.Config
 
         private void GetRecentConfigs()
         {
-#if DEBUG
+            #if DEBUG
             var recentFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "recent.xml");
-#else
+            #else
             var recentFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..", "recent.xml");
-#endif
+            #endif
 
             if (File.Exists(recentFile))
             {
@@ -198,6 +198,6 @@ namespace SharpDox.Core.Config
 
         public List<KeyValuePair<string, string>> RecentProjects { get; private set; }
 
-        public string CurrentConfigPath { get; private set; }
+        public SDPath CurrentConfigPath { get; private set; }
     }
 }

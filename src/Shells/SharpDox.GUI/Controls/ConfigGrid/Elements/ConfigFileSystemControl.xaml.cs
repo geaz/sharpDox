@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using SharpDox.GUI.Command;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;

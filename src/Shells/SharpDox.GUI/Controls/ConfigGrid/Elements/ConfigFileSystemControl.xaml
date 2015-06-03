@@ -3,14 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:converters="clr-namespace:SharpDox.GUI.Converters"
+             xmlns:converter="clr-namespace:SharpDox.GUI.Resources.Converter"
              mc:Ignorable="d" d:DesignHeight="27"
              x:Name="FileSystemControl" d:DesignWidth="400">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-            <converters:SDPathConverter x:Key="SDPathConverter" />
+            <converter:SDPathConverter x:Key="SDPathConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/SharpDox.GUI;component/Resources/SharpDox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
