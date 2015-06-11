@@ -11,7 +11,7 @@ namespace SharpDox.Build
         event Action<string> OnStepMessage;
         event Action<int> OnStepProgress;
 
-        SDRepository GetStructureParsedSolution(string solutionFile);
-        SDRepository GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens);
+        IEnumerable<SDRepository> GetStructureParsedSolution(string solutionFile);
+        IEnumerable<SDRepository> GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens);
     }
 }

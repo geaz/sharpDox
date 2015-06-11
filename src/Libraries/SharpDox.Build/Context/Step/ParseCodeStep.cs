@@ -17,7 +17,12 @@ namespace SharpDox.Build.Context.Step
             var solutionList = new List<string>(sdProject.Repositories.Keys);
             foreach (var solution in solutionList)
             {
-                sdProject.Repositories[solution] = _stepInput.CodeParser.GetFullParsedSolution(solution, _stepInput.CoreConfigSection, sdProject.Tokens);
+                var projectRepositories = _stepInput.CodeParser.GetFullParsedSolution(solution, _stepInput.CoreConfigSection, sdProject.Tokens);
+
+                foreach (var projectRepository in projectRepositories)
+                {
+                    sdProject.Repositories[projectRepository.Location] = projectRepository;
+                }
                 
                 // Because of excluding privates, internals and protected members
                 // it is possible, that a namespace has no visible namespaces at all.
