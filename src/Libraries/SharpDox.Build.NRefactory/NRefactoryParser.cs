@@ -5,6 +5,7 @@ using SharpDox.Model.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SharpDox.Model;
 using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.NRefactory
@@ -22,23 +23,21 @@ namespace SharpDox.Build.NRefactory
             _parserStrings = parserStrings;
         }
 
-        public IEnumerable<SDRepository> GetStructureParsedSolution(string solutionFile)
+        public SDSolution GetStructureParsedSolution(string solutionFile)
         {
             var solution = LoadSolution(solutionFile, 3);
-
             return ParseSolution(solution, null, null, true);
         }
 
-        public IEnumerable<SDRepository> GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens)
+        public SDSolution GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens)
         {
             var solution = LoadSolution(solutionFile, 5);
-
             return ParseSolution(solution, sharpDoxConfig, tokens, false);
         }
 
-        private IEnumerable<SDRepository> ParseSolution(CSharpSolution solution, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens, bool structured)
+        private SDSolution ParseSolution(CSharpSolution solution, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens, bool structured)
         {
-            var repositories = new List<SDRepository>();
+            var sdSolution = new SDSolution(solution.SolutionFile);
             var targetFxParser = new SDTargetFxParser();
 
             for (var i = 0; i < solution.Projects.Count; i++)
@@ -47,7 +46,6 @@ namespace SharpDox.Build.NRefactory
                 var projectFileName = project.FileName;
 
                 var sdRepository = new SDRepository();
-                sdRepository.Location = projectFileName;
                 sdRepository.TargetFx = targetFxParser.GetTargetFx(projectFileName);
 
                 if (structured)
@@ -59,14 +57,20 @@ namespace SharpDox.Build.NRefactory
                 {
                     ParseNamespaces(project, sdRepository, sharpDoxConfig, tokens, i, solution.Projects.Count);
                     ParseTypes(project, sdRepository, sharpDoxConfig, i, solution.Projects.Count);
+
+                    // Because of excluding privates, internals and protected members
+                    // it is possible, that a namespace has no visible namespaces at all.
+                    // It is necessary to remove empty namespaces.
+                    RemoveEmptyNamespaces(sdRepository);
+
                     ParseMethodCalls(project, sdRepository);
                     ResolveUses(sdRepository);
                 }
 
-                repositories.Add(sdRepository);
+                sdSolution.AppendRepository(sdRepository);
             }
 
-            return repositories;
+            return sdSolution;
         }
 
         private CSharpSolution LoadSolution(string solutionFile, int steps)
@@ -139,6 +143,17 @@ namespace SharpDox.Build.NRefactory
             typeParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingClass + ": " + n, i, t, currentProject, totalProjects, 2, 5); };
 
             typeParser.ParseProjectTypes(project);
+        }
+
+        private void RemoveEmptyNamespaces(SDRepository repository)
+        {
+            foreach (var sdNamespace in repository.GetAllNamespaces())
+            {
+                if (sdNamespace.Types.Count == 0)
+                {
+                    repository.RemoveNamespace(sdNamespace);
+                }
+            }
         }
 
         private void ParseMethodCalls(CSharpProject project, SDRepository sdRepository)

@@ -36,7 +36,7 @@ namespace SharpDox.Build
                     if (article is SDDocPlaceholder)
                     {
                         var solutionFile = ((SDDocPlaceholder)article).SolutionFile;
-                        sdProject.AddRepository(solutionFile);
+                        sdProject.AddSolution(solutionFile);
                     }
 
                     var navLevel = GetNavLevel(line);

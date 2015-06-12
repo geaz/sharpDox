@@ -3,8 +3,8 @@ using System.Diagnostics;
 
 namespace SharpDox.Model.Repository
 {
-    [DebuggerDisplay("{Identifier}")]
     [Serializable]
+    [DebuggerDisplay("{Identifier}")]
     public class SDTargetFx : IComparable<SDTargetFx>
     {
         /// <default>

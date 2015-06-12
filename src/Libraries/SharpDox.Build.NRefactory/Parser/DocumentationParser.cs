@@ -129,23 +129,18 @@ namespace SharpDox.Build.NRefactory.Parser
                                 content.Add(seeRef);
                             }
                             break;
-
                         case "typeparamref":
                             content.Add(new SDToken { Role = SDTokenRole.TypeParamRef, Text = element.GetAttribute("name") });
                             break;
-
                         case "paramref":
                             content.Add(new SDToken { Role = SDTokenRole.ParamRef, Text = element.GetAttribute("name") });
                             break;
-
                         case "code":
                             content.Add(new SDCodeToken { Text = text, IsInline = false });
                             break;
-
                         case "c":
                             content.Add(new SDCodeToken { Text = text, IsInline = true });
                             break;
-
                         case "para":
                             content.Add(new SDToken { Text = text, Role = SDTokenRole.Paragraph });
                             break;
@@ -161,7 +156,7 @@ namespace SharpDox.Build.NRefactory.Parser
             {
                 results.Add(xmlElement.GetAttribute("httpCode"), ParseContentTokens(xmlElement));
             }
-            else
+            else if(!results.ContainsKey("default"))
             {
                 results.Add("default", ParseContentTokens(xmlElement));
             }

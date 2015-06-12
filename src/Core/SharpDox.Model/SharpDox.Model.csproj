@@ -71,6 +71,7 @@
     <Compile Include="Repository\SDRepository.cs" />
     <Compile Include="Repository\SDType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SDSolution.cs" />
     <Compile Include="SortedList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

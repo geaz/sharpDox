@@ -1,6 +1,11 @@
 Version 0.9.11
 
 - Created two seperate executes (gui and console)
+- Changed Model: sharpDox now parses one repository per build target (thanks to [Geert van Horrik](https://github.com/GeertvanHorrik))
+- Creates the output path now, if necessary
+- Added console exit codes
+- Config file is static now - no last build info anymore
+- sharpDox is able to parse unity solutions now
 
 Version 0.9.10
 

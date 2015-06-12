@@ -50,13 +50,13 @@ namespace SharpDox.GUI.ViewModels
 
                     if (sdProject != null)
                     {
-                        foreach (var repository in sdProject.Repositories)
+                        foreach (var repository in sdProject.Solutions)
                         {
-                            foreach (var sdNamespace in repository.Value.GetAllNamespaces())
+                            /*foreach (var sdNamespace in repository.Value.GetAllNamespaces())
                             {
                                 TreeView.Add(new NamespaceViewModel(sdNamespace, _sharpDoxConfig));
                                 TreeLoaded = true;
-                            }
+                            }*/
                         }
                     }
 

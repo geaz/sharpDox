@@ -17,14 +17,14 @@ namespace SharpDox.Model.Repository
     ///     Das Repository beinhaltet alle Informationen der eingelesenen Lösung.
     ///     </summary>     
     /// </de>
-    [DebuggerDisplay("{Name} ({TargetFx.Identifier})")]
     [Serializable]
+    [DebuggerDisplay("{TargetFx.Identifier}")]
     public class SDRepository
     {
-        private Dictionary<string, string> _uniqueShortTypeIdentifier = new Dictionary<string, string>();
-        private Dictionary<string, int> _typeNameCount = new Dictionary<string, int>();
-        private Dictionary<string, string> _uniqueShortMethodIdentifier = new Dictionary<string, string>();
-        private Dictionary<string, int> _methodNameCount = new Dictionary<string, int>();
+        private readonly Dictionary<string, string> _uniqueShortTypeIdentifier = new Dictionary<string, string>();
+        private readonly Dictionary<string, int> _typeNameCount = new Dictionary<string, int>();
+        private readonly Dictionary<string, string> _uniqueShortMethodIdentifier = new Dictionary<string, string>();
+        private readonly Dictionary<string, int> _methodNameCount = new Dictionary<string, int>();
 
         public SDRepository()
         {
@@ -34,12 +34,6 @@ namespace SharpDox.Model.Repository
             Methods = new Dictionary<string, SDMethod>();
             Members = new Dictionary<string, SDMember>();
         }
-
-        public string Location { get; set; }
-
-        public string Name { get { return !string.IsNullOrEmpty(Location) ? Path.GetFileNameWithoutExtension(Location) : "Unknown"; } }
-
-        public SDTargetFx TargetFx { get; set; }
 
         public void AddNamespace(SDNamespace sdNamespace)
         {
@@ -90,21 +84,27 @@ namespace SharpDox.Model.Repository
             }
         }
 
-        public Guid GetGuidByIdentifier(string identifier)
+        public void MergeWith(SDRepository repository)
         {
-            var sdNamespace = GetNamespaceByIdentifier(identifier);
-            if (sdNamespace != null) return sdNamespace.Guid;
+            foreach (var sdNamespace in repository.Namespaces.Values)
+            {
+                AddNamespace(sdNamespace);
+            }
 
-            var sdType = GetTypeByIdentifier(identifier);
-            if (sdType != null) return sdType.Guid;
+            foreach (var sdType in repository.Types.Values)
+            {
+                AddType(sdType);
+            }
 
-            var sdMethod = GetMethodByIdentifier(identifier);
-            if (sdMethod != null) return sdMethod.Guid;
+            foreach (var sdMethod in repository.Methods.Values)
+            {
+                AddMethod(sdMethod);
+            }
 
-            var sdMember = GetMemberByIdentifier(identifier);
-            if (sdMember != null) return sdMember.Guid;
-
-            return Guid.Empty;
+            foreach (var sdMember in repository.Members.Values)
+            {
+                AddMember(sdMember);
+            }
         }
 
         /// <default>
@@ -281,6 +281,8 @@ namespace SharpDox.Model.Repository
 
             return uniqueIdentifiers[identifier];
         }
+        
+        public SDTargetFx TargetFx { get; set; }
 
         private SortedDictionary<string, SDNamespace> Namespaces { get; set; }
 

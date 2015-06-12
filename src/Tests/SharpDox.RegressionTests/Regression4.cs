@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SharpDox.RegressionTests
 {
@@ -12,7 +13,7 @@ namespace SharpDox.RegressionTests
             var sdProject = TestConfig.ParseProject();
                
             // Act
-            var type = sdProject.GetTypeByIdentifier("SharpDox.TestProject.Regression4");
+            var type = sdProject.Solutions.First().Value.Repositories.First().Value.GetTypeByIdentifier("SharpDox.TestProject.Regression4");
 
             // Assert            
             Assert.AreEqual(2, type.Methods[0].Documentations.GetElementOrDefault("default").Exceptions.Count);

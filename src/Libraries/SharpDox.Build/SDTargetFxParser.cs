@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -14,113 +12,46 @@ namespace SharpDox.Build
     {
         public SDTargetFx GetTargetFx(string projectFile)
         {
+            var targetFx = KnownTargetFxs.Unknown;
             var fileContents = File.ReadAllText(projectFile);
 
             if (IsXamarinAndroid(fileContents))
             {
-                return KnownTargetFxs.XamarinAndroid;
+                targetFx = KnownTargetFxs.XamarinAndroid;
             }
-
-            if (IsXamariniOS(fileContents))
+            else if (IsXamariniOS(fileContents))
             {
-                return KnownTargetFxs.XamariniOS;
+                targetFx = KnownTargetFxs.XamariniOS;
+            }
+            else
+            {
+                var document = XDocument.Parse(fileContents);
+                var targetFrameworkIdentifier = ReadXPathElementValue(document, "/Project/PropertyGroup/TargetFrameworkIdentifier");
+                var targetFrameworkVersion = ReadXPathElementValue(document, "/Project/PropertyGroup/TargetFrameworkVersion");
+                var targetPlatformIdentifier = ReadXPathElementValue(document, "/Project/PropertyGroup/TargetPlatformIdentifier");
+                var targetPlatformVersion = ReadXPathElementValue(document, "/Project/PropertyGroup/TargetPlatformVersion");
+                var targetFrameworkProfile = ReadXPathElementValue(document, "/Project/PropertyGroup/TargetFrameworkProfile");
+
+                targetFx = GetTargetFx(targetFrameworkIdentifier, targetFrameworkVersion, targetPlatformIdentifier, targetPlatformVersion, targetFrameworkProfile);
             }
 
-            var document = XDocument.Parse(fileContents);
-
-            var targetFrameworkIdentifier = string.Empty;
-            var targetFrameworkVersion = string.Empty;
-            var targetPlatformIdentifier = string.Empty;
-            var targetPlatformVersion = string.Empty;
-            var targetFrameworkProfile = string.Empty;
-
-            ReadXPathElementValue(document, "/Project/PropertyGroup/TargetFrameworkIdentifier", s => targetFrameworkIdentifier = s);
-            ReadXPathElementValue(document, "/Project/PropertyGroup/TargetFrameworkVersion", s => targetFrameworkVersion = s);
-            ReadXPathElementValue(document, "/Project/PropertyGroup/TargetPlatformIdentifier", s => targetPlatformIdentifier = s);
-            ReadXPathElementValue(document, "/Project/PropertyGroup/TargetPlatformVersion", s => targetPlatformVersion = s);
-            ReadXPathElementValue(document, "/Project/PropertyGroup/TargetFrameworkProfile", s => targetFrameworkProfile = s);
-
-            return GetTargetFx(targetFrameworkIdentifier, targetFrameworkVersion, targetPlatformIdentifier, targetPlatformVersion, targetFrameworkProfile);
+            return targetFx;
         }
 
-        private void ReadXPathElementValue(XDocument doc, string xpath, Action<string> setter)
+        private string ReadXPathElementValue(XDocument doc, string xpath)
         {
+            var value = string.Empty;
+
             var mgr = new XmlNamespaceManager(new NameTable());
             mgr.AddNamespace("x", "http://schemas.microsoft.com/developer/msbuild/2003");
 
-            xpath = xpath.Replace("/", "/x:");
-
-            var element = doc.XPathSelectElement(xpath, mgr);
+            var element = doc.XPathSelectElement(xpath.Replace("/", "/x:"), mgr);
             if (element != null)
             {
-                setter(element.Value);
-            }
-        }
-
-        private SDTargetFx GetTargetFx(string targetFrameworkIdentifier, string targetFrameworkVersion,
-            string targetPlatformIdentifier, string targetPlatformVersion, string targetFrameworkProfile)
-        {
-            // Note: PCL must be on top (since it also has v4.5)
-            if (targetFrameworkProfile.ToLower().StartsWith("profile"))
-            {
-                return KnownTargetFxs.Pcl;
+                value = element.Value;
             }
 
-            if (string.Equals(targetFrameworkVersion, "v4.0", StringComparison.OrdinalIgnoreCase))
-            {
-                return KnownTargetFxs.Net40;
-            }
-
-            if (string.Equals(targetFrameworkVersion, "v4.5", StringComparison.OrdinalIgnoreCase))
-            {
-                return KnownTargetFxs.Net45;
-            }
-
-            if (string.Equals(targetFrameworkVersion, "v4.6", StringComparison.OrdinalIgnoreCase))
-            {
-                return KnownTargetFxs.Net46;
-            }
-
-            if (string.Equals(targetFrameworkIdentifier, "silverlight", StringComparison.OrdinalIgnoreCase))
-            {
-                if (string.Equals(targetFrameworkVersion, "v5.0", StringComparison.OrdinalIgnoreCase))
-                {
-                    return KnownTargetFxs.Silverlight5;
-                }
-            }
-
-            if (string.Equals(targetFrameworkIdentifier, "windowsphone", StringComparison.OrdinalIgnoreCase))
-            {
-                if (string.Equals(targetFrameworkVersion, "v8.0", StringComparison.OrdinalIgnoreCase))
-                {
-                    return KnownTargetFxs.WindowsPhone80;
-                }
-
-                if (string.Equals(targetFrameworkVersion, "v8.1", StringComparison.OrdinalIgnoreCase))
-                {
-                    return KnownTargetFxs.WindowsPhone81Silverlight;
-                }
-            }
-
-            if (string.Equals(targetPlatformIdentifier, "uap", StringComparison.OrdinalIgnoreCase))
-            {
-                return KnownTargetFxs.Windows100;
-            }
-
-            if (string.Equals(targetPlatformIdentifier, "WindowsPhoneApp", StringComparison.OrdinalIgnoreCase))
-            {
-                if (string.Equals(targetPlatformVersion, "8.1", StringComparison.OrdinalIgnoreCase))
-                {
-                    return KnownTargetFxs.WindowsPhone81Runtime;
-                }
-            }
-
-            if (string.Equals(targetPlatformVersion, "8.1", StringComparison.OrdinalIgnoreCase))
-            {
-                return KnownTargetFxs.Windows81;
-            }
-
-            return KnownTargetFxs.Unknown;
+            return value;
         }
 
         private bool IsXamarinAndroid(string projectFileContents)
@@ -131,6 +62,61 @@ namespace SharpDox.Build
         private bool IsXamariniOS(string projectFileContents)
         {
             return projectFileContents.ToLower().Contains("xamarin.ios.csharp.targets");
+        }
+
+        private SDTargetFx GetTargetFx(string targetFrameworkIdentifier, string targetFrameworkVersion,
+            string targetPlatformIdentifier, string targetPlatformVersion, string targetFrameworkProfile)
+        {
+            var targetFx = KnownTargetFxs.Unknown;
+
+            // Note: PCL must be on top (since it also has v4.5)
+            if (targetFrameworkProfile.ToLower().StartsWith("profile"))
+            {
+                targetFx = KnownTargetFxs.Pcl;
+            }
+            else if (string.Equals(targetFrameworkVersion, "v4.0", StringComparison.OrdinalIgnoreCase))
+            {
+                targetFx = KnownTargetFxs.Net40;
+            }
+            else if (string.Equals(targetFrameworkVersion, "v4.5", StringComparison.OrdinalIgnoreCase))
+            {
+                targetFx = KnownTargetFxs.Net45;
+            }
+            else if (string.Equals(targetFrameworkVersion, "v4.6", StringComparison.OrdinalIgnoreCase))
+            {
+                targetFx = KnownTargetFxs.Net46;
+            }
+            else if (string.Equals(targetFrameworkIdentifier, "silverlight", StringComparison.OrdinalIgnoreCase)
+                && string.Equals(targetFrameworkVersion, "v5.0", StringComparison.OrdinalIgnoreCase))
+            {
+                targetFx = KnownTargetFxs.Silverlight5;
+            }
+            else if (string.Equals(targetFrameworkIdentifier, "windowsphone", StringComparison.OrdinalIgnoreCase))
+            {
+                if (string.Equals(targetFrameworkVersion, "v8.0", StringComparison.OrdinalIgnoreCase))
+                {
+                    targetFx = KnownTargetFxs.WindowsPhone80;
+                }
+                else if (string.Equals(targetFrameworkVersion, "v8.1", StringComparison.OrdinalIgnoreCase))
+                {
+                    targetFx = KnownTargetFxs.WindowsPhone81Silverlight;
+                }
+            }
+            else if (string.Equals(targetPlatformIdentifier, "uap", StringComparison.OrdinalIgnoreCase))
+            {
+                targetFx = KnownTargetFxs.Windows100;
+            }
+            else if (string.Equals(targetPlatformIdentifier, "WindowsPhoneApp", StringComparison.OrdinalIgnoreCase)
+                && string.Equals(targetPlatformVersion, "8.1", StringComparison.OrdinalIgnoreCase))
+            {
+                targetFx = KnownTargetFxs.WindowsPhone81Runtime;
+            }
+            else if (string.Equals(targetPlatformVersion, "8.1", StringComparison.OrdinalIgnoreCase))
+            {
+                targetFx = KnownTargetFxs.Windows81;
+            }
+
+            return targetFx;
         }
     }
 }

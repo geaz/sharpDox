@@ -13,15 +13,10 @@ namespace SharpDox.Build.Context.Step
             _stepInput.CodeParser.OnStepMessage += ExecuteOnStepMessage;
             _stepInput.CodeParser.OnStepProgress += ExecuteOnStepProgress;
 
-            var solutionList = new List<string>(sdProject.Repositories.Keys);
+            var solutionList = new List<string>(sdProject.Solutions.Keys);
             foreach (var solution in solutionList)
             {
-                var projectRepositories = _stepInput.CodeParser.GetStructureParsedSolution(solution);
-
-                foreach (var projectRepository in projectRepositories)
-                {
-                    sdProject.Repositories[projectRepository.Location] = projectRepository;
-                }
+                sdProject.Solutions[solution] = _stepInput.CodeParser.GetStructureParsedSolution(solution);
             }
 
             return sdProject;
