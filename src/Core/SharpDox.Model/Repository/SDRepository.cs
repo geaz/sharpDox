@@ -84,29 +84,6 @@ namespace SharpDox.Model.Repository
             }
         }
 
-        public void MergeWith(SDRepository repository)
-        {
-            foreach (var sdNamespace in repository.Namespaces.Values)
-            {
-                AddNamespace(sdNamespace);
-            }
-
-            foreach (var sdType in repository.Types.Values)
-            {
-                AddType(sdType);
-            }
-
-            foreach (var sdMethod in repository.Methods.Values)
-            {
-                AddMethod(sdMethod);
-            }
-
-            foreach (var sdMember in repository.Members.Values)
-            {
-                AddMember(sdMember);
-            }
-        }
-
         /// <default>
         ///     <summary>
         ///     Returns a namespace, referenced by its identifier.

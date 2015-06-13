@@ -16,16 +16,20 @@ namespace SharpDox.Model
             Repositories = new Dictionary<SDTargetFx, SDRepository>();
         }
 
-        public void AppendRepository(SDRepository repository)
+        public SDRepository GetExistingOrNew(SDTargetFx targetFx)
         {
-            if (Repositories.ContainsKey(repository.TargetFx))
+            SDRepository sdRepository;
+            if (Repositories.ContainsKey(targetFx))
             {
-                Repositories[repository.TargetFx].MergeWith(repository);
+                sdRepository = Repositories[targetFx];
             }
             else
             {
-                Repositories.Add(repository.TargetFx, repository);
+                sdRepository = new SDRepository();
+                sdRepository.TargetFx = targetFx;
+                Repositories.Add(targetFx, sdRepository);
             }
+            return sdRepository;
         }
 
         public Dictionary<SDTargetFx, SDRepository> Repositories { get; set; }  

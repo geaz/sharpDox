@@ -6,12 +6,11 @@ namespace SharpDox.Build.NRefactory.Parser
 {
     internal class MethodCallParser : BaseParser
     {
-        private readonly CSharpProject _project;
+        private readonly CSharpSolution _solution;
 
-        internal MethodCallParser(SDRepository repository, CSharpProject project) 
-            : base(repository) 
+        internal MethodCallParser(SDRepository repository, CSharpSolution solution) : base(repository) 
         {
-            _project = project;
+            _solution = solution;
         }
 
         internal void ParseMethodCalls(SDNamespace sdNamespace)
@@ -21,7 +20,7 @@ namespace SharpDox.Build.NRefactory.Parser
                 foreach (var sdMethod in sdNamespace.Types[i].Methods)
                 {
                     HandleOnItemParseStart(sdMethod.Name, i, sdNamespace.Types.Count);
-                    var file = _project.GetFile(sdNamespace.Types[i].Region.Filename);
+                    var file = _solution.GetFile(sdNamespace.Types[i].Region.Filename);
                     var methodAstNode = file.SyntaxTree.GetNodeContaining(
                                             new TextLocation(sdMethod.Region.BeginLine, sdMethod.Region.BeginColumn), 
                                             new TextLocation(sdMethod.Region.EndLine, sdMethod.Region.EndColumn));

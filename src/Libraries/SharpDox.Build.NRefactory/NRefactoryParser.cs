@@ -1,4 +1,5 @@
-﻿using ICSharpCode.NRefactory.TypeSystem;
+﻿using ICSharpCode.NRefactory.MonoCSharp;
+using ICSharpCode.NRefactory.TypeSystem;
 using SharpDox.Build.NRefactory.Loader;
 using SharpDox.Build.NRefactory.Parser;
 using SharpDox.Model.Repository;
@@ -44,10 +45,9 @@ namespace SharpDox.Build.NRefactory
             {
                 var project = solution.Projects[i];
                 var projectFileName = project.FileName;
+                var targetFx = targetFxParser.GetTargetFx(projectFileName);
 
-                var sdRepository = new SDRepository();
-                sdRepository.TargetFx = targetFxParser.GetTargetFx(projectFileName);
-
+                var sdRepository = sdSolution.GetExistingOrNew(targetFx);
                 if (structured)
                 {
                     StructureParseNamespaces(project, sdRepository, i, solution.Projects.Count);
@@ -62,12 +62,13 @@ namespace SharpDox.Build.NRefactory
                     // it is possible, that a namespace has no visible namespaces at all.
                     // It is necessary to remove empty namespaces.
                     RemoveEmptyNamespaces(sdRepository);
-
-                    ParseMethodCalls(project, sdRepository);
-                    ResolveUses(sdRepository);
                 }
+            }
 
-                sdSolution.AppendRepository(sdRepository);
+            foreach (var sdRepository in sdSolution.Repositories.Values)
+            {
+                ParseMethodCalls(solution, sdRepository);
+                ResolveUses(sdRepository);
             }
 
             return sdSolution;
@@ -156,10 +157,10 @@ namespace SharpDox.Build.NRefactory
             }
         }
 
-        private void ParseMethodCalls(CSharpProject project, SDRepository sdRepository)
+        private void ParseMethodCalls(CSharpSolution solution, SDRepository sdRepository)
         {
             var pi = 0;
-            var methodCallParser = new MethodCallParser(sdRepository, project);
+            var methodCallParser = new MethodCallParser(sdRepository, solution);
             methodCallParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingMethod + ": " + n, i, t, pi, sdRepository.GetAllNamespaces().Count, 3, 5); };
 
             var namespaces = sdRepository.GetAllNamespaces();
