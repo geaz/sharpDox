@@ -16,6 +16,21 @@ namespace SharpDox.Model
             Repositories = new Dictionary<SDTargetFx, SDRepository>();
         }
 
+        /// <default>
+        ///     <summary>
+        ///     Gets an existing <see cref="SDRepository"/> with the given target framework.
+        ///     Or adds and returns a new one.
+        ///     </summary>
+        ///     <param name="targetFx">The target framework of the <see cref="SDRepository"/>.</param>
+        ///     <returns>Existing or new <see cref="SDRepository"/> with the given target framework.</returns>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert ein neues oder bestehendes <see cref="SDRepository"/> mit dem gegebenen Framework.
+        ///     </summary>     
+        ///     <param name="targetFx">Das Zielframework des <see cref="SDRepository"/>.</param>
+        ///     <returns>Neues oder bestehendes <see cref="SDRepository"/>.</returns>
+        /// </de>
         public SDRepository GetExistingOrNew(SDTargetFx targetFx)
         {
             SDRepository sdRepository;
