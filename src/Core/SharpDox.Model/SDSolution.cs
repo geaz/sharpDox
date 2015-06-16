@@ -47,6 +47,64 @@ namespace SharpDox.Model
             return sdRepository;
         }
 
+        /// <default>
+        ///     <summary>
+        ///     Returns all <see cref="SDNamespace"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDTargetFx"/>.
+        ///     </summary>
+        ///     <returns>All <see cref="SDNamespace"/> in the current <see cref="SDSolution"/> grouped by it's <see cref="SDTargetFx"/>.</returns>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert alle <see cref="SDNamespace"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.
+        ///     </summary>     
+        ///     <returns>Alle <see cref="SDNamespace"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.</returns>
+        /// </de>
+        public Dictionary<string, Dictionary<SDTargetFx, SDNamespace>> GetAllNamespaces()
+        {
+            var sdNamespaces = new Dictionary<string, Dictionary<SDTargetFx, SDNamespace>>();
+            foreach (var repository in Repositories)
+            {
+                foreach (var repoNamespace in repository.Value.GetAllNamespaces())
+                {
+                    var sdNamespace = sdNamespaces.ContainsKey(repoNamespace.Fullname)
+                        ? sdNamespaces[repoNamespace.Fullname]
+                        : new Dictionary<SDTargetFx, SDNamespace>();
+
+                    sdNamespace.Add(repository.Key, repoNamespace);
+                }
+            }
+            return sdNamespaces;
+        }
+
+        /// <default>
+        ///     <summary>
+        ///     Returns all <see cref="SDType"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDTargetFx"/>.
+        ///     </summary>
+        ///     <returns>All <see cref="SDType"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDTargetFx"/>.</returns>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert alle <see cref="SDType"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.
+        ///     </summary>     
+        ///     <returns>Alle <see cref="SDType"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.</returns>
+        /// </de
+        public Dictionary<string, Dictionary<SDTargetFx, SDType>> GetAllTypes()
+        {
+            var sdTypes = new Dictionary<string, Dictionary<SDTargetFx, SDType>>();
+            foreach (var repository in Repositories)
+            {
+                foreach (var repoType in repository.Value.GetAllTypes())
+                {
+                    var sdType = sdTypes.ContainsKey(repoType.Identifier)
+                        ? sdTypes[repoType.Identifier]
+                        : new Dictionary<SDTargetFx, SDType>();
+
+                    sdType.Add(repository.Key, repoType);
+                }
+            }
+            return sdTypes;
+        } 
+
         public Dictionary<SDTargetFx, SDRepository> Repositories { get; set; }  
 
         public string SolutionFile { get; private set; }
