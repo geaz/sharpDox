@@ -66,9 +66,15 @@ namespace SharpDox.Model
             {
                 foreach (var repoNamespace in repository.Value.GetAllNamespaces())
                 {
-                    var sdNamespace = sdNamespaces.ContainsKey(repoNamespace.Fullname)
-                        ? sdNamespaces[repoNamespace.Fullname]
-                        : new Dictionary<SDTargetFx, SDNamespace>();
+                    var sdNamespace = new Dictionary<SDTargetFx, SDNamespace>();
+                    if (sdNamespaces.ContainsKey(repoNamespace.Identifier))
+                    {
+                        sdNamespace = sdNamespaces[repoNamespace.Identifier];
+                    }
+                    else
+                    {
+                        sdNamespaces.Add(repoNamespace.Identifier, sdNamespace);
+                    }
 
                     sdNamespace.Add(repository.Key, repoNamespace);
                 }
@@ -95,11 +101,17 @@ namespace SharpDox.Model
             {
                 foreach (var repoType in repository.Value.GetAllTypes())
                 {
-                    var sdType = sdTypes.ContainsKey(repoType.Identifier)
-                        ? sdTypes[repoType.Identifier]
-                        : new Dictionary<SDTargetFx, SDType>();
+                    var sdType = new Dictionary<SDTargetFx, SDType>();
+                    if (sdTypes.ContainsKey(repoType.Identifier))
+                    {
+                        sdType = sdTypes[repoType.Identifier];
+                    }
+                    else
+                    {
+                        sdTypes.Add(repoType.Identifier, sdType);
+                    }
 
-                    sdType.Add(repository.Key, repoType);
+                    sdType.Add(repository.Key, repoType); ;
                 }
             }
             return sdTypes;
