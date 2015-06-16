@@ -1,4 +1,5 @@
 ﻿using SharpDox.Model;
+using SharpDox.Model.Documentation;
 using SharpDox.Model.Repository;
 using System.Globalization;
 using System.IO;
@@ -92,13 +93,13 @@ namespace SharpDox.Build.Context.Step
                     {
                         if (!_sdProject.Descriptions.ContainsKey(splitted[0].ToLower()))
                         {
-                            _sdProject.Descriptions.Add(splitted[0].ToLower(), File.ReadAllText(readme));
+                            _sdProject.Descriptions.Add(splitted[0].ToLower(), new SDTemplate(File.ReadAllText(readme), _sdProject.Tokens));
                             _sdProject.AddDocumentationLanguage(splitted[0].ToLower());
                         }
                     }
                     else if (splitted.Length > 0 && splitted[0].ToLower() == "default" && !_sdProject.Descriptions.ContainsKey("default"))
                     {
-                        _sdProject.Descriptions.Add("default", File.ReadAllText(readme));
+                        _sdProject.Descriptions.Add("default", new SDTemplate(File.ReadAllText(readme), _sdProject.Tokens));
                     }
                 }
             }

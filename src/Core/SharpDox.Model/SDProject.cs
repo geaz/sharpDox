@@ -21,7 +21,7 @@ namespace SharpDox.Model
         public SDProject()
         {
             DocumentationLanguages = new List<string>();
-            Descriptions = new SDLanguageItemCollection<string>();
+            Descriptions = new SDLanguageItemCollection<SDTemplate>();
             Articles = new SDLanguageItemCollection<List<SDArticle>>();
             Tokens = new Dictionary<string, string>();
             Images = new List<string>();
@@ -68,7 +68,7 @@ namespace SharpDox.Model
         ///     Setzt oder liefert die Beschreibung des Projekts.
         ///     </summary>     
         /// </de>
-        public SDLanguageItemCollection<string> Descriptions { get; set; }
+        public SDLanguageItemCollection<SDTemplate> Descriptions { get; set; }
 
         /// <default>
         ///     <summary>
