@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>sharpDoxSDK</id>
-        <version>0.9.11.3-beta</version>
+        <version>0.9.11.4-beta</version>
         <title>sharpDox SDK</title>
         <authors>Gerrit 'Geaz' Gazic</authors>
         <owners>Gerrit 'Geaz' Gazic</owners>

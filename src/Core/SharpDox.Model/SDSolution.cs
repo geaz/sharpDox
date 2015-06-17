@@ -93,7 +93,7 @@ namespace SharpDox.Model
         ///     Liefert alle <see cref="SDType"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.
         ///     </summary>     
         ///     <returns>Alle <see cref="SDType"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.</returns>
-        /// </de
+        /// </de>
         public Dictionary<string, Dictionary<SDTargetFx, SDType>> GetAllTypes()
         {
             var sdTypes = new Dictionary<string, Dictionary<SDTargetFx, SDType>>();

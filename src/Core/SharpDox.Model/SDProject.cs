@@ -1,7 +1,9 @@
-﻿using SharpDox.Model.Documentation;
+﻿using System.Linq;
+using SharpDox.Model.Documentation;
 using System;
 using System.Collections.Generic;
 using SharpDox.Model.Documentation.Article;
+using SharpDox.Model.Repository;
 
 namespace SharpDox.Model
 {
@@ -44,6 +46,34 @@ namespace SharpDox.Model
             {
                 DocumentationLanguages.Add(twoLetterCode);
             }
+        }
+
+        /// <default>
+        ///     <summary>
+        ///     Returns all <see cref="SDTargetFx"/>s available in the current <see cref="SDProject"/>.
+        ///     </summary>
+        ///     <returns>All <see cref="SDTargetFx"/>s available in the current <see cref="SDProject"/>.</returns>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert alle <see cref="SDTargetFx"/>s im aktuellem <see cref="SDProject"/>.
+        ///     </summary>     
+        ///     <returns>Alle <see cref="SDTargetFx"/>s im aktuellem <see cref="SDProject"/>.</returns>
+        /// </de>
+        public List<SDTargetFx> GetAllAvailableTargetFxs()
+        {
+            var targetFxs = new List<SDTargetFx>();
+            foreach (var sdSolution in Solutions)
+            {
+                foreach (var sdTargetFx in sdSolution.Value.Repositories.Keys)
+                {
+                    if (targetFxs.SingleOrDefault(t => t.Identifier == sdTargetFx.Identifier) == null)
+                    {
+                        targetFxs.Add(sdTargetFx);
+                    }
+                }
+            }
+            return targetFxs;
         }
 
         /// <default>
