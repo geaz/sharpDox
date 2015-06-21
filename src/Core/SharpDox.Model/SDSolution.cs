@@ -102,16 +102,18 @@ namespace SharpDox.Model
                 foreach (var repoType in repository.Value.GetAllTypes())
                 {
                     var sdType = new Dictionary<SDTargetFx, SDType>();
-                    if (sdTypes.ContainsKey(repoType.Identifier))
+                    if (!repoType.IsProjectStranger)
                     {
-                        sdType = sdTypes[repoType.Identifier];
+                        if (sdTypes.ContainsKey(repoType.Identifier))
+                        {
+                            sdType = sdTypes[repoType.Identifier];
+                        }
+                        else
+                        {
+                            sdTypes.Add(repoType.Identifier, sdType);
+                        }
+                        sdType.Add(repository.Key, repoType);
                     }
-                    else
-                    {
-                        sdTypes.Add(repoType.Identifier, sdType);
-                    }
-
-                    sdType.Add(repository.Key, repoType); ;
                 }
             }
             return sdTypes;
