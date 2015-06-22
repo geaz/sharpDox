@@ -27,33 +27,28 @@ namespace SharpDox.Model.Documentation.Token
             return text;
         }
 
-        public string ToMarkdown()
+        public SDTemplate ToMarkdown(Dictionary<string, string> tokens)
         {
             var text = string.Empty;
-
             foreach (var token in this)
             {
                 switch (token.Role)
                 {
                     case SDTokenRole.Paragraph:
-                        text += string.Format("<p>{0}</p>", token.Text);
+                        text += string.Format("{0}{1}{1}", token.Text, Environment.NewLine);
                         break;
                     case SDTokenRole.Code:
                         var splittedText = token.Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-                        for (int i = 0; i < splittedText.Length; i++)
-                        {
-                            splittedText[i] = "    " + splittedText[i];
-                        }
-                        text += ((SDCodeToken)token).IsInline ? 
-                                    string.Format("<span class=\"inline-code\">{0}</span>", token.Text) : 
-                                    string.Join(Environment.NewLine, splittedText);
+                        text += ((SDCodeToken)token).IsInline ?
+                                    string.Format("{0}{1}{0}", "```", token.Text) : 
+                                    string.Format("{0}{1}{2}{1}{0}", "```", Environment.NewLine, string.Join(Environment.NewLine, splittedText));
                         break;
                     default:
                         text += token.Text;
                         break;
                 }
             }
-            return text;
+            return new SDTemplate(text, tokens);
         }
     }
 }
