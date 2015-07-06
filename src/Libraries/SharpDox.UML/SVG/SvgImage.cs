@@ -9,7 +9,6 @@ namespace SharpDox.UML.SVG
         private XmlAttribute _height;
         private XmlAttribute _x;
         private XmlAttribute _y;
-        private XmlAttribute _preserveAspectRatio;
         private XmlAttribute _href;
 
         public SvgImage(SvgRoot rootSvg, double x, double y, double width, double height, string href) : base(rootSvg, "image")
@@ -29,14 +28,12 @@ namespace SharpDox.UML.SVG
             _height = _rootSvg.CreateAttribute("height");
             _x = _rootSvg.CreateAttribute("x");
             _y = _rootSvg.CreateAttribute("y");
-            _preserveAspectRatio = _rootSvg.CreateAttribute("preserveAspectRatio");
-            _href = _rootSvg.CreateAttribute("xlink:href", "xlink");
+            _href = _rootSvg.CreateAttribute("xlink:href", "http://www.w3.org/1999/xlink");
 
             Attributes.Append(_width);
             Attributes.Append(_height);
             Attributes.Append(_x);
             Attributes.Append(_y);
-            Attributes.Append(_preserveAspectRatio);
             Attributes.Append(_href);
         }
 
@@ -44,7 +41,6 @@ namespace SharpDox.UML.SVG
         public double Y { get { return double.Parse(_y.Value, CultureInfo.InvariantCulture); } set { _y.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
         public double Width { get { return double.Parse(_width.Value, CultureInfo.InvariantCulture); } set { _width.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
         public double Height { get { return double.Parse(_height.Value, CultureInfo.InvariantCulture); } set { _height.Value = value.ToString("0.00", CultureInfo.InvariantCulture); } }
-        public string PreserveAspectRatio { get { return _preserveAspectRatio.Value; } set { _preserveAspectRatio.Value = value; } }
         public string Href { get { return _href.Value; } set { _href.Value = value; } }
     }
 }

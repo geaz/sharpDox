@@ -26,7 +26,7 @@ namespace SharpDox.UML.Class
             _classDiagram = classDiagram;
             _diagramSize = new Size(CalculateDiagramWidth(classDiagram), CalculateDiagramHeight(classDiagram));
 
-            _svgRoot = new SvgRoot();
+            _svgRoot = new SvgRoot() { Width = _diagramSize.Width, Height = _diagramSize.Height };
             _svgGraphic = new SvgGraphic(_svgRoot);
             _svgRoot.Add(_svgGraphic);
 

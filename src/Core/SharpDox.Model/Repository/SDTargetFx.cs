@@ -33,18 +33,6 @@ namespace SharpDox.Model.Repository
 
         /// <default>
         ///     <summary>
-        ///     Gets or sets the description.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Setzt oder liefert die Beschreibung.
-        ///     </summary>     
-        /// </de>
-        public string Description { get; set; }
-
-        /// <default>
-        ///     <summary>
         ///     Comparer to sort the a list with SDTargetFxs.
         ///     </summary>
         ///     <param name="other">SDTargetFx to compare with</param>
