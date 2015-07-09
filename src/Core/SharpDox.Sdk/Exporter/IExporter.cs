@@ -11,7 +11,6 @@ namespace SharpDox.Sdk.Exporter
     /// <de>
     ///     <summary>
     ///     Exportplugins müssen dieses Interface implementieren.
-	///		[Test]({{article-link:de.introduction}})
     ///     </summary>
     /// </de>
     public interface IExporter
@@ -26,7 +25,6 @@ namespace SharpDox.Sdk.Exporter
         ///     <summary>
         ///     Der BuildController von sharpDox lauscht an diesem Event.
         ///     Der Exporter kann darüber Warnungen verschicken, die im Baufenster angezeigt werden.
-        ///		[Test]({{article-link:de.introduction}}}
         ///     </summary>
         /// </de>
         event Action<string> OnRequirementsWarning;

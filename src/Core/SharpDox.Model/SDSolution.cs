@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using SharpDox.Model.Repository;
+using SharpDox.Model.Repository.Members;
 
 namespace SharpDox.Model
 {  
@@ -117,7 +118,58 @@ namespace SharpDox.Model
                 }
             }
             return sdTypes;
-        } 
+        }
+
+        /// <default>
+        ///     <summary>
+        ///     Returns all <see cref="SDMember"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDTargetFx"/>.
+        ///     </summary>
+        ///     <returns>All <see cref="SDMember"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDTargetFx"/>.</returns>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert alle <see cref="SDMember"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.
+        ///     </summary>     
+        ///     <returns>Alle <see cref="SDMember"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.</returns>
+        /// </de>
+        public Dictionary<string, Dictionary<SDTargetFx, SDMember>> GetAllMembers()
+        {
+            var sdMembers = new Dictionary<string, Dictionary<SDTargetFx, SDMember>>();
+            foreach (var repository in Repositories)
+            {
+                foreach (var repoType in repository.Value.GetAllTypes())
+                {
+                    var sdMember = new Dictionary<SDTargetFx, SDMember>();
+                    if (!repoType.IsProjectStranger)
+                    {
+                        AddMembers(sdMembers, sdMember, repoType.Fields, repository.Key);
+                        AddMembers(sdMembers, sdMember, repoType.Constructors, repository.Key);
+                        AddMembers(sdMembers, sdMember, repoType.Methods, repository.Key);
+                        AddMembers(sdMembers, sdMember, repoType.Events, repository.Key);
+                        AddMembers(sdMembers, sdMember, repoType.Properties, repository.Key);
+                    }
+                }
+            }
+            return sdMembers;
+        }
+
+        private void AddMembers(
+            Dictionary<string, Dictionary<SDTargetFx, SDMember>> sdMembers, Dictionary<SDTargetFx, SDMember> sdMember, 
+            IEnumerable<SDMember> members, SDTargetFx targetFx)
+        {
+            foreach (var member in members)
+            {
+                if (sdMembers.ContainsKey(member.Identifier))
+                {
+                    sdMember = sdMembers[member.Identifier];
+                }
+                else
+                {
+                    sdMembers.Add(member.Identifier, sdMember);
+                }
+                sdMember.Add(targetFx, member);
+            }
+        }
 
         public Dictionary<SDTargetFx, SDRepository> Repositories { get; set; }  
 
