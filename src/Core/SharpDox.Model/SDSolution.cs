@@ -139,26 +139,24 @@ namespace SharpDox.Model
             {
                 foreach (var repoType in repository.Value.GetAllTypes())
                 {
-                    var sdMember = new Dictionary<SDTargetFx, SDMember>();
                     if (!repoType.IsProjectStranger)
                     {
-                        AddMembers(sdMembers, sdMember, repoType.Fields, repository.Key);
-                        AddMembers(sdMembers, sdMember, repoType.Constructors, repository.Key);
-                        AddMembers(sdMembers, sdMember, repoType.Methods, repository.Key);
-                        AddMembers(sdMembers, sdMember, repoType.Events, repository.Key);
-                        AddMembers(sdMembers, sdMember, repoType.Properties, repository.Key);
+                        AddMembers(sdMembers, repoType.Fields, repository.Key);
+                        AddMembers(sdMembers, repoType.Constructors, repository.Key);
+                        AddMembers(sdMembers, repoType.Methods, repository.Key);
+                        AddMembers(sdMembers, repoType.Events, repository.Key);
+                        AddMembers(sdMembers, repoType.Properties, repository.Key);
                     }
                 }
             }
             return sdMembers;
         }
 
-        private void AddMembers(
-            Dictionary<string, Dictionary<SDTargetFx, SDMember>> sdMembers, Dictionary<SDTargetFx, SDMember> sdMember, 
-            IEnumerable<SDMember> members, SDTargetFx targetFx)
+        private void AddMembers(Dictionary<string, Dictionary<SDTargetFx, SDMember>> sdMembers, IEnumerable<SDMember> members, SDTargetFx targetFx)
         {
             foreach (var member in members)
             {
+                var sdMember = new Dictionary<SDTargetFx, SDMember>();
                 if (sdMembers.ContainsKey(member.Identifier))
                 {
                     sdMember = sdMembers[member.Identifier];
