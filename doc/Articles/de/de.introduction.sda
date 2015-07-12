@@ -9,7 +9,7 @@ Je nach registrierten Plugins bietet die GUI unterschiedliche Konfigurationspunk
 ![Introduction]({{image-link:sdi.introduction.png}})
 
 *sharpDox* ermöglicht es Entwicklern verschiedene Ausgabeformate für eine Dokumentation zu erstellen. 
-Dies versetzt den Benutzer in die Lage die Ausgabeform der Dokumentation zu beeinflussen ([hier]({{article-link:Erstellen eines Exporters}}) 
+Dies versetzt den Benutzer in die Lage die Ausgabeform der Dokumentation zu beeinflussen ([hier]({{article-link:de.exporter-tutorial}}) 
 ist ein Beispiel zu finden wie ein Exporter erstellt werden kann). Plugins befinden sich im *plugin* Ordner von *sharpDox*. 
 Neue Plugins werden durch einen Neustart des Programms registriert und automatisch während des Bauvorgangs ausgeführt.
 

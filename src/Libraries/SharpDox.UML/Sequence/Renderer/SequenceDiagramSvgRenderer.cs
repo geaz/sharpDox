@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
-using System.Windows.Media;
 using SharpDox.UML.Extensions;
 using SharpDox.UML.Sequence.Elements;
 using SharpDox.UML.Sequence.Model;
@@ -31,6 +30,9 @@ namespace SharpDox.UML.Sequence
             DrawAllNodes(sequenceDiagram);
             DrawAllDiagramElements(sequenceDiagram);
             DrawVerticalLines(sequenceDiagram);
+
+            _svgRoot.Height = _diagramSize.Height;
+            _svgRoot.Width = _diagramSize.Width;
 
             return _svgRoot;
         }
