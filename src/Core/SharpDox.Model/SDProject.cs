@@ -65,11 +65,11 @@ namespace SharpDox.Model
             var targetFxs = new List<SDTargetFx>();
             foreach (var sdSolution in Solutions)
             {
-                foreach (var sdTargetFx in sdSolution.Value.Repositories.Keys)
+                foreach (var sdRepository in sdSolution.Value.Repositories)
                 {
-                    if (targetFxs.SingleOrDefault(t => t.Identifier == sdTargetFx.Identifier) == null)
+                    if (targetFxs.SingleOrDefault(t => t.Identifier == sdRepository.TargetFx.Identifier) == null)
                     {
-                        targetFxs.Add(sdTargetFx);
+                        targetFxs.Add(sdRepository.TargetFx);
                     }
                 }
             }

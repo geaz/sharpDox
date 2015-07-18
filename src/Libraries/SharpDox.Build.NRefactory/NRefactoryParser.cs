@@ -65,7 +65,7 @@ namespace SharpDox.Build.NRefactory
                 }
             }
 
-            foreach (var sdRepository in sdSolution.Repositories.Values)
+            foreach (var sdRepository in sdSolution.Repositories)
             {
                 ParseMethodCalls(solution, sdRepository);
                 ResolveUses(sdRepository);

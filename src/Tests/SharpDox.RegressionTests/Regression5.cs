@@ -13,7 +13,7 @@ namespace SharpDox.RegressionTests
             var sdProject = TestConfig.ParseProject();
                
             // Act
-            var type = sdProject.Solutions.First().Value.Repositories.First().Value.GetTypeByIdentifier("SharpDox.TestProject.Regression5");
+            var type = sdProject.Solutions.First().Value.Repositories.First().GetTypeByIdentifier("SharpDox.TestProject.Regression5");
 
             // Assert            
             Assert.AreEqual(1, type.NestedTypes.Count);

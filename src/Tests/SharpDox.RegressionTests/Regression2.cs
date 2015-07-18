@@ -14,8 +14,8 @@ namespace SharpDox.RegressionTests
             var sdProject = TestConfig.ParseProject();
                
             // Act
-            var type = sdProject.Solutions.First().Value.Repositories.First().Value.GetTypeByIdentifier("SharpDox.TestProject.Regression2");
-            var svgDiagram = type.Methods[0].GetSequenceDiagram(sdProject.Solutions.First().Value.Repositories.First().Value).ToSvg();
+            var type = sdProject.Solutions.First().Value.Repositories.First().GetTypeByIdentifier("SharpDox.TestProject.Regression2");
+            var svgDiagram = type.Methods[0].GetSequenceDiagram(sdProject.Solutions.First().Value.Repositories.First()).ToSvg();
 
             // Assert            
             Assert.IsFalse(svgDiagram.Template.Contains("]]]>"));

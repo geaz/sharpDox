@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using SharpDox.Model.Repository;
-using SharpDox.Model.Repository.Members;
 
 namespace SharpDox.Model
 {  
@@ -14,7 +14,7 @@ namespace SharpDox.Model
         public SDSolution(string solutionFile)
         {
             SolutionFile = solutionFile;
-            Repositories = new Dictionary<SDTargetFx, SDRepository>();
+            Repositories = new List<SDRepository>();
         }
 
         /// <default>
@@ -34,40 +34,36 @@ namespace SharpDox.Model
         /// </de>
         public SDRepository GetExistingOrNew(SDTargetFx targetFx)
         {
-            SDRepository sdRepository;
-            if (Repositories.ContainsKey(targetFx))
-            {
-                sdRepository = Repositories[targetFx];
-            }
-            else
+            var sdRepository = Repositories.SingleOrDefault(r => r.TargetFx == targetFx);
+            if (sdRepository == null)
             {
                 sdRepository = new SDRepository();
                 sdRepository.TargetFx = targetFx;
-                Repositories.Add(targetFx, sdRepository);
+                Repositories.Add(sdRepository);
             }
             return sdRepository;
         }
 
         /// <default>
         ///     <summary>
-        ///     Returns all <see cref="SDNamespace"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDTargetFx"/>.
+        ///     Returns all <see cref="SDNamespace"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDRepository"/>.
         ///     </summary>
-        ///     <returns>All <see cref="SDNamespace"/> in the current <see cref="SDSolution"/> grouped by it's <see cref="SDTargetFx"/>.</returns>
+        ///     <returns>All <see cref="SDNamespace"/> in the current <see cref="SDSolution"/> grouped by it's <see cref="SDRepository"/>.</returns>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Liefert alle <see cref="SDNamespace"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.
+        ///     Liefert alle <see cref="SDNamespace"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDRepository"/>.
         ///     </summary>     
-        ///     <returns>Alle <see cref="SDNamespace"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.</returns>
+        ///     <returns>Alle <see cref="SDNamespace"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDRepository"/>.</returns>
         /// </de>
-        public Dictionary<string, Dictionary<SDTargetFx, SDNamespace>> GetAllNamespaces()
+        public Dictionary<string, Dictionary<SDRepository, SDNamespace>> GetAllNamespaces()
         {
-            var sdNamespaces = new Dictionary<string, Dictionary<SDTargetFx, SDNamespace>>();
+            var sdNamespaces = new Dictionary<string, Dictionary<SDRepository, SDNamespace>>();
             foreach (var repository in Repositories)
             {
-                foreach (var repoNamespace in repository.Value.GetAllNamespaces())
+                foreach (var repoNamespace in repository.GetAllNamespaces())
                 {
-                    var sdNamespace = new Dictionary<SDTargetFx, SDNamespace>();
+                    var sdNamespace = new Dictionary<SDRepository, SDNamespace>();
                     if (sdNamespaces.ContainsKey(repoNamespace.Identifier))
                     {
                         sdNamespace = sdNamespaces[repoNamespace.Identifier];
@@ -77,7 +73,7 @@ namespace SharpDox.Model
                         sdNamespaces.Add(repoNamespace.Identifier, sdNamespace);
                     }
 
-                    sdNamespace.Add(repository.Key, repoNamespace);
+                    sdNamespace.Add(repository, repoNamespace);
                 }
             }
             return sdNamespaces;
@@ -85,24 +81,24 @@ namespace SharpDox.Model
 
         /// <default>
         ///     <summary>
-        ///     Returns all <see cref="SDType"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDTargetFx"/>.
+        ///     Returns all <see cref="SDType"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDRepository"/>.
         ///     </summary>
-        ///     <returns>All <see cref="SDType"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDTargetFx"/>.</returns>
+        ///     <returns>All <see cref="SDType"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDRepository"/>.</returns>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Liefert alle <see cref="SDType"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.
+        ///     Liefert alle <see cref="SDType"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDRepository"/>.
         ///     </summary>     
-        ///     <returns>Alle <see cref="SDType"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.</returns>
+        ///     <returns>Alle <see cref="SDType"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDRepository"/>.</returns>
         /// </de>
-        public Dictionary<string, Dictionary<SDTargetFx, SDType>> GetAllTypes()
+        public Dictionary<string, Dictionary<SDRepository, SDType>> GetAllTypes()
         {
-            var sdTypes = new Dictionary<string, Dictionary<SDTargetFx, SDType>>();
+            var sdTypes = new Dictionary<string, Dictionary<SDRepository, SDType>>();
             foreach (var repository in Repositories)
             {
-                foreach (var repoType in repository.Value.GetAllTypes())
+                foreach (var repoType in repository.GetAllTypes())
                 {
-                    var sdType = new Dictionary<SDTargetFx, SDType>();
+                    var sdType = new Dictionary<SDRepository, SDType>();
                     if (!repoType.IsProjectStranger)
                     {
                         if (sdTypes.ContainsKey(repoType.Identifier))
@@ -113,63 +109,14 @@ namespace SharpDox.Model
                         {
                             sdTypes.Add(repoType.Identifier, sdType);
                         }
-                        sdType.Add(repository.Key, repoType);
+                        sdType.Add(repository, repoType);
                     }
                 }
             }
             return sdTypes;
         }
 
-        /// <default>
-        ///     <summary>
-        ///     Returns all <see cref="SDMember"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDTargetFx"/>.
-        ///     </summary>
-        ///     <returns>All <see cref="SDMember"/>s in the current <see cref="SDSolution"/> grouped by it's <see cref="SDTargetFx"/>.</returns>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert alle <see cref="SDMember"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.
-        ///     </summary>     
-        ///     <returns>Alle <see cref="SDMember"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDTargetFx"/>.</returns>
-        /// </de>
-        public Dictionary<string, Dictionary<SDTargetFx, SDMember>> GetAllMembers()
-        {
-            var sdMembers = new Dictionary<string, Dictionary<SDTargetFx, SDMember>>();
-            foreach (var repository in Repositories)
-            {
-                foreach (var repoType in repository.Value.GetAllTypes())
-                {
-                    if (!repoType.IsProjectStranger)
-                    {
-                        AddMembers(sdMembers, repoType.Fields, repository.Key);
-                        AddMembers(sdMembers, repoType.Constructors, repository.Key);
-                        AddMembers(sdMembers, repoType.Methods, repository.Key);
-                        AddMembers(sdMembers, repoType.Events, repository.Key);
-                        AddMembers(sdMembers, repoType.Properties, repository.Key);
-                    }
-                }
-            }
-            return sdMembers;
-        }
-
-        private void AddMembers(Dictionary<string, Dictionary<SDTargetFx, SDMember>> sdMembers, IEnumerable<SDMember> members, SDTargetFx targetFx)
-        {
-            foreach (var member in members)
-            {
-                var sdMember = new Dictionary<SDTargetFx, SDMember>();
-                if (sdMembers.ContainsKey(member.Identifier))
-                {
-                    sdMember = sdMembers[member.Identifier];
-                }
-                else
-                {
-                    sdMembers.Add(member.Identifier, sdMember);
-                }
-                sdMember.Add(targetFx, member);
-            }
-        }
-
-        public Dictionary<SDTargetFx, SDRepository> Repositories { get; set; }  
+        public List<SDRepository> Repositories { get; set; }  
 
         public string SolutionFile { get; private set; }
 
