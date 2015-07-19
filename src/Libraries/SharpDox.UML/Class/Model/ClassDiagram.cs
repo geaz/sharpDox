@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Media;
 using SharpDox.Model.Repository;
 using SharpDox.UML.Class.Renderer;
@@ -53,6 +54,12 @@ namespace SharpDox.UML.Class.Model
         {
             _renderedSvgDiagram = _classDiagramSvgRenderer.RenderConnectedDiagram(this); 
             return new SDTemplate(_renderedSvgDiagram.ToString());
+        }
+
+        public Size GetSvgSize()
+        {
+            _renderedSvgDiagram = _classDiagramSvgRenderer.RenderConnectedDiagram(this);  
+            return new Size((int)_renderedSvgDiagram.Width, (int)_renderedSvgDiagram.Height);
         }
 
         public string TypeIdentifier { get; set; }

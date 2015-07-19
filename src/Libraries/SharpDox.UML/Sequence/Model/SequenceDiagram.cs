@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Media;
 using SharpDox.UML.Extensions;
 using SharpDox.UML.Sequence.Elements;
@@ -52,6 +53,12 @@ namespace SharpDox.UML.Sequence.Model
         {
             _renderedSvgDiagram = _sequenceDiagramSvgRenderer.RenderDiagram(this);
             return new SDTemplate(_renderedSvgDiagram.ToString());
+        }
+
+        public Size GetSvgSize()
+        {
+            _renderedSvgDiagram = _sequenceDiagramSvgRenderer.RenderDiagram(this);
+            return new Size((int)_renderedSvgDiagram.Width, (int)_renderedSvgDiagram.Height);
         }
 
         public Guid StartNodeID { get; set; }
