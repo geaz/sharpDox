@@ -20,7 +20,7 @@ Just create a file with the name _default.sdpd_ underneath the input file path. 
 *sharpDox* is able to parse custom descriptions for namespaces. Just create a file with a `.sdnd` extension and write your description in the markdown syntax. *sharpDox* recognizes these files as namespace descriptions.
 If you want a description for the namespace `SharpDox.Sdk`, create the file `SharpDox.Sdk.sdnd`.
 
-###Articles###
+### Articles ###
 
 Besides the code documentation and the description it is also possible to create articles. Articles are additional pages inside the documentation, which are accessible through a custom navigation. It is mandatory to create a custom navigation, if you use articles. Otherwise the articles get ignored.
 

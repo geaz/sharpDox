@@ -60,6 +60,7 @@
     <Compile Include="Regression1.cs" />
     <Compile Include="Regression2.cs" />
     <Compile Include="InheritDoc.cs" />
+    <Compile Include="Regression7.cs" />
     <Compile Include="Regression6.cs" />
     <Compile Include="WebApiDoc.cs" />
     <Compile Include="Regression5.cs" />

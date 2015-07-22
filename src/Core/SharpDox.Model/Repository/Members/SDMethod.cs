@@ -222,9 +222,9 @@ namespace SharpDox.Model.Repository.Members
         {
             get
             {
-                var typeParam = TypeParameters.Select(parameter => parameter.Name).ToList();
+                var typeParam = TypeParameters.Select(parameter => parameter.NameWithTypeArguments).ToList();
                 var typeParamText = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
-                var param = Parameters.Select(parameter => parameter.ParamType.Name + " " + parameter.Name).ToList();
+                var param = Parameters.Select(parameter => parameter.ParamType.NameWithTypeArguments + " " + parameter.Name).ToList();
 
                 return Name + typeParamText + "(" + string.Join(", ", param) + ")";
             }
