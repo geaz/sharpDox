@@ -16,8 +16,8 @@ namespace SharpDox.RegressionTests
             var type = sdProject.Solutions.First().Value.Repositories.First().GetTypeByIdentifier("SharpDox.TestProject.Regression7");
 
             // Assert            
-            Assert.IsTrue(type.Methods[0].Syntax.Contains("List<String>"));
-            Assert.IsTrue(type.Methods[0].Syntax.Contains("List<Int32>"));
+            Assert.IsTrue(type.Methods[0].Syntax.Contains("List<string>"));
+            Assert.IsTrue(type.Methods[0].Syntax.Contains("List<int>"));
         }
     }
 }

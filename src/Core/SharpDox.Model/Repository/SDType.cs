@@ -221,14 +221,12 @@ namespace SharpDox.Model.Repository
         {
             get
             {
-                if (_name == "Void" || _name == "Object")
-                {
-                    return _name.ToLower();
-                }
-                return _name;
+                return CSharpName ?? _name;
             }
             set { _name = value; }
         }
+
+        public string CSharpName { get; set; }
 
         /// <default>
         ///     <summary>
@@ -268,10 +266,7 @@ namespace SharpDox.Model.Repository
         {
             get
             {
-                var nameWithTypeArguments = NameWithTypeArguments;
-                nameWithTypeArguments = nameWithTypeArguments.First().ToString().ToUpper()
-                                        + String.Join("", nameWithTypeArguments.Skip(1));
-
+                var nameWithTypeArguments = _name + GetTypeArgumentText();
                 return string.Format("{0}.{1}", Namespace.Fullname, nameWithTypeArguments);
             }
         }
