@@ -1,4 +1,6 @@
+using SharpDox.Model.Documentation;
 using System;
+using System.Linq;
 
 namespace SharpDox.Model.Repository.Members
 {
@@ -89,6 +91,20 @@ namespace SharpDox.Model.Repository.Members
                     desc = "readonly";
 
                 return string.Join(" ", new string[] { Accessibility, desc, ReturnType.NameWithTypeArguments, Name });
+            }
+        }
+
+        public SDTemplate SyntaxTemplate
+        {
+            get
+            {
+                var desc = string.Empty;
+                if (IsConst)
+                    desc = "const";
+                else if (IsReadonly)
+                    desc = "readonly";
+
+                return new SDTemplate(string.Join(" ", new string[] { Accessibility, desc, ReturnType.LinkedNameWithArguments, Name }));
             }
         }
     }

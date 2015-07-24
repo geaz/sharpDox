@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SharpDox.Model.CallTree;
+using SharpDox.Model.Documentation;
 
 namespace SharpDox.Model.Repository.Members
 {
@@ -232,6 +233,30 @@ namespace SharpDox.Model.Repository.Members
 
         /// <default>
         ///     <summary>
+        ///     Gets the signature of the method.
+        ///     Where project types are markdown links.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert die Signatur der Methode.
+        ///     Projekttypen sind Markdown Links.
+        ///     </summary>
+        /// </de>
+        public string LinkedSignature
+        {
+            get
+            {
+                var typeParam = TypeParameters.Select(parameter => parameter.LinkedNameWithArguments).ToList();
+                var typeParamText = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
+                var param = Parameters.Select(parameter => parameter.ParamType.LinkedNameWithArguments + " " + parameter.Name).ToList();
+
+                return Name + typeParamText + "(" + string.Join(", ", param) + ")";
+            }
+        }
+
+        /// <default>
+        ///     <summary>
         ///     Gets the syntax of the method.
         ///     </summary>
         /// </default>
@@ -252,6 +277,21 @@ namespace SharpDox.Model.Repository.Members
                 syntaxItems = syntaxItems.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
                 return string.Join(" ", syntaxItems);
+            }
+        }
+        
+        public SDTemplate SyntaxTemplate
+        {
+            get
+            {
+                var desc = IsAbstract ? "abstract" : string.Empty;
+                desc = IsVirtual ? "virtual" : desc;
+                desc = IsStatic ? "static" : desc;
+
+                var syntaxItems = new string[] { Accessibility, desc, ReturnType.LinkedNameWithArguments, LinkedSignature };
+                syntaxItems = syntaxItems.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+
+                return new SDTemplate(string.Join(" ", syntaxItems));
             }
         }  
     }

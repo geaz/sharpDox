@@ -44,10 +44,67 @@ namespace SharpDox.Model.Repository
             NestedTypes = new SortedList<SDType>();
         }
 
-        private string GetTypeArgumentText()
+        private string GetInheritText(bool linked)
         {
-            var typeParam = TypeArguments.Select(argument => argument.NameWithTypeArguments).ToList();
-            return typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
+            var inheritedText = ImplementedInterfaces.Count > 0 ? 
+                string.Join(", ", ImplementedInterfaces.Select(i => linked ? i.LinkedNameWithArguments : 
+                i.NameWithTypeArguments).ToList()) : string.Empty;
+
+            var baseText = string.Empty;
+            if (BaseTypes.Any())
+            {
+                baseText = linked ? BaseTypes.First().LinkedNameWithArguments : BaseTypes.First().NameWithTypeArguments;
+            }
+
+            if (inheritedText != string.Empty && baseText != string.Empty)
+            {
+                inheritedText += ", " + baseText;
+                inheritedText = " : " + inheritedText;
+            }
+            else if (inheritedText != string.Empty)
+            {
+                inheritedText = " : " + inheritedText;
+            }
+            else if (baseText != string.Empty)
+            {
+                inheritedText = " : " + baseText;
+            }
+
+            return inheritedText;
+        }
+
+        private string GetTypeConstraintText(bool linked)
+        {
+            var typeContraints = new StringBuilder();
+            foreach (var typeParam in TypeParameters)
+            {
+                var list = new List<string>();
+                if (typeParam.HasDefaultConstructorConstraint)
+                {
+                    list.Add("new()");
+                }
+                if (typeParam.HasReferenceTypeConstraint)
+                {
+                    list.Add("class");
+                }
+                if (typeParam.HasValueTypeConstraint)
+                {
+                    list.Add("struct");
+                }
+                if (typeParam.BaseClass != null)
+                {
+                    if (linked) list.Add(typeParam.BaseClass.LinkedNameWithArguments);
+                    else list.Add(typeParam.BaseClass.NameWithTypeArguments);
+                }
+                foreach (var interfaceConstraint in typeParam.Interfaces)
+                {
+                    if (linked) list.Add(interfaceConstraint.LinkedNameWithArguments);
+                    else list.Add(interfaceConstraint.NameWithTypeArguments);
+                }
+
+                typeContraints.Append(string.Format("where {0} : {1} ", typeParam.Name, string.Join(", ", list)));
+            }
+            return typeContraints.ToString();
         }
 
         /// <default>
@@ -238,7 +295,42 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert den Namen des Typen inklusive der Typ-Parameter.
         ///     </summary>     
         /// </de>
-        public string NameWithTypeArguments { get { return Name + GetTypeArgumentText(); } }
+        public string NameWithTypeArguments
+        {
+            get
+            {
+                var typeParam = TypeArguments.Select(argument => argument.NameWithTypeArguments).ToList();
+                var typeArguments = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
+
+                return Name + typeArguments;
+            }
+        }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets the name of the type. Including the type parameters.
+        ///     Where project types are markdown links.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert den Namen des Typen inklusive der Typ-Parameter.
+        ///     Projekttypen sind Markdown Links.
+        ///     </summary>     
+        /// </de>
+        public string LinkedNameWithArguments
+        {
+            get
+            {
+                var linkedName = IsProjectStranger ? Name : string.Format("[{0}]({{{{type-link:{1}}}}}", Name, Fullname);
+                var linkedTypeArguments =
+                    TypeArguments.Count > 0 ?
+                    string.Format("<{0}>", string.Join(", ", TypeArguments.Select(t => t.IsProjectStranger ? string.Empty : string.Format("[{0}]({{{{type-link:{1}}}}}", t.Name, t.Fullname)))) :
+                    string.Empty;
+
+                return linkedName + linkedTypeArguments;
+            }
+        }
 
         /// <default>
         ///     <summary>
@@ -266,8 +358,7 @@ namespace SharpDox.Model.Repository
         {
             get
             {
-                var nameWithTypeArguments = _name + GetTypeArgumentText();
-                return string.Format("{0}.{1}", Namespace.Fullname, nameWithTypeArguments);
+                return string.Format("{0}.{1}", Namespace.Fullname, NameWithTypeArguments);
             }
         }
 
@@ -442,59 +533,36 @@ namespace SharpDox.Model.Repository
             get
             {
                 var desc = IsAbstract && Kind.ToLower() != "interface" ? "abstract" : string.Empty;
-                desc = IsStatic ? "static" : desc;
-
-                var inheritedText = ImplementedInterfaces.Count > 0 ? string.Join(", ", ImplementedInterfaces.Select(i => i.Name).ToList()) : string.Empty;
-                var baseText = BaseTypes.Count > 0
-                                       ? BaseTypes.First().NameWithTypeArguments
-                                       : string.Empty;
-
-                if (inheritedText != string.Empty && baseText != string.Empty)
-                {
-                    inheritedText += ", " + baseText;
-                    inheritedText = " : " + inheritedText;
-                }
-                else if (inheritedText != string.Empty)
-                {
-                    inheritedText = " : " + inheritedText;
-                }
-                else if (baseText != string.Empty)
-                {
-                    inheritedText = " : " + baseText;
-                }
-
-                var typeContraints = new StringBuilder();
-                foreach (var typeParam in TypeParameters)
-                {
-                    var list = new List<string>();
-                    if (typeParam.HasDefaultConstructorConstraint)
-                    {
-                        list.Add("new()");
-                    }
-                    if (typeParam.HasReferenceTypeConstraint)
-                    {
-                        list.Add("class");
-                    }
-                    if (typeParam.HasValueTypeConstraint)
-                    {
-                        list.Add("struct");
-                    }
-                    if (typeParam.BaseClass != null)
-                    {
-                        list.Add(typeParam.BaseClass.NameWithTypeArguments);
-                    }
-                    foreach (var interfaceConstraint in typeParam.Interfaces)
-                    {
-                        list.Add(interfaceConstraint.NameWithTypeArguments);
-                    }
-
-                    typeContraints.Append(string.Format("where {0} : {1} ", typeParam.Name, string.Join(", ", list)));
-                }
-
-                var syntax = new string[] { Accessibility.ToLower(), desc, Kind.ToLower(), NameWithTypeArguments + inheritedText, typeContraints.ToString() };
+                desc = IsStatic ? "static" : desc;                             
+                            
+                var syntax = new string[] { Accessibility.ToLower(), desc, Kind.ToLower(), NameWithTypeArguments + GetInheritText(false), GetTypeConstraintText(false) };
                 syntax = syntax.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
                 return string.Join(" ", syntax);
+            }
+        }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets the syntax of the type.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert die Syntax des Typen.
+        ///     </summary>     
+        /// </de>
+        public SDTemplate SyntaxTemplate
+        {
+            get
+            {
+                var desc = IsAbstract && Kind.ToLower() != "interface" ? "abstract" : string.Empty;
+                desc = IsStatic ? "static" : desc;
+
+                var syntax = new string[] { Accessibility.ToLower(), desc, Kind.ToLower(), LinkedNameWithArguments + GetInheritText(true), GetTypeConstraintText(true) };
+                syntax = syntax.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+
+                return new SDTemplate(string.Join(" ", syntax));
             }
         }
 

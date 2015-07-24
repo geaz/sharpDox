@@ -1,3 +1,4 @@
+using SharpDox.Model.Documentation;
 using System;
 using System.Linq;
 
@@ -132,6 +133,29 @@ namespace SharpDox.Model.Repository.Members
 
                 return string.Join(" ", syntax);
             }
-        } 
+        }
+
+        public SDTemplate SyntaxTemplate
+        {
+            get
+            {
+                var desc = IsAbstract ? "abstract" : string.Empty;
+                desc = IsOverride ? "override" : desc;
+                desc = IsVirtual ? "virtual" : desc;
+
+                var getSet = "";
+                if (CanGet && CanSet)
+                    getSet = "{ get; set; }";
+                else if (CanGet)
+                    getSet = "{ get; }";
+                else if (CanSet)
+                    getSet = "{ set; }";
+
+                var syntax = new string[] { Accessibility, desc, ReturnType.LinkedNameWithArguments, Name, getSet };
+                syntax = syntax.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+
+                return new SDTemplate(string.Join(" ", syntax));
+            }
+        }
     }
 }
