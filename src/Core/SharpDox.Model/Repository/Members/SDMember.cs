@@ -130,7 +130,19 @@ namespace SharpDox.Model.Repository.Members
         ///     </summary>     
         /// </de>
         public abstract string Syntax { get; }
-        
+
+        /// <default>
+        ///     <summary>
+        ///     Returns the syntax of the member.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert die Syntax des Mitglieds.
+        ///     </summary>     
+        /// </de>
+        public abstract SDTemplate SyntaxTemplate { get; }
+
         /// <default>
         ///     <summary>
         ///     Comparer to sort the a list with SDMembers.

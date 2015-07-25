@@ -1,4 +1,5 @@
 ﻿using System;
+using SharpDox.Model.Documentation;
 
 namespace SharpDox.Model.Repository.Members
 {
@@ -37,5 +38,7 @@ namespace SharpDox.Model.Repository.Members
                 return string.Join(" " , new string[] { Accessibility, Name });
             }
         }
+
+        public override SDTemplate SyntaxTemplate { get { return new SDTemplate(Syntax); } }
     }
 }

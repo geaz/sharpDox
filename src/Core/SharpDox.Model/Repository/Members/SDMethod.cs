@@ -280,7 +280,7 @@ namespace SharpDox.Model.Repository.Members
             }
         }
         
-        public SDTemplate SyntaxTemplate
+        public override SDTemplate SyntaxTemplate
         {
             get
             {

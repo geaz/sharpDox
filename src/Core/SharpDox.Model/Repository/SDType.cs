@@ -322,10 +322,10 @@ namespace SharpDox.Model.Repository
         {
             get
             {
-                var linkedName = IsProjectStranger ? Name : string.Format("[{0}]({{{{type-link:{1}}}}}", Name, Fullname);
+                var linkedName = IsProjectStranger ? Name : string.Format("[{0}]({{{{type-link:{1}}}}})", Name, Fullname);
                 var linkedTypeArguments =
                     TypeArguments.Count > 0 ?
-                    string.Format("<{0}>", string.Join(", ", TypeArguments.Select(t => t.IsProjectStranger ? string.Empty : string.Format("[{0}]({{{{type-link:{1}}}}}", t.Name, t.Fullname)))) :
+                    string.Format("<{0}>", string.Join(", ", TypeArguments.Select(t => t.IsProjectStranger ? t.Name : string.Format("[{0}]({{{{type-link:{1}}}}})", t.Name, t.Fullname)))) :
                     string.Empty;
 
                 return linkedName + linkedTypeArguments;
@@ -358,7 +358,10 @@ namespace SharpDox.Model.Repository
         {
             get
             {
-                return string.Format("{0}.{1}", Namespace.Fullname, NameWithTypeArguments);
+                var typeParam = TypeArguments.Select(argument => argument.NameWithTypeArguments).ToList();
+                var typeArguments = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
+
+                return string.Format("{0}.{1}", Namespace.Fullname, _name + typeArguments);
             }
         }
 
