@@ -323,10 +323,16 @@ namespace SharpDox.Model.Repository
             get
             {
                 var linkedName = IsProjectStranger ? Name : string.Format("[{0}]({{{{type-link:{1}}}}})", Name, Fullname);
+                if(ArrayElementType != null && !ArrayElementType.IsProjectStranger)
+                {
+                    linkedName = ArrayElementType.LinkedNameWithArguments + "[]";
+                }
+
                 var linkedTypeArguments =
                     TypeArguments.Count > 0 ?
                     string.Format("<{0}>", string.Join(", ", TypeArguments.Select(t => t.IsProjectStranger ? t.Name : string.Format("[{0}]({{{{type-link:{1}}}}})", t.Name, t.Fullname)))) :
                     string.Empty;
+
 
                 return linkedName + linkedTypeArguments;
             }
@@ -376,6 +382,18 @@ namespace SharpDox.Model.Repository
         ///     </summary>     
         /// </de>
         public string Kind { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     If the type is an array element, this property returns the underlying element type.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Falls der Typ ein Arrayelement ist, liefert diese Property den zugrunde liegenden Typen.
+        ///     </summary>     
+        /// </de>>
+        public SDType ArrayElementType { get; set; }
 
         /// <default>
         ///     <summary>

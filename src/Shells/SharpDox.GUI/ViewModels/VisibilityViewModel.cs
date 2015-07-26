@@ -49,14 +49,17 @@ namespace SharpDox.GUI.ViewModels
                     TreeView = new VisibilityItemList(_sharpDoxConfig);
 
                     if (sdProject != null)
-                    {
-                        foreach (var repository in sdProject.Solutions)
+                    {                        
+                        foreach (var sdSolution in sdProject.Solutions.Values)
                         {
-                            /*foreach (var sdNamespace in repository.Value.GetAllNamespaces())
+                            foreach (var sdRepository in sdSolution.Repositories)
                             {
-                                TreeView.Add(new NamespaceViewModel(sdNamespace, _sharpDoxConfig));
-                                TreeLoaded = true;
-                            }*/
+                                foreach (var sdNamespace in sdRepository.GetAllNamespaces())
+                                {
+                                    TreeView.Add(new NamespaceViewModel(sdNamespace, _sharpDoxConfig));
+                                    TreeLoaded = true;
+                                }
+                            }
                         }
                     }
 

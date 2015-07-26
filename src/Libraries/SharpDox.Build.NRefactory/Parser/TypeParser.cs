@@ -61,9 +61,19 @@ namespace SharpDox.Build.NRefactory.Parser
 
         private void ParseForeignTypeToModel(SDType sdType, IType type)
         {
+            AddParsedArrayTypeElement(sdType, type);
             AddParsedTypeArguments(sdType, type.TypeArguments);
             AddParsedBaseTypes(sdType, type.DirectBaseTypes);
             AddParsedInterfaces(sdType, type.DirectBaseTypes);            
+        }
+
+        private void AddParsedArrayTypeElement(SDType sdType, IType type)
+        {
+            var arrayType = type as ArrayType;
+            if (arrayType != null)
+            {
+                sdType.ArrayElementType = GetParsedType(arrayType.ElementType);
+            }
         }
 
         private void AddParsedNestedTypes(SDType sdType, IEnumerable<IType> nestedTypes)

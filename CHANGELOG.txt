@@ -6,6 +6,9 @@ Version 0.9.11
 - Added console exit codes
 - Config file is static now - no last build info anymore
 - sharpDox is able to parse unity solutions now
+- Added Array Element Types to SDType model
+- Reworked HTML Output
+- Some more minor changes
 
 Version 0.9.10
 

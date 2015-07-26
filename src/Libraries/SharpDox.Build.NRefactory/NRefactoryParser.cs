@@ -65,10 +65,13 @@ namespace SharpDox.Build.NRefactory
                 }
             }
 
-            foreach (var sdRepository in sdSolution.Repositories)
+            if (!structured)
             {
-                ParseMethodCalls(solution, sdRepository);
-                ResolveUses(sdRepository);
+                foreach (var sdRepository in sdSolution.Repositories)
+                {
+                    ParseMethodCalls(solution, sdRepository);
+                    ResolveUses(sdRepository);
+                }
             }
 
             return sdSolution;
