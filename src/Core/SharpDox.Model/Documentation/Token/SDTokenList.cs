@@ -43,6 +43,17 @@ namespace SharpDox.Model.Documentation.Token
                                     string.Format("{0}{1}{0}", "```", token.Text) : 
                                     string.Format("{0}{1}{2}{1}{0}", "```", Environment.NewLine, string.Join(Environment.NewLine, splittedText));
                         break;
+                    case SDTokenRole.See:
+                        var seeToken = (SDSeeToken)token;
+                        if(string.IsNullOrEmpty(seeToken.DeclaringType))
+                        {
+                            text += string.Format("[{0}]({{{{type-link:{1}.{0}}}}})", seeToken.Name, seeToken.Namespace);
+                        }
+                        else
+                        {
+                            text += seeToken.Text; 
+                        }
+                        break;
                     default:
                         text += token.Text;
                         break;
