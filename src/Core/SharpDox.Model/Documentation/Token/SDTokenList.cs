@@ -45,13 +45,13 @@ namespace SharpDox.Model.Documentation.Token
                         break;
                     case SDTokenRole.See:
                         var seeToken = (SDSeeToken)token;
-                        if(string.IsNullOrEmpty(seeToken.DeclaringType))
+                        if(!string.IsNullOrEmpty(seeToken.Namespace) && string.IsNullOrEmpty(seeToken.DeclaringType))
                         {
                             text += string.Format("[{0}]({{{{type-link:{1}.{0}}}}})", seeToken.Name, seeToken.Namespace);
                         }
                         else
                         {
-                            text += seeToken.Text; 
+                            text += seeToken.Name; 
                         }
                         break;
                     default:
