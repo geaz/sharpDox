@@ -64,8 +64,7 @@ namespace SharpDox.Build
             return projectFileContents.ToLower().Contains("xamarin.ios.csharp.targets");
         }
 
-        private SDTargetFx GetTargetFx(string targetFrameworkIdentifier, string targetFrameworkVersion,
-            string targetPlatformIdentifier, string targetPlatformVersion, string targetFrameworkProfile)
+        private SDTargetFx GetTargetFx(string targetFrameworkIdentifier, string targetFrameworkVersion, string targetPlatformIdentifier, string targetPlatformVersion, string targetFrameworkProfile)
         {
             var targetFx = KnownTargetFxs.Unknown;
 
@@ -86,8 +85,7 @@ namespace SharpDox.Build
             {
                 targetFx = KnownTargetFxs.Net46;
             }
-            else if (string.Equals(targetFrameworkIdentifier, "silverlight", StringComparison.OrdinalIgnoreCase)
-                && string.Equals(targetFrameworkVersion, "v5.0", StringComparison.OrdinalIgnoreCase))
+            else if (string.Equals(targetFrameworkIdentifier, "silverlight", StringComparison.OrdinalIgnoreCase) && string.Equals(targetFrameworkVersion, "v5.0", StringComparison.OrdinalIgnoreCase))
             {
                 targetFx = KnownTargetFxs.Silverlight5;
             }
@@ -106,8 +104,7 @@ namespace SharpDox.Build
             {
                 targetFx = KnownTargetFxs.Windows100;
             }
-            else if (string.Equals(targetPlatformIdentifier, "WindowsPhoneApp", StringComparison.OrdinalIgnoreCase)
-                && string.Equals(targetPlatformVersion, "8.1", StringComparison.OrdinalIgnoreCase))
+            else if (string.Equals(targetPlatformIdentifier, "WindowsPhoneApp", StringComparison.OrdinalIgnoreCase) && string.Equals(targetPlatformVersion, "8.1", StringComparison.OrdinalIgnoreCase))
             {
                 targetFx = KnownTargetFxs.WindowsPhone81Runtime;
             }

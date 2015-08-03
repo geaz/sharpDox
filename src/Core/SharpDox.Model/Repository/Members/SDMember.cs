@@ -49,18 +49,6 @@ namespace SharpDox.Model.Repository.Members
 
         /// <default>
         ///     <summary>
-        ///     Gets the shortened unique identifier of the member.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert den gekürzten eindeutigen Identifikator des Mitglieds.
-        ///     </summary>     
-        /// </de>
-        public string ShortIdentifier { get; set; }
-
-        /// <default>
-        ///     <summary>
         ///     Gets or sets the region in which the members is defined.
         ///     </summary>
         /// </default>

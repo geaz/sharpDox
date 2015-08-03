@@ -189,7 +189,6 @@ namespace SharpDox.Build.NRefactory.Parser
 
             var sdType = new SDType(type.GetIdentifier(), typeDefinition.Name, namespaceRef)
             {
-                CSharpName = KnownTypeReference.GetCSharpNameByTypeCode(typeDefinition.KnownTypeCode),
                 Accessibility = typeDefinition.Accessibility.ToString().ToLower(),
                 IsAbstract = typeDefinition.IsAbstract,
                 IsReferenceType = typeDefinition.IsReferenceType.GetValueOrDefault(),

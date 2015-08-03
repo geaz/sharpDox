@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using SharpDox.Model.Repository.Members;
 
 namespace SharpDox.Model.Repository
@@ -21,11 +20,6 @@ namespace SharpDox.Model.Repository
     [DebuggerDisplay("{TargetFx.Identifier}")]
     public class SDRepository
     {
-        private readonly Dictionary<string, string> _uniqueShortTypeIdentifier = new Dictionary<string, string>();
-        private readonly Dictionary<string, int> _typeNameCount = new Dictionary<string, int>();
-        private readonly Dictionary<string, string> _uniqueShortMethodIdentifier = new Dictionary<string, string>();
-        private readonly Dictionary<string, int> _methodNameCount = new Dictionary<string, int>();
-
         public SDRepository()
         {
             TargetFx = KnownTargetFxs.Unknown;
@@ -33,6 +27,9 @@ namespace SharpDox.Model.Repository
             Types = new Dictionary<string, SDType>();
             Methods = new Dictionary<string, SDMethod>();
             Members = new Dictionary<string, SDMember>();
+
+            KnownReferences.AddKnownNamespaces(this);
+            KnownReferences.AddKnownTypes(this);
         }
 
         public void AddNamespace(SDNamespace sdNamespace)
@@ -50,7 +47,6 @@ namespace SharpDox.Model.Repository
         {
             if (!Types.ContainsKey(sdType.Identifier))
             {
-                sdType.ShortIdentifier = GetUniqueShortTypeIdentifier(sdType);
                 Types.Add(sdType.Identifier, sdType);
             }
         }
@@ -59,7 +55,6 @@ namespace SharpDox.Model.Repository
         {
             if (!Methods.ContainsKey(sdMethod.Identifier))
             {
-                sdMethod.ShortIdentifier = GetUniqueShortMethodIdentifier(sdMethod);
                 Methods.Add(sdMethod.Identifier, sdMethod);
             }
         }
@@ -68,7 +63,6 @@ namespace SharpDox.Model.Repository
         {
             if (!Members.ContainsKey(sdMember.Identifier))
             {
-                sdMember.ShortIdentifier = sdMember.Name;
                 Members.Add(sdMember.Identifier, sdMember);
             }
         }
@@ -227,36 +221,6 @@ namespace SharpDox.Model.Repository
         public List<SDMethod> GetAllMethods()
         {
             return Methods.Select(n => n.Value).ToList();
-        }
-
-        private string GetUniqueShortMethodIdentifier(SDMethod sdMethod)
-        {
-            return GetUniqueShortIdentifier(sdMethod.Identifier, sdMethod.Name, _methodNameCount, _uniqueShortMethodIdentifier);
-        }
-
-        private string GetUniqueShortTypeIdentifier(SDType sdType)
-        {
-            return GetUniqueShortIdentifier(sdType.Identifier, sdType.Name, _typeNameCount, _uniqueShortTypeIdentifier);
-        }
-
-        private string GetUniqueShortIdentifier(string identifier, string name, Dictionary<string, int> nameCount, Dictionary<string, string> uniqueIdentifiers)
-        {
-            if (!uniqueIdentifiers.ContainsKey(identifier))
-            {
-                if (!nameCount.ContainsKey(name))
-                {
-                    nameCount.Add(name, 1);
-                }
-                else
-                {
-                    nameCount[name]++;
-                }
-
-                uniqueIdentifiers.Add(identifier, string.Format("{0}{1}", name, nameCount[name] == 1
-                                                                                ? string.Empty : nameCount[name].ToString()));
-            }
-
-            return uniqueIdentifiers[identifier];
         }
         
         public SDTargetFx TargetFx { get; set; }

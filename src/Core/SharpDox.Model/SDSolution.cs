@@ -56,7 +56,7 @@ namespace SharpDox.Model
         ///     </summary>     
         ///     <returns>Alle <see cref="SDNamespace"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDRepository"/>.</returns>
         /// </de>
-        public Dictionary<string, Dictionary<SDRepository, SDNamespace>> GetAllNamespaces()
+        public Dictionary<string, Dictionary<SDRepository, SDNamespace>> GetAllSolutionNamespaces()
         {
             var sdNamespaces = new Dictionary<string, Dictionary<SDRepository, SDNamespace>>();
             foreach (var repository in Repositories)
@@ -64,15 +64,17 @@ namespace SharpDox.Model
                 foreach (var repoNamespace in repository.GetAllNamespaces())
                 {
                     var sdNamespace = new Dictionary<SDRepository, SDNamespace>();
-                    if (sdNamespaces.ContainsKey(repoNamespace.Identifier))
+                    if (!repoNamespace.IsProjectStranger)
                     {
-                        sdNamespace = sdNamespaces[repoNamespace.Identifier];
+                        if (sdNamespaces.ContainsKey(repoNamespace.Identifier))
+                        {
+                            sdNamespace = sdNamespaces[repoNamespace.Identifier];
+                        }
+                        else
+                        {
+                            sdNamespaces.Add(repoNamespace.Identifier, sdNamespace);
+                        }
                     }
-                    else
-                    {
-                        sdNamespaces.Add(repoNamespace.Identifier, sdNamespace);
-                    }
-
                     sdNamespace.Add(repository, repoNamespace);
                 }
             }
@@ -91,7 +93,7 @@ namespace SharpDox.Model
         ///     </summary>     
         ///     <returns>Alle <see cref="SDType"/>s in der aktuellen <see cref="SDSolution"/> gruppiert bei dem jeweiligen <see cref="SDRepository"/>.</returns>
         /// </de>
-        public Dictionary<string, Dictionary<SDRepository, SDType>> GetAllTypes()
+        public Dictionary<string, Dictionary<SDRepository, SDType>> GetAllSolutionTypes()
         {
             var sdTypes = new Dictionary<string, Dictionary<SDRepository, SDType>>();
             foreach (var repository in Repositories)

@@ -45,7 +45,7 @@
     <Compile Include="CallTree\SDNode.cs" />
     <Compile Include="CallTree\SDNodeRole.cs" />
     <Compile Include="CallTree\SDTargetNode.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="KnownTargetFxs.cs" />
     <Compile Include="Documentation\Article\SDDocPlaceholder.cs" />
     <Compile Include="Documentation\Article\SDArticlePlaceholder.cs" />
     <Compile Include="Documentation\Article\SDArticle.cs" />
@@ -57,6 +57,7 @@
     <Compile Include="Documentation\Token\SDTokenRole.cs" />
     <Compile Include="Documentation\Token\SDSeeToken.cs" />
     <Compile Include="Documentation\SDDocumentation.cs" />
+    <Compile Include="KnownReferences.cs" />
     <Compile Include="Repository\SDTargetFx.cs" />
     <Compile Include="Repository\SDTypeParameter.cs" />
     <Compile Include="Repository\Members\SDEvent.cs" />
