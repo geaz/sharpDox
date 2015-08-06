@@ -26,79 +26,13 @@
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
-        <!-- Header 
-            
-                <Menu Margin="0,19,3,0" HorizontalAlignment="Right" Height="25" VerticalAlignment="Top" Background="Transparent">
-                    <Menu.Resources>
-                        <Style TargetType="MenuItem">
-                            <Setter Property="FontFamily" Value="{StaticResource Font_Icons}"/>
-                            <Setter Property="Foreground" Value="{StaticResource Color_BodyFont}"/>
-                            <Setter Property="Header" Value="{Binding Text}"/>
-                            <Setter Property="Command" Value="{Binding Command}"/>
-                        </Style>
-                        <ControlTemplate x:Key="MenuItemControlTemplate" TargetType="{x:Type MenuItem}">
-                            <Border x:Name="templateRoot" BorderThickness="0" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                                <Grid VerticalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <ContentPresenter ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="1" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                    <Popup x:Name="PART_Popup" AllowsTransparency="True" Focusable="False" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" Placement="Bottom">
-                                        <Border x:Name="SubMenuBorder" BorderBrush="#FF999999" BorderThickness="1" Background="#FFF0F0F0" Padding="2">
-                                            <ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
-                                                <Grid RenderOptions.ClearTypeHint="Enabled">
-                                                    <Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
-                                                        <Rectangle x:Name="OpaqueRect" Fill="{Binding Background, ElementName=SubMenuBorder}" Height="{Binding ActualHeight, ElementName=SubMenuBorder}" Width="{Binding ActualWidth, ElementName=SubMenuBorder}"/>
-                                                    </Canvas>
-                                                    <Rectangle Fill="#FFD7D7D7" HorizontalAlignment="Left" Margin="29,2,0,2" Width="1"/>
-                                                    <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Cycle" Grid.IsSharedSizeScope="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.TabNavigation="Cycle"/>
-                                                </Grid>
-                                            </ScrollViewer>
-                                        </Border>
-                                    </Popup>
-                                </Grid>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsSuspendingPopupAnimation" Value="True">
-                                    <Setter Property="PopupAnimation" TargetName="PART_Popup" Value="None"/>
-                                </Trigger>
-                                <Trigger Property="Icon" Value="{x:Null}"/>
-                                <Trigger Property="IsChecked" Value="True"/>
-                                <Trigger Property="IsHighlighted" Value="True"/>
-                                <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="BorderThickness" Value="0"/>
-                                    <Setter Property="Foreground" Value="{StaticResource Color_MouseOverFont}"/>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Foreground" Value="{StaticResource Color_Main}"/>
-                                </Trigger>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF707070"/>
-                                </Trigger>
-                                <Trigger Property="CanContentScroll" SourceName="SubMenuScrollViewer" Value="False">
-                                    <Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=SubMenuScrollViewer}"/>
-                                    <Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=SubMenuScrollViewer}"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Menu.Resources>
-                    <MenuItem Header="&#xF15C;" Template="{DynamicResource MenuItemControlTemplate}">
-                        <MenuItem Header="{Binding Path=Strings.New}" Command="{Binding NewConfigCommand}"/>
-                        <MenuItem Header="{Binding Path=Strings.Load}" Command="{Binding LoadConfigCommand}"/>
-                        <Separator/>
-                        <MenuItem Header="{Binding Path=Strings.Save}" Command="{Binding SaveConfigCommand}"/>
-                        <MenuItem Header="{Binding Path=Strings.SaveAs}" Command="{Binding SaveToConfigCommand}"/>
-                        <Separator Visibility="{Binding IsRecentProjectsVisible, Converter={StaticResource BoolToVis}, UpdateSourceTrigger=PropertyChanged}" />
-                        <MenuItem Header="{Binding Path=Strings.RecentProjects}" Visibility="{Binding IsRecentProjectsVisible, Converter={StaticResource BoolToVis}, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding RecentProjects}">
-                        </MenuItem>
-                    </MenuItem>
-                    <MenuItem Header="&#xF00D;" Template="{DynamicResource MenuItemControlTemplate}" Command="{Binding CloseCommand}"/>
-                </Menu>
-            -->
-
         <!-- InfoHeader -->
-        <StackPanel Grid.Row="0" Background="{StaticResource Color_Main}">
+        <Grid Grid.Row="0" Background="{StaticResource Color_Main}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
             <Label Margin="12,0" x:Name="lblConfigName" Style="{StaticResource Headline}">
                 <Label.Resources>
                     <converter:BoolToStringConverter x:Key="BoolToStringConverter" FalseValue="*" TrueValue="" />
@@ -114,7 +48,75 @@
                     </TextBlock>
                 </Label.Content>
             </Label>
-        </StackPanel>
+
+            <Menu Grid.Column="1" Margin="0,17,5,0" HorizontalAlignment="Right" Height="25" VerticalAlignment="Top" Background="Transparent">
+                <Menu.Resources>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="FontFamily" Value="{StaticResource Font_Icons}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Color_BodyFont}"/>
+                        <Setter Property="Header" Value="{Binding Text}"/>
+                        <Setter Property="Command" Value="{Binding Command}"/>
+                    </Style>
+                    <ControlTemplate x:Key="MenuItemControlTemplate" TargetType="{x:Type MenuItem}">
+                        <Border x:Name="templateRoot" BorderThickness="0" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <Grid VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="1" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                <Popup x:Name="PART_Popup" AllowsTransparency="True" Focusable="False" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" Placement="Bottom">
+                                    <Border x:Name="SubMenuBorder" BorderBrush="#FF999999" BorderThickness="1" Background="#FFF0F0F0" Padding="2">
+                                        <ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
+                                            <Grid RenderOptions.ClearTypeHint="Enabled">
+                                                <Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
+                                                    <Rectangle x:Name="OpaqueRect" Fill="{Binding Background, ElementName=SubMenuBorder}" Height="{Binding ActualHeight, ElementName=SubMenuBorder}" Width="{Binding ActualWidth, ElementName=SubMenuBorder}"/>
+                                                </Canvas>
+                                                <Rectangle Fill="#FFD7D7D7" HorizontalAlignment="Left" Margin="29,2,0,2" Width="1"/>
+                                                <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Cycle" Grid.IsSharedSizeScope="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.TabNavigation="Cycle"/>
+                                            </Grid>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSuspendingPopupAnimation" Value="True">
+                                <Setter Property="PopupAnimation" TargetName="PART_Popup" Value="None"/>
+                            </Trigger>
+                            <Trigger Property="Icon" Value="{x:Null}"/>
+                            <Trigger Property="IsChecked" Value="True"/>
+                            <Trigger Property="IsHighlighted" Value="True"/>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Foreground" Value="{StaticResource Color_MouseOverFont}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource Color_Blue}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF707070"/>
+                            </Trigger>
+                            <Trigger Property="CanContentScroll" SourceName="SubMenuScrollViewer" Value="False">
+                                <Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=SubMenuScrollViewer}"/>
+                                <Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=SubMenuScrollViewer}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Menu.Resources>
+                <MenuItem Header="&#xF15C;" Template="{DynamicResource MenuItemControlTemplate}">
+                    <MenuItem Header="{Binding Path=Strings.New}" Command="{Binding NewConfigCommand}"/>
+                    <MenuItem Header="{Binding Path=Strings.Load}" Command="{Binding LoadConfigCommand}"/>
+                    <Separator/>
+                    <MenuItem Header="{Binding Path=Strings.Save}" Command="{Binding SaveConfigCommand}"/>
+                    <MenuItem Header="{Binding Path=Strings.SaveAs}" Command="{Binding SaveToConfigCommand}"/>
+                    <Separator Visibility="{Binding IsRecentProjectsVisible, Converter={StaticResource BoolToVis}, UpdateSourceTrigger=PropertyChanged}" />
+                    <MenuItem Header="{Binding Path=Strings.RecentProjects}" Visibility="{Binding IsRecentProjectsVisible, Converter={StaticResource BoolToVis}, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding RecentProjects}">
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+
+        </Grid>
 
         <!-- Body -->
         <ScrollViewer Grid.Row="1" Name="svBody">
