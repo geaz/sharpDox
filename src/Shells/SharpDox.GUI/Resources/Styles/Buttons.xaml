@@ -163,7 +163,7 @@
             <Style x:Key="NormalButton" TargetType="{x:Type Button}">
                 <Setter Property="SnapsToDevicePixels" Value="true"/>
                 <Setter Property="OverridesDefaultStyle" Value="true"/>
-                <Setter Property="Foreground" Value="#FF6c6c6c"/>
+                <Setter Property="Foreground" Value="{StaticResource Color_ButtonFont}"/>
                 <Setter Property="FontFamily" Value="{StaticResource Font_Regular}"/>
                 <Setter Property="Opacity" Value="1"/>
                 <Setter Property="Template">
@@ -206,7 +206,7 @@
                 <Setter Property="Height" Value="25"/>
                 <Setter Property="SnapsToDevicePixels" Value="true"/>
                 <Setter Property="OverridesDefaultStyle" Value="true"/>
-                <Setter Property="Foreground" Value="#FF6c6c6c"/>
+                <Setter Property="Foreground" Value="{StaticResource Color_ButtonFont}"/>
                 <Setter Property="FontFamily" Value="{StaticResource Font_Icons}"/>
                 <Setter Property="Opacity" Value="1"/>
                 <Setter Property="Template">
@@ -253,7 +253,7 @@
                 <Setter Property="Height" Value="25"/>
                 <Setter Property="SnapsToDevicePixels" Value="true"/>
                 <Setter Property="OverridesDefaultStyle" Value="true"/>
-                <Setter Property="Foreground" Value="#FF6c6c6c"/>
+                <Setter Property="Foreground" Value="{StaticResource Color_ButtonFont}"/>
                 <Setter Property="FontFamily" Value="{StaticResource Font_Icons}"/>
                 <Setter Property="Opacity" Value="1"/>
                 <Setter Property="Template">
@@ -296,7 +296,7 @@
                 <Setter Property="Height" Value="25"/>
                 <Setter Property="SnapsToDevicePixels" Value="true"/>
                 <Setter Property="OverridesDefaultStyle" Value="true"/>
-                <Setter Property="Foreground" Value="#FF6c6c6c"/>
+                <Setter Property="Foreground" Value="{StaticResource Color_ButtonFont}"/>
                 <Setter Property="FontFamily" Value="{StaticResource Font_Icons}"/>
                 <Setter Property="Opacity" Value="1"/>
                 <Setter Property="Template">
@@ -337,7 +337,7 @@
                 <Setter Property="Width" Value="Auto"/>
                 <Setter Property="FontSize" Value="22"/>
                 <Setter Property="FontWeight" Value="Bold"/>
-                <Setter Property="Foreground" Value="#FF6c6c6c"/>
+                <Setter Property="Foreground" Value="{StaticResource Color_ButtonFont}"/>
                 <Setter Property="FontFamily" Value="{StaticResource Font_Bold}"/>
                 <Setter Property="Opacity" Value="1"/>
                 <Setter Property="Template">

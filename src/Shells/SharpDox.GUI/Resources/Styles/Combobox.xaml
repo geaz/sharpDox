@@ -28,7 +28,7 @@
                       Grid.Column="0" />
                     <Border Grid.Column="1" Background="White"></Border>
                     <Label Name="Arrow" Content="&#xf0d7;" FontFamily="{StaticResource Font_Icons}"
-                           FontSize="16" Foreground="#FF6c6c6c" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                           FontSize="16" Foreground="{StaticResource Color_ButtonFont}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
                 <ControlTemplate.Triggers>
                     <Trigger Property="UIElement.IsMouseOver" Value="True">

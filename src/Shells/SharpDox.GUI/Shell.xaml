@@ -89,10 +89,10 @@
                             <Trigger Property="IsHighlighted" Value="True"/>
                             <Trigger Property="IsMouseOver" Value="true">
                                 <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="Foreground" Value="{StaticResource Color_MouseOverFont}"/>
+                                <Setter Property="Foreground" Value="{StaticResource Color_Blue}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Foreground" Value="{StaticResource Color_Blue}"/>
+                                <Setter Property="Foreground" Value="{StaticResource Color_MouseOverFont}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF707070"/>
