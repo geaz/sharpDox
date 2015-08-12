@@ -1,4 +1,0 @@
-Der _SharpDox.Model.Documentation_ Namensraum beinhaltet alle Typen die zum Einlesen der Inline-Dokumentation notwendig sind.
-_SDDocumentation_ repräsentiert eine Inline-Dokumentation mit allen Unterelementen. Zum Beispiel dem _summary_ oder _example_ Knoten.
-Jede Eigenschaft der _SDDocumentation_ ist eine List mit den entsprechenden Dokumentations-Tokens.
-Für mehr Informationen siehe [SharpDox.Model.Documentation.Token]({{namespace-link:SharpDox.Model.Documentation.Token}}).
