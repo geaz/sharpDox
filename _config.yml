@@ -1,7 +1,7 @@
 # Site settings
 title: sharpDox
 email: mail@geaz.de
-baseurl: "sharpDox" # the subpath of your site, e.g. /blog/
+baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://sharpdox.de" # the base hostname & protocol for your site
 twitter_username: sharpDox
 github_username:  Geaz
