@@ -4,7 +4,7 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">Posts</h1>
+  <!--<h1 class="page-heading">Posts</h1>
 
   <ul class="post-list">
     {% for post in site.posts %}
@@ -18,6 +18,48 @@ layout: default
     {% endfor %}
   </ul>
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>-->
+  
+  <div class="inside">
+    
+    <div id='slider' class='swipe'>
+      <div class='swipe-wrap'>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="toolbox-wrapper">
+      <div class="toolbox">
+        <div class="header"> 
+          <a title="downloads" href="/en/downloads.html">
+            <i class="fa fa-download fa-5x"></i>
+            <h2>Download</h2>
+          </a>
+          <p>Herunterladen, entpacken und mit Leichtigkeit Code-Dokumentationen bauen.</p>
+        </div>
+        <div class="content">
+          <p>sharpDox ist ein erweiterbares Dokumentationtool für c#. Außer der eigentlichen Code-Dokumentation erstellt sharpDox 
+            Klassendiagramme, Sequenzdiagramme und erweiterte Dokumentationen mit Artikeln und Namensraum-Beschreibungen. Um anzufangen, muss 
+            lediglich die neuste Version von sharpDox heruntergeladen werden.</p>
+        </div>
+      </div>
+      <div class="toolbox">
+        <div class="header"> 
+          <a title="downloads" href="/en/downloads.html">
+            <i class="fa fa-cogs fa-5x"></i>
+            <h2>Plugins</h2>
+          </a>
+          <p>Erweitern und Code-Dokumentationen in jedem erdenklichen Format erstellen.</p>
+        </div>
+        <div class="content">
+          <p>sharpDox ist nicht auf die Ausgabe von HTML-Dokumentation beschränkt. sharpDox selbst analysiert das Projekt 
+            und übergibt die gewonnenen Informationen den registerierten Plugins. Diese sind in der Lage, die Informationen 
+            in jedes erdenkliche Format zu überführen.</p>
+        </div>
+      </div>
+    </div>
+   </div>
 
 </div>

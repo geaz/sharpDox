@@ -1,27 +1,37 @@
-<header class="site-header">
-
-  <div class="wrapper">
-
-    <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
-
-    <nav class="site-nav">
-      <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
-      </a>
-
-      <div class="trigger">
-        {% for page in site.pages %}
-          {% if page.title %}
-          <a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
-          {% endif %}
-        {% endfor %}
+<header id="header">
+  <div class="inside">
+    
+    <div class="topbar"> 
+      <a href="downloads.html"><i class="fa fa-download"></i> Current version {{site.top_version_info}}</a>
+      <div class="floatRight" style="margin-right:10px">			 
+        <a class="languageItem" href="/"><img src="/assets/images/de.png"></a> 
+        <a class="languageItem" href="/en"><img src="/assets/images/usa.png"></a>
       </div>
-    </nav>
-
+    </div>
+    
+    <div class="siteheader">
+      <div id="logo"> 
+        <a title="" href="/"><img alt="" src="/assets/images/logo.png"></a>
+      </div>	 	 
+      <div class="mod_navigation block" id="navigation"> 
+        <ul class="level_1">
+          <li class="active first"><span class="active first">Home</span></li>
+          <li class="sibling"><a title="Showcase" class="sibling" href="de/showcase.html">Showcase</a></li>
+          <li class="sibling"><a title="Downloads" class="sibling" href="de/downloads.html">Downloads</a></li>
+          <li class="sibling"><a title="Dokumentation" class="sibling" onclick="return !window.open(this.href)" href="http://doc.sharpdox.de">Dokumentation</a></li>
+          <li class="sibling last"><a title="Feedback" class="sibling last" onclick="return !window.open(this.href)" href="https://github.com/Geaz/sharpDox/issues">Feedback</a></li>
+        </ul>           
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+    
+    <div class="pageheader">
+      <div class="buttonpanel">	 
+        <a title="Download" class="piwik_download btn-borderless btn-blue" id="download-btn-front" href="https://github.com/Geaz/sharpDox/releases/download/v0.9.10/sharpDox.0.9.10.zip"><i class="fa fa-download"></i> Download</a>	 
+        <a title="GitHub" class="btn-borderless" href="https://github.com/Geaz/sharpDox"><i class="fa fa-github-square"></i> Fork Me</a>
+      </div>
+      <h1>Home</h1>
+    </div>
+    
   </div>
-
 </header>

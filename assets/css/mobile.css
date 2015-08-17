@@ -1,0 +1,45 @@
+img { max-width: 100%; }
+
+@media screen and (max-width: 1060px) {
+    .inside { width:90%; }
+}
+
+@media screen and (max-width: 768px) {
+    #header{
+		background: url('/files/themes_sharpDox/images/bg-mobile.png')!important;
+	}
+	
+	.inside,
+	.toolbox
+	{ width:90%; }
+	
+	.pluginDownloadBox,
+	.mainDownloadBox 
+	{ width:100%; }
+	
+	#logo {
+		margin: auto;
+		width: 175px;
+		float:none!important;
+	}
+	
+	#download-btn-front{
+		display:none;
+	}
+	
+	#navigation {
+		float:none!important;
+	}
+	
+	#navigation ul li{
+			width: 100%;
+	}
+	
+	#navigation a, #navigation span{
+		text-align: center;
+	}
+	
+	#wrapper{
+		margin: 0;
+	}
+}

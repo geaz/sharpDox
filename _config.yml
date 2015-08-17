@@ -3,6 +3,7 @@ title: sharpDox
 email: mail@geaz.de
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://sharpdox.de" # the base hostname & protocol for your site
+top_version_info: > 0.9.10 (February 2015)
 twitter_username: sharpDox
 github_username:  Geaz
 
