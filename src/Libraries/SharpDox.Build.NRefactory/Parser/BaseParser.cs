@@ -6,7 +6,7 @@ namespace SharpDox.Build.NRefactory.Parser
 {
     internal class BaseParser
     {
-        internal event Action<string, int, int> OnItemParseStart;
+        internal event Action<string> OnItemParseStart;
         internal event Action<string> OnDocLanguageFound;
 
         protected readonly SDRepository _repository;
@@ -17,7 +17,7 @@ namespace SharpDox.Build.NRefactory.Parser
         {
             _repository = repository;
             _sharpDoxConfig = sharpDoxConfig;
-            _documentationParser = new DocumentationParser(repository);
+            _documentationParser = new DocumentationParser();
         }
 
         protected bool IsMemberExcluded(string identifier, string accessibility)
@@ -30,12 +30,12 @@ namespace SharpDox.Build.NRefactory.Parser
             return isExcluded;
         }
 
-        protected void HandleOnItemParseStart(string message, int itemIndex, int itemsCount)
+        protected void HandleOnItemParseStart(string message)
         {
             var handlers = OnItemParseStart;
             if (handlers != null)
             {
-                handlers(message, itemIndex, itemsCount);
+                handlers(message);
             }
         }
 

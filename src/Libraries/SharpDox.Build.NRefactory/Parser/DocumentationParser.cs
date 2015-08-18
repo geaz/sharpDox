@@ -2,7 +2,6 @@
 using ICSharpCode.NRefactory.Xml;
 using SharpDox.Model.Documentation;
 using SharpDox.Model.Documentation.Token;
-using SharpDox.Model.Repository;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,13 +13,6 @@ namespace SharpDox.Build.NRefactory.Parser
 {
     internal class DocumentationParser
     {
-        private readonly SDRepository _sdRepository;
-
-        public DocumentationParser(SDRepository sdRepository)
-        {
-            _sdRepository = sdRepository;
-        }
-
         public SDLanguageItemCollection<SDDocumentation> ParseDocumentation(IEntity entity)
         {
             var docDic = new SDLanguageItemCollection<SDDocumentation>();

@@ -27,7 +27,7 @@ namespace SharpDox.Build.NRefactory.Parser
             var types = project.Compilation.MainAssembly.TopLevelTypeDefinitions.ToList();
             for (int i = 0; i < types.Count; i++)
             {
-                HandleOnItemParseStart(types[i].Namespace, i, types.Count);
+                HandleOnItemParseStart(types[i].Namespace);
                 if (!_sharpDoxConfig.ExcludedIdentifiers.Contains(types[i].Namespace))
                 {
                     _repository.AddNamespace(GetParsedNamespace(types[i]));

@@ -13,21 +13,25 @@ namespace SharpDox.Build.NRefactory.Parser
             _solution = solution;
         }
 
-        internal void ParseMethodCalls(SDNamespace sdNamespace)
+        internal void ParseMethodCalls()
         {
-            for (int i = 0; i < sdNamespace.Types.Count; i++)
+            var namespaces = _repository.GetAllNamespaces();
+            foreach(var sdNamespace in namespaces)
             {
-                foreach (var sdMethod in sdNamespace.Types[i].Methods)
+                foreach(var sdType in sdNamespace.Types)
                 {
-                    HandleOnItemParseStart(sdMethod.Name, i, sdNamespace.Types.Count);
-                    var file = _solution.GetFile(sdNamespace.Types[i].Region.Filename);
-                    var methodAstNode = file.SyntaxTree.GetNodeContaining(
-                                            new TextLocation(sdMethod.Region.BeginLine, sdMethod.Region.BeginColumn), 
-                                            new TextLocation(sdMethod.Region.EndLine, sdMethod.Region.EndColumn));
+                    foreach(var sdMethod in sdType.Methods)
+                    {
+                        HandleOnItemParseStart(sdMethod.Name);
+                        var file = _solution.GetFile(sdType.Region.Filename);
+                        var methodAstNode = file.SyntaxTree.GetNodeContaining(
+                                                new TextLocation(sdMethod.Region.BeginLine, sdMethod.Region.BeginColumn),
+                                                new TextLocation(sdMethod.Region.EndLine, sdMethod.Region.EndColumn));
 
-                    methodAstNode.AcceptVisitor(new MethodVisitor(_repository, sdMethod, sdNamespace.Types[i], file));
+                        methodAstNode.AcceptVisitor(new MethodVisitor(_repository, sdMethod, sdType, file));
+                    }
                 }
-            }
+            }       
         }
     }
 }
