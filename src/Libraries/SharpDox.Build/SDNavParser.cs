@@ -82,6 +82,14 @@ namespace SharpDox.Build
                         SolutionFile = articleFile
                     };
                 }
+                else if(articleFile != string.Empty && articleFile.StartsWith("http://") || articleFile.StartsWith("https://"))
+                {
+                    article = new SDArticleLink
+                    {
+                        Title = GetNavTitle(splitted[0]),
+                        Link = articleFile
+                    };
+                }
                 else if(articleFile != string.Empty)
                 {
                     var filename = Path.GetFileNameWithoutExtension(articleFile);
@@ -124,6 +132,11 @@ namespace SharpDox.Build
 
         private string GetArticleFile(string articleFileName)
         {
+            if(articleFileName.StartsWith("http://") || articleFileName.StartsWith("https://"))
+            {
+                return articleFileName;
+            }
+
             var articleFile = Path.GetFullPath(Path.Combine(_referencePath, articleFileName));
             if (File.Exists(articleFile))
             {

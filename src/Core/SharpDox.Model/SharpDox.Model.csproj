@@ -45,6 +45,7 @@
     <Compile Include="CallTree\SDNode.cs" />
     <Compile Include="CallTree\SDNodeRole.cs" />
     <Compile Include="CallTree\SDTargetNode.cs" />
+    <Compile Include="Documentation\Article\SDArticleLink.cs" />
     <Compile Include="KnownTargetFxs.cs" />
     <Compile Include="Documentation\Article\SDDocPlaceholder.cs" />
     <Compile Include="Documentation\Article\SDArticlePlaceholder.cs" />
