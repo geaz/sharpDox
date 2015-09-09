@@ -91,12 +91,12 @@ html, body{
 	margin-top: 40px;
 }
 
-#slider{
+.slide{
 	text-align: center;
 }
 
-.slider-prev, .slider-next{
-	display: none!important;
+.slide img{
+    margin:auto;
 }
 
 .toolbox{
