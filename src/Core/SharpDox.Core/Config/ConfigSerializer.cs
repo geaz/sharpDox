@@ -12,8 +12,6 @@ namespace SharpDox.Core.Config
 {
     internal class ConfigSerializer
     {
-        private static readonly HashSet<string> PathProperties =  new HashSet<string>(new [] { "PathToConfig", "InputFile", "OutputPath", "LogoPath" });
-
         public XDocument GetSerializedConfigs(IConfigSection[] configs)
         {
             var configXml = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), new XElement("SDConfig"));
@@ -146,7 +144,7 @@ namespace SharpDox.Core.Config
                     {
                         property.SetValue(config, new ObservableCollection<string>(item.Attribute("value").Value.Split(new [] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList()), null);
                     }
-                    else if (PathProperties.Contains(propertyName) && item.Element("Full") != null)
+                    else if (property.PropertyType == typeof(SDPath) && item.Element("Full") != null)
                     {
                         var fullPath = item.Element("Full").Value;
                         var relativePath = item.Element("Relative").Value;
@@ -154,7 +152,7 @@ namespace SharpDox.Core.Config
                         var path = new SDPath(fullPath, relativePath);
                         property.SetValue(config, path, null);
                     }
-                    else if (PathProperties.Contains(item.Attribute("key").Value))
+                    else if (property.PropertyType == typeof(SDPath))
                     {
                         // Backwards compatibility code
                         var fullPath = item.Attribute("value").Value;
