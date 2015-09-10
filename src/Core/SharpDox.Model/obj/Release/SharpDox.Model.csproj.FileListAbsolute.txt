@@ -1,0 +1,5 @@
+D:\Github\sharpDox\src\Core\SharpDox.Model\bin\Release\SharpDox.Model.dll
+D:\Github\sharpDox\src\Core\SharpDox.Model\bin\Release\SharpDox.Model.pdb
+D:\Github\sharpDox\src\Core\SharpDox.Model\obj\Release\SharpDox.Model.csprojResolveAssemblyReference.cache
+D:\Github\sharpDox\src\Core\SharpDox.Model\obj\Release\SharpDox.Model.dll
+D:\Github\sharpDox\src\Core\SharpDox.Model\obj\Release\SharpDox.Model.pdb

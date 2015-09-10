@@ -1,0 +1,125 @@
+<div id="{{id}}" class="member">
+	<div class="member-header">		
+	      <div class="member-header-link"><i class="icon-caret-right"></i><img src="./assets/icons/{{type}}_{{accessibility}}.png"/> <p>{{name}}</p></div>
+	      {{#summary}}
+	  <div class="summary markdown">
+			    {{{summary}}}
+			  </div>
+	  {{/summary}}
+	</div>
+	<div class="member-content">
+	  <div class="markdown">
+	    <pre class="syntax-pre"><code id="syntax" class="language-csharp">{{linkedSyntax}}</code></pre>
+	  </div>
+	  
+	  {{#sequenceDiagram}}
+	  <div id="sequence-diagram-{{diagramId}}" class="sd-sequence-diagram svgpan" style="height:400px;">
+	    {{{sequenceDiagram}}}
+	  </div>
+	  <div class="legend">
+		<p class="save"><a href="#"><i class="icon-save"></i>{{strings.save}}</a></p>
+		<p class="resetZoom"><i class="icon-refresh"></i>{{strings.reset}}</p>
+		<p>{{strings.panZoom}}</p>
+	  </div>
+	  {{/sequenceDiagram}}    
+	  
+	  {{#constantValue}}
+	  <p class="member-box-title">{{strings.constantValue}}</p>
+			<div class="member-doc-box markdown">
+				{{constantValue}}
+			</div>
+	  {{/constantValue}}
+	  
+	  {{#params.length}}
+	  <p class="member-box-title">{{strings.parameters}}</p>
+	  <div class="table-box">
+		  <table>
+		    <thead>
+		      <tr>
+		        <td>{{strings.name}}</td>
+		        <td>{{strings.description}}</td>
+		      </tr>
+		    </thead>
+		    <tbody>
+		    {{#params}}
+		      <tr>
+		        <td>{{key}}</td>
+		        <td class="markdown">{{{value}}}</td>
+		      </tr>
+		    {{/params}}
+		    </tbody>
+		  </table>
+		</div>
+	  {{/params.length}}
+	  
+	  {{#typeParams.length}}
+	  <p class="member-box-title">{{strings.typeParams}}</p>
+	  <div class="table-box">
+		  <table>
+		    <thead>
+		      <tr>
+		        <td>{{strings.name}}</td>
+		        <td>{{strings.description}}</td>
+		      </tr>
+		    </thead>
+		    <tbody>
+		    {{#typeParams}}
+		      <tr>
+		        <td>{{key}}</td>
+		        <td class="markdown">{{{value}}}</td>
+		      </tr>
+		    {{/typeParams}}
+		    </tbody>
+		  </table>
+		</div>
+	  {{/typeParams.length}}
+	
+	  {{#returns}}
+	  <p class="member-box-title">{{strings.returns}}</p>
+	  <div class="member-doc-box">{{{returns}}}</div>
+	  {{/returns}}
+	  
+	  {{#remarks}}
+	  <p class="member-box-title">{{strings.remarks}}</p>
+	  <div class="markdown">{{{remarks}}}</div>
+	  {{/remarks}}
+	
+	  {{#example}}
+	  <p class="member-box-title">{{strings.example}}</p>
+	  <div class="markdown">{{{example}}}</div>
+	  {{/example}}
+	
+	  {{#exceptions.length}}
+	  <p class="member-box-title">{{strings.exceptions}}</p>
+	  <div class="table-box">
+	  <table>
+	    <thead>
+	      <tr>
+	        <td>{{strings.name}}</td>
+	        <td>{{strings.description}}</td>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    {{#exceptions}}
+	      <tr>
+	        <td>{{key}}</td>
+	        <td class="markdown">{{{value}}}</td>
+	      </tr>
+	    {{/exceptions}}
+	    </tbody>
+	  </table>
+	</div>
+	  {{/exceptions.length}}
+	  
+	  {{#seeAlsos.length}}
+	  <p class="member-box-title">{{strings.seeAlso}}</p>
+	  <div class="list-box">
+	  <ul>
+	    {{#seeAlsos}}
+	    <li><a href="#!{{type}}/{{id}}">{{name}}</a></li>
+	    {{/seeAlsos}}
+	  </ul>
+	  </div>
+	  {{/seeAlsos.length}}
+	</div>
+</div>

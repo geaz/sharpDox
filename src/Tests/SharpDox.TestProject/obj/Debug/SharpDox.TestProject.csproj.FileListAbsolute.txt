@@ -1,0 +1,5 @@
+D:\Github\sharpDox\src\Tests\SharpDox.TestProject\bin\Debug\SharpDox.TestProject.dll
+D:\Github\sharpDox\src\Tests\SharpDox.TestProject\bin\Debug\SharpDox.TestProject.pdb
+D:\Github\sharpDox\src\Tests\SharpDox.TestProject\obj\Debug\SharpDox.TestProject.csprojResolveAssemblyReference.cache
+D:\Github\sharpDox\src\Tests\SharpDox.TestProject\obj\Debug\SharpDox.TestProject.dll
+D:\Github\sharpDox\src\Tests\SharpDox.TestProject\obj\Debug\SharpDox.TestProject.pdb

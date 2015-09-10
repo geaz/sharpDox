@@ -1,0 +1,172 @@
+{{#site.currentPage.summary}}
+<div class="markdown">{{{site.currentPage.summary}}}</div>
+{{/site.currentPage.summary}}
+
+{{#site.currentPage.remarks}}
+<h4>{{strings.remarks}}</h4>
+<div class="markdown">{{{site.currentPage.remarks}}}</div>
+{{/site.currentPage.remarks}}
+
+<div class="markdown">
+<pre class="syntax-pre"><code id="syntax" class="language-csharp"></code></pre>
+<div id="dummy-syntax" class="hide">{{site.currentPage.linkedSyntax}}</div>
+</div>
+{{#site.currentPage.classDiagram}}
+  <div id="sd-class-diagram" class="svgpan" style="height:{{site.currentPage.classDiagramHeight}}px;" data-fit="{{site.currentPage.fit}}">
+    {{{site.currentPage.classDiagram}}}
+  </div>
+  <div class="legend">
+<p class="save"><a href="#"><i class="icon-save"></i>{{strings.save}}</a></p>
+<p class="resetZoom"><i class="icon-refresh"></i>{{strings.reset}}</p>
+<p>{{strings.panZoom}}</p>
+</div>
+{{/site.currentPage.classDiagram}}        
+
+{{#site.currentPage.example}}
+<h4>{{strings.example}}</h4>
+<div class="markdown">{{{site.currentPage.example}}}</div>
+{{/site.currentPage.example}}
+
+{{#site.currentPage.returns}}
+<h4>{{strings.returns}}</h4>
+<div class="markdown">{{{site.currentPage.returns}}}</div>
+{{/site.currentPage.returns}}
+
+{{#site.currentPage.exceptions.length}}
+<h4>{{strings.exceptions}}</h4>
+<div class="table-box">
+  <table>
+    <thead>
+      <tr>
+        <td>{{strings.name}}</td>
+        <td>{{strings.description}}</td>
+      </tr>
+    </thead>
+    <tbody>
+    {{#site.currentPage.exceptions}}
+      <tr>
+        <td>{{key}}</td>
+        <td class="markdown">{{{value}}}</td>
+      </tr>
+    {{/site.currentPage.exceptions}}
+    </tbody>
+  </table>
+</div>
+{{/site.currentPage.exceptions.length}}
+
+{{#site.currentPage.params.length}}
+<h4>{{strings.parameters}}</h4>
+<div class="table-box">
+  <table>
+    <thead>
+      <tr>
+        <td>{{strings.name}}</td>
+        <td>{{strings.description}}</td>
+      </tr>
+    </thead>
+    <tbody>
+    {{#site.currentPage.params}}
+      <tr>
+        <td>{{key}}</td>
+        <td class="markdown">{{{value}}}</td>
+      </tr>
+    {{/site.currentPage.params}}
+    </tbody>
+  </table>
+</div>
+{{/site.currentPage.params.length}}
+
+{{#site.currentPage.typeParams.length}}
+<h4>{{strings.typeParams}}</h4>
+<div class="table-box">
+  <table>
+    <thead>
+      <tr>
+        <td>{{strings.name}}</td>
+        <td>{{strings.description}}</td>
+      </tr>
+    </thead>
+    <tbody>
+    {{#site.currentPage.typeParams}}
+      <tr>
+        <td>{{key}}</td>
+        <td class="markdown">{{{value}}}</td>
+      </tr>
+    {{/site.currentPage.typeParams}}
+    </tbody>
+  </table>
+</div>
+{{/site.currentPage.typeParams.length}}
+
+{{#site.currentPage.fields.length}}
+  <h4>{{strings.fields}}</h4>
+  {{#site.currentPage.fields}}
+  {{>templates/member}}
+  {{/site.currentPage.fields}}
+{{/site.currentPage.fields.length}}
+
+{{#site.currentPage.constructors.length}}
+  <h4>{{strings.constructors}}</h4>
+  {{#site.currentPage.constructors}}
+  {{>templates/member}}
+  {{/site.currentPage.constructors}}
+{{/site.currentPage.constructors.length}}
+
+{{#site.currentPage.methods.length}}
+  <h4>{{strings.methods}}</h4>
+  {{#site.currentPage.methods}}
+  {{>templates/member}}
+  {{/site.currentPage.methods}}
+{{/site.currentPage.methods.length}}
+
+{{#site.currentPage.events.length}}
+  <h4>{{strings.events}}</h4>
+  {{#site.currentPage.events}}
+  {{>templates/member}}
+  {{/site.currentPage.events}}
+{{/site.currentPage.events.length}}
+
+{{#site.currentPage.properties.length}}
+  <h4>{{strings.properties}}</h4>
+  {{#site.currentPage.properties}}
+  {{>templates/member}}
+  {{/site.currentPage.properties}}
+{{/site.currentPage.properties.length}}
+
+{{#site.currentPage.seeAlsos.length}}
+  <h4>{{strings.seeAlso}}</h4>
+  <div class="list-box">
+  <ul>
+    {{#site.currentPage.seeAlsos}}
+    <li><a href="#!{{type}}/{{id}}">{{name}}</a></li>
+    {{/site.currentPage.seeAlsos}}
+  </ul>
+  </div>
+{{/site.currentPage.seeAlsos.length}}
+
+{{#site.currentPage.uses.length}}
+  <h4>{{strings.uses}}</h4>
+  <div class="list-box">
+  <ul>
+    {{#site.currentPage.uses}}
+    <li><a href="#!type/{{id}}">{{name}}</a></li>
+    {{/site.currentPage.uses}}
+  </ul>
+  </div>
+{{/site.currentPage.uses.length}}
+
+{{#site.currentPage.usedBy.length}}
+  <h4>{{strings.usedBy}}</h4>
+  <div class="list-box">
+  <ul>
+    {{#site.currentPage.usedBy}}
+    <li><a href="#!type/{{id}}">{{name}}</a></li>
+    {{/site.currentPage.usedBy}}
+  </ul>
+  </div>
+{{/site.currentPage.usedBy.length}} 
+
+{{#disqusShortName}}
+<div id="disqus_thread"></div>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+{{/disqusShortName}}

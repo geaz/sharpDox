@@ -13,3 +13,7 @@ github_username:  Geaz
 
 # Build settings
 markdown: kramdown
+
+exclude:
+  - de/doc
+  - en/doc

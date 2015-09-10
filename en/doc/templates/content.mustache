@@ -1,0 +1,16 @@
+<sd-titlebar sitecontroller='{sitecontroller}'></sd-titlebar>
+<sd-fxchanger sitecontroller='{sitecontroller}'></sd-fxchanger>
+
+{{#site.currentPageType.isArticle}}
+  {{>templates/article}}
+{{/site.currentPageType.isArticle}}
+
+{{#site.currentPageType.isNamespace}}
+  {{>templates/namespace}}
+{{/site.currentPageType.isNamespace}}
+
+{{#site.currentPageType.isType}}
+  {{>templates/type}}
+{{/site.currentPageType.isType}}
+
+<sd-footer></sd-footer>

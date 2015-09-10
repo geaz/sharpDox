@@ -1,0 +1,14 @@
+{{#site.currentPageType.isArticle}}
+  <h2>{{site.currentPage.title}}</h2>
+  <h3>{{site.currentPage.subTitle}}</h3>
+{{/site.currentPageType.isArticle}}
+
+{{#site.currentPageType.isNamespace}}
+  <h2>{{site.currentPage.name}}</h2>
+  <h3>{{strings.assembly}}: {{site.currentPage.assembly}}</h3>
+{{/site.currentPageType.isNamespace}}
+
+{{#site.currentPageType.isType}}
+  <h2>{{site.currentPage.name}}</h2>
+  <h3>{{strings.namespace}}: {{site.currentPage.namespace}}</h3>
+{{/site.currentPageType.isType}}

@@ -1,0 +1,23 @@
+2015-09-10 22:56:05,035: ERROR – System.ArgumentException: Der Pfad darf keine leere Zeichenfolge sein oder nur aus Leerzeichen bestehen.
+   bei System.IO.Directory.SetCurrentDirectory(String path)
+   bei SharpDox.Core.Config.ConfigController.Load(String fileToLoad) in D:\Github\sharpDox\src\Core\SharpDox.Core\Config\ConfigController.cs:Zeile 47.
+   bei SharpDox.Console.SDConsole.Start(String[] args) in D:\Github\sharpDox\src\Shells\SharpDox.Console\SDConsole.cs:Zeile 31.
+   bei SharpDox.Console.AppEntry.Main(String[] args) in D:\Github\sharpDox\src\Shells\SharpDox.Console\AppEntry.cs:Zeile 24.
+2015-09-10 22:56:20,125: ERROR – System.ArgumentException: Der Pfad darf keine leere Zeichenfolge sein oder nur aus Leerzeichen bestehen.
+   bei System.IO.Directory.SetCurrentDirectory(String path)
+   bei SharpDox.Core.Config.ConfigController.Load(String fileToLoad) in D:\Github\sharpDox\src\Core\SharpDox.Core\Config\ConfigController.cs:Zeile 47.
+   bei SharpDox.Console.SDConsole.Start(String[] args) in D:\Github\sharpDox\src\Shells\SharpDox.Console\SDConsole.cs:Zeile 31.
+   bei SharpDox.Console.AppEntry.Main(String[] args) in D:\Github\sharpDox\src\Shells\SharpDox.Console\AppEntry.cs:Zeile 24.
+2015-09-10 22:56:51,164: ERROR – System.ArgumentException: Der Pfad darf keine leere Zeichenfolge sein oder nur aus Leerzeichen bestehen.
+   bei System.IO.Directory.SetCurrentDirectory(String path)
+   bei SharpDox.Core.Config.ConfigController.Load(String fileToLoad) in D:\Github\sharpDox\src\Core\SharpDox.Core\Config\ConfigController.cs:Zeile 47.
+   bei SharpDox.Console.SDConsole.Start(String[] args) in D:\Github\sharpDox\src\Shells\SharpDox.Console\SDConsole.cs:Zeile 31.
+   bei SharpDox.Console.AppEntry.Main(String[] args) in D:\Github\sharpDox\src\Shells\SharpDox.Console\AppEntry.cs:Zeile 24.
+2015-09-10 22:57:00,969: ERROR – System.ArgumentException: Der Pfad darf keine leere Zeichenfolge sein oder nur aus Leerzeichen bestehen.
+   bei System.IO.Directory.SetCurrentDirectory(String path)
+   bei SharpDox.Core.Config.ConfigController.Load(String fileToLoad) in D:\Github\sharpDox\src\Core\SharpDox.Core\Config\ConfigController.cs:Zeile 47.
+   bei SharpDox.Console.SDConsole.Start(String[] args) in D:\Github\sharpDox\src\Shells\SharpDox.Console\SDConsole.cs:Zeile 31.
+   bei SharpDox.Console.AppEntry.Main(String[] args) in D:\Github\sharpDox\src\Shells\SharpDox.Console\AppEntry.cs:Zeile 24.
+2015-09-10 23:00:18,861: ERROR – SharpDox.Build.SDBuildException: Please select a default language!
+   bei SharpDox.Build.Context.Step.ExtendedCheckConfigStep.RunStep(SDProject sdProject) in D:\Github\sharpDox\src\Libraries\SharpDox.Build\Context\Step\ExtendedCheckConfigStep.cs:Zeile 22.
+   bei SharpDox.Build.Context.BuildContext.StartBuild() in D:\Github\sharpDox\src\Libraries\SharpDox.Build\Context\BuildContext.cs:Zeile 42.

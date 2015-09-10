@@ -1,0 +1,9 @@
+D:\Github\sharpDox\src\Libraries\SharpDox.Build\bin\Release\SharpDox.Build.dll
+D:\Github\sharpDox\src\Libraries\SharpDox.Build\bin\Release\SharpDox.Build.pdb
+D:\Github\sharpDox\src\Libraries\SharpDox.Build\bin\Release\SharpDox.Model.dll
+D:\Github\sharpDox\src\Libraries\SharpDox.Build\bin\Release\SharpDox.Sdk.dll
+D:\Github\sharpDox\src\Libraries\SharpDox.Build\bin\Release\SharpDox.Model.pdb
+D:\Github\sharpDox\src\Libraries\SharpDox.Build\bin\Release\SharpDox.Sdk.pdb
+D:\Github\sharpDox\src\Libraries\SharpDox.Build\obj\Release\SharpDox.Build.csprojResolveAssemblyReference.cache
+D:\Github\sharpDox\src\Libraries\SharpDox.Build\obj\Release\SharpDox.Build.dll
+D:\Github\sharpDox\src\Libraries\SharpDox.Build\obj\Release\SharpDox.Build.pdb

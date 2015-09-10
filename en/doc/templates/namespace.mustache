@@ -1,0 +1,51 @@
+{{#site.currentPage.description}}
+  <div class="text-box markdown">{{{site.currentPage.description}}}</div>
+{{/site.currentPage.description}}
+
+<div class="table-box">
+<table>
+  <thead>
+    <tr>
+      <td></td>
+      <td>{{strings.types}}</td>
+      <td>{{strings.description}}</td>
+    </tr>
+  </thead>
+  <tbody>
+  {{#site.currentPage.types}}
+    <tr>
+      <td class="iconColumn"><img src="./assets/icons/class_{{accessibility}}.png"/></td>
+      <td><a href="#!type/{{id}}">{{name}}</a></td>
+      <td class="markdown">{{{summary}}}</td>
+    </tr>
+  {{/site.currentPage.types}}
+  </tbody>
+</table>
+</div>
+
+{{#site.currentPage.uses.length}}
+  <h4>{{strings.uses}}</h4>
+  <div class="list-box">
+  <ul>
+    {{#site.currentPage.uses}}
+    <li><a href="#!namespace/{{id}}">{{name}}</a></li>
+    {{/site.currentPage.uses}}
+  </ul>
+  </div>
+{{/site.currentPage.uses.length}}
+
+{{#site.currentPage.usedBy.length}}
+  <h4>{{strings.usedBy}}</h4>
+  <div class="list-box">
+  <ul>
+    {{#site.currentPage.usedBy}}
+    <li><a href="#!namespace/{{id}}">{{name}}</a></li>
+    {{/site.currentPage.usedBy}}
+  </ul>
+  </div>
+{{/site.currentPage.usedBy.length}}
+
+{{#disqusShortName}}
+<div id="disqus_thread"></div>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+{{/disqusShortName}}
