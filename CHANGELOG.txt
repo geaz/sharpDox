@@ -1,4 +1,4 @@
-Version 0.9.11
+Version 1.0rc
 
 - Created two seperate executes (gui and console)
 - Changed Model: sharpDox now parses one repository per build target (thanks to [Geert van Horrik](https://github.com/GeertvanHorrik))
