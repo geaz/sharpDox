@@ -1,13 +1,12 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using SharpDox.Build;
 using SharpDox.GUI.ViewModels;
-using SharpDox.Sdk.Build;
 
 namespace SharpDox.GUI.Windows
 {
-    public partial class BuildView : Window
+    public partial class BuildView
     {
-        public BuildView(SDGuiStrings strings, IBuildMessenger buildMessenger)
+        public BuildView(SDGuiStrings strings, BuildMessenger buildMessenger)
         {
             Strings = strings;
 

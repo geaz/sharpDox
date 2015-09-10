@@ -19,11 +19,13 @@ namespace SharpDox.Build.Context.Step
             if (string.IsNullOrEmpty(_stepInput.CoreConfigSection.DocLanguage))
                 throw new SDBuildException(_stepInput.SDBuildStrings.NoDocLanguage);
 
-            if (string.IsNullOrEmpty(_stepInput.CoreConfigSection.OutputPath))
+            if (_stepInput.CoreConfigSection.OutputPath == null)
                 throw new SDBuildException(_stepInput.SDBuildStrings.NoOutputPathGiven);
 
             if (!Directory.Exists(_stepInput.CoreConfigSection.OutputPath))
-                throw new SDBuildException(_stepInput.SDBuildStrings.OutputPathNotFound);
+            {
+                Directory.CreateDirectory(_stepInput.CoreConfigSection.OutputPath);
+            }
 
             foreach (var exporter in _stepInput.AllExporters)
             {

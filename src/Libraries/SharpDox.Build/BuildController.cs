@@ -1,5 +1,4 @@
 ﻿using SharpDox.Build.Context;
-using SharpDox.Sdk.Build;
 using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Exporter;
 using System;
@@ -7,7 +6,7 @@ using System.Threading;
 
 namespace SharpDox.Build
 {
-    public class BuildController : IBuildController
+    public class BuildController
     {
         private Thread _buildThread;
 
@@ -16,7 +15,7 @@ namespace SharpDox.Build
         private readonly Func<ICodeParser> _codeParser;
         private readonly IExporter[] _allExporters;
 
-        public BuildController(IBuildMessenger buildMessenger, IConfigController configController, Func<ICodeParser> codeParser, IExporter[] allExporters, SDBuildStrings sdBuildStrings)
+        public BuildController(BuildMessenger buildMessenger, IConfigController configController, Func<ICodeParser> codeParser, IExporter[] allExporters, SDBuildStrings sdBuildStrings)
         {
             BuildMessenger = buildMessenger;
             _configController = configController;
@@ -28,7 +27,7 @@ namespace SharpDox.Build
         public void StartParse(ICoreConfigSection coreConfigSection, bool thread)
         {
             var config = BuildConfig.StructureParseConfig(_configController, _codeParser(), _sdBuildStrings, _allExporters);
-            var context = new BuildContext(BuildMessenger as BuildMessenger, _sdBuildStrings, config);
+            var context = new BuildContext(BuildMessenger, _sdBuildStrings, config);
 
             if (thread)
             {
@@ -45,7 +44,7 @@ namespace SharpDox.Build
         public void StartBuild(ICoreConfigSection coreConfigSection, bool thread)
         {
             var config = BuildConfig.FullBuildConfig(_configController, _codeParser(), _sdBuildStrings, _allExporters);
-            var context = new BuildContext(BuildMessenger as BuildMessenger, _sdBuildStrings, config);
+            var context = new BuildContext(BuildMessenger, _sdBuildStrings, config);
 
             if (thread)
             {
@@ -68,6 +67,6 @@ namespace SharpDox.Build
             }
         }
 
-        public IBuildMessenger BuildMessenger { get; private set; }
+        public BuildMessenger BuildMessenger { get; private set; }
     }
 }

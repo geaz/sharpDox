@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Media;
-using SharpDox.Model;
 using SharpDox.UML.Extensions;
 using SharpDox.UML.Sequence.Elements;
 using SharpDox.UML.SVG;
 using SharpDox.Model.Documentation;
+using SharpDox.Model.Repository;
 
 namespace SharpDox.UML.Sequence.Model
 {
@@ -13,14 +14,14 @@ namespace SharpDox.UML.Sequence.Model
     {
         private readonly SequenceDiagramPngRenderer _sequenceDiagramPngRenderer;
         private readonly SequenceDiagramSvgRenderer _sequenceDiagramSvgRenderer;
-        private readonly SDProject _sdProject;
+        private readonly SDRepository _sdRepository;
 
         private DrawingVisual _renderedDiagram;
         private SvgRoot _renderedSvgDiagram;
 
-        public SequenceDiagram(SDProject sdProject)
+        public SequenceDiagram(SDRepository sdRepository)
         {
-            _sdProject = sdProject;
+            _sdRepository = sdRepository;
             _sequenceDiagramPngRenderer = new SequenceDiagramPngRenderer();
             _sequenceDiagramSvgRenderer = new SequenceDiagramSvgRenderer();
 
@@ -32,7 +33,7 @@ namespace SharpDox.UML.Sequence.Model
             var node = new SequenceDiagramNode
             {
                 TypeIdentifier = typeIdentifier,
-                Text = _sdProject.GetTypeByIdentifier(typeIdentifier).Fullname
+                Text = _sdRepository.GetTypeByIdentifier(typeIdentifier).Fullname
             };
             Nodes.Add(node);
 
@@ -52,6 +53,12 @@ namespace SharpDox.UML.Sequence.Model
         {
             _renderedSvgDiagram = _sequenceDiagramSvgRenderer.RenderDiagram(this);
             return new SDTemplate(_renderedSvgDiagram.ToString());
+        }
+
+        public Size GetSvgSize()
+        {
+            _renderedSvgDiagram = _sequenceDiagramSvgRenderer.RenderDiagram(this);
+            return new Size((int)_renderedSvgDiagram.Width, (int)_renderedSvgDiagram.Height);
         }
 
         public Guid StartNodeID { get; set; }

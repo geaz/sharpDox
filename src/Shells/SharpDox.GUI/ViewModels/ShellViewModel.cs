@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Win32;
+using SharpDox.Build;
 using SharpDox.GUI.Command;
 using SharpDox.GUI.Windows;
-using SharpDox.Sdk.Build;
 using SharpDox.Sdk.Config;
 using System.Linq;
-using System.Windows.Media;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -22,10 +21,10 @@ namespace SharpDox.GUI.ViewModels
     {
         private readonly BuildView _buildWindow;
         private readonly IConfigController _configController;
-        private readonly IBuildController _buildController;
+        private readonly BuildController _buildController;
         private readonly Action _onCloseHandle;
 
-        public ShellViewModel(SDGuiStrings strings, IConfigController configController, IBuildController buildController, Action onCloseHandle)
+        public ShellViewModel(SDGuiStrings strings, IConfigController configController, BuildController buildController, Action onCloseHandle)
         {
             _onCloseHandle = onCloseHandle;
             _buildController = buildController;
@@ -155,7 +154,7 @@ namespace SharpDox.GUI.ViewModels
             {
                 return _saveConfigCommand ?? new RelayCommand(() =>
                 {
-                    if (!string.IsNullOrEmpty(Config.PathToConfig))
+                    if (_configController.CurrentConfigPath != null)
                     {
                         _configController.Save();
                     }

@@ -1,12 +1,8 @@
-﻿using SharpDox.GUI.Windows;
-using SharpDox.Sdk.Build;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using SharpDox.Build;
 
 namespace SharpDox.GUI.ViewModels
 {
@@ -22,7 +18,7 @@ namespace SharpDox.GUI.ViewModels
     {
         private readonly SDGuiStrings _strings;
 
-        public ProgressBarViewModel(IBuildController buildController, SDGuiStrings strings)
+        public ProgressBarViewModel(BuildController buildController, SDGuiStrings strings)
         {
             _strings = strings;
             BuildButtonText = strings.Build;

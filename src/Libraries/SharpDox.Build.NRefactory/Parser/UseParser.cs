@@ -11,11 +11,10 @@ namespace SharpDox.Build.NRefactory.Parser
         internal void ResolveAllUses()
         {
             var methods = _repository.GetAllMethods();
-
-            for (int i = 0; i < methods.Count; i++)
+            foreach(var sdMethod in methods)
             {
-                HandleOnItemParseStart(methods[i].Name, i, methods.Count);
-                foreach (var call in methods[i].Calls)
+                HandleOnItemParseStart(sdMethod.Name);
+                foreach (var call in sdMethod.Calls)
                 {
                     ResolveCall(call);
                 }

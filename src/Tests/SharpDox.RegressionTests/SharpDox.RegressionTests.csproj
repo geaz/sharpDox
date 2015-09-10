@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SharpDox.RegressionTests</RootNamespace>
     <AssemblyName>SharpDox.RegressionTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -18,6 +18,7 @@
     <TestProjectType>UnitTest</TestProjectType>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,8 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq">
-      <HintPath>..\..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.2.1502.911, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -57,6 +59,10 @@
   <ItemGroup>
     <Compile Include="Regression1.cs" />
     <Compile Include="Regression2.cs" />
+    <Compile Include="InheritDoc.cs" />
+    <Compile Include="Regression7.cs" />
+    <Compile Include="Regression6.cs" />
+    <Compile Include="WebApiDoc.cs" />
     <Compile Include="Regression5.cs" />
     <Compile Include="Regression4.cs" />
     <Compile Include="Regression3.cs" />
@@ -64,9 +70,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\..\Core\SharpDox.Model\SharpDox.Model.csproj">
+      <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
+      <Name>SharpDox.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\SharpDox.Sdk\SharpDox.Sdk.csproj">
+      <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
+      <Name>SharpDox.Sdk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\SharpDox.Build.NRefactory\SharpDox.Build.NRefactory.csproj">
       <Project>{96484ac9-7aaa-4d8c-aea3-157630727e8b}</Project>
       <Name>SharpDox.Build.NRefactory</Name>
@@ -79,14 +90,9 @@
       <Project>{3cb8094e-ffe2-4ef1-8366-e6b9c91d4831}</Project>
       <Name>SharpDox.UML</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SharpDox.Model\SharpDox.Model.csproj">
-      <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
-      <Name>SharpDox.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SharpDox.Sdk\SharpDox.Sdk.csproj">
-      <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
-      <Name>SharpDox.Sdk</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
@@ -108,7 +114,6 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

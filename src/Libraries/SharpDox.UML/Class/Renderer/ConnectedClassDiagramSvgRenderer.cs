@@ -22,7 +22,7 @@ namespace SharpDox.UML.Class.Renderer
             _classDiagram = classDiagram;
             _mainDiagram = _classDiagramSvgRenderer.RenderDiagram(_classDiagram);
 
-            CalculateMainMargins();
+            CalculateMainMarginsAndSize();
             PositionMainDiagram();
             DrawBaseTypes();
             DrawImplementedInterfaces();
@@ -32,13 +32,21 @@ namespace SharpDox.UML.Class.Renderer
             return _mainDiagram;
         }
 
-        private void CalculateMainMargins()
+        private void CalculateMainMarginsAndSize()
         {
-            var mainDiagramWidth = _classDiagramSvgRenderer.CalculateDiagramWidth(_classDiagram);
             _leftMargin = _classDiagram.UsedBy.Sum(u => _classDiagramSvgRenderer.CalculateDiagramWidth(u)) + _classDiagram.UsedBy.Count * 50;
             _topMargin = 50 + Math.Max(
                 _classDiagram.BaseTypes.Count > 0 ? _classDiagram.BaseTypes.Max(o => _classDiagramSvgRenderer.CalculateDiagramHeight(o)) : 0,
                 _classDiagram.ImplementedInterfaces.Count > 0 ? _classDiagram.ImplementedInterfaces.Max(o => _classDiagramSvgRenderer.CalculateDiagramHeight(o)) : 0);
+
+            var width = _leftMargin + _mainDiagram.Width + _classDiagram.Uses.Sum(u => _classDiagramSvgRenderer.CalculateDiagramWidth(u)) + _classDiagram.Uses.Count * 50;
+
+            var maxUsedBy = _classDiagram.UsedBy.Any() ? _classDiagram.UsedBy.Max(u => _classDiagramSvgRenderer.CalculateDiagramHeight(u)) : 0.0;
+            var maxUses = _classDiagram.Uses.Any() ? _classDiagram.Uses.Max(u => _classDiagramSvgRenderer.CalculateDiagramHeight(u)) : 0.0; 
+            var height = _topMargin + Math.Max(_mainDiagram.Height, Math.Max(maxUsedBy, maxUses));
+
+            _mainDiagram.Width = width;
+            _mainDiagram.Height = height;
         }
 
         private void PositionMainDiagram()

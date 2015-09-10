@@ -1,3 +1,15 @@
+Version 1.0rc
+
+- Created two seperate executes (gui and console)
+- Changed Model: sharpDox now parses one repository per build target (thanks to [Geert van Horrik](https://github.com/GeertvanHorrik))
+- Creates the output path now, if necessary
+- Added console exit codes
+- Config file is static now - no last build info anymore
+- sharpDox is able to parse unity solutions now
+- Added Array Element Types to SDType model
+- Reworked HTML Output
+- Some more minor changes
+
 Version 0.9.10
 
 - The output window opens automatically, if the build fails

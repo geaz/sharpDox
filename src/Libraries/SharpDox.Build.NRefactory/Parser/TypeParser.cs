@@ -18,7 +18,7 @@ namespace SharpDox.Build.NRefactory.Parser
             {
                 if (types[i].Kind != TypeKind.Delegate)
                 {
-                    HandleOnItemParseStart(string.Format("{0}.{1}", types[i].Namespace, types[i].Name), i, types.Count);
+                    HandleOnItemParseStart(string.Format("{0}.{1}", types[i].Namespace, types[i].Name));
                     if (!IsMemberExcluded(types[i].GetIdentifier(), types[i].Accessibility.ToString()))
                     {
                         var sdType = GetParsedType(types[i].GetDefinition(), false);
@@ -61,9 +61,19 @@ namespace SharpDox.Build.NRefactory.Parser
 
         private void ParseForeignTypeToModel(SDType sdType, IType type)
         {
+            AddParsedArrayTypeElement(sdType, type);
             AddParsedTypeArguments(sdType, type.TypeArguments);
             AddParsedBaseTypes(sdType, type.DirectBaseTypes);
             AddParsedInterfaces(sdType, type.DirectBaseTypes);            
+        }
+
+        private void AddParsedArrayTypeElement(SDType sdType, IType type)
+        {
+            var arrayType = type as ArrayType;
+            if (arrayType != null)
+            {
+                sdType.ArrayElementType = GetParsedType(arrayType.ElementType);
+            }
         }
 
         private void AddParsedNestedTypes(SDType sdType, IEnumerable<IType> nestedTypes)

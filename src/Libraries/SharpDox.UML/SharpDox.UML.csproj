@@ -79,12 +79,6 @@
     <Compile Include="SVG\SvgRectangle.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SharpDox.Model\SharpDox.Model.csproj">
-      <Project>{7880D6BD-3EEF-44AB-964F-61B0F35EFE51}</Project>
-      <Name>SharpDox.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Ressources\Icons\Class_Friend.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -863,6 +857,12 @@
     <EmbeddedResource Include="Ressources\Icons\Embedded\Structure_Shortcut.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\SharpDox.Model\SharpDox.Model.csproj">
+      <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
+      <Name>SharpDox.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

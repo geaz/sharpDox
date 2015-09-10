@@ -19,6 +19,8 @@
     <SolidColorBrush x:Key="Color_FadedGray">#7D6b6b6b</SolidColorBrush>
     <SolidColorBrush x:Key="Color_FadedRed">#7DD60000</SolidColorBrush>
 
+    <SolidColorBrush x:Key="Color_ButtonFont">#FF6c6c6c</SolidColorBrush>
+    
     <FontFamily x:Key="Font_Regular">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Regular</FontFamily>
     <FontFamily x:Key="Font_Bold">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Bold</FontFamily>
     <FontFamily x:Key="Font_Light">/SharpDox.GUI;component/Resources/Fonts/#Open Sans Light</FontFamily>

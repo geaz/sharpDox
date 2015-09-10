@@ -1,7 +1,7 @@
-﻿using SharpDox.Model.Repository;
-using System;
+﻿using System;
 using SharpDox.Sdk.Config;
 using System.Collections.Generic;
+using SharpDox.Model;
 
 namespace SharpDox.Build
 {
@@ -11,7 +11,7 @@ namespace SharpDox.Build
         event Action<string> OnStepMessage;
         event Action<int> OnStepProgress;
 
-        SDRepository GetStructureParsedSolution(string solutionFile);
-        SDRepository GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens);
+        SDSolution GetStructureParsedSolution(string solutionFile);
+        SDSolution GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens);
     }
 }

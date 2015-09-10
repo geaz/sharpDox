@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converter="clr-namespace:SharpDox.GUI.Resources.Converter"
              mc:Ignorable="d" d:DesignHeight="27"
              x:Name="FileSystemControl" d:DesignWidth="400">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converter:SDPathConverter x:Key="SDPathConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/SharpDox.GUI;component/Resources/SharpDox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -27,7 +29,7 @@
             <Grid>
                 <TextBlock FontFamily="{StaticResource Font_Italic}" FontSize="13" Margin="7,5,5,5" Text="{Binding WaterMarkText}" Foreground="{Binding WaterMarkColor}"
                            Visibility="{Binding ElementName=tbValue, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <TextBox Name="tbValue" Background="Transparent" Text="{Binding ConfigItemValue, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" FontFamily="{StaticResource Font_Regular}" 
+                <TextBox Name="tbValue" Background="Transparent" Text="{Binding ConfigItemValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource SDPathConverter}}" BorderThickness="0" FontFamily="{StaticResource Font_Regular}" 
                          FontSize="13" Padding="5,5,0,5"/>
             </Grid>
         </Border>

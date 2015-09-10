@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using SharpDox.Model;
-using SharpDox.Model.Repository.Members;
+﻿using SharpDox.Model.Repository.Members;
 using SharpDox.Model.Repository;
 using SharpDox.UML.Class;
 using SharpDox.UML.Sequence;
@@ -52,12 +50,12 @@ namespace SharpDox.UML
         ///     Erstellt das Sequenzdiagramm für die gegebene <c>SDMethod</c>.
         ///     </summary>
         ///     <param name="method">Erstellt das Sequenzdiagramm für dies <c>SDMethod</c>.</param>
-        ///     <param name="sdProject">Die Methode benötigt das eingelesene sharpDox Projekt.</param>
+        ///     <param name="sdRepository">Die Methode benötigt das eingelesene Repository.</param>
         ///     <returns>Das Sequenzdiagramm für die <c>SDMethod</c>.</returns>
         /// </de>
-        public static ISDDiagram GetSequenceDiagram(this SDMethod method, SDProject sdProject)
+        public static ISDDiagram GetSequenceDiagram(this SDMethod method, SDRepository sdRepository)
         {
-            var sequenceDiagramParser = new SequenceDiagramParser(method, sdProject);
+            var sequenceDiagramParser = new SequenceDiagramParser(method, sdRepository);
             return sequenceDiagramParser.CreateSequenceDiagram();
         }
 

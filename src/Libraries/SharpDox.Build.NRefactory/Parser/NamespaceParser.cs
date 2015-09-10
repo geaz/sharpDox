@@ -27,7 +27,7 @@ namespace SharpDox.Build.NRefactory.Parser
             var types = project.Compilation.MainAssembly.TopLevelTypeDefinitions.ToList();
             for (int i = 0; i < types.Count; i++)
             {
-                HandleOnItemParseStart(types[i].Namespace, i, types.Count);
+                HandleOnItemParseStart(types[i].Namespace);
                 if (!_sharpDoxConfig.ExcludedIdentifiers.Contains(types[i].Namespace))
                 {
                     _repository.AddNamespace(GetParsedNamespace(types[i]));
@@ -42,15 +42,18 @@ namespace SharpDox.Build.NRefactory.Parser
             var descriptions = new SDLanguageItemCollection<SDTemplate>();
             foreach (var file in descriptionFiles)
             {
-                var splitted = Path.GetFileName(file).ToLower().Replace(type.Namespace.ToLower(), " ").Split('.');
-                if (splitted.Length > 0 && splitted[0].Length == 2 && CultureInfo.GetCultures(CultureTypes.AllCultures).Any(c => c.TwoLetterISOLanguageName == splitted[0]))
+                if (!string.IsNullOrEmpty(type.Namespace.Trim()))
                 {
-                    descriptions.Add(splitted[0], new SDTemplate(File.ReadAllText(file), _tokens));
-                    ExecuteOnDocLanguageFound(splitted[0].ToLower());
-                }
-                else if (splitted.Length > 0 && string.IsNullOrEmpty(splitted[0].Trim()))
-                {
-                    descriptions.Add("default", new SDTemplate(File.ReadAllText(file), _tokens));
+                    var splitted = Path.GetFileName(file).ToLower().Replace(type.Namespace.ToLower(), " ").Split('.');
+                    if (splitted.Length > 0 && splitted[0].Length == 2 && CultureInfo.GetCultures(CultureTypes.AllCultures).Any(c => c.TwoLetterISOLanguageName == splitted[0]))
+                    {
+                        descriptions.Add(splitted[0], new SDTemplate(File.ReadAllText(file), _tokens));
+                        ExecuteOnDocLanguageFound(splitted[0].ToLower());
+                    }
+                    else if (splitted.Length > 0 && string.IsNullOrEmpty(splitted[0].Trim()))
+                    {
+                        descriptions.Add("default", new SDTemplate(File.ReadAllText(file), _tokens));
+                    }
                 }
             }
 

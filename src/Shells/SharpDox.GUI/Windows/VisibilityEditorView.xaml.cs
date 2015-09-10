@@ -1,14 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using SharpDox.Build;
 using SharpDox.GUI.ViewModels;
 using SharpDox.Sdk.Config;
-using SharpDox.Sdk.Build;
 
 namespace SharpDox.GUI.Windows
 {
     public partial class VisibilityEditorView : Window
     {
-        public VisibilityEditorView(SDGuiStrings strings, ICoreConfigSection sharpdoxConfig, IBuildController buildController)
+        public VisibilityEditorView(SDGuiStrings strings, ICoreConfigSection sharpdoxConfig, BuildController buildController)
         {
             Strings = strings;
             Config = sharpdoxConfig;

@@ -1,28 +1,28 @@
-﻿using SharpDox.Sdk.Config;
+﻿using SharpDox.Build;
+using SharpDox.GUI.Controls.ConfigGrid.Elements;
+using SharpDox.Sdk.Config;
 using SharpDox.Sdk.Config.Attributes;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using SharpDox.Sdk.Config.Lists;
 using SharpDox.Sdk.Exporter;
-using SharpDox.Sdk.Build;
 using SharpDox.Sdk.Local;
 
 namespace SharpDox.GUI.Controls.ConfigGrid
 {
-    public partial class ConfigSectionControl : UserControl
+    public partial class ConfigSectionControl
     {
         public static readonly DependencyProperty SectionHeaderProperty = DependencyProperty.Register("SectionHeader", typeof(string), typeof(ConfigSectionControl));
         public static readonly DependencyProperty IsExpandedProperty = DependencyProperty.Register("IsExpanded", typeof(bool), typeof(ConfigSectionControl));
 
         private readonly ILocalController _localController;
         private readonly IExporter[] _allExporters;
-        private readonly IBuildController _buildController;
+        private readonly BuildController _buildController;
         private readonly ICoreConfigSection _coreConfigSection;
 
-        public ConfigSectionControl(ILocalController localController, ICoreConfigSection coreConfigSection, IExporter[] allExporters, IBuildController buildController)
+        public ConfigSectionControl(ILocalController localController, ICoreConfigSection coreConfigSection, IExporter[] allExporters, BuildController buildController)
         {
             _localController = localController;
             _coreConfigSection = coreConfigSection;
@@ -41,7 +41,7 @@ namespace SharpDox.GUI.Controls.ConfigGrid
                 var displayNameAttribute = (NameAttribute)Attribute.GetCustomAttribute(configItem, typeof(NameAttribute));
                 if(displayNameAttribute != null)
                 {
-                    Binding b = new Binding(configItem.Name);
+                    var b = new Binding(configItem.Name);
                     b.Source = configSection;
                     b.Mode = BindingMode.TwoWay;
                     b.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;

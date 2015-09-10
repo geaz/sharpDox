@@ -1,14 +1,6 @@
 Die Benutzung von *sharpDox* gestaltet sich, im Gegensatz zu manch anderen Dokumentationstools, 
 als sehr einfach. Nachdem *sharpDox* heruntergeladen und entpackt wurde, kann es über die 
-*Sharpdox.Core.exe* gestartet werden.
-
-![Shell]({{image-link:sdi.startSD.png}})
-
-Entwicklern ist es möglich, für *sharpDox* neue Benutzeroberflächen zu implementierten. 
-Sind mehrere dieser Benutzeroberflächen im Ordner *shells* von *sharpDox* vorhanden, 
-bietet das Programm dem Benutzer eine Auswahl der registrierten Benutzeroberflächen an. 
-Sollte nur eine Benutzeroberfläche benötigt werden, können die übrigen Oberflächen bedenkenlos 
-aus dem *shells* Ordner entfernt werden.
+*Sharpdox.Gui.exe* oder *SharpDox.Console.exe* gestartet werden.
 
 Es empfiehlt sich *sharpDox* das erstemal mit der GUI zu starten. 
 Mittels der GUI kann die Konfiguration der eigenen Dokumentation einfach angepasst werden. 
@@ -17,7 +9,7 @@ Je nach registrierten Plugins bietet die GUI unterschiedliche Konfigurationspunk
 ![Introduction]({{image-link:sdi.introduction.png}})
 
 *sharpDox* ermöglicht es Entwicklern verschiedene Ausgabeformate für eine Dokumentation zu erstellen. 
-Dies versetzt den Benutzer in die Lage die Ausgabeform der Dokumentation zu beeinflussen ([hier]({{article-link:Erstellen eines Exporters}}) 
+Dies versetzt den Benutzer in die Lage die Ausgabeform der Dokumentation zu beeinflussen ([hier]({{article-link:de.exporter-tutorial}}) 
 ist ein Beispiel zu finden wie ein Exporter erstellt werden kann). Plugins befinden sich im *plugin* Ordner von *sharpDox*. 
 Neue Plugins werden durch einen Neustart des Programms registriert und automatisch während des Bauvorgangs ausgeführt.
 

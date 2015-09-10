@@ -92,11 +92,11 @@
     <Compile Include="ParserStrings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SharpDox.Model\SharpDox.Model.csproj">
+    <ProjectReference Include="..\..\Core\SharpDox.Model\SharpDox.Model.csproj">
       <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
       <Name>SharpDox.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SharpDox.Sdk\SharpDox.Sdk.csproj">
+    <ProjectReference Include="..\..\Core\SharpDox.Sdk\SharpDox.Sdk.csproj">
       <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
       <Name>SharpDox.Sdk</Name>
     </ProjectReference>
@@ -109,7 +109,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

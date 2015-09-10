@@ -4,8 +4,8 @@ using SharpDox.Build.NRefactory.Parser;
 using SharpDox.Model.Repository;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using SharpDox.Model;
 using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.NRefactory
@@ -16,6 +16,9 @@ namespace SharpDox.Build.NRefactory
         public event Action<string> OnStepMessage;
         public event Action<int> OnStepProgress;
 
+        private int _currentProjectIndex;
+        private int _totalProjects;
+
         private readonly ParserStrings _parserStrings;
 
         public NRefactoryParser(ParserStrings parserStrings)
@@ -23,148 +26,166 @@ namespace SharpDox.Build.NRefactory
             _parserStrings = parserStrings;
         }
 
-        public SDRepository GetStructureParsedSolution(string solutionFile)
+        public SDSolution GetStructureParsedSolution(string solutionFile)
         {
-            var sdRepository = new SDRepository();
-            var solution = LoadSolution(solutionFile, 3);
-
-            StructureParseNamespaces(solution, sdRepository);
-            StructureParseTypes(solution, sdRepository);
-
-            return sdRepository;
+            var solution = LoadSolution(solutionFile);
+            return ParseSolution(solution, null, null, true);
         }
 
-        public SDRepository GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens)
+        public SDSolution GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens)
         {
-            var sdRepository = new SDRepository();
-            var solution = LoadSolution(solutionFile, 5);
-
-            ParseNamespaces(solution, sdRepository, sharpDoxConfig, tokens);
-            ParseTypes(solution, sdRepository, sharpDoxConfig);
-            ParseMethodCalls(solution, sdRepository);
-            ResolveUses(sdRepository);
-
-            return sdRepository;
+            var solution = LoadSolution(solutionFile);
+            return ParseSolution(solution, sharpDoxConfig, tokens, false);
         }
 
-        private CSharpSolution LoadSolution(string solutionFile, int steps)
+        private SDSolution ParseSolution(CSharpSolution solution, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens, bool structured)
+        {
+            var sdSolution = new SDSolution(solution.SolutionFile);
+            var targetFxParser = new SDTargetFxParser();
+
+            _currentProjectIndex = 1;
+            _totalProjects = solution.Projects.Count;
+            for (var i = 0; i < solution.Projects.Count; i++)
+            {
+                ExecuteOnStepProgress((int)(((double)i / (double)solution.Projects.Count) * 50) + 20);
+
+                var project = solution.Projects[i];
+                var projectFileName = project.FileName;
+                var targetFx = targetFxParser.GetTargetFx(projectFileName);
+
+                var sdRepository = sdSolution.GetExistingOrNew(targetFx);
+                if (structured)
+                {
+                    StructureParseNamespaces(project, sdRepository);
+                    StructureParseTypes(project, sdRepository);
+                }
+                else
+                {
+                    ParseNamespaces(project, sdRepository, sharpDoxConfig, tokens);
+                    ParseTypes(project, sdRepository, sharpDoxConfig);
+
+                    // Because of excluding privates, internals and protected members
+                    // it is possible, that a namespace has no visible namespaces at all.
+                    // It is necessary to remove empty namespaces.
+                    RemoveEmptyNamespaces(sdRepository);
+                }
+                _currentProjectIndex++;
+            }
+
+            ExecuteOnStepProgress(80);
+            if (!structured)
+            {
+                var i = 0;
+                foreach (var sdRepository in sdSolution.Repositories)
+                {
+                    ParseMethodCalls(solution, sdRepository);
+                    ResolveUses(sdRepository);
+                }
+            }
+
+            return sdSolution;
+        }
+
+        private CSharpSolution LoadSolution(string solutionFile)
         {
             var solution = new CSharpSolution();
+
             solution.OnLoadingProject += (m) => ExecuteOnStepMessage(string.Format(_parserStrings.ReadingProject, m));
-            solution.OnLoadedProject += (t, i) => ExecuteOnStepProgress((int)(((double)i/(double)t) * 100 / steps));
+            solution.OnLoadedProject += (t, i) => ExecuteOnStepProgress((int)(((double)i / (double)t) * 20));
+
             solution.LoadSolution(solutionFile);
 
             return solution;
         }
 
-        private void StructureParseNamespaces(CSharpSolution solution, SDRepository sdRepository)
+        private void StructureParseNamespaces(CSharpProject project, SDRepository sdRepository)
         {
-            var pi = 0;
-            for (int i = 0; i < solution.Projects.Count; i++)
+            var types = project.Compilation.MainAssembly.TopLevelTypeDefinitions.ToList();
+            for (int j = 0; j < types.Count; j++)
             {
-                pi = i;
-                var types = solution.Projects[i].Compilation.MainAssembly.TopLevelTypeDefinitions.ToList();
-                for (int j = 0; j < types.Count; j++)
-                {
-                    PostParseProgress(_parserStrings.ParsingNamespace + ": " + types[j].Namespace, j, types.Count, pi, solution.Projects.Count, 1, 3);
+                PostParseMessage(_parserStrings.ParsingNamespace + ": " + types[j].Namespace);
 
-                    var sdNamespace = new SDNamespace(types[j].Namespace);
-                    sdRepository.AddNamespace(sdNamespace);
-                }
+                var sdNamespace = new SDNamespace(types[j].Namespace);
+                sdRepository.AddNamespace(sdNamespace);
             }
         }
 
-        private void StructureParseTypes(CSharpSolution solution, SDRepository sdRepository)
+        private void StructureParseTypes(CSharpProject project, SDRepository sdRepository)
         {
-            var pi = 0;
-            for (int i = 0; i < solution.Projects.Count; i++)
+            var types = project.Compilation.MainAssembly.TopLevelTypeDefinitions.ToList();
+            for (int j = 0; j < types.Count; j++)
             {
-                pi = i;
-                var types = solution.Projects[i].Compilation.MainAssembly.TopLevelTypeDefinitions.ToList();
-                for (int j = 0; j < types.Count; j++)
+                var type = types[j];
+                if (types[j].Kind != TypeKind.Delegate)
                 {
-                    var type = types[j];
-                    if (types[j].Kind != TypeKind.Delegate)
+                    PostParseMessage(_parserStrings.ParsingClass + ": " + string.Format("{0}.{1}", types[j].Namespace, types[j].Name));
+
+                    var nameSpace = sdRepository.GetNamespaceByIdentifier(type.Namespace);
+                    var namespaceRef = nameSpace ?? new SDNamespace(type.Namespace) { IsProjectStranger = true };
+
+                    var sdType = new SDType(type.GetIdentifier(), type.Name, namespaceRef)
                     {
-                        PostParseProgress(_parserStrings.ParsingClass + ": " + string.Format("{0}.{1}", types[j].Namespace, types[j].Name), j, types.Count, pi, solution.Projects.Count, 2, 3);
+                        Accessibility = type.GetDefinition().Accessibility.ToString().ToLower()
+                    };
 
-                        var nameSpace = sdRepository.GetNamespaceByIdentifier(type.Namespace);
-                        var namespaceRef = nameSpace ?? new SDNamespace(type.Namespace) { IsProjectStranger = true };
+                    sdRepository.AddType(sdType);
 
-                        var sdType = new SDType(type.GetIdentifier(), type.Name, namespaceRef)
-                        {
-                            Accessibility = type.GetDefinition().Accessibility.ToString().ToLower()
-                        };
+                    EventParser.ParseMinimalFields(sdType, types[j]);
+                    PropertyParser.ParseMinimalProperties(sdType, types[j]);
+                    FieldParser.ParseMinimalFields(sdType, types[j]);
+                    MethodParser.ParseMinimalConstructors(sdType, types[j]);
+                    MethodParser.ParseMinimalMethods(sdType, types[j]);
 
-                        sdRepository.AddType(sdType);
-
-                        EventParser.ParseMinimalFields(sdType, types[j]);
-                        PropertyParser.ParseMinimalProperties(sdType, types[j]);
-                        FieldParser.ParseMinimalFields(sdType, types[j]);
-                        MethodParser.ParseMinimalConstructors(sdType, types[j]);
-                        MethodParser.ParseMinimalMethods(sdType, types[j]);
-
-                        sdRepository.AddNamespaceTypeRelation(types[j].Namespace, sdType.Identifier);
-                    }
+                    sdRepository.AddNamespaceTypeRelation(types[j].Namespace, sdType.Identifier);
                 }
             }
         }
 
-        private void ParseNamespaces(CSharpSolution solution, SDRepository sdRepository, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens)
+        private void ParseNamespaces(CSharpProject project, SDRepository sdRepository, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens)
         {
-            var pi = 0;
             var namespaceParser = new NamespaceParser(sdRepository, sharpDoxConfig, sharpDoxConfig.InputFile, tokens);
             namespaceParser.OnDocLanguageFound += ExecuteOnDocLanguageFound;
-            namespaceParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingNamespace + ": " + n, i, t, pi, solution.Projects.Count, 1, 5); };
+            namespaceParser.OnItemParseStart += (n) => { PostParseMessage(_parserStrings.ParsingNamespace + ": " + n); };
 
-            for (int i = 0; i < solution.Projects.Count; i++)
-            {
-                pi = i;
-                namespaceParser.ParseProjectNamespaces(solution.Projects[i]);
-            }
+            namespaceParser.ParseProjectNamespaces(project);
         }
 
-        private void ParseTypes(CSharpSolution solution, SDRepository sdRepository, ICoreConfigSection sharpDoxConfig)
+        private void ParseTypes(CSharpProject project, SDRepository sdRepository, ICoreConfigSection sharpDoxConfig)
         {
-            var pi = 0;
             var typeParser = new TypeParser(sdRepository, sharpDoxConfig);
-            typeParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingClass + ": " + n, i, t, pi, solution.Projects.Count, 2, 5); };
+            typeParser.OnItemParseStart += (n) => { PostParseMessage(_parserStrings.ParsingClass + ": " + n); };
 
-            for (int i = 0; i < solution.Projects.Count; i++)
+            typeParser.ParseProjectTypes(project);
+        }
+
+        private void RemoveEmptyNamespaces(SDRepository repository)
+        {
+            foreach (var sdNamespace in repository.GetAllNamespaces())
             {
-                pi = i;
-                typeParser.ParseProjectTypes(solution.Projects[i]);
+                if (sdNamespace.Types.Count == 0)
+                {
+                    repository.RemoveNamespace(sdNamespace);
+                }
             }
         }
 
         private void ParseMethodCalls(CSharpSolution solution, SDRepository sdRepository)
         {
-            var pi = 0;
             var methodCallParser = new MethodCallParser(sdRepository, solution);
-            methodCallParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingMethod + ": " + n, i, t, pi, sdRepository.GetAllNamespaces().Count, 3, 5); };
-
-            var namespaces = sdRepository.GetAllNamespaces();
-            for (int i = 0; i < namespaces.Count; i++)
-            {
-                pi = i;
-                methodCallParser.ParseMethodCalls(namespaces[i]);
-            }
+            methodCallParser.OnItemParseStart += (n) => { ExecuteOnStepMessage(_parserStrings.ParsingMethod + ": " + n); };
+            methodCallParser.ParseMethodCalls();            
         }
 
         private void ResolveUses(SDRepository sdRepository)
         {
             var useParser = new UseParser(sdRepository);
-            useParser.OnItemParseStart += (n, i, t) => { PostParseProgress(_parserStrings.ParsingUseings + ": " + n, i, t, 0, 1, 4, 5); };
-
+            useParser.OnItemParseStart += (n) => { ExecuteOnStepMessage(_parserStrings.ParsingUseings + ": " + n); };
             useParser.ResolveAllUses();
         }
 
-        private void PostParseProgress(string message, double itemIndex, double itemTotal, double parentIndex, double parentTotal, int step, int stepsTotal)
+        private void PostParseMessage(string message)
         {
-            var percentage = ((((itemIndex / itemTotal) * (100d / parentTotal)) + (parentIndex * (100d / parentTotal))) / stepsTotal) + ((double)step / (double)stepsTotal * 100d);
-
-            ExecuteOnStepMessage(message);
-            ExecuteOnStepProgress((int)percentage);
+            ExecuteOnStepMessage(string.Format("(Project {0}/{1}) - {2}", _currentProjectIndex, _totalProjects, message));
         }
 
         private void ExecuteOnDocLanguageFound(string lang)

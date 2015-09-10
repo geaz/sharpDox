@@ -31,7 +31,10 @@ namespace SharpDox.UML.SVG
             _fill = _rootSvg.CreateAttribute("fill");
             _style = _rootSvg.CreateAttribute("style");
             _textAnchor = _rootSvg.CreateAttribute("text-anchor");
+
             _fontFamily = _rootSvg.CreateAttribute("font-family");
+            _fontFamily.Value = "'Segoe UI',sans-serif";
+
             _fontSize = _rootSvg.CreateAttribute("font-size");
             _onMouseOver = _rootSvg.CreateAttribute("onmouseover");
             _onMouseOut = _rootSvg.CreateAttribute("onmouseout");

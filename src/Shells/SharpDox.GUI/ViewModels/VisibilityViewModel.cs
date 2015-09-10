@@ -1,7 +1,7 @@
 ﻿using System;
+using SharpDox.Build;
 using SharpDox.GUI.Command;
 using SharpDox.Sdk.Config;
-using SharpDox.Sdk.Build;
 using System.ComponentModel;
 using SharpDox.GUI.ViewModels.TreeModel;
 using System.Windows;
@@ -13,10 +13,10 @@ namespace SharpDox.GUI.ViewModels
     internal class VisibilityViewModel : ViewModelBase
     {
         private readonly ICoreConfigSection _sharpDoxConfig;
-        private readonly IBuildController _buildController;
+        private readonly BuildController _buildController;
         private readonly Action _onCloseHandle;
 
-        public VisibilityViewModel(ICoreConfigSection sharpDoxConfig, IBuildController buildController, Action onCloseHandle)
+        public VisibilityViewModel(ICoreConfigSection sharpDoxConfig, BuildController buildController, Action onCloseHandle)
         {
             _sharpDoxConfig = sharpDoxConfig;
             _buildController = buildController;
@@ -30,11 +30,11 @@ namespace SharpDox.GUI.ViewModels
 
         private void ConfigChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName == "InputFile" && !string.IsNullOrEmpty(_sharpDoxConfig.InputFile))
+            if (args.PropertyName == "InputFile" && _sharpDoxConfig.InputFile != null)
             {
                 RefreshTreeView();
             }
-            else if (args.PropertyName == "InputFile" && string.IsNullOrEmpty(_sharpDoxConfig.InputFile))
+            else if (args.PropertyName == "InputFile" && _sharpDoxConfig.InputFile == null)
             {
                 TreeView = new VisibilityItemList(_sharpDoxConfig);
                 TreeLoaded = false;
@@ -49,13 +49,16 @@ namespace SharpDox.GUI.ViewModels
                     TreeView = new VisibilityItemList(_sharpDoxConfig);
 
                     if (sdProject != null)
-                    {
-                        foreach (var repository in sdProject.Repositories)
+                    {                        
+                        foreach (var sdSolution in sdProject.Solutions.Values)
                         {
-                            foreach (var sdNamespace in repository.Value.GetAllNamespaces())
+                            foreach (var sdRepository in sdSolution.Repositories)
                             {
-                                TreeView.Add(new NamespaceViewModel(sdNamespace, _sharpDoxConfig));
-                                TreeLoaded = true;
+                                foreach (var sdNamespace in sdRepository.GetAllNamespaces())
+                                {
+                                    TreeView.Add(new NamespaceViewModel(sdNamespace, _sharpDoxConfig));
+                                    TreeLoaded = true;
+                                }
                             }
                         }
                     }

@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SharpDox.Core.Local;
 using SharpDox.Sdk.Local;
 
 namespace SharpDox.Local.Tests

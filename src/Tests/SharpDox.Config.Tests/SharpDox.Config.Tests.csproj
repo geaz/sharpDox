@@ -58,18 +58,15 @@
     <Compile Include="ConfigControllerTests.cs" />
     <Compile Include="ConfigSerializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SDPathTests.cs" />
     <Compile Include="TestConfig.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\SharpDox.Config\SharpDox.Config.csproj">
-      <Project>{58745d89-8f8f-4e69-a749-c4280b0abf4e}</Project>
-      <Name>SharpDox.Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SharpDox.Core\SharpDox.Core.csproj">
+    <ProjectReference Include="..\..\Core\SharpDox.Core\SharpDox.Core.csproj">
       <Project>{8e519972-d18f-47e4-8e82-abc3b3d43311}</Project>
       <Name>SharpDox.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SharpDox.Sdk\SharpDox.Sdk.csproj">
+    <ProjectReference Include="..\..\Core\SharpDox.Sdk\SharpDox.Sdk.csproj">
       <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
       <Name>SharpDox.Sdk</Name>
     </ProjectReference>

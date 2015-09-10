@@ -1,15 +1,13 @@
-﻿using SharpDox.GUI.Command;
-using System;
+﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
+using SharpDox.Build;
+using SharpDox.GUI.Command;
 using SharpDox.GUI.Windows;
 using SharpDox.Sdk.Config;
-using SharpDox.Sdk.Build;
-using System.ComponentModel;
 
-namespace SharpDox.GUI.Controls.ConfigGrid
+namespace SharpDox.GUI.Controls.ConfigGrid.Elements
 {
-    public partial class ConfigVisibilityControl : UserControl
+    public partial class ConfigVisibilityControl
     {
         public static readonly DependencyProperty ConfigItemDisplayNameProperty = DependencyProperty.Register("ConfigItemDisplayName", typeof(string), typeof(ConfigVisibilityControl));
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(ConfigVisibilityControl));
@@ -18,9 +16,9 @@ namespace SharpDox.GUI.Controls.ConfigGrid
 
         private readonly SDGuiStrings _strings;
         private readonly ICoreConfigSection _coreConfigSection;
-        private readonly IBuildController _buildController;
+        private readonly BuildController _buildController;
 
-        public ConfigVisibilityControl(SDGuiStrings strings, ICoreConfigSection coreConfigSection, IBuildController buildController)
+        public ConfigVisibilityControl(SDGuiStrings strings, ICoreConfigSection coreConfigSection, BuildController buildController)
         {
             _strings = strings;
             _coreConfigSection = coreConfigSection;

@@ -22,9 +22,13 @@ namespace SharpDox.UML.SVG
 
         private void CreateElement()
         {
-            _href = _rootSvg.CreateAttribute("xlink:href", "xlink");
-
+            _href = _rootSvg.CreateAttribute("xlink:href", "http://www.w3.org/1999/xlink");
             Attributes.Append(_href);
+
+            var target = _rootSvg.CreateAttribute("target");
+            target.Value = "_top";
+            Attributes.Append(target);
+
             AppendChild(Text);
         }
 

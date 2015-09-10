@@ -1,4 +1,5 @@
-﻿using SharpDox.Model;
+﻿using System;
+using SharpDox.Model;
 using System.IO;
 
 namespace SharpDox.Build.Context.Step
@@ -13,10 +14,10 @@ namespace SharpDox.Build.Context.Step
             if (string.IsNullOrEmpty(_stepInput.CoreConfigSection.ProjectName))
                 throw new SDBuildException(_stepInput.SDBuildStrings.NoProjectNameGiven);
 
-            if (string.IsNullOrEmpty(_stepInput.CoreConfigSection.InputFile))
+            if (_stepInput.CoreConfigSection.InputFile == null)
                 throw new SDBuildException(_stepInput.SDBuildStrings.NoProjectGiven);
 
-            if (!File.Exists(_stepInput.CoreConfigSection.InputFile))
+            if (!File.Exists(_stepInput.CoreConfigSection.InputFile.ResolvePath(Environment.CurrentDirectory)))
                 throw new SDBuildException(_stepInput.SDBuildStrings.ProjectNotFound);
 
             return sdProject;

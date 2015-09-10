@@ -1,6 +1,6 @@
 ﻿using SharpDox.Sdk.Local;
 
-namespace SharpDox.Build
+namespace SharpDox.Build.NRefactory
 {
     public class ParserStrings : ILocalStrings
     {        

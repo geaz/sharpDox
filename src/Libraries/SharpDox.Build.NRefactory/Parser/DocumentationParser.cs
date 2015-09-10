@@ -2,7 +2,6 @@
 using ICSharpCode.NRefactory.Xml;
 using SharpDox.Model.Documentation;
 using SharpDox.Model.Documentation.Token;
-using SharpDox.Model.Repository;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,13 +13,6 @@ namespace SharpDox.Build.NRefactory.Parser
 {
     internal class DocumentationParser
     {
-        private readonly SDRepository _sdRepository;
-
-        public DocumentationParser(SDRepository sdRepository)
-        {
-            _sdRepository = sdRepository;
-        }
-
         public SDLanguageItemCollection<SDDocumentation> ParseDocumentation(IEntity entity)
         {
             var docDic = new SDLanguageItemCollection<SDDocumentation>();
@@ -95,7 +87,7 @@ namespace SharpDox.Build.NRefactory.Parser
                         sdDocumentation.Example = ParseContentTokens(child);
                         break;
                     case "returns":
-                        sdDocumentation.Returns = ParseContentTokens(child);
+                        AddResultsSection(sdDocumentation.Returns, child);
                         break;
                     case "seealso":
                         sdDocumentation.SeeAlsos.Add(GetSeeRef(child));
@@ -123,7 +115,11 @@ namespace SharpDox.Build.NRefactory.Parser
                     switch (element.Name.ToLower())
                     {
                         case "see":
-                            content.Add(GetSeeRef(element));
+                            var seeRef = GetSeeRef(element);
+                            if (seeRef != null)
+                            {
+                                content.Add(seeRef);
+                            }
                             break;
                         case "typeparamref":
                             content.Add(new SDToken { Role = SDTokenRole.TypeParamRef, Text = element.GetAttribute("name") });
@@ -146,26 +142,46 @@ namespace SharpDox.Build.NRefactory.Parser
             return content;
         }
 
+        private void AddResultsSection(Dictionary<string, SDTokenList> results, XmlDocumentationElement xmlElement)
+        {
+            if (!string.IsNullOrEmpty(xmlElement.GetAttribute("httpCode")))
+            {
+                results.Add(xmlElement.GetAttribute("httpCode"), ParseContentTokens(xmlElement));
+            }
+            else if(!results.ContainsKey("default"))
+            {
+                results.Add("default", ParseContentTokens(xmlElement));
+            }
+        }
+
         private SDToken GetSeeRef(XmlDocumentationElement xmlElement)
         {
-            var sdToken = new SDSeeToken();
-            if (xmlElement.ReferencedEntity != null)
+            try
             {
-                var identifier = xmlElement.ReferencedEntity.DeclaringType != null
-                                        ? xmlElement.ReferencedEntity.DeclaringType.GetIdentifier()
-                                        : string.Empty;
+                var sdToken = new SDSeeToken();
 
-                sdToken.Name = xmlElement.ReferencedEntity.Name;
-                sdToken.Namespace = xmlElement.ReferencedEntity.Namespace;
-                sdToken.DeclaringType = identifier;
-                sdToken.Text = xmlElement.ReferencedEntity.Name;
+                if (xmlElement.ReferencedEntity != null)
+                {
+                    var identifier = xmlElement.ReferencedEntity.DeclaringType != null
+                                            ? xmlElement.ReferencedEntity.DeclaringType.GetIdentifier()
+                                            : string.Empty;
+
+                    sdToken.Name = xmlElement.ReferencedEntity.Name;
+                    sdToken.Namespace = xmlElement.ReferencedEntity.Namespace;
+                    sdToken.DeclaringType = identifier;
+                    sdToken.Text = xmlElement.ReferencedEntity.Name;
+                }
+                else
+                {
+                    sdToken.Name = xmlElement.GetAttribute("cref");
+                }
+
+                return sdToken;
             }
-            else
+            catch (Exception)
             {
-                sdToken.Name = xmlElement.GetAttribute("cref");
+                return null;
             }
-
-            return sdToken;
         }
     }
 }
