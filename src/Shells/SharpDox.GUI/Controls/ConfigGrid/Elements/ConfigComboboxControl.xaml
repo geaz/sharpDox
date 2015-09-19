@@ -31,7 +31,7 @@
             <Border Background="{StaticResource BackColor_MainWindow}" Grid.ColumnSpan="3"/>
             <Border Background="White" Grid.Column="0"/>
             <TextBlock FontFamily="{StaticResource Font_Italic}" FontSize="13" Margin="7,5,5,5" Text="{Binding WaterMarkText}" Foreground="{Binding WaterMarkColor}" Grid.Column="0"
-                                Visibility="{Binding ElementName=cbItem, Path=SelectedValue.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding ElementName=cbItem, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <ComboBox Style="{StaticResource ComboBox}" ItemsSource="{Binding SourceList}" SelectedValuePath="Item1" DisplayMemberPath="Item2" Background="Black" Grid.Column="0" Grid.ColumnSpan="3"
                       Name="cbItem" IsTextSearchEnabled="True" SelectedValue="{Binding SelectedValue, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
         </Grid>
