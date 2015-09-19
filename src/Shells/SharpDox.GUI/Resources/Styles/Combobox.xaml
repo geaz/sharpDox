@@ -87,7 +87,7 @@
                               Name="Border"
                               Background="White"
                               SnapsToDevicePixels="True"
-                              Padding="5" Margin="0,0,0,0">
+                              Padding="0" Margin="5">
                                 <CheckBox IsChecked="{Binding Path=IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{Binding Name}" Style="{StaticResource CheckBox}"
                                   Tag="{RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}" Command="{Binding Path=SelectionChanged, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" />
                             </Border>
