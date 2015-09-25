@@ -53,7 +53,7 @@ namespace SharpDox.Build.NRefactory.Loader
 
         public CSharpFile GetFile(string fileName)
         {
-            return AllFiles.First(f => f.FileName == fileName);
+            return AllFiles.FirstOrDefault(f => f.FileName == fileName);
         }
 
         private static bool FileIsSolution(string pathToSolutionFile)

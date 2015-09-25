@@ -24,11 +24,14 @@ namespace SharpDox.Build.NRefactory.Parser
                     {
                         HandleOnItemParseStart(sdMethod.Name);
                         var file = _solution.GetFile(sdType.Region.Filename);
-                        var methodAstNode = file.SyntaxTree.GetNodeContaining(
+                        if(file != null) // TODO Check why file can be null sometimes!
+                        {
+                            var methodAstNode = file.SyntaxTree.GetNodeContaining(
                                                 new TextLocation(sdMethod.Region.BeginLine, sdMethod.Region.BeginColumn),
                                                 new TextLocation(sdMethod.Region.EndLine, sdMethod.Region.EndColumn));
 
-                        methodAstNode.AcceptVisitor(new MethodVisitor(_repository, sdMethod, sdType, file));
+                            methodAstNode.AcceptVisitor(new MethodVisitor(_repository, sdMethod, sdType, file));
+                        }                        
                     }
                 }
             }       
