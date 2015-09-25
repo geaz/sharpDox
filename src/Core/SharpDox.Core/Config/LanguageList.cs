@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using SharpDox.Sdk.Config.Lists;
+using System;
 
 namespace SharpDox.Core.Config
 {
@@ -11,6 +12,11 @@ namespace SharpDox.Core.Config
             {
                 Add(language.TwoLetterISOLanguageName, language.DisplayName);
             }
+
+            Sort(delegate (Tuple<object, string> one, Tuple<object, string> two)
+            {
+                return one.Item2.CompareTo(two.Item2);
+            });
         }
     }
 }

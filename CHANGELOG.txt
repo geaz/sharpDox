@@ -1,3 +1,8 @@
+Version 1.0rc2
+
+- GUI bugfixes
+- Method call parser bugfix
+
 Version 1.0rc
 
 - Created two seperate executes (gui and console)

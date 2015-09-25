@@ -26,7 +26,8 @@ namespace SharpDox.GUI.Controls
             DependencyProperty.Register("CustomHeaderText", typeof(string), typeof(ColorSelector), new PropertyMetadata("Custom Color"));
 
         private bool _userSelectsColor = false;
-        
+        private string _previousColor = string.Empty;
+
         public ColorSelector()
         {
             InitializeComponent();
@@ -104,11 +105,16 @@ namespace SharpDox.GUI.Controls
         }
 
         private void SelectedColor_Changed(object sender, EventArgs eventArgs)
-        {
+        {            
             if (SelectedColor != null && CheckValidFormatHtmlColor(SelectedColor))
             {
+                _previousColor = SelectedColor;
                 var colorPreview = (Rectangle)colorSelector.Template.FindName("colorPreview", colorSelector);
                 if (colorPreview != null) colorPreview.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(SelectedColor));
+            }
+            else
+            {
+                SelectedColor = _previousColor;
             }
         }
 
