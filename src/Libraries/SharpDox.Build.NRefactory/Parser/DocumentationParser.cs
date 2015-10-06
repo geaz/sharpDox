@@ -1,4 +1,4 @@
-﻿using ICSharpCode.NRefactory.TypeSystem;
+using ICSharpCode.NRefactory.TypeSystem;
 using ICSharpCode.NRefactory.Xml;
 using SharpDox.Model.Documentation;
 using SharpDox.Model.Documentation.Token;
@@ -31,7 +31,7 @@ namespace SharpDox.Build.NRefactory.Parser
                             {
                                 // TODO
                                 //_sdRepository.AddDocumentationLanguage(child.Name.ToLower());
-                                var languageDoc = ParseDocumentation(child.Children);
+                                var languageDoc = ParseDocumentation(child.Children, true);
                                 docDic.Add(child.Name.ToLower(), languageDoc);
                             }
                         }
@@ -54,7 +54,7 @@ namespace SharpDox.Build.NRefactory.Parser
             return docDic;
         }
 
-        private SDDocumentation ParseDocumentation(IEnumerable<XmlDocumentationElement> docElements)
+        private SDDocumentation ParseDocumentation(IEnumerable<XmlDocumentationElement> docElements, bool multilang = false)
         {
             var sdDocumentation = new SDDocumentation();
 
@@ -65,29 +65,29 @@ namespace SharpDox.Build.NRefactory.Parser
                     case "typeparam":
                         var typeparamKey = child.GetAttribute("name") ?? "typeparam";
                         if (!sdDocumentation.TypeParams.ContainsKey(typeparamKey))
-                            sdDocumentation.TypeParams.Add(typeparamKey, ParseContentTokens(child));
+                            sdDocumentation.TypeParams.Add(typeparamKey, ParseContentTokens(child, multilang));
                         break;
                     case "param":
                         var paramKey = child.GetAttribute("name") ?? "param";
                         if (!sdDocumentation.Params.ContainsKey(paramKey))
-                            sdDocumentation.Params.Add(paramKey, ParseContentTokens(child));
+                            sdDocumentation.Params.Add(paramKey, ParseContentTokens(child, multilang));
                         break;
                     case "exception":
                         var exKey = child.GetAttribute("cref") ?? "exception";
                         if (!sdDocumentation.Exceptions.ContainsKey(exKey))
-                            sdDocumentation.Exceptions.Add(exKey, ParseContentTokens(child));
+                            sdDocumentation.Exceptions.Add(exKey, ParseContentTokens(child, multilang));
                         break;
                     case "summary":
-                        sdDocumentation.Summary = ParseContentTokens(child);
+                        sdDocumentation.Summary = ParseContentTokens(child, multilang);
                         break;
                     case "remarks":
-                        sdDocumentation.Remarks = ParseContentTokens(child);
+                        sdDocumentation.Remarks = ParseContentTokens(child, multilang);
                         break;
                     case "example":
-                        sdDocumentation.Example = ParseContentTokens(child);
+                        sdDocumentation.Example = ParseContentTokens(child, multilang);
                         break;
                     case "returns":
-                        AddResultsSection(sdDocumentation.Returns, child);
+                        AddResultsSection(sdDocumentation.Returns, child, multilang);
                         break;
                     case "seealso":
                         sdDocumentation.SeeAlsos.Add(GetSeeRef(child));
@@ -98,13 +98,13 @@ namespace SharpDox.Build.NRefactory.Parser
             return sdDocumentation;
         }
 
-        private SDTokenList ParseContentTokens(XmlDocumentationElement xmlElement)
+        private SDTokenList ParseContentTokens(XmlDocumentationElement xmlElement, bool multilang)
         {
             var content = new SDTokenList();
 
             foreach (XmlDocumentationElement element in xmlElement.Children)
             {
-                var text = Regex.Replace(element.TextContent, "^[ ]{4}", "", RegexOptions.Multiline);
+                var text = multilang ? Regex.Replace(element.TextContent, "^[ ]{4}", "", RegexOptions.Multiline) : element.TextContent;
 
                 if (element.IsTextNode)
                 {
@@ -142,15 +142,15 @@ namespace SharpDox.Build.NRefactory.Parser
             return content;
         }
 
-        private void AddResultsSection(Dictionary<string, SDTokenList> results, XmlDocumentationElement xmlElement)
+        private void AddResultsSection(Dictionary<string, SDTokenList> results, XmlDocumentationElement xmlElement, bool multilang)
         {
             if (!string.IsNullOrEmpty(xmlElement.GetAttribute("httpCode")))
             {
-                results.Add(xmlElement.GetAttribute("httpCode"), ParseContentTokens(xmlElement));
+                results.Add(xmlElement.GetAttribute("httpCode"), ParseContentTokens(xmlElement, multilang));
             }
             else if(!results.ContainsKey("default"))
             {
-                results.Add("default", ParseContentTokens(xmlElement));
+                results.Add("default", ParseContentTokens(xmlElement, multilang));
             }
         }
 
