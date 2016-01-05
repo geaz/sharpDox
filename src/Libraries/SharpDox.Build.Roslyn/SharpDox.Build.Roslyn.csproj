@@ -1,22 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8E519972-D18F-47E4-8E82-ABC3B3D43311}</ProjectGuid>
+    <ProjectGuid>{9E825E4A-768A-4EEE-BCBD-7FA92DAC0D81}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SharpDox.Core</RootNamespace>
-    <AssemblyName>SharpDox.Core</AssemblyName>
+    <RootNamespace>SharpDox.Build.Roslyn</RootNamespace>
+    <AssemblyName>SharpDox.Build.Roslyn</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,74 +21,43 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ConfigController.cs" />
-    <Compile Include="Config\ConfigSerializer.cs" />
-    <Compile Include="Config\CoreStrings.cs" />
-    <Compile Include="Config\CoreConfigSection.cs" />
-    <Compile Include="Config\LanguageList.cs" />
-    <Compile Include="Local\LocalController.cs" />
-    <Compile Include="Local\LocalCreator.cs" />
-    <Compile Include="Local\LocalLoader.cs" />
-    <Compile Include="Local\LocalStrings.cs" />
-    <Compile Include="Log4NetTraceListener.cs" />
-    <Compile Include="MainContainerConfig.cs" />
+    <Compile Include="ParserStrings.cs" />
+    <Compile Include="RoslynParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\SharpDox.Build.NRefactory\SharpDox.Build.NRefactory.csproj">
-      <Project>{96484ac9-7aaa-4d8c-aea3-157630727e8b}</Project>
-      <Name>SharpDox.Build.NRefactory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\SharpDox.Build\SharpDox.Build.csproj">
-      <Project>{65180da0-d8cf-4a7b-bd1c-dba841883dd4}</Project>
-      <Name>SharpDox.Build</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SharpDox.Model\SharpDox.Model.csproj">
+    <ProjectReference Include="..\..\Core\SharpDox.Model\SharpDox.Model.csproj">
       <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
       <Name>SharpDox.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SharpDox.Sdk\SharpDox.Sdk.csproj">
+    <ProjectReference Include="..\..\Core\SharpDox.Sdk\SharpDox.Sdk.csproj">
       <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
       <Name>SharpDox.Sdk</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\SharpDox.Build\SharpDox.Build.csproj">
+      <Project>{65180da0-d8cf-4a7b-bd1c-dba841883dd4}</Project>
+      <Name>SharpDox.Build</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
