@@ -73,9 +73,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\SharpDox.Build.NRefactory\SharpDox.Build.NRefactory.csproj">
-      <Project>{96484ac9-7aaa-4d8c-aea3-157630727e8b}</Project>
-      <Name>SharpDox.Build.NRefactory</Name>
+    <ProjectReference Include="..\..\Libraries\SharpDox.Build.Roslyn\SharpDox.Build.Roslyn.csproj">
+      <Project>{9e825e4a-768a-4eee-bcbd-7fa92dac0d81}</Project>
+      <Name>SharpDox.Build.Roslyn</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\SharpDox.Build\SharpDox.Build.csproj">
       <Project>{65180da0-d8cf-4a7b-bd1c-dba841883dd4}</Project>

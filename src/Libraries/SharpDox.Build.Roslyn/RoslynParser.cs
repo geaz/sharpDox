@@ -22,12 +22,16 @@ namespace SharpDox.Build.Roslyn
 
         public SDSolution GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens)
         {
-            throw new NotImplementedException();
+            var loader = new RoslynLoader();
+            loader.LoadSolutionFile(solutionFile);
+            return null;
         }
 
         public SDSolution GetStructureParsedSolution(string solutionFile)
         {
-            throw new NotImplementedException();
+            var loader = new RoslynLoader();
+            loader.LoadSolutionFile(solutionFile);
+            return null;
             //http://www.codeproject.com/Articles/861548/Roslyn-Code-Analysis-in-Easy-Samples-Part
             //https://joshvarty.wordpress.com/2014/10/30/learn-roslyn-now-part-7-introducing-the-semantic-model/
         }
