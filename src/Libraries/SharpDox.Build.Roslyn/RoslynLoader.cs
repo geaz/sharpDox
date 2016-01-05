@@ -1,26 +1,24 @@
-﻿using Microsoft.CodeAnalysis.MSBuild;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.MSBuild;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SharpDox.Build.Roslyn
 {
     internal class RoslynLoader
     {
-        public void LoadSolutionFile(string solutionFile)
+        public Solution LoadSolutionFile(string solutionFile)
         {
             var workspace = MSBuildWorkspace.Create();
             if (FileIsSolution(solutionFile))
             {
-                var solution = workspace.OpenSolutionAsync(solutionFile).Result;
+                workspace.OpenSolutionAsync(solutionFile).Wait();
             }
-            else if (FileIsSolution(solutionFile))
+            else if (FileIsProject(solutionFile))
             {
-                var project = workspace.OpenProjectAsync(solutionFile).Result;
-            }            
+                workspace.OpenProjectAsync(solutionFile).Wait();
+            }
+            return workspace.CurrentSolution;      
         }
 
         private static bool FileIsSolution(string pathToSolutionFile)

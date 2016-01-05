@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using SharpDox.Model;
 using SharpDox.Sdk.Config;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.MSBuild;
 
 namespace SharpDox.Build.Roslyn
 {
@@ -23,7 +21,7 @@ namespace SharpDox.Build.Roslyn
         public SDSolution GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens)
         {
             var loader = new RoslynLoader();
-            loader.LoadSolutionFile(solutionFile);
+            var solution = loader.LoadSolutionFile(solutionFile);
             return null;
         }
 
