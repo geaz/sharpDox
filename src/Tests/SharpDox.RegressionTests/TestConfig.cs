@@ -1,7 +1,7 @@
 ﻿using Moq;
 using SharpDox.Build;
 using SharpDox.Build.Context.Step;
-using SharpDox.Build.NRefactory;
+using SharpDox.Build.Roslyn;
 using SharpDox.Model;
 using SharpDox.Sdk.Config;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace SharpDox.RegressionTests
             var configController = Mock.Of<IConfigController>(
                 c=> c.GetConfigSection<ICoreConfigSection>() == coreConfig);
 
-            var stepInput = new StepInput(configController, new NRefactoryParser(Mock.Of<ParserStrings>()), new SDBuildStrings(), null);
+            var stepInput = new StepInput(configController, new RoslynParser(Mock.Of<ParserStrings>()), new SDBuildStrings(), null);
 
             var config = new List<StepBase>();
             var checkConfig = new CheckConfigStep(stepInput, 0, 15);

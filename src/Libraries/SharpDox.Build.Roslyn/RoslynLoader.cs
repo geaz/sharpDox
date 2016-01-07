@@ -1,7 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.MSBuild;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace SharpDox.Build.Roslyn
 {
