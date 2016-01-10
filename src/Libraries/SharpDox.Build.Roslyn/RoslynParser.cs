@@ -15,25 +15,31 @@ namespace SharpDox.Build.Roslyn
 
         private readonly ParserStrings _parserStrings;
         private readonly RoslynLoader _roslynLoader;
+        private readonly SDTargetFxParser _targetFxParser;
 
         public RoslynParser(ParserStrings parserStrings)
         {
             _parserStrings = parserStrings;
             _roslynLoader = new RoslynLoader();
+            _targetFxParser = new SDTargetFxParser();
         }
 
         public SDSolution GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens)
         {
+            var sdSolution = new SDSolution(solutionFile);
             var solution = _roslynLoader.LoadSolutionFile(solutionFile);
             foreach (var project in solution.Projects)
             {
                 ExecuteOnStepMessage(string.Format(_parserStrings.Compiling, project.Name));
                 var projectCompilation = project.GetCompilationAsync().Result;
 
+                var targetFx = _targetFxParser.GetTargetFx(project.FilePath);
+                var sdRepository = sdSolution.GetExistingOrNew(targetFx);
+
                 var nparser = new NamespaceParser(sharpDoxConfig, solutionFile, tokens);
-                var sdRepository = nparser.ParseProjectNamespaces(projectCompilation, new SDRepository());
+                nparser.ParseProjectNamespaces(projectCompilation, sdRepository);
             }
-            return new SDSolution(solutionFile);
+            return sdSolution;
         }
 
         public SDSolution GetStructureParsedSolution(string solutionFile)

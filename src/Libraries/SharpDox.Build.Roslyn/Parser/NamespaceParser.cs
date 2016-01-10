@@ -1,5 +1,4 @@
-﻿using System;
-using SharpDox.Model.Repository;
+﻿using SharpDox.Model.Repository;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -12,27 +11,30 @@ namespace SharpDox.Build.Roslyn.Parser
 {
     internal class NamespaceParser : BaseParser
     {
+        private readonly TypeParser _typeParser;
+
         private readonly List<string> _descriptionFiles;
         private readonly Dictionary<string, string> _tokens;
-
+        
         internal NamespaceParser(ICoreConfigSection sharpDoxConfig, string inputFile, Dictionary<string, string> tokens) : base(sharpDoxConfig)
         {
+            _typeParser = new TypeParser(sharpDoxConfig);
             _descriptionFiles = Directory.EnumerateFiles(Path.GetDirectoryName(inputFile), "*.sdnd", SearchOption.AllDirectories).ToList();
             _tokens = tokens;
         }
 
-        internal SDRepository ParseProjectNamespaces(Compilation projectCompilation, SDRepository repository)
+        internal void ParseProjectNamespaces(Compilation projectCompilation, SDRepository repository)
         {
             var allNamespaceSymbols = GetAllNamespaces(projectCompilation.Assembly.GlobalNamespace.GetNamespaceMembers().ToList());
             for (int i = 0; i < allNamespaceSymbols.Count; i++)
             {
                 HandleOnItemParseStart(allNamespaceSymbols[i].Name);
-                if (!SharpDoxConfig.ExcludedIdentifiers.Contains(allNamespaceSymbols[i].Name))
+                if (!SharpDoxConfig.ExcludedIdentifiers.Contains(allNamespaceSymbols[i].ToDisplayString()))
                 {
                     repository.AddNamespace(GetParsedNamespace(allNamespaceSymbols[i]));
+                    _typeParser.ParseProjectTypes(allNamespaceSymbols[i].GetTypeMembers().ToList(), repository);
                 }
             }
-            return repository;
         }
 
         private List<INamespaceSymbol> GetAllNamespaces(List<INamespaceSymbol> namespaceSymbols)
@@ -48,7 +50,7 @@ namespace SharpDox.Build.Roslyn.Parser
             return allNamespaceSymbols;
         } 
 
-        internal SDNamespace GetParsedNamespace(INamespaceSymbol namespaceSymbol)
+        private SDNamespace GetParsedNamespace(INamespaceSymbol namespaceSymbol)
         {
             var descriptionFiles = _descriptionFiles.Where(d => Path.GetFileName(d).ToLower().Contains(namespaceSymbol.Name.ToLower() + ".sdnd"));
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using SharpDox.Sdk.Config;
+using Microsoft.CodeAnalysis;
 
 namespace SharpDox.Build.Roslyn.Parser
 {
@@ -15,12 +16,12 @@ namespace SharpDox.Build.Roslyn.Parser
             SharpDoxConfig = sharpDoxConfig;
         }
 
-        protected bool IsMemberExcluded(string identifier, string accessibility)
+        protected bool IsMemberExcluded(string identifier, Accessibility accessibility)
         {
             var isExcluded = SharpDoxConfig.ExcludedIdentifiers.Contains(identifier);
-            isExcluded = accessibility.ToLower() == "private" && SharpDoxConfig.ExcludePrivate || isExcluded;
-            isExcluded = accessibility.ToLower() == "protected" && SharpDoxConfig.ExcludeProtected || isExcluded;
-            isExcluded = accessibility.ToLower() == "internal" && SharpDoxConfig.ExcludeInternal || isExcluded;
+            isExcluded = accessibility == Accessibility.Private && SharpDoxConfig.ExcludePrivate || isExcluded;
+            isExcluded = accessibility == Accessibility.Protected && SharpDoxConfig.ExcludeProtected || isExcluded;
+            isExcluded = accessibility == Accessibility.Internal && SharpDoxConfig.ExcludeInternal || isExcluded;
 
             return isExcluded;
         }

@@ -1,82 +1,84 @@
-﻿using ICSharpCode.NRefactory.TypeSystem;
-using SharpDox.Build.NRefactory.Loader;
-using SharpDox.Model.Repository;
+﻿using SharpDox.Model.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using SharpDox.Sdk.Config;
+using Microsoft.CodeAnalysis;
 
-namespace SharpDox.Build.NRefactory.Parser
+namespace SharpDox.Build.Roslyn.Parser
 {
     internal class TypeParser : BaseParser
     {
-        internal TypeParser(SDRepository repository, ICoreConfigSection sharpDoxConfig) : base(repository, sharpDoxConfig) { }
+        private readonly DocumentationParser _documentationParser;
 
-        internal void ParseProjectTypes(CSharpProject project)
+        internal TypeParser(ICoreConfigSection sharpDoxConfig) : base(sharpDoxConfig)
         {
-            var types = project.Compilation.MainAssembly.TopLevelTypeDefinitions.ToList();
-            for (int i = 0; i < types.Count; i++ )
+            _documentationParser = new DocumentationParser();
+        }
+
+        internal void ParseProjectTypes(List<INamedTypeSymbol> typeSymbols, SDRepository sdRepository)
+        {
+            for (int i = 0; i < typeSymbols.Count; i++ )
             {
-                if (types[i].Kind != TypeKind.Delegate)
+                HandleOnItemParseStart(typeSymbols[i].ToDisplayString());
+                if (!IsMemberExcluded(typeSymbols[i].GetIdentifier(), typeSymbols[i].DeclaredAccessibility))
                 {
-                    HandleOnItemParseStart(string.Format("{0}.{1}", types[i].Namespace, types[i].Name));
-                    if (!IsMemberExcluded(types[i].GetIdentifier(), types[i].Accessibility.ToString()))
-                    {
-                        var sdType = GetParsedType(types[i].GetDefinition(), false);
-                        _repository.AddNamespaceTypeRelation(types[i].Namespace, sdType.Identifier);
-                    }
+                    var sdType = GetParsedType(typeSymbols[i], sdRepository, false);
+                    sdRepository.AddNamespaceTypeRelation(typeSymbols[i].ContainingNamespace.ToDisplayString(), sdType.Identifier);
                 }
             }
         }
 
-        internal SDType GetParsedType(IType type, bool isProjectStranger = true)
+        internal SDType GetParsedType(ITypeSymbol typeSymbol, SDRepository sdRepository, bool isProjectStranger = true)
         {
-            var parsedType = _repository.GetTypeByIdentifier(type.GetIdentifier());
+            var parsedType = sdRepository.GetTypeByIdentifier(typeSymbol.GetIdentifier());
             if (parsedType == null)
             {
-                parsedType = type.GetDefinition() != null ? CreateSDType(type, type.GetDefinition(), isProjectStranger) : CreateSDType(type, isProjectStranger);
-                ParseForeignTypeToModel(parsedType, type);
+                parsedType = CreateSDType(typeSymbol, sdRepository, isProjectStranger);
+                //ParseForeignTypeToModel(parsedType, typeSymbol);
             }
 
             if (!isProjectStranger)
             {
-                ParseTypeToModel(parsedType, type);
+                //ParseTypeToModel(parsedType, typeSymbol);
             }
 
             return parsedType;
         }
 
-        private void ParseTypeToModel(SDType sdType, IType type)
+        
+
+       /* private void ParseTypeToModel(SDType sdType, INamedTypeSymbol typeSymbol)
         {
             sdType.IsProjectStranger = false;
-            AddParsedTypeArguments(sdType, type.TypeArguments);
-            AddParsedTypeParameters(sdType, type.GetDefinition().TypeParameters);
-            AddParsedNestedTypes(sdType, type.GetNestedTypes());
-            AddParsedBaseTypes(sdType, type.DirectBaseTypes);
-            AddParsedInterfaces(sdType, type.DirectBaseTypes);            
-            AddParsedProperties(sdType, type);
-            AddParsedFields(sdType, type);
-            AddParsedConstructorsAndMethods(sdType, type);
-            AddParsedEvents(sdType, type);
+            AddParsedTypeArguments(sdType, typeSymbol.TypeArguments);
+            AddParsedTypeParameters(sdType, typeSymbol.GetDefinition().TypeParameters);
+            AddParsedNestedTypes(sdType, typeSymbol.GetNestedTypes());
+            AddParsedBaseTypes(sdType, typeSymbol.DirectBaseTypes);
+            AddParsedInterfaces(sdType, typeSymbol.DirectBaseTypes);            
+            AddParsedProperties(sdType, typeSymbol);
+            AddParsedFields(sdType, typeSymbol);
+            AddParsedConstructorsAndMethods(sdType, typeSymbol);
+            AddParsedEvents(sdType, typeSymbol);
         }
 
-        private void ParseForeignTypeToModel(SDType sdType, IType type)
+        private void ParseForeignTypeToModel(SDType sdType, INamedTypeSymbol typeSymbol)
         {
-            AddParsedArrayTypeElement(sdType, type);
-            AddParsedTypeArguments(sdType, type.TypeArguments);
-            AddParsedBaseTypes(sdType, type.DirectBaseTypes);
-            AddParsedInterfaces(sdType, type.DirectBaseTypes);            
+            AddParsedArrayTypeElement(sdType, typeSymbol);
+            AddParsedTypeArguments(sdType, typeSymbol.TypeArguments);
+            AddParsedBaseTypes(sdType, typeSymbol.DirectBaseTypes);
+            AddParsedInterfaces(sdType, typeSymbol.DirectBaseTypes);            
         }
 
-        private void AddParsedArrayTypeElement(SDType sdType, IType type)
+        private void AddParsedArrayTypeElement(SDType sdType, ITypeSymbol typeSymbol)
         {
-            var arrayType = type as ArrayType;
+            var arrayType = typeSymbol as IArrayTypeSymbol;
             if (arrayType != null)
             {
                 sdType.ArrayElementType = GetParsedType(arrayType.ElementType);
             }
         }
 
-        private void AddParsedNestedTypes(SDType sdType, IEnumerable<IType> nestedTypes)
+        private void AddParsedNestedTypes(SDType sdType, IEnumerable<INamedTypeSymbol> nestedTypes)
         {
             foreach (var nestedType in nestedTypes)
             {
@@ -180,52 +182,34 @@ namespace SharpDox.Build.NRefactory.Parser
         {
             var eventParser = new EventParser(_repository, this, _sharpDoxConfig);
             eventParser.ParseEvents(sdType, type);
-        }
+        }*/
 
-        private SDType CreateSDType(IType type, ITypeDefinition typeDefinition, bool isProjectStranger)
+        private SDType CreateSDType(ITypeSymbol typeSymbol, SDRepository sdRepository, bool isProjectStranger)
         {
-            var nameSpace = _repository.GetNamespaceByIdentifier(typeDefinition.Namespace);
-            var namespaceRef = nameSpace ?? new SDNamespace(typeDefinition.Namespace) { IsProjectStranger = true };
+            var sdNamespace = sdRepository.GetNamespaceByIdentifier(typeSymbol.ContainingNamespace.ToDisplayString());
+            sdNamespace = sdNamespace ?? new SDNamespace(typeSymbol.ContainingNamespace.ToDisplayString()) { IsProjectStranger = true };
 
-            var sdType = new SDType(type.GetIdentifier(), typeDefinition.Name, namespaceRef)
+            var sdType = new SDType(typeSymbol.GetIdentifier(), typeSymbol.Name, sdNamespace)
             {
-                Accessibility = typeDefinition.Accessibility.ToString().ToLower(),
-                IsAbstract = typeDefinition.IsAbstract,
-                IsReferenceType = typeDefinition.IsReferenceType.GetValueOrDefault(),
-                IsSealed = typeDefinition.IsSealed,
-                IsShadowing = typeDefinition.IsShadowing,
-                IsStatic = typeDefinition.IsStatic,
-                IsSynthetic = typeDefinition.IsSynthetic,
+                Accessibility = typeSymbol.DeclaredAccessibility.ToString().ToLower(),
+                IsAbstract = typeSymbol.IsAbstract,
+                IsReferenceType = typeSymbol.IsReferenceType,
+                IsSealed = typeSymbol.IsSealed,
+                IsStatic = typeSymbol.IsStatic,
                 IsProjectStranger = isProjectStranger,
-                Kind = typeDefinition.Kind.ToString().ToLower(),
-                Region = new SDRegion 
+                Kind = typeSymbol.TypeKind.ToString().ToLower(),
+                /*Region = new SDRegion 
                         { 
                             BeginColumn = typeDefinition.Region.BeginColumn,
                             BeginLine = typeDefinition.Region.BeginLine,
                             EndColumn = typeDefinition.Region.EndColumn,
                             EndLine = typeDefinition.Region.EndLine,
                             Filename = typeDefinition.Region.FileName
-                        },
-                Documentations = _documentationParser.ParseDocumentation(typeDefinition)
+                        },*/ // TODO
+                Documentations = _documentationParser.ParseDocumentation(typeSymbol.GetDocumentationCommentXml())
             };
 
-            _repository.AddType(sdType);
-
-            return sdType;
-        }
-
-        private SDType CreateSDType(IType type, bool isProjectStranger)
-        {
-            var nameSpace = _repository.GetNamespaceByIdentifier(type.Namespace);
-            var namespaceRef = nameSpace ?? new SDNamespace(type.Namespace) { IsProjectStranger = true };
-
-            var sdType = new SDType(type.GetIdentifier(), type.Name, namespaceRef)
-            {
-                IsProjectStranger = isProjectStranger,
-                Kind = type.Kind.ToString()
-            };
-
-            _repository.AddType(sdType);
+            sdRepository.AddType(sdType);
 
             return sdType;
         }

@@ -205,18 +205,6 @@ namespace SharpDox.Model.Repository
 
         /// <default>
         ///     <summary>
-        ///     Gets or sets a value indicating whether the type is shadowing or not.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Setzt oder liefert einen Wert der angibt, ob dieser Typ "shadowing" ist oder nicht.
-        ///     </summary>
-        /// </de>
-        public bool IsShadowing { get; set; }
-
-        /// <default>
-        ///     <summary>
         ///     Gets or sets a value indicating whether the type is static or not.
         ///     </summary>
         /// </default>
@@ -226,18 +214,6 @@ namespace SharpDox.Model.Repository
         ///     </summary>
         /// </de>
         public bool IsStatic { get; set; }
-
-        /// <default>
-        ///     <summary>
-        ///     Gets or sets a value indicating whether the type is synthetic or not.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Setzt oder liefert einen Wert der angibt, ob dieser Typ "synthetic" ist oder nicht.
-        ///     </summary>
-        /// </de>
-        public bool IsSynthetic { get; set; }
 
         /// <default>
         ///     <summary>

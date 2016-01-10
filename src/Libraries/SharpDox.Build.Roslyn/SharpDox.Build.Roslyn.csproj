@@ -97,9 +97,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parser\DocumentationParser.cs" />
+    <Compile Include="SymbolExtensions.cs" />
     <Compile Include="ParserStrings.cs" />
     <Compile Include="Parser\BaseParser.cs" />
     <Compile Include="Parser\NamespaceParser.cs" />
+    <Compile Include="Parser\TypeParser.cs" />
     <Compile Include="RoslynParser.cs" />
     <Compile Include="RoslynLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
