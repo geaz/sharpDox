@@ -1,6 +1,7 @@
 ﻿using System;
 using SharpDox.Sdk.Config;
 using Microsoft.CodeAnalysis;
+using SharpDox.Model.Repository;
 
 namespace SharpDox.Build.Roslyn.Parser
 {
@@ -8,12 +9,16 @@ namespace SharpDox.Build.Roslyn.Parser
     {
         internal event Action<string> OnItemParseStart;
         internal event Action<string> OnDocLanguageFound;
-        
-        protected readonly ICoreConfigSection SharpDoxConfig; 
 
-        internal BaseParser(ICoreConfigSection sharpDoxConfig = null)
+        protected readonly SDRepository SDRepository;
+        protected readonly ICoreConfigSection SharpDoxConfig;
+        protected readonly DocumentationParser DocumentationParser;
+
+        internal BaseParser(SDRepository repository, ICoreConfigSection sharpDoxConfig = null)
         {
+            SDRepository = repository;
             SharpDoxConfig = sharpDoxConfig;
+            DocumentationParser = new DocumentationParser();
         }
 
         protected bool IsMemberExcluded(string identifier, Accessibility accessibility)

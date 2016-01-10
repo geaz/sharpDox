@@ -8,33 +8,33 @@ namespace SharpDox.Build.Roslyn.Parser
 {
     internal class TypeParser : BaseParser
     {
-        private readonly DocumentationParser _documentationParser;
+        private readonly EventParser _eventParser;
 
-        internal TypeParser(ICoreConfigSection sharpDoxConfig) : base(sharpDoxConfig)
+        internal TypeParser(SDRepository sdRepository, ICoreConfigSection sharpDoxConfig) : base(sdRepository, sharpDoxConfig)
         {
-            _documentationParser = new DocumentationParser();
+            _eventParser = new EventParser(this, sdRepository, sharpDoxConfig);
         }
 
-        internal void ParseProjectTypes(List<INamedTypeSymbol> typeSymbols, SDRepository sdRepository)
+        internal void ParseProjectTypes(List<INamedTypeSymbol> typeSymbols)
         {
             for (int i = 0; i < typeSymbols.Count; i++ )
             {
                 HandleOnItemParseStart(typeSymbols[i].ToDisplayString());
                 if (!IsMemberExcluded(typeSymbols[i].GetIdentifier(), typeSymbols[i].DeclaredAccessibility))
                 {
-                    var sdType = GetParsedType(typeSymbols[i], sdRepository, false);
-                    sdRepository.AddNamespaceTypeRelation(typeSymbols[i].ContainingNamespace.ToDisplayString(), sdType.Identifier);
+                    var sdType = GetParsedType(typeSymbols[i], false);
+                    SDRepository.AddNamespaceTypeRelation(typeSymbols[i].ContainingNamespace.ToDisplayString(), sdType.Identifier);
                 }
             }
         }
 
-        internal SDType GetParsedType(ITypeSymbol typeSymbol, SDRepository sdRepository, bool isProjectStranger = true)
+        internal SDType GetParsedType(ITypeSymbol typeSymbol, bool isProjectStranger = true)
         {
-            var parsedType = sdRepository.GetTypeByIdentifier(typeSymbol.GetIdentifier());
+            var parsedType = SDRepository.GetTypeByIdentifier(typeSymbol.GetIdentifier());
             if (parsedType == null)
             {
-                parsedType = CreateSDType(typeSymbol, sdRepository, isProjectStranger);
-                //ParseForeignTypeToModel(parsedType, typeSymbol);
+                parsedType = CreateSDType(typeSymbol, isProjectStranger);
+               // ParseForeignTypeToModel(parsedType, typeSymbol);
             }
 
             if (!isProjectStranger)
@@ -47,7 +47,7 @@ namespace SharpDox.Build.Roslyn.Parser
 
         
 
-       /* private void ParseTypeToModel(SDType sdType, INamedTypeSymbol typeSymbol)
+        /*private void ParseTypeToModel(SDType sdType, INamedTypeSymbol typeSymbol)
         {
             sdType.IsProjectStranger = false;
             AddParsedTypeArguments(sdType, typeSymbol.TypeArguments);
@@ -178,15 +178,14 @@ namespace SharpDox.Build.Roslyn.Parser
             methodParser.ParseMethods(sdType, type);
         }
 
-        private void AddParsedEvents(SDType sdType, IType type)
+        private void AddParsedEvents(SDType sdType, INamedTypeSymbol typeSymbol)
         {
-            var eventParser = new EventParser(_repository, this, _sharpDoxConfig);
-            eventParser.ParseEvents(sdType, type);
+            _eventParser.ParseEvents(sdType, typeSymbol);
         }*/
 
-        private SDType CreateSDType(ITypeSymbol typeSymbol, SDRepository sdRepository, bool isProjectStranger)
+        private SDType CreateSDType(ITypeSymbol typeSymbol, bool isProjectStranger)
         {
-            var sdNamespace = sdRepository.GetNamespaceByIdentifier(typeSymbol.ContainingNamespace.ToDisplayString());
+            var sdNamespace = SDRepository.GetNamespaceByIdentifier(typeSymbol.ContainingNamespace.ToDisplayString());
             sdNamespace = sdNamespace ?? new SDNamespace(typeSymbol.ContainingNamespace.ToDisplayString()) { IsProjectStranger = true };
 
             var sdType = new SDType(typeSymbol.GetIdentifier(), typeSymbol.Name, sdNamespace)
@@ -206,10 +205,10 @@ namespace SharpDox.Build.Roslyn.Parser
                             EndLine = typeDefinition.Region.EndLine,
                             Filename = typeDefinition.Region.FileName
                         },*/ // TODO
-                Documentations = _documentationParser.ParseDocumentation(typeSymbol.GetDocumentationCommentXml())
+                Documentations = DocumentationParser.ParseDocumentation(typeSymbol.GetDocumentationCommentXml())
             };
 
-            sdRepository.AddType(sdType);
+            SDRepository.AddType(sdType);
 
             return sdType;
         }

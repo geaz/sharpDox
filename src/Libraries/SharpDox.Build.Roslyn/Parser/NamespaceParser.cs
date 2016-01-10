@@ -16,14 +16,15 @@ namespace SharpDox.Build.Roslyn.Parser
         private readonly List<string> _descriptionFiles;
         private readonly Dictionary<string, string> _tokens;
         
-        internal NamespaceParser(ICoreConfigSection sharpDoxConfig, string inputFile, Dictionary<string, string> tokens) : base(sharpDoxConfig)
+        internal NamespaceParser(SDRepository sdRepository, ICoreConfigSection sharpDoxConfig, string inputFile, Dictionary<string, string> tokens) 
+            : base(sdRepository, sharpDoxConfig)
         {
-            _typeParser = new TypeParser(sharpDoxConfig);
+            _typeParser = new TypeParser(sdRepository, sharpDoxConfig);
             _descriptionFiles = Directory.EnumerateFiles(Path.GetDirectoryName(inputFile), "*.sdnd", SearchOption.AllDirectories).ToList();
             _tokens = tokens;
         }
 
-        internal void ParseProjectNamespaces(Compilation projectCompilation, SDRepository repository)
+        internal void ParseProjectNamespaces(Compilation projectCompilation)
         {
             var allNamespaceSymbols = GetAllNamespaces(projectCompilation.Assembly.GlobalNamespace.GetNamespaceMembers().ToList());
             for (int i = 0; i < allNamespaceSymbols.Count; i++)
@@ -31,8 +32,8 @@ namespace SharpDox.Build.Roslyn.Parser
                 HandleOnItemParseStart(allNamespaceSymbols[i].Name);
                 if (!SharpDoxConfig.ExcludedIdentifiers.Contains(allNamespaceSymbols[i].ToDisplayString()))
                 {
-                    repository.AddNamespace(GetParsedNamespace(allNamespaceSymbols[i]));
-                    _typeParser.ParseProjectTypes(allNamespaceSymbols[i].GetTypeMembers().ToList(), repository);
+                    SDRepository.AddNamespace(GetParsedNamespace(allNamespaceSymbols[i]));
+                    _typeParser.ParseProjectTypes(allNamespaceSymbols[i].GetTypeMembers().ToList());
                 }
             }
         }

@@ -2,7 +2,6 @@ using SharpDox.Model.Documentation;
 using SharpDox.Model.Documentation.Token;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -88,38 +87,47 @@ namespace SharpDox.Build.Roslyn.Parser
         {
             var content = new SDTokenList();
 
-            foreach (var element in xmlElement.Descendants())
+            foreach (var element in xmlElement.Nodes())
             {
-                var text = multilang ? Regex.Replace(element.Value, "^[ ]{4}", "", RegexOptions.Multiline) : element.Value;
-
-                switch (element.Name.LocalName.ToLower())
+                var textElement = element as XText;
+                if(textElement != null)
                 {
-                    case "see":
-                        var seeRef = GetSeeRef(element);
-                        if (seeRef != null)
-                        {
-                            content.Add(seeRef);
-                        }
-                        break;
-                    case "typeparamref":
-                        content.Add(new SDToken { Role = SDTokenRole.TypeParamRef, Text = element.Attribute("name")?.Value });
-                        break;
-                    case "paramref":
-                        content.Add(new SDToken { Role = SDTokenRole.ParamRef, Text = element.Attribute("name")?.Value });
-                        break;
-                    case "code":
-                        content.Add(new SDCodeToken { Text = text, IsInline = false });
-                        break;
-                    case "c":
-                        content.Add(new SDCodeToken { Text = text, IsInline = true });
-                        break;
-                    case "para":
-                        content.Add(new SDToken { Text = text, Role = SDTokenRole.Paragraph });
-                        break;
-                    default:
-                        content.Add(new SDToken { Role = SDTokenRole.Text, Text = text });
-                        break;
+                    content.Add(new SDToken
+                    {
+                        Role = SDTokenRole.Text,
+                        Text = multilang ? Regex.Replace(element.ToString(), "^[ ]{4}", "", RegexOptions.Multiline) : element.ToString()
+                    });
                 }
+
+                var nodeElement = element as XElement;
+                if(nodeElement != null)
+                {
+                    switch (nodeElement.Name.LocalName.ToLower())
+                    {
+                        case "see":
+                            var seeRef = GetSeeRef(nodeElement);
+                            if (seeRef != null)
+                            {
+                                content.Add(seeRef);
+                            }
+                            break;
+                        case "typeparamref":
+                            content.Add(new SDToken { Role = SDTokenRole.TypeParamRef, Text = nodeElement.Attribute("name")?.Value });
+                            break;
+                        case "paramref":
+                            content.Add(new SDToken { Role = SDTokenRole.ParamRef, Text = nodeElement.Attribute("name")?.Value });
+                            break;
+                        case "code":
+                            content.Add(new SDCodeToken { Text = nodeElement.Value, IsInline = false });
+                            break;
+                        case "c":
+                            content.Add(new SDCodeToken { Text = nodeElement.Value, IsInline = true });
+                            break;
+                        case "para":
+                            content.Add(new SDToken { Text = nodeElement.Value, Role = SDTokenRole.Paragraph });
+                            break;
+                    }
+                }                
             }
             return content;
         }

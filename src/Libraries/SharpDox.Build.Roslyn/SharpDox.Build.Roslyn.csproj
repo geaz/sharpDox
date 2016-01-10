@@ -98,6 +98,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Parser\DocumentationParser.cs" />
+    <Compile Include="Parser\EventParser.cs" />
+    <Compile Include="Parser\FieldParser.cs" />
+    <Compile Include="Parser\MethodParser.cs" />
+    <Compile Include="Parser\PropertyParser.cs" />
     <Compile Include="SymbolExtensions.cs" />
     <Compile Include="ParserStrings.cs" />
     <Compile Include="Parser\BaseParser.cs" />

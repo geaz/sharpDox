@@ -9,7 +9,7 @@ namespace SharpDox.Model
 {
     /// <default>
     ///     <summary>
-    ///     Represents a sharpDox project.
+    ///     Represents a sharpDox project. <c>Test</c>
     ///     </summary>
     /// </default>
     /// <de>

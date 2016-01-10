@@ -103,18 +103,6 @@ namespace SharpDox.Model.Repository.Members
 
         /// <default>
         ///     <summary>
-        ///     Gets or sets a value indicating whether the method is shadowing or not.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Setzt oder liefert einen Wert der angibt, ob diese Methode "shadowing" ist oder nicht.
-        ///     </summary>
-        /// </de>
-        public bool IsShadowing { get; set; }
-
-        /// <default>
-        ///     <summary>
         ///     Gets or sets a value indicating whether the method override another one.
         ///     </summary>
         /// </default>

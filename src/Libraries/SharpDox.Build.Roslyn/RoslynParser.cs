@@ -36,8 +36,8 @@ namespace SharpDox.Build.Roslyn
                 var targetFx = _targetFxParser.GetTargetFx(project.FilePath);
                 var sdRepository = sdSolution.GetExistingOrNew(targetFx);
 
-                var nparser = new NamespaceParser(sharpDoxConfig, solutionFile, tokens);
-                nparser.ParseProjectNamespaces(projectCompilation, sdRepository);
+                var nparser = new NamespaceParser(sdRepository, sharpDoxConfig, solutionFile, tokens);
+                nparser.ParseProjectNamespaces(projectCompilation);
             }
             return sdSolution;
         }
