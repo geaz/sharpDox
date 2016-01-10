@@ -80,10 +80,6 @@
       <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
       <Name>SharpDox.Sdk</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\SharpDox.Build.NRefactory\SharpDox.Build.NRefactory.csproj">
-      <Project>{96484ac9-7aaa-4d8c-aea3-157630727e8b}</Project>
-      <Name>SharpDox.Build.NRefactory</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\SharpDox.Build.Roslyn\SharpDox.Build.Roslyn.csproj">
       <Project>{9e825e4a-768a-4eee-bcbd-7fa92dac0d81}</Project>
       <Name>SharpDox.Build.Roslyn</Name>
