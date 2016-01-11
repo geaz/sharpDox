@@ -42,7 +42,7 @@ namespace SharpDox.Build.Roslyn
                 parserOptions.SharpDoxConfig = sharpDoxConfig;
 
                 var nparser = new NamespaceParser(parserOptions, solutionFile, tokens);
-                nparser.ParseProjectNamespaces(projectCompilation);
+                nparser.ParseProjectNamespacesRecursively(projectCompilation.Assembly.GlobalNamespace);
             }
 
             foreach (var project in solution.Projects)

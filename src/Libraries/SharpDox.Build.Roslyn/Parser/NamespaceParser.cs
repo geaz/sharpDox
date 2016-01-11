@@ -22,32 +22,20 @@ namespace SharpDox.Build.Roslyn.Parser
             _tokens = tokens;
         }
 
-        internal void ParseProjectNamespaces(Compilation projectCompilation)
+        internal void ParseProjectNamespacesRecursively(INamespaceSymbol namespaceSymbol)
         {
-            var allNamespaceSymbols = GetAllNamespaces(projectCompilation.Assembly.GlobalNamespace.GetNamespaceMembers().ToList());
-            for (int i = 0; i < allNamespaceSymbols.Count; i++)
+            HandleOnItemParseStart(namespaceSymbol.Name);
+            if (!ParserOptions.SharpDoxConfig.ExcludedIdentifiers.Contains(namespaceSymbol.ToDisplayString()))
             {
-                HandleOnItemParseStart(allNamespaceSymbols[i].Name);
-                if (!ParserOptions.SharpDoxConfig.ExcludedIdentifiers.Contains(allNamespaceSymbols[i].ToDisplayString()))
-                {
-                    ParserOptions.SDRepository.AddNamespace(GetParsedNamespace(allNamespaceSymbols[i]));
-                    _typeParser.ParseProjectTypes(allNamespaceSymbols[i].GetTypeMembers().ToList());
-                }
+                ParserOptions.SDRepository.AddNamespace(GetParsedNamespace(namespaceSymbol));
+                _typeParser.ParseProjectTypes(namespaceSymbol.GetTypeMembers().ToList());
+            }
+
+            foreach(var childNamespaceSymbol in namespaceSymbol.GetNamespaceMembers())
+            {
+                ParseProjectNamespacesRecursively(childNamespaceSymbol);
             }
         }
-
-        private List<INamespaceSymbol> GetAllNamespaces(List<INamespaceSymbol> namespaceSymbols)
-        {
-            var allNamespaceSymbols = new List<INamespaceSymbol>();
-
-            foreach (var namespaceSymbol in namespaceSymbols)
-            {
-                allNamespaceSymbols.Add(namespaceSymbol);
-                allNamespaceSymbols.AddRange(GetAllNamespaces(namespaceSymbol.GetNamespaceMembers().ToList()));
-            }
-
-            return allNamespaceSymbols;
-        } 
 
         private SDNamespace GetParsedNamespace(INamespaceSymbol namespaceSymbol)
         {
