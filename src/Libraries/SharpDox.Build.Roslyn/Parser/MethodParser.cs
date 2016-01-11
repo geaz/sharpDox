@@ -3,7 +3,6 @@ using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
 using System.Collections.Generic;
 using System.Linq;
-using SharpDox.Sdk.Config;
 using Microsoft.CodeAnalysis;
 
 namespace SharpDox.Build.Roslyn.Parser
@@ -12,7 +11,7 @@ namespace SharpDox.Build.Roslyn.Parser
     {
         private readonly TypeParser _typeParser;
 
-        internal MethodParser(SDRepository sdRepository, TypeParser typeParser, ICoreConfigSection sharpDoxConfig) : base(sdRepository, sharpDoxConfig)
+        internal MethodParser(TypeParser typeParser, ParserOptions parserOptions) : base(parserOptions)
         {
             _typeParser = typeParser;
         }
@@ -27,7 +26,7 @@ namespace SharpDox.Build.Roslyn.Parser
         internal void ParseMethods(SDType sdType, INamedTypeSymbol typeSymbol)
         {
             var methods = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Method).Select(f => f as IMethodSymbol);
-            methods = methods.Where(o => !o.ContainingType.ToDisplayString().StartsWith("System.Object"));
+            methods = methods.Where(o => !o.ContainingType.ToDisplayString().StartsWith("System.Object") && o.MethodKind != MethodKind.Constructor);
             ParseMethodList(sdType.Methods, methods, false);
         }
 
@@ -46,14 +45,14 @@ namespace SharpDox.Build.Roslyn.Parser
 
         private SDMethod GetParsedMethod(IMethodSymbol method, bool isCtor)
         {
-            var sdMethod = SDRepository.GetMethodByIdentifier(method.GetIdentifier());
+            var sdMethod = ParserOptions.SDRepository.GetMethodByIdentifier(method.GetIdentifier());
             if (sdMethod != null)
             {
                 return sdMethod;
             }
 
             var returnType = _typeParser.GetParsedType(method.ReturnType);
-
+            var syntaxReference = method.DeclaringSyntaxReferences.Any() ? method.DeclaringSyntaxReferences.Single() : null;
             sdMethod = new SDMethod(method.GetIdentifier(), isCtor ? method.ContainingType.Name : method.Name)
             {
                 Namespace = method.ContainingNamespace.ToDisplayString(),
@@ -69,15 +68,13 @@ namespace SharpDox.Build.Roslyn.Parser
                 IsSealed = method.IsSealed,
                 IsVirtual = method.IsVirtual,
                 IsStatic = method.IsStatic,
-                Documentations = DocumentationParser.ParseDocumentation(method.GetDocumentationCommentXml()),
-                Region = new SDRegion
+                Documentations = DocumentationParser.ParseDocumentation(method),
+                Region = syntaxReference != null ? new SDRegion
                 {
-                  /*  BeginColumn = method.Region.BeginColumn,
-                    BeginLine = method.Region.BeginLine,
-                    EndColumn = method.Region.EndColumn,
-                    EndLine = method.Region.EndLine,
-                    Filename = method.Region.FileName*/ //TODO
-                }
+                    Start = syntaxReference.Span.Start,
+                    End = syntaxReference.Span.End,
+                    Filename = syntaxReference.SyntaxTree.FilePath
+                } : null
             };
 
             foreach (var typeParameter in method.TypeParameters)
@@ -93,13 +90,13 @@ namespace SharpDox.Build.Roslyn.Parser
                     ParamType = _typeParser.GetParsedType(parameter.Type),
                     IsOptional = parameter.IsOptional,
                     IsConst = parameter.HasExplicitDefaultValue,
-                    ConstantValue = parameter.ExplicitDefaultValue.ToString(),
+                    ConstantValue = parameter.HasExplicitDefaultValue ? parameter.ExplicitDefaultValue?.ToString() ?? "null" : null,
                     IsRef = parameter.RefKind == RefKind.Ref,
                     IsOut = parameter.RefKind == RefKind.Out
                 });
             }
 
-            SDRepository.AddMethod(sdMethod);
+            ParserOptions.SDRepository.AddMethod(sdMethod);
             return sdMethod;
         }
 

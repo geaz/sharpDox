@@ -7,18 +7,26 @@ namespace SharpDox.Build.Roslyn
     {
         public static string GetIdentifier(this ITypeSymbol typeSymbol)
         {
-            var namespaceFullname = typeSymbol.ContainingNamespace.ToDisplayString();
-            var name = typeSymbol.Name;
+            var identifier = string.Empty;
 
-            var typeParams = string.Empty;
             var namedTypeSymbol = typeSymbol as INamedTypeSymbol;
             if (namedTypeSymbol != null)
             {
-                typeParams = string.Join(", ", namedTypeSymbol.TypeArguments.Select(t => t.ToDisplayString()));
+                var namespaceFullname = typeSymbol.ContainingNamespace.ToDisplayString();
+                var name = typeSymbol.Name;
+                var typeParams = string.Join(", ", namedTypeSymbol.TypeArguments.Select(t => t.ToDisplayString()));
                 typeParams = typeParams != string.Empty ? "<" + typeParams + ">" : typeParams;
+
+                identifier = $"{namespaceFullname}.{name}{typeParams}";
             }
 
-            return string.Format("{0}.{1}{2}", namespaceFullname, name, typeParams);
+            var arrayTypeSymbol = typeSymbol as IArrayTypeSymbol;
+            if (arrayTypeSymbol != null)
+            {
+                identifier = $"{arrayTypeSymbol.ElementType.GetIdentifier()}[]";
+            }
+
+            return identifier;
         }
 
         public static string GetIdentifier(this IMethodSymbol method)

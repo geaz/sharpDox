@@ -42,6 +42,7 @@ namespace SharpDox.Model.Repository
             Events = new SortedList<SDEvent>();
             Properties = new SortedList<SDProperty>();
             NestedTypes = new SortedList<SDType>();
+            Regions = new List<SDRegion>();
         }
 
         private string GetInheritText(bool linked)
@@ -145,15 +146,17 @@ namespace SharpDox.Model.Repository
 
         /// <default>
         ///     <summary>
-        ///     Gets or sets the region in which the type is defined.
+        ///     Gets or sets the regions in which the type is defined.
+        ///     Multiple possible! For example for partial types.
         ///     </summary>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Setzt oder liefert die Region in der der Typ definiert ist.
+        ///     Setzt oder liefert die Regions in der der Typ definiert ist.
+        ///     Mehrere möglich! Z.B. bei 'partial' Typen.
         ///     </summary>     
         /// </de>
-        public SDRegion Region { get; set; }
+        public List<SDRegion> Regions { get; set; }
 
         /// <default>
         ///     <summary>

@@ -100,7 +100,10 @@
     <Compile Include="Parser\DocumentationParser.cs" />
     <Compile Include="Parser\EventParser.cs" />
     <Compile Include="Parser\FieldParser.cs" />
+    <Compile Include="Parser\MethodCallParser.cs" />
     <Compile Include="Parser\MethodParser.cs" />
+    <Compile Include="Parser\CSharpMethodVisitor.cs" />
+    <Compile Include="Parser\ParserOptions.cs" />
     <Compile Include="Parser\PropertyParser.cs" />
     <Compile Include="SymbolExtensions.cs" />
     <Compile Include="ParserStrings.cs" />
@@ -135,7 +138,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)*.*" "$(SolutionDir)Shells\SharpDox.GUI\bin\$(ConfigurationName)"  /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)*.*" "$(SolutionDir)Shells\SharpDox.GUI\bin\$(ConfigurationName)"  /Y
+xcopy "$(TargetDir)*.*" "$(SolutionDir)Tests\SharpDox.RegressionTests\bin\$(ConfigurationName)"  /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

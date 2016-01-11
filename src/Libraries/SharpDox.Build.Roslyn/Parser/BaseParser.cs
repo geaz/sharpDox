@@ -1,7 +1,5 @@
 ﻿using System;
-using SharpDox.Sdk.Config;
 using Microsoft.CodeAnalysis;
-using SharpDox.Model.Repository;
 
 namespace SharpDox.Build.Roslyn.Parser
 {
@@ -10,23 +8,21 @@ namespace SharpDox.Build.Roslyn.Parser
         internal event Action<string> OnItemParseStart;
         internal event Action<string> OnDocLanguageFound;
 
-        protected readonly SDRepository SDRepository;
-        protected readonly ICoreConfigSection SharpDoxConfig;
+        protected readonly ParserOptions ParserOptions;
         protected readonly DocumentationParser DocumentationParser;
 
-        internal BaseParser(SDRepository repository, ICoreConfigSection sharpDoxConfig = null)
+        internal BaseParser(ParserOptions parserOptions)
         {
-            SDRepository = repository;
-            SharpDoxConfig = sharpDoxConfig;
+            ParserOptions = parserOptions;
             DocumentationParser = new DocumentationParser();
         }
 
         protected bool IsMemberExcluded(string identifier, Accessibility accessibility)
         {
-            var isExcluded = SharpDoxConfig.ExcludedIdentifiers.Contains(identifier);
-            isExcluded = accessibility == Accessibility.Private && SharpDoxConfig.ExcludePrivate || isExcluded;
-            isExcluded = accessibility == Accessibility.Protected && SharpDoxConfig.ExcludeProtected || isExcluded;
-            isExcluded = accessibility == Accessibility.Internal && SharpDoxConfig.ExcludeInternal || isExcluded;
+            var isExcluded = ParserOptions.SharpDoxConfig.ExcludedIdentifiers.Contains(identifier);
+            isExcluded = accessibility == Accessibility.Private && ParserOptions.SharpDoxConfig.ExcludePrivate || isExcluded;
+            isExcluded = accessibility == Accessibility.Protected && ParserOptions.SharpDoxConfig.ExcludeProtected || isExcluded;
+            isExcluded = accessibility == Accessibility.Internal && ParserOptions.SharpDoxConfig.ExcludeInternal || isExcluded;
 
             return isExcluded;
         }

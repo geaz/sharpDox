@@ -9,10 +9,16 @@ namespace SharpDox.Build.Roslyn.Parser
     internal class TypeParser : BaseParser
     {
         private readonly EventParser _eventParser;
+        private readonly FieldParser _fieldParser;
+        private readonly MethodParser _methodParser;
+        private readonly PropertyParser _propertyParser;
 
-        internal TypeParser(SDRepository sdRepository, ICoreConfigSection sharpDoxConfig) : base(sdRepository, sharpDoxConfig)
+        internal TypeParser(ParserOptions parserOptions) : base(parserOptions)
         {
-            _eventParser = new EventParser(this, sdRepository, sharpDoxConfig);
+            _eventParser = new EventParser(this, parserOptions);
+            _fieldParser = new FieldParser(this, parserOptions);
+            _methodParser = new MethodParser(this, parserOptions);
+            _propertyParser = new PropertyParser(this, parserOptions);
         }
 
         internal void ParseProjectTypes(List<INamedTypeSymbol> typeSymbols)
@@ -23,23 +29,23 @@ namespace SharpDox.Build.Roslyn.Parser
                 if (!IsMemberExcluded(typeSymbols[i].GetIdentifier(), typeSymbols[i].DeclaredAccessibility))
                 {
                     var sdType = GetParsedType(typeSymbols[i], false);
-                    SDRepository.AddNamespaceTypeRelation(typeSymbols[i].ContainingNamespace.ToDisplayString(), sdType.Identifier);
+                    ParserOptions.SDRepository.AddNamespaceTypeRelation(typeSymbols[i].ContainingNamespace.ToDisplayString(), sdType.Identifier);
                 }
             }
         }
 
         internal SDType GetParsedType(ITypeSymbol typeSymbol, bool isProjectStranger = true)
         {
-            var parsedType = SDRepository.GetTypeByIdentifier(typeSymbol.GetIdentifier());
+            var parsedType = ParserOptions.SDRepository.GetTypeByIdentifier(typeSymbol.GetIdentifier());
             if (parsedType == null)
             {
                 parsedType = CreateSDType(typeSymbol, isProjectStranger);
-               // ParseForeignTypeToModel(parsedType, typeSymbol);
+                ParseForeignTypeToModel(parsedType, typeSymbol);
             }
 
             if (!isProjectStranger)
             {
-                //ParseTypeToModel(parsedType, typeSymbol);
+                ParseTypeToModel(parsedType, typeSymbol);
             }
 
             return parsedType;
@@ -47,26 +53,38 @@ namespace SharpDox.Build.Roslyn.Parser
 
         
 
-        /*private void ParseTypeToModel(SDType sdType, INamedTypeSymbol typeSymbol)
+        private void ParseTypeToModel(SDType sdType, ITypeSymbol typeSymbol)
         {
-            sdType.IsProjectStranger = false;
-            AddParsedTypeArguments(sdType, typeSymbol.TypeArguments);
-            AddParsedTypeParameters(sdType, typeSymbol.GetDefinition().TypeParameters);
-            AddParsedNestedTypes(sdType, typeSymbol.GetNestedTypes());
-            AddParsedBaseTypes(sdType, typeSymbol.DirectBaseTypes);
-            AddParsedInterfaces(sdType, typeSymbol.DirectBaseTypes);            
-            AddParsedProperties(sdType, typeSymbol);
-            AddParsedFields(sdType, typeSymbol);
-            AddParsedConstructorsAndMethods(sdType, typeSymbol);
-            AddParsedEvents(sdType, typeSymbol);
+            var type = typeSymbol as INamedTypeSymbol;
+            if (type != null)
+            {
+                sdType.IsProjectStranger = false;
+                AddParsedNestedTypes(sdType, type.GetTypeMembers());
+                AddParsedTypeArguments(sdType, type.TypeArguments);
+                AddParsedTypeParameters(sdType, type.TypeParameters);
+                AddParsedProperties(sdType, type);
+                AddParsedFields(sdType, type);
+                AddParsedConstructorsAndMethods(sdType, type);
+                AddParsedEvents(sdType, type);
+            }
         }
 
-        private void ParseForeignTypeToModel(SDType sdType, INamedTypeSymbol typeSymbol)
+        private void ParseForeignTypeToModel(SDType sdType, ITypeSymbol typeSymbol)
         {
-            AddParsedArrayTypeElement(sdType, typeSymbol);
-            AddParsedTypeArguments(sdType, typeSymbol.TypeArguments);
-            AddParsedBaseTypes(sdType, typeSymbol.DirectBaseTypes);
-            AddParsedInterfaces(sdType, typeSymbol.DirectBaseTypes);            
+            var arrayType = typeSymbol as IArrayTypeSymbol;
+            if (arrayType != null)
+            {
+                AddParsedArrayTypeElement(sdType, typeSymbol);
+            }
+
+            var type = typeSymbol as INamedTypeSymbol;
+            if (type != null)
+            {
+                AddParsedTypeArguments(sdType, type.TypeArguments);
+            }
+
+            AddParsedBaseType(sdType, typeSymbol.BaseType);
+            AddParsedInterfaces(sdType, typeSymbol.Interfaces);            
         }
 
         private void AddParsedArrayTypeElement(SDType sdType, ITypeSymbol typeSymbol)
@@ -78,11 +96,23 @@ namespace SharpDox.Build.Roslyn.Parser
             }
         }
 
+        private void AddParsedBaseType(SDType sdType, INamedTypeSymbol baseType)
+        {
+            if (baseType != null && baseType.TypeKind != TypeKind.Interface)
+            {
+                var type = GetParsedType(baseType);
+                if (sdType.BaseTypes.SingleOrDefault((i => i.Identifier == type.Identifier)) == null && type.Fullname != "System.Object")
+                {
+                    sdType.BaseTypes.Add(type);
+                }
+            }
+        }
+
         private void AddParsedNestedTypes(SDType sdType, IEnumerable<INamedTypeSymbol> nestedTypes)
         {
             foreach (var nestedType in nestedTypes)
             {
-                if (nestedType.Kind != TypeKind.Interface)
+                if (nestedType.TypeKind != TypeKind.Interface)
                 {
                     var type = GetParsedType(nestedType);
                     if (sdType.NestedTypes.SingleOrDefault((i => i.Identifier == type.Identifier)) == null && type.Fullname != "System.Object")
@@ -93,26 +123,11 @@ namespace SharpDox.Build.Roslyn.Parser
             }
         }
 
-        private void AddParsedBaseTypes(SDType sdType, IEnumerable<IType> directBaseTypes)
-        {
-            foreach (var baseType in directBaseTypes)
-            {
-                if (baseType.Kind != TypeKind.Interface)
-                {
-                    var type = GetParsedType(baseType);
-                    if (sdType.BaseTypes.SingleOrDefault((i => i.Identifier == type.Identifier)) == null && type.Fullname != "System.Object")
-                    {
-                        sdType.BaseTypes.Add(type);
-                    }
-                }
-            }
-        }
-
-        private void AddParsedInterfaces(SDType sdType, IEnumerable<IType> implementedInterfaces)
+        private void AddParsedInterfaces(SDType sdType, IEnumerable<INamedTypeSymbol> implementedInterfaces)
         {
             foreach (var implementedInterface in implementedInterfaces)
             {
-                if (implementedInterface.Kind == TypeKind.Interface)
+                if (implementedInterface.TypeKind == TypeKind.Interface)
                 {
                     var type = GetParsedType(implementedInterface);
                     if (sdType.ImplementedInterfaces.SingleOrDefault((i => i.Identifier == type.Identifier)) == null && type.Fullname != "System.Object")
@@ -123,7 +138,7 @@ namespace SharpDox.Build.Roslyn.Parser
             }
         }
 
-        private void AddParsedTypeArguments(SDType sdType, IEnumerable<IType> typeArguments)
+        private void AddParsedTypeArguments(SDType sdType, IEnumerable<ITypeSymbol> typeArguments)
         {
             foreach (var typeArgument in typeArguments)
             {
@@ -135,19 +150,19 @@ namespace SharpDox.Build.Roslyn.Parser
             }
         }
 
-        private void AddParsedTypeParameters(SDType sdType, IEnumerable<ITypeParameter> typeParameters)
+        private void AddParsedTypeParameters(SDType sdType, IEnumerable<ITypeParameterSymbol> typeParameters)
         {
             foreach (var typeParameter in typeParameters)
             {
                 var sdTypeParameter = new SDTypeParameter
                 {
                     Name = typeParameter.Name,
-                    HasDefaultConstructorConstraint = typeParameter.HasDefaultConstructorConstraint,
+                    HasDefaultConstructorConstraint = typeParameter.HasConstructorConstraint,
                     HasReferenceTypeConstraint = typeParameter.HasReferenceTypeConstraint,
                     HasValueTypeConstraint = typeParameter.HasValueTypeConstraint,
-                    BaseClass = GetParsedType(typeParameter.EffectiveBaseClass)
+                    BaseClass = GetParsedType(typeParameter.BaseType)
                 };
-                foreach (var interfaceConstraint in typeParameter.EffectiveInterfaceSet)
+                foreach (var interfaceConstraint in typeParameter.Interfaces)
                 {
                     sdTypeParameter.Interfaces.Add(GetParsedType(interfaceConstraint));
                 }
@@ -159,34 +174,41 @@ namespace SharpDox.Build.Roslyn.Parser
             }
         }
 
-        private void AddParsedProperties(SDType sdType, IType type)
+        private void AddParsedProperties(SDType sdType, INamedTypeSymbol typeSymbol)
         {
-            var propertyParser = new PropertyParser(_repository, this, _sharpDoxConfig);
-            propertyParser.ParseProperties(sdType, type);
+            _propertyParser.ParseProperties(sdType, typeSymbol);
         }
 
-        private void AddParsedFields(SDType sdType, IType type)
+        private void AddParsedFields(SDType sdType, INamedTypeSymbol typeSymbol)
         {
-            var fieldParser = new FieldParser(_repository, this, _sharpDoxConfig);
-            fieldParser.ParseFields(sdType, type);
+            _fieldParser.ParseFields(sdType, typeSymbol);
         }
 
-        private void AddParsedConstructorsAndMethods(SDType sdType, IType type)
+        private void AddParsedConstructorsAndMethods(SDType sdType, INamedTypeSymbol typeSymbol)
         {
-            var methodParser = new MethodParser(_repository, this, _sharpDoxConfig);
-            methodParser.ParseConstructors(sdType, type);
-            methodParser.ParseMethods(sdType, type);
+            _methodParser.ParseConstructors(sdType, typeSymbol);
+            _methodParser.ParseMethods(sdType, typeSymbol);
         }
 
         private void AddParsedEvents(SDType sdType, INamedTypeSymbol typeSymbol)
         {
             _eventParser.ParseEvents(sdType, typeSymbol);
-        }*/
+        }
 
         private SDType CreateSDType(ITypeSymbol typeSymbol, bool isProjectStranger)
         {
-            var sdNamespace = SDRepository.GetNamespaceByIdentifier(typeSymbol.ContainingNamespace.ToDisplayString());
-            sdNamespace = sdNamespace ?? new SDNamespace(typeSymbol.ContainingNamespace.ToDisplayString()) { IsProjectStranger = true };
+            SDNamespace sdNamespace = null;
+
+            if (typeSymbol is IArrayTypeSymbol)
+            {
+                sdNamespace = ParserOptions.SDRepository.GetNamespaceByIdentifier(((IArrayTypeSymbol)typeSymbol).ElementType.ContainingNamespace.ToDisplayString());
+                sdNamespace = sdNamespace ?? new SDNamespace(((IArrayTypeSymbol)typeSymbol).ElementType.ContainingNamespace.ToDisplayString()) { IsProjectStranger = true };
+            }
+            else if (typeSymbol is INamedTypeSymbol)
+            {
+                sdNamespace = ParserOptions.SDRepository.GetNamespaceByIdentifier(typeSymbol.ContainingNamespace.ToDisplayString());
+                sdNamespace = sdNamespace ?? new SDNamespace(typeSymbol.ContainingNamespace.ToDisplayString()) { IsProjectStranger = true };
+            }
 
             var sdType = new SDType(typeSymbol.GetIdentifier(), typeSymbol.Name, sdNamespace)
             {
@@ -197,18 +219,22 @@ namespace SharpDox.Build.Roslyn.Parser
                 IsStatic = typeSymbol.IsStatic,
                 IsProjectStranger = isProjectStranger,
                 Kind = typeSymbol.TypeKind.ToString().ToLower(),
-                /*Region = new SDRegion 
-                        { 
-                            BeginColumn = typeDefinition.Region.BeginColumn,
-                            BeginLine = typeDefinition.Region.BeginLine,
-                            EndColumn = typeDefinition.Region.EndColumn,
-                            EndLine = typeDefinition.Region.EndLine,
-                            Filename = typeDefinition.Region.FileName
-                        },*/ // TODO
-                Documentations = DocumentationParser.ParseDocumentation(typeSymbol.GetDocumentationCommentXml())
+                Documentations = !isProjectStranger ? DocumentationParser.ParseDocumentation(typeSymbol) : null
             };
 
-            SDRepository.AddType(sdType);
+            var declaringReferences = !isProjectStranger ? typeSymbol.DeclaringSyntaxReferences.ToList() : new List<SyntaxReference>();
+            foreach (var reference in declaringReferences)
+            {
+                var region = new SDRegion
+                {
+                    Start = reference.Span.Start,
+                    End = reference.Span.End,
+                    Filename = reference.SyntaxTree.FilePath
+                };
+                sdType.Regions.Add(region);
+            }
+
+            ParserOptions.SDRepository.AddType(sdType);
 
             return sdType;
         }

@@ -1,7 +1,6 @@
 ﻿using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
 using System.Linq;
-using SharpDox.Sdk.Config;
 using Microsoft.CodeAnalysis;
 
 namespace SharpDox.Build.Roslyn.Parser
@@ -10,7 +9,7 @@ namespace SharpDox.Build.Roslyn.Parser
     {
         private readonly TypeParser _typeParser;
 
-        internal FieldParser(TypeParser typeParser, SDRepository sdRepository, ICoreConfigSection sharpDoxConfig) : base(sdRepository, sharpDoxConfig)
+        internal FieldParser(TypeParser typeParser, ParserOptions parserOptions) : base(parserOptions)
         {
             _typeParser = typeParser;
         }
@@ -42,10 +41,10 @@ namespace SharpDox.Build.Roslyn.Parser
                 ConstantValue = field.ConstantValue != null ? field.ConstantValue.ToString() : string.Empty,
                 IsConst = field.IsConst,
                 IsReadonly = field.IsReadOnly,
-                Documentations = DocumentationParser.ParseDocumentation(field.GetDocumentationCommentXml())
+                Documentations = DocumentationParser.ParseDocumentation(field)
             };
 
-            SDRepository.AddMember(sdField);
+            ParserOptions.SDRepository.AddMember(sdField);
             return sdField;
         }
 

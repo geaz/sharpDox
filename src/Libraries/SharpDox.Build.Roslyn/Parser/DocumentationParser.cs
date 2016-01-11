@@ -6,17 +6,19 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Microsoft.CodeAnalysis;
 
 namespace SharpDox.Build.Roslyn.Parser
 {
     internal class DocumentationParser
     {
-        public SDLanguageItemCollection<SDDocumentation> ParseDocumentation(string documentationXml)
+        public SDLanguageItemCollection<SDDocumentation> ParseDocumentation(ISymbol symbol)
         {
+            var documentationXml = symbol.GetDocumentationCommentXml();
             var docDic = new SDLanguageItemCollection<SDDocumentation>();
             if (!string.IsNullOrEmpty(documentationXml))
             {
-                var xml = XDocument.Parse(documentationXml);
+                var xml = XDocument.Parse($"<doc>{documentationXml}</doc>");
                 foreach (var child in xml.Descendants())
                 {
                     if (CultureInfo.GetCultures(CultureTypes.NeutralCultures).Any(c => c.TwoLetterISOLanguageName == child.Name.LocalName.ToLower()) || child.Name.LocalName.ToLower() == "default")

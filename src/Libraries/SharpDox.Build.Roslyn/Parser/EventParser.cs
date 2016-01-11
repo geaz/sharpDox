@@ -1,7 +1,6 @@
 ﻿using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
 using System.Linq;
-using SharpDox.Sdk.Config;
 using Microsoft.CodeAnalysis;
 
 namespace SharpDox.Build.Roslyn.Parser
@@ -10,7 +9,7 @@ namespace SharpDox.Build.Roslyn.Parser
     {
         private readonly TypeParser _typeParser;
 
-        internal EventParser(TypeParser typeParser, SDRepository sdRepository, ICoreConfigSection sharpDoxConfig) : base(sdRepository, sharpDoxConfig)
+        internal EventParser(TypeParser typeParser, ParserOptions parserOptions) : base(parserOptions)
         {
             _typeParser = typeParser;
         }
@@ -38,10 +37,10 @@ namespace SharpDox.Build.Roslyn.Parser
                 Name = eve.Name,
                 DeclaringType = _typeParser.GetParsedType(eve.ContainingType),
                 Accessibility = eve.DeclaredAccessibility.ToString().ToLower(),
-                Documentations = DocumentationParser.ParseDocumentation(eve.GetDocumentationCommentXml())
+                Documentations = DocumentationParser.ParseDocumentation(eve)
             };
 
-            SDRepository.AddMember(sdEvent);
+            ParserOptions.SDRepository.AddMember(sdEvent);
             return sdEvent;
         }
 

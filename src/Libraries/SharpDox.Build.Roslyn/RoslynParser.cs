@@ -36,9 +36,31 @@ namespace SharpDox.Build.Roslyn
                 var targetFx = _targetFxParser.GetTargetFx(project.FilePath);
                 var sdRepository = sdSolution.GetExistingOrNew(targetFx);
 
-                var nparser = new NamespaceParser(sdRepository, sharpDoxConfig, solutionFile, tokens);
+                var parserOptions = new ParserOptions();
+                parserOptions.SDRepository = sdRepository;
+                parserOptions.LoadedSolution = solution;
+                parserOptions.SharpDoxConfig = sharpDoxConfig;
+
+                var nparser = new NamespaceParser(parserOptions, solutionFile, tokens);
                 nparser.ParseProjectNamespaces(projectCompilation);
             }
+
+            foreach (var project in solution.Projects)
+            {
+                ExecuteOnStepMessage(string.Format(_parserStrings.Compiling, project.Name));
+
+                var targetFx = _targetFxParser.GetTargetFx(project.FilePath);
+                var sdRepository = sdSolution.GetExistingOrNew(targetFx);
+
+                var parserOptions = new ParserOptions();
+                parserOptions.SDRepository = sdRepository;
+                parserOptions.LoadedSolution = solution;
+                parserOptions.SharpDoxConfig = sharpDoxConfig;
+
+                var methodParser = new MethodCallParser(parserOptions);
+                methodParser.ParseMethodCalls();
+            }
+
             return sdSolution;
         }
 

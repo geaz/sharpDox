@@ -1,7 +1,6 @@
 ﻿using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
 using System.Linq;
-using SharpDox.Sdk.Config;
 using Microsoft.CodeAnalysis;
 
 namespace SharpDox.Build.Roslyn.Parser
@@ -10,14 +9,14 @@ namespace SharpDox.Build.Roslyn.Parser
     {
         private readonly TypeParser _typeParser;
 
-        internal PropertyParser(SDRepository sdRepository, TypeParser typeParser, ICoreConfigSection sharpDoxConfig) : base(sdRepository, sharpDoxConfig)
+        internal PropertyParser(TypeParser typeParser, ParserOptions parserOptions) : base(parserOptions)
         {
             _typeParser = typeParser;
         }
 
         internal void ParseProperties(SDType sdType, INamedTypeSymbol typeSymbol)
         {
-            var properties = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Field).Select(f => f as IPropertySymbol);
+            var properties = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Property).Select(f => f as IPropertySymbol);
             foreach (var property in properties)
             {
                 if (!IsMemberExcluded(property.GetIdentifier(), property.DeclaredAccessibility))
@@ -44,10 +43,10 @@ namespace SharpDox.Build.Roslyn.Parser
                 IsAbstract = property.IsAbstract,
                 IsVirtual = property.IsVirtual,
                 IsOverride = property.IsOverride,
-                Documentations = DocumentationParser.ParseDocumentation(property.GetDocumentationCommentXml())
+                Documentations = DocumentationParser.ParseDocumentation(property)
             };
 
-            SDRepository.AddMember(sdProperty);
+            ParserOptions.SDRepository.AddMember(sdProperty);
             return sdProperty;
         }
 
