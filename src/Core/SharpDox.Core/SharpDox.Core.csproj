@@ -68,7 +68,6 @@
     <Compile Include="Local\LocalCreator.cs" />
     <Compile Include="Local\LocalLoader.cs" />
     <Compile Include="Local\LocalStrings.cs" />
-    <Compile Include="Log4NetTraceListener.cs" />
     <Compile Include="MainContainerConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
