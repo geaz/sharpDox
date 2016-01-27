@@ -4,6 +4,7 @@ using SharpDox.Model.Repository.Members;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using System.Diagnostics;
 
 namespace SharpDox.Build.Roslyn.Parser
 {
@@ -48,6 +49,7 @@ namespace SharpDox.Build.Roslyn.Parser
 
         private SDMethod GetParsedMethod(IMethodSymbol method, bool isCtor)
         {
+            Trace.TraceInformation(method.ToDisplayString(SDoxDisplayFormat.IdentifierFormat));
             var sdMethod = ParserOptions.SDRepository.GetMethodByIdentifier(method.GetIdentifier());
             if (sdMethod != null)
             {

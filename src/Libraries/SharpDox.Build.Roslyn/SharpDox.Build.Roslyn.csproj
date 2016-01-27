@@ -105,6 +105,7 @@
     <Compile Include="Parser\CSharpMethodVisitor.cs" />
     <Compile Include="Parser\ParserOptions.cs" />
     <Compile Include="Parser\PropertyParser.cs" />
+    <Compile Include="SymbolDisplayFormat.cs" />
     <Compile Include="SymbolExtensions.cs" />
     <Compile Include="ParserStrings.cs" />
     <Compile Include="Parser\BaseParser.cs" />
