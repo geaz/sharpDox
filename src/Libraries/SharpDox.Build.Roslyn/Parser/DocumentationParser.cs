@@ -97,7 +97,7 @@ namespace SharpDox.Build.Roslyn.Parser
                     content.Add(new SDToken
                     {
                         Role = SDTokenRole.Text,
-                        Text = multilang ? Regex.Replace(element.ToString(), "^[ ]{4}", "", RegexOptions.Multiline) : element.ToString()
+                        Text = element.ToString().Trim()
                     });
                 }
 
