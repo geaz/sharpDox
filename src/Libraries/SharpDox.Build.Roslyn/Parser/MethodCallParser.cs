@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using SharpDox.Build.Roslyn.MethodVisitors;
 
 namespace SharpDox.Build.Roslyn.Parser
 {

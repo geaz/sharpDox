@@ -25,10 +25,16 @@ namespace SharpDox.Build.Roslyn.Parser
         internal void ParseProjectNamespacesRecursively(INamespaceSymbol namespaceSymbol)
         {
             HandleOnItemParseStart(namespaceSymbol.Name);
-            if (!ParserOptions.SharpDoxConfig.ExcludedIdentifiers.Contains(namespaceSymbol.ToDisplayString(SDoxDisplayFormat.IdentifierFormat)))
+            if (!ParserOptions.SharpDoxConfig.ExcludedIdentifiers.Contains(namespaceSymbol.GetIdentifier()))
             {
-                ParserOptions.SDRepository.AddNamespace(GetParsedNamespace(namespaceSymbol));
+                var sdNamespace = GetParsedNamespace(namespaceSymbol);
+                ParserOptions.SDRepository.AddNamespace(sdNamespace);
                 _typeParser.ParseProjectTypes(namespaceSymbol.GetTypeMembers().ToList());
+
+                if (sdNamespace.Types.Count == 0)
+                {
+                    ParserOptions.SDRepository.RemoveNamespace(sdNamespace);
+                }
             }
 
             foreach(var childNamespaceSymbol in namespaceSymbol.GetNamespaceMembers())
@@ -59,7 +65,7 @@ namespace SharpDox.Build.Roslyn.Parser
                 }
             }
 
-            return new SDNamespace(namespaceSymbol.ToDisplayString())
+            return new SDNamespace(namespaceSymbol.GetIdentifier())
             {
                 Assemblyname = namespaceSymbol.ContainingAssembly.Name,
                 Descriptions = descriptions

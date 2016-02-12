@@ -25,11 +25,11 @@ namespace SharpDox.Build.Roslyn.Parser
         {
             for (int i = 0; i < typeSymbols.Count; i++ )
             {
-                HandleOnItemParseStart(typeSymbols[i].ToDisplayString());
+                HandleOnItemParseStart(typeSymbols[i].GetIdentifier());
                 if (!IsMemberExcluded(typeSymbols[i].GetIdentifier(), typeSymbols[i].DeclaredAccessibility))
                 {
                     var sdType = GetParsedType(typeSymbols[i], false);
-                    ParserOptions.SDRepository.AddNamespaceTypeRelation(typeSymbols[i].ContainingNamespace.ToDisplayString(), sdType.Identifier);
+                    ParserOptions.SDRepository.AddNamespaceTypeRelation(typeSymbols[i].ContainingNamespace.GetIdentifier(), sdType.Identifier);
                 }
             }
         }
@@ -59,6 +59,7 @@ namespace SharpDox.Build.Roslyn.Parser
             if (type != null)
             {
                 sdType.IsProjectStranger = false;
+                sdType.Documentations = DocumentationParser.ParseDocumentation(typeSymbol);
                 AddParsedNestedTypes(sdType, type.GetTypeMembers());
                 AddParsedTypeArguments(sdType, type.TypeArguments);
                 AddParsedTypeParameters(sdType, type.TypeParameters);
@@ -201,13 +202,13 @@ namespace SharpDox.Build.Roslyn.Parser
 
             if (typeSymbol is IArrayTypeSymbol)
             {
-                sdNamespace = ParserOptions.SDRepository.GetNamespaceByIdentifier(((IArrayTypeSymbol)typeSymbol).ElementType.ContainingNamespace.ToDisplayString());
-                sdNamespace = sdNamespace ?? new SDNamespace(((IArrayTypeSymbol)typeSymbol).ElementType.ContainingNamespace.ToDisplayString()) { IsProjectStranger = true };
+                sdNamespace = ParserOptions.SDRepository.GetNamespaceByIdentifier(((IArrayTypeSymbol)typeSymbol).ElementType.ContainingNamespace.GetIdentifier());
+                sdNamespace = sdNamespace ?? new SDNamespace(((IArrayTypeSymbol)typeSymbol).ElementType.ContainingNamespace.GetIdentifier()) { IsProjectStranger = true };
             }
             else if (typeSymbol is INamedTypeSymbol)
             {
-                sdNamespace = ParserOptions.SDRepository.GetNamespaceByIdentifier(typeSymbol.ContainingNamespace.ToDisplayString());
-                sdNamespace = sdNamespace ?? new SDNamespace(typeSymbol.ContainingNamespace.ToDisplayString()) { IsProjectStranger = true };
+                sdNamespace = ParserOptions.SDRepository.GetNamespaceByIdentifier(typeSymbol.ContainingNamespace.GetIdentifier());
+                sdNamespace = sdNamespace ?? new SDNamespace(typeSymbol.ContainingNamespace.GetIdentifier()) { IsProjectStranger = true };
             }
 
             var sdType = new SDType(typeSymbol.GetIdentifier(), typeSymbol.Name, sdNamespace)
@@ -218,8 +219,7 @@ namespace SharpDox.Build.Roslyn.Parser
                 IsSealed = typeSymbol.IsSealed,
                 IsStatic = typeSymbol.IsStatic,
                 IsProjectStranger = isProjectStranger,
-                Kind = typeSymbol.TypeKind.ToString().ToLower(),
-                Documentations = !isProjectStranger ? DocumentationParser.ParseDocumentation(typeSymbol) : null
+                Kind = typeSymbol.TypeKind.ToString().ToLower()
             };
 
             var declaringReferences = !isProjectStranger ? typeSymbol.DeclaringSyntaxReferences.ToList() : new List<SyntaxReference>();

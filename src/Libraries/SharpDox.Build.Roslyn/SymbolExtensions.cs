@@ -5,6 +5,16 @@ namespace SharpDox.Build.Roslyn
 {
     internal static class EntityExtensions
     {
+        public static string GetIdentifier(this INamespaceSymbol namespaceSymbol)
+        {
+            var namespaceIdentifier = namespaceSymbol.ToDisplayString();
+            if (namespaceSymbol.IsGlobalNamespace)
+            {
+                namespaceIdentifier = "GlobalNamespace";
+            }
+            return namespaceIdentifier;
+        }
+
         public static string GetIdentifier(this ITypeSymbol typeSymbol)
         {
             var identifier = string.Empty;
@@ -12,9 +22,9 @@ namespace SharpDox.Build.Roslyn
             var namedTypeSymbol = typeSymbol as INamedTypeSymbol;
             if (namedTypeSymbol != null)
             {
-                var namespaceFullname = typeSymbol.ContainingNamespace.ToDisplayString();
+                var namespaceFullname = typeSymbol.ContainingNamespace.GetIdentifier();
                 var name = typeSymbol.Name;
-                var typeParams = string.Join(", ", namedTypeSymbol.TypeArguments.Select(t => t.ToDisplayString()));
+                var typeParams = string.Join(", ", namedTypeSymbol.TypeArguments.Select(t => t.GetIdentifier()));
                 typeParams = typeParams != string.Empty ? "<" + typeParams + ">" : typeParams;
 
                 identifier = $"{namespaceFullname}.{name}{typeParams}";
@@ -33,10 +43,10 @@ namespace SharpDox.Build.Roslyn
         {
             var name = method.Name;
 
-            var typeParams = string.Join(", ", method.TypeArguments.Select(t => t.ToDisplayString()));
+            var typeParams = string.Join(", ", method.TypeArguments.Select(t => t.GetIdentifier()));
             typeParams = typeParams != string.Empty ? "<" + typeParams + ">" : typeParams;
 
-            var parameters = string.Join(", ", method.Parameters.Select(i => i.Type.ToDisplayString()));
+            var parameters = string.Join(", ", method.Parameters.Select(i => i.Type.GetIdentifier()));
             parameters = parameters != string.Empty ? "(" + parameters + ")" : parameters;
 
             return string.Format("{0}.{1}{2}{3}", method.ContainingType.GetIdentifier(), name, typeParams, parameters);

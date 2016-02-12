@@ -16,7 +16,7 @@ namespace SharpDox.Build.Roslyn.Parser
 
         internal void ParseFields(SDType sdType, INamedTypeSymbol typeSymbol)
         {
-            var fields = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Field).Select(f => f as IFieldSymbol);
+            var fields = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Field && !m.IsImplicitlyDeclared).Select(f => f as IFieldSymbol);
             foreach (var field in fields)
             {
                 if (!IsMemberExcluded(field.GetIdentifier(), field.DeclaredAccessibility))

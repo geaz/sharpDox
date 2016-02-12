@@ -4,7 +4,6 @@ using SharpDox.Model.Repository.Members;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
-using System.Diagnostics;
 
 namespace SharpDox.Build.Roslyn.Parser
 {
@@ -20,17 +19,21 @@ namespace SharpDox.Build.Roslyn.Parser
         internal void ParseConstructors(SDType sdType, INamedTypeSymbol typeSymbol)
         {
             var constructors = typeSymbol.Constructors.ToList();
-            constructors = constructors.Where(o => !o.ContainingType.ToDisplayString().StartsWith("System.Object")).ToList();
+            constructors = constructors.Where(o => !o.ContainingType.GetIdentifier().StartsWith("System.Object")).ToList();
             ParseMethodList(sdType.Constructors, constructors, true);
         }
 
         internal void ParseMethods(SDType sdType, INamedTypeSymbol typeSymbol)
         {
-            var methods = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Method).Select(f => f as IMethodSymbol);
+            var methods = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Method && !m.IsImplicitlyDeclared).Select(f => f as IMethodSymbol);
             methods = methods.Where(o => 
-                        !o.ContainingType.ToDisplayString().StartsWith("System.Object") && 
-                        o.MethodKind != MethodKind.Constructor &&
-                        !o.IsImplicitlyDeclared);
+                            !o.ContainingType.GetIdentifier().StartsWith("System.Object") 
+                            && o.MethodKind != MethodKind.Constructor
+                            && o.MethodKind != MethodKind.PropertyGet
+                            && o.MethodKind != MethodKind.PropertySet
+                            && o.MethodKind != MethodKind.EventAdd
+                            && o.MethodKind != MethodKind.EventRaise
+                            && o.MethodKind != MethodKind.EventRemove);
             ParseMethodList(sdType.Methods, methods, false);
         }
 
@@ -49,7 +52,6 @@ namespace SharpDox.Build.Roslyn.Parser
 
         private SDMethod GetParsedMethod(IMethodSymbol method, bool isCtor)
         {
-            Trace.TraceInformation(method.ToDisplayString(SDoxDisplayFormat.IdentifierFormat));
             var sdMethod = ParserOptions.SDRepository.GetMethodByIdentifier(method.GetIdentifier());
             if (sdMethod != null)
             {
@@ -60,7 +62,7 @@ namespace SharpDox.Build.Roslyn.Parser
             var syntaxReference = method.DeclaringSyntaxReferences.Any() ? method.DeclaringSyntaxReferences.Single() : null;
             sdMethod = new SDMethod(method.GetIdentifier(), isCtor ? method.ContainingType.Name : method.Name)
             {
-                Namespace = method.ContainingNamespace.ToDisplayString(),
+                Namespace = method.ContainingNamespace.GetIdentifier(),
                 DeclaringType = _typeParser.GetParsedType(method.ContainingType),
                 ReturnType = returnType,
                 IsCtor = isCtor,
@@ -108,14 +110,14 @@ namespace SharpDox.Build.Roslyn.Parser
         internal static void ParseMinimalConstructors(SDType sdType, INamedTypeSymbol typeSymbol)
         {
             var constructors = typeSymbol.Constructors.ToList();
-            constructors = constructors.Where(o => !o.ContainingType.ToDisplayString().StartsWith("System.Object")).ToList();
+            constructors = constructors.Where(o => !o.ContainingType.GetIdentifier().StartsWith("System.Object")).ToList();
             MinimalParseMethodList(sdType.Constructors, constructors, true);
         }
 
         internal static void ParseMinimalMethods(SDType sdType, INamedTypeSymbol typeSymbol)
         {
             var methods = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Method).Select(f => f as IMethodSymbol);
-            methods = methods.Where(o => !o.ContainingType.ToDisplayString().StartsWith("System.Object"));
+            methods = methods.Where(o => !o.ContainingType.GetIdentifier().StartsWith("System.Object"));
             MinimalParseMethodList(sdType.Methods, methods, false);
         }
 
