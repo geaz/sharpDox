@@ -26,14 +26,7 @@ namespace SharpDox.Build.Roslyn.Parser
         internal void ParseMethods(SDType sdType, INamedTypeSymbol typeSymbol)
         {
             var methods = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Method && !m.IsImplicitlyDeclared).Select(f => f as IMethodSymbol);
-            methods = methods.Where(o => 
-                            !o.ContainingType.GetIdentifier().StartsWith("System.Object") 
-                            && o.MethodKind != MethodKind.Constructor
-                            && o.MethodKind != MethodKind.PropertyGet
-                            && o.MethodKind != MethodKind.PropertySet
-                            && o.MethodKind != MethodKind.EventAdd
-                            && o.MethodKind != MethodKind.EventRaise
-                            && o.MethodKind != MethodKind.EventRemove);
+            methods = methods.Where(o => !o.ContainingType.GetIdentifier().StartsWith("System.Object") && o.MethodKind == MethodKind.Ordinary);
             ParseMethodList(sdType.Methods, methods, false);
         }
 
