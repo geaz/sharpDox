@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using SharpDox.Build.Roslyn.MethodVisitors;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace SharpDox.Build.Roslyn.Parser
 {
@@ -20,11 +21,14 @@ namespace SharpDox.Build.Roslyn.Parser
                         var fileId = ParserOptions.LoadedSolution.GetDocumentIdsWithFilePath(sdMethod.Region.Filename).Single();
                         var file = ParserOptions.LoadedSolution.GetDocument(fileId);
                         var syntaxTree = file.GetSyntaxTreeAsync().Result;
-
+                        
                         if (file.Project.Language == "C#")
                         {
                             var methodVisitor = new CSharpMethodVisitor(ParserOptions.SDRepository, sdMethod, sdType, file);
-                            methodVisitor.Visit(syntaxTree.GetRoot());
+                            var methodSyntaxNode = syntaxTree.GetRoot().DescendantNodes().OfType<MethodDeclarationSyntax>()
+                                                    .Single(m => m.Span.Start == sdMethod.Region.Start &&
+                                                    m.Span.End == sdMethod.Region.End);
+                            methodVisitor.Visit(methodSyntaxNode);
                         }
                         else if (file.Project.Language == "VBNET")
                         {
