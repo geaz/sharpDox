@@ -31,7 +31,7 @@
         <Menu Margin="10,0" Height="25" Background="Transparent">
             <Menu.Resources>
                 <Style TargetType="MenuItem">
-                    <Setter Property="FontFamily" Value="{StaticResource Font_Icons}"/>
+                    <Setter Property="FontFamily" Value="{StaticResource Font_Regular}"/>
                     <Setter Property="Foreground" Value="{StaticResource Color_BodyFont}"/>
                     <Setter Property="Header" Value="{Binding Text}"/>
                     <Setter Property="Command" Value="{Binding Command}"/>
