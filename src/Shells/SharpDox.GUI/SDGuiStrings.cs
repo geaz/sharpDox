@@ -16,11 +16,16 @@ namespace SharpDox.GUI
         private string _elements = "element(s)";
         private string _abort = "Abort";
         private string _build = "Build";
+        private string _file = "File";
         private string _new = "New";
         private string _load = "Load";
         private string _save = "Save";
         private string _saveAs = "Save as";
         private string _recentProjects = "Recent Projects";
+        private string _help = "Help";
+        private string _documentation = "Documentation";
+        private string _homepage = "Homepage";
+        private string _github = "Github";
         private string _pleaseWait = "Please wait...";
         private string _seeBuild = "See build page for details!";
         private string _lastBuild = "LAST BUILD";
@@ -75,6 +80,12 @@ namespace SharpDox.GUI
             set { _build = value; }
         }
 
+        public string File
+        {
+            get { return _file; }
+            set { _file = value; }
+        }
+
         public string New
         {
             get { return _new; }
@@ -103,6 +114,30 @@ namespace SharpDox.GUI
         {
             get { return _recentProjects; }
             set { _recentProjects = value; }
+        }
+
+        public string Help
+        {
+            get { return _help; }
+            set { _help = value; }
+        }
+
+        public string Homepage
+        {
+            get { return _homepage; }
+            set { _homepage = value; }
+        }
+
+        public string Github
+        {
+            get { return _github; }
+            set { _github = value; }
+        }
+
+        public string Documentation
+        {
+            get { return _documentation; }
+            set { _documentation = value; }
         }
 
         public string PleaseWait

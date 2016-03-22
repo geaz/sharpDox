@@ -8,6 +8,7 @@ using SharpDox.Sdk.Config;
 using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
+using System.Diagnostics;
 
 namespace SharpDox.GUI.ViewModels
 {
@@ -177,6 +178,48 @@ namespace SharpDox.GUI.ViewModels
             {
                 _saveConfigCommand = value;
                 OnPropertyChanged("SaveConfigCommand");
+            }
+        }
+
+        private RelayCommand _homepageCommand;
+        public RelayCommand HomepageCommand
+        {
+            get
+            {
+                return _homepageCommand ?? new RelayCommand(() => Process.Start("http://www.sharpdox.de"), true);
+            }
+            set
+            {
+                _homepageCommand = value;
+                OnPropertyChanged(nameof(HomepageCommand));
+            }
+        }
+
+        private RelayCommand _githubCommand;
+        public RelayCommand GithubCommand
+        {
+            get
+            {
+                return _githubCommand ?? new RelayCommand(() => Process.Start("http://www.github.com/geaz/sharpDox"), true);
+            }
+            set
+            {
+                _githubCommand = value;
+                OnPropertyChanged(nameof(GithubCommand));
+            }
+        }
+
+        private RelayCommand _gdocumentationCommand;
+        public RelayCommand DocumentationCommand
+        {
+            get
+            {
+                return _githubCommand ?? new RelayCommand(() => Process.Start("http://sharpdox.de/en/doc/"), true);
+            }
+            set
+            {
+                _githubCommand = value;
+                OnPropertyChanged(nameof(DocumentationCommand));
             }
         }
 
