@@ -45,12 +45,9 @@ namespace SharpDox.Build.Roslyn
                 nparser.ParseProjectNamespacesRecursively(projectCompilation.Assembly.GlobalNamespace);
             }
 
-            foreach (var project in solution.Projects)
+            foreach (var sdRepository in sdSolution.Repositories)
             {
-                ExecuteOnStepMessage(string.Format(_parserStrings.Compiling, project.Name));
-
-                var targetFx = _targetFxParser.GetTargetFx(project.FilePath);
-                var sdRepository = sdSolution.GetExistingOrNew(targetFx);
+                ExecuteOnStepMessage(string.Format(_parserStrings.Compiling, sdRepository.TargetFx.Name));
 
                 var parserOptions = new ParserOptions();
                 parserOptions.SDRepository = sdRepository;
