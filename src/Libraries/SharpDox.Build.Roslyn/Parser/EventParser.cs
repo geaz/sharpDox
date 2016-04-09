@@ -43,27 +43,5 @@ namespace SharpDox.Build.Roslyn.Parser
             ParserOptions.SDRepository.AddMember(sdEvent);
             return sdEvent;
         }
-
-        internal static void ParseMinimalFields(SDType sdType, INamedTypeSymbol typeSymbol)
-        {
-            var events = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Event).Select(m => m as IEventSymbol);
-            foreach (var eve in events)
-            {
-                var parsedEvent = GetMinimalParsedEvent(eve);
-                if (sdType.Events.SingleOrDefault(f => f.Name == parsedEvent.Name) == null)
-                {
-                    sdType.Events.Add(parsedEvent);
-                }
-            }
-        }
-
-        private static SDEvent GetMinimalParsedEvent(IEventSymbol eve)
-        {
-            return new SDEvent(eve.GetIdentifier())
-            {
-                Name = eve.Name,
-                Accessibility = eve.DeclaredAccessibility.ToString().ToLower()
-            };
-        }
     }
 }

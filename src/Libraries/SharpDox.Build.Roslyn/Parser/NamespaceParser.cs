@@ -13,13 +13,11 @@ namespace SharpDox.Build.Roslyn.Parser
         private readonly TypeParser _typeParser;
 
         private readonly List<string> _descriptionFiles;
-        private readonly Dictionary<string, string> _tokens;
         
-        internal NamespaceParser(ParserOptions parserOptions, string solutionFile, Dictionary<string, string> tokens) : base(parserOptions)
+        internal NamespaceParser(ParserOptions parserOptions) : base(parserOptions)
         {
             _typeParser = new TypeParser(parserOptions);
-            _descriptionFiles = Directory.EnumerateFiles(Path.GetDirectoryName(solutionFile), "*.sdnd", SearchOption.AllDirectories).ToList();
-            _tokens = tokens;
+            _descriptionFiles = Directory.EnumerateFiles(Path.GetDirectoryName(parserOptions.SDSolution.SolutionFile), "*.sdnd", SearchOption.AllDirectories).ToList();
         }
 
         internal void ParseProjectNamespacesRecursively(INamespaceSymbol namespaceSymbol)
@@ -30,14 +28,9 @@ namespace SharpDox.Build.Roslyn.Parser
                 var sdNamespace = GetParsedNamespace(namespaceSymbol);
                 ParserOptions.SDRepository.AddNamespace(sdNamespace);
                 _typeParser.ParseProjectTypes(namespaceSymbol.GetTypeMembers().ToList());
-
-                if (sdNamespace.Types.Count == 0)
-                {
-                    ParserOptions.SDRepository.RemoveNamespace(sdNamespace);
-                }
             }
 
-            foreach(var childNamespaceSymbol in namespaceSymbol.GetNamespaceMembers())
+            foreach (var childNamespaceSymbol in namespaceSymbol.GetNamespaceMembers())
             {
                 ParseProjectNamespacesRecursively(childNamespaceSymbol);
             }
@@ -55,12 +48,12 @@ namespace SharpDox.Build.Roslyn.Parser
                     var splitted = Path.GetFileName(file).ToLower().Replace(namespaceSymbol.Name.ToLower(), " ").Split('.');
                     if (splitted.Length > 0 && splitted[0].Length == 2 && CultureInfo.GetCultures(CultureTypes.AllCultures).Any(c => c.TwoLetterISOLanguageName == splitted[0]))
                     {
-                        descriptions.Add(splitted[0], new SDTemplate(File.ReadAllText(file), _tokens));
+                        descriptions.Add(splitted[0], new SDTemplate(File.ReadAllText(file), ParserOptions.Tokens));
                         ExecuteOnDocLanguageFound(splitted[0].ToLower());
                     }
                     else if (splitted.Length > 0 && string.IsNullOrEmpty(splitted[0].Trim()))
                     {
-                        descriptions.Add("default", new SDTemplate(File.ReadAllText(file), _tokens));
+                        descriptions.Add("default", new SDTemplate(File.ReadAllText(file), ParserOptions.Tokens));
                     }
                 }
             }

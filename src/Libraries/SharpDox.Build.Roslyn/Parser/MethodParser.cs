@@ -99,40 +99,5 @@ namespace SharpDox.Build.Roslyn.Parser
             ParserOptions.SDRepository.AddMethod(sdMethod);
             return sdMethod;
         }
-
-        internal static void ParseMinimalConstructors(SDType sdType, INamedTypeSymbol typeSymbol)
-        {
-            var constructors = typeSymbol.Constructors.ToList();
-            constructors = constructors.Where(o => !o.ContainingType.GetIdentifier().StartsWith("System.Object")).ToList();
-            MinimalParseMethodList(sdType.Constructors, constructors, true);
-        }
-
-        internal static void ParseMinimalMethods(SDType sdType, INamedTypeSymbol typeSymbol)
-        {
-            var methods = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Method).Select(f => f as IMethodSymbol);
-            methods = methods.Where(o => !o.ContainingType.GetIdentifier().StartsWith("System.Object"));
-            MinimalParseMethodList(sdType.Methods, methods, false);
-        }
-
-        private static void MinimalParseMethodList(SortedList<SDMethod> sdMethods, IEnumerable<IMethodSymbol> methods, bool isCtor)
-        {
-            foreach (var method in methods)
-            {
-                var parsedMethod = GetMinimalParsedMethod(method, isCtor);
-                if (sdMethods.SingleOrDefault(f => f.Name == parsedMethod.Name) == null)
-                {
-                    sdMethods.Add(parsedMethod);
-                }
-            }
-        }
-
-        private static SDMethod GetMinimalParsedMethod(IMethodSymbol method, bool isCtor)
-        {
-            return new SDMethod(method.GetIdentifier(), isCtor ? method.ContainingType.Name : method.Name)
-            {
-                IsCtor = isCtor,
-                Accessibility = method.DeclaredAccessibility.ToString().ToLower()
-            };
-        }
     }
 }

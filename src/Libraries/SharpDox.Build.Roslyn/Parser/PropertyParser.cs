@@ -49,27 +49,5 @@ namespace SharpDox.Build.Roslyn.Parser
             ParserOptions.SDRepository.AddMember(sdProperty);
             return sdProperty;
         }
-
-        internal static void ParseMinimalProperties(SDType sdType, INamedTypeSymbol typeSymbol)
-        {
-            var properties = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Field).Select(f => f as IPropertySymbol);
-            foreach (var property in properties)
-            {
-                var parsedProperty = GetMinimalParsedProperty(property);
-                if (sdType.Properties.SingleOrDefault(p => p.Name == parsedProperty.Name) == null)
-                {
-                    sdType.Properties.Add(parsedProperty);
-                }
-            }
-        }
-
-        private static SDProperty GetMinimalParsedProperty(IPropertySymbol property)
-        {
-            return new SDProperty(property.GetIdentifier())
-            {
-                Name = property.Name,
-                Accessibility = property.DeclaredAccessibility.ToString().ToLower()
-            };
-        }
     }
 }

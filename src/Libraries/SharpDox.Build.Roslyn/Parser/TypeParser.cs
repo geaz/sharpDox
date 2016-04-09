@@ -28,8 +28,7 @@ namespace SharpDox.Build.Roslyn.Parser
                 HandleOnItemParseStart(typeSymbols[i].GetIdentifier());
                 if (!IsMemberExcluded(typeSymbols[i].GetIdentifier(), typeSymbols[i].DeclaredAccessibility))
                 {
-                    var sdType = GetParsedType(typeSymbols[i], false);
-                    ParserOptions.SDRepository.AddNamespaceTypeRelation(typeSymbols[i].ContainingNamespace.GetIdentifier(), sdType.Identifier);
+                    GetParsedType(typeSymbols[i], false);
                 }
             }
         }
@@ -205,7 +204,7 @@ namespace SharpDox.Build.Roslyn.Parser
                 sdNamespace = ParserOptions.SDRepository.GetNamespaceByIdentifier(((IArrayTypeSymbol)typeSymbol).ElementType.ContainingNamespace.GetIdentifier());
                 sdNamespace = sdNamespace ?? new SDNamespace(((IArrayTypeSymbol)typeSymbol).ElementType.ContainingNamespace.GetIdentifier()) { IsProjectStranger = true };
             }
-            else if (typeSymbol is INamedTypeSymbol)
+            else
             {
                 sdNamespace = ParserOptions.SDRepository.GetNamespaceByIdentifier(typeSymbol.ContainingNamespace.GetIdentifier());
                 sdNamespace = sdNamespace ?? new SDNamespace(typeSymbol.ContainingNamespace.GetIdentifier()) { IsProjectStranger = true };

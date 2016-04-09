@@ -47,27 +47,5 @@ namespace SharpDox.Build.Roslyn.Parser
             ParserOptions.SDRepository.AddMember(sdField);
             return sdField;
         }
-
-        internal static void ParseMinimalFields(SDType sdType, INamedTypeSymbol typeSymbol)
-        {
-            var fields = typeSymbol.GetMembers().Where(m => m.Kind == SymbolKind.Field).Select(f => f as IFieldSymbol);
-            foreach (var field in fields)
-            {
-                var parsedField = GetMinimalParsedField(field);
-                if (sdType.Fields.SingleOrDefault(f => f.Name == parsedField.Name) == null)
-                {
-                    sdType.Fields.Add(parsedField);
-                }
-            }
-        }
-
-        private static SDField GetMinimalParsedField(IFieldSymbol field)
-        {
-            return new SDField(field.GetIdentifier())
-            {
-                Name = field.Name,
-                Accessibility = field.DeclaredAccessibility.ToString().ToLower()
-            };
-        }
     }
 }

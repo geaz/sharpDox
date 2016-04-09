@@ -18,8 +18,8 @@ namespace SharpDox.Build.Roslyn.Parser
                     foreach (var sdMethod in sdType.Methods)
                     {
                         HandleOnItemParseStart(sdMethod.Name);
-                        var fileId = ParserOptions.LoadedSolution.GetDocumentIdsWithFilePath(sdMethod.Region.Filename).Single();
-                        var file = ParserOptions.LoadedSolution.GetDocument(fileId);
+                        var fileId = ParserOptions.CodeSolution.GetDocumentIdsWithFilePath(sdMethod.Region.Filename).Single();
+                        var file = ParserOptions.CodeSolution.GetDocument(fileId);
                         var syntaxTree = file.GetSyntaxTreeAsync().Result;
                         
                         if (file.Project.Language == "C#")

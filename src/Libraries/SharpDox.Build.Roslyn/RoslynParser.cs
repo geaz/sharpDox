@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using SharpDox.Build.Roslyn.Parser;
 using SharpDox.Model;
-using SharpDox.Model.Repository;
 using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.Roslyn
@@ -24,49 +23,63 @@ namespace SharpDox.Build.Roslyn
             _targetFxParser = new SDTargetFxParser();
         }
 
-        public SDSolution GetFullParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens)
+        public SDSolution GetParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens, bool parseMethodCalls)
         {
             var sdSolution = new SDSolution(solutionFile);
             var solution = _roslynLoader.LoadSolutionFile(solutionFile);
-            foreach (var project in solution.Projects)
+
+            var parserOptions = new ParserOptions();
+            parserOptions.CodeSolution = solution;
+            parserOptions.SDSolution = sdSolution;
+            parserOptions.SharpDoxConfig = sharpDoxConfig;
+            parserOptions.Tokens = tokens;
+
+            ParseProjects(parserOptions);
+            CleanUpNamespaces(sdSolution);
+            if (parseMethodCalls) ParseMethodCalls(parserOptions);
+
+            return sdSolution;
+        }
+
+        private void ParseProjects(ParserOptions parserOptions)
+        {
+            foreach (var project in parserOptions.CodeSolution.Projects)
             {
                 ExecuteOnStepMessage(string.Format(_parserStrings.Compiling, project.Name));
                 var projectCompilation = project.GetCompilationAsync().Result;
 
                 var targetFx = _targetFxParser.GetTargetFx(project.FilePath);
-                var sdRepository = sdSolution.GetExistingOrNew(targetFx);
-
-                var parserOptions = new ParserOptions();
+                var sdRepository = parserOptions.SDSolution.GetExistingOrNew(targetFx);
+                
                 parserOptions.SDRepository = sdRepository;
-                parserOptions.LoadedSolution = solution;
-                parserOptions.SharpDoxConfig = sharpDoxConfig;
 
-                var nparser = new NamespaceParser(parserOptions, solutionFile, tokens);
+                var nparser = new NamespaceParser(parserOptions);
                 nparser.ParseProjectNamespacesRecursively(projectCompilation.Assembly.GlobalNamespace);
             }
+        }
 
+        private void CleanUpNamespaces(SDSolution sdSolution)
+        {
             foreach (var sdRepository in sdSolution.Repositories)
             {
                 ExecuteOnStepMessage(string.Format(_parserStrings.Compiling, sdRepository.TargetFx.Name));
 
-                var parserOptions = new ParserOptions();
-                parserOptions.SDRepository = sdRepository;
-                parserOptions.LoadedSolution = solution;
-                parserOptions.SharpDoxConfig = sharpDoxConfig;
+                foreach (var sdNamespace in sdRepository.GetAllNamespaces())
+                {
+                    if (sdNamespace.Types.Count == 0) sdRepository.RemoveNamespace(sdNamespace);
+                }
+            }
+        }
+
+        private void ParseMethodCalls(ParserOptions parserOptions)
+        {
+            foreach (var sdRepository in parserOptions.SDSolution.Repositories)
+            {
+                ExecuteOnStepMessage(string.Format(_parserStrings.Compiling, sdRepository.TargetFx.Name));
 
                 var methodParser = new MethodCallParser(parserOptions);
                 methodParser.ParseMethodCalls();
             }
-
-            return sdSolution;
-        }
-
-        public SDSolution GetStructureParsedSolution(string solutionFile)
-        {
-            _roslynLoader.LoadSolutionFile(solutionFile);
-            return null;
-            //http://www.codeproject.com/Articles/861548/Roslyn-Code-Analysis-in-Easy-Samples-Part
-            //https://joshvarty.wordpress.com/2014/10/30/learn-roslyn-now-part-7-introducing-the-semantic-model/
         }
 
         private void ExecuteOnDocLanguageFound(string lang)

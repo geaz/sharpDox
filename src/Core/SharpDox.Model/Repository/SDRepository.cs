@@ -48,6 +48,7 @@ namespace SharpDox.Model.Repository
             if (!Types.ContainsKey(sdType.Identifier))
             {
                 Types.Add(sdType.Identifier, sdType);
+                sdType.Namespace.Types.Add(sdType);
             }
         }
 
@@ -64,17 +65,6 @@ namespace SharpDox.Model.Repository
             if (!Members.ContainsKey(sdMember.Identifier))
             {
                 Members.Add(sdMember.Identifier, sdMember);
-            }
-        }
-
-        public void AddNamespaceTypeRelation(string namespaceIdentifier, string typeIdentifier)
-        {
-            var sdNamespace = GetNamespaceByIdentifier(namespaceIdentifier);
-            var sdType = GetTypeByIdentifier(typeIdentifier);
-
-            if (sdNamespace != null && sdType != null && sdNamespace.Types.SingleOrDefault(t => t.Identifier == sdType.Identifier) == null)
-            {
-                sdNamespace.Types.Add(sdType);
             }
         }
 
@@ -174,19 +164,19 @@ namespace SharpDox.Model.Repository
 
         /// <default>
         ///     <summary>
-        ///     Gets a list of all namespaces.
+        ///     Gets a list of all namespaces (no project strangers).
         ///     </summary>
         ///     <returns>A list containing all namespaces.</returns>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Liefert eine Liste aller Namensräume.
+        ///     Liefert eine Liste aller Namensräume (ohne projektfremde Namespaces).
         ///     </summary>
         ///     <returns>Eine Liste aller Namensräume.</returns> 
         /// </de>
         public List<SDNamespace> GetAllNamespaces()
         {
-            return Namespaces.Select(n => n.Value).ToList();
+            return Namespaces.Select(n => n.Value).Where(n => !n.IsProjectStranger).ToList();
         }
 
         /// <default>

@@ -16,7 +16,7 @@ namespace SharpDox.Build.Context.Step
             var solutionList = new List<string>(sdProject.Solutions.Keys);
             foreach (var solution in solutionList)
             {
-                sdProject.Solutions[solution] = _stepInput.CodeParser.GetStructureParsedSolution(solution);
+                sdProject.Solutions[solution] = _stepInput.CodeParser.GetParsedSolution(solution, _stepInput.CoreConfigSection, sdProject.Tokens, false);
             }
 
             return sdProject;
