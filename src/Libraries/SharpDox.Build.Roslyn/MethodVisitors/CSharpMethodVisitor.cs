@@ -79,7 +79,7 @@ namespace SharpDox.Build.Roslyn.MethodVisitors
         public override void VisitForStatement(ForStatementSyntax forStatement)
         {
             var initializers = string.Join(" ", forStatement.Initializers.Select(o => o.ToString()));
-            var condition = forStatement.Condition.ToString();
+            var condition = forStatement.Condition?.ToString();
             var interator = string.Join(" ", forStatement.Incrementors.Select(o => o.ToString()));
             var expression = $"for ({initializers}; {condition}; {interator})";
 

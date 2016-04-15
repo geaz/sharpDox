@@ -48,6 +48,7 @@
     <Compile Include="Regression7.cs" />
     <Compile Include="Regression6.cs" />
     <Compile Include="Regression8.cs" />
+    <Compile Include="TypeWithTypeArguments.cs" />
     <Compile Include="WebApiDoc.cs" />
     <Compile Include="Regression5.cs" />
     <Compile Include="Regression4.cs" />

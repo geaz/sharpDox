@@ -11,9 +11,9 @@ using System.Reflection;
 
 namespace SharpDox.RegressionTests
 {
-    internal static class TestConfig
+    public static class TestConfig
     {
-        internal static SDProject ParseProject()
+        public static SDProject ParseProject()
         {
             var testProjectPath =
                 Path.Combine(
