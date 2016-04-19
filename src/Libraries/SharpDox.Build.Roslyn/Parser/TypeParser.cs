@@ -159,12 +159,11 @@ namespace SharpDox.Build.Roslyn.Parser
                     Name = typeParameter.Name,
                     HasDefaultConstructorConstraint = typeParameter.HasConstructorConstraint,
                     HasReferenceTypeConstraint = typeParameter.HasReferenceTypeConstraint,
-                    HasValueTypeConstraint = typeParameter.HasValueTypeConstraint,
-                    BaseClass = GetParsedType(typeParameter.BaseType)
+                    HasValueTypeConstraint = typeParameter.HasValueTypeConstraint
                 };
-                foreach (var interfaceConstraint in typeParameter.Interfaces)
+                foreach (var constraintType in typeParameter.ConstraintTypes)
                 {
-                    sdTypeParameter.Interfaces.Add(GetParsedType(interfaceConstraint));
+                    sdTypeParameter.ConstraintTypes.Add(GetParsedType(constraintType));
                 }
 
                 if (sdType.TypeParameters.SingleOrDefault((i => i.Name == sdTypeParameter.Name)) == null)

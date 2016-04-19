@@ -36,6 +36,12 @@ namespace SharpDox.Build.Roslyn
                 identifier = $"{arrayTypeSymbol.ElementType.GetIdentifier()}[]";
             }
 
+            var typeParameterSymbol = typeSymbol as ITypeParameterSymbol;
+            if(typeParameterSymbol != null)
+            {
+                identifier = typeParameterSymbol.Name;
+            }
+
             return identifier;
         }
 

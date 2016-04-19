@@ -92,15 +92,10 @@ namespace SharpDox.Model.Repository
                 {
                     list.Add("struct");
                 }
-                if (typeParam.BaseClass != null)
+                foreach (var constraintType in typeParam.ConstraintTypes)
                 {
-                    if (linked) list.Add(typeParam.BaseClass.LinkedNameWithArguments);
-                    else list.Add(typeParam.BaseClass.NameWithTypeArguments);
-                }
-                foreach (var interfaceConstraint in typeParam.Interfaces)
-                {
-                    if (linked) list.Add(interfaceConstraint.LinkedNameWithArguments);
-                    else list.Add(interfaceConstraint.NameWithTypeArguments);
+                    if (linked) list.Add(constraintType.LinkedNameWithArguments);
+                    else list.Add(constraintType.NameWithTypeArguments);
                 }
 
                 typeContraints.Append(string.Format("where {0} : {1} ", typeParam.Name, string.Join(", ", list)));
