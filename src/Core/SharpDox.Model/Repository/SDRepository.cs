@@ -26,7 +26,7 @@ namespace SharpDox.Model.Repository
             Namespaces = new SortedDictionary<string, SDNamespace>();
             Types = new Dictionary<string, SDType>();
             Methods = new Dictionary<string, SDMethod>();
-            Members = new Dictionary<string, SDMember>();
+            Members = new Dictionary<string, SDMemberBase>();
 
             KnownReferences.AddKnownNamespaces(this);
             KnownReferences.AddKnownTypes(this);
@@ -60,7 +60,7 @@ namespace SharpDox.Model.Repository
             }
         }
 
-        public void AddMember(SDMember sdMember)
+        public void AddMember(SDMemberBase sdMember)
         {
             if (!Members.ContainsKey(sdMember.Identifier))
             {
@@ -148,9 +148,9 @@ namespace SharpDox.Model.Repository
         ///     <param name="identifier">Der Identifikator des Mitglieds.</param>
         ///     <returns>Das Mitglied, falls dieses vorhanden ist.</returns>  
         /// </de>
-        public SDMember GetMemberByIdentifier(string identifier)
+        public SDMemberBase GetMemberByIdentifier(string identifier)
         {
-            SDMember sdMember = null;
+            SDMemberBase sdMember = null;
             Members.TryGetValue(identifier, out sdMember);
 
             if (sdMember == null)
@@ -221,6 +221,6 @@ namespace SharpDox.Model.Repository
 
         private Dictionary<string, SDMethod> Methods { get; set; }
 
-        private Dictionary<string, SDMember> Members { get; set; }
+        private Dictionary<string, SDMemberBase> Members { get; set; }
     }
 }

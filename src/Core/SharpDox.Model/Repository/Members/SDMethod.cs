@@ -17,7 +17,7 @@ namespace SharpDox.Model.Repository.Members
     ///     </summary>
     /// </de>
     [Serializable]
-    public class SDMethod : SDMember
+    public class SDMethod : SDMemberBase
     {
         public SDMethod(string identifier, string name)
         {

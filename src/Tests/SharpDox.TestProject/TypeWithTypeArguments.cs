@@ -16,5 +16,10 @@
         {
             
         }
+
+        public dynamic ReturnDynamic()
+        {
+            return null;
+        }
     }
 }

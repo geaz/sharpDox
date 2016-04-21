@@ -15,7 +15,7 @@ namespace SharpDox.Model.Repository.Members
     ///     </summary>
     /// </de>
     [Serializable]
-    public class SDProperty : SDMember
+    public class SDProperty : SDMemberBase
     {
         public SDProperty(string identifier)
         {

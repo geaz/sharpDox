@@ -48,9 +48,7 @@ namespace SharpDox.Build.Roslyn.Parser
             }
 
             return parsedType;
-        }
-
-        
+        }               
 
         private void ParseTypeToModel(SDType sdType, ITypeSymbol typeSymbol)
         {

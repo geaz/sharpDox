@@ -15,7 +15,7 @@ namespace SharpDox.Model.Repository.Members
     ///     </summary>
     /// </de>
     [Serializable]
-    public class SDField : SDMember
+    public class SDField : SDMemberBase
     {
         public SDField(string identifier)
         {

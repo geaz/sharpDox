@@ -17,7 +17,7 @@ namespace SharpDox.Build.Roslyn
 
         public static string GetIdentifier(this ITypeSymbol typeSymbol)
         {
-            var identifier = string.Empty;
+            var identifier = typeSymbol.Name;
 
             var namedTypeSymbol = typeSymbol as INamedTypeSymbol;
             if (namedTypeSymbol != null)
@@ -36,10 +36,10 @@ namespace SharpDox.Build.Roslyn
                 identifier = $"{arrayTypeSymbol.ElementType.GetIdentifier()}[]";
             }
 
-            var typeParameterSymbol = typeSymbol as ITypeParameterSymbol;
-            if(typeParameterSymbol != null)
+            var pointerTypeSymbol = typeSymbol as IPointerTypeSymbol;
+            if(pointerTypeSymbol != null)
             {
-                identifier = typeParameterSymbol.Name;
+                identifier = $"{pointerTypeSymbol.PointedAtType.GetIdentifier()}*";
             }
 
             return identifier;
