@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SharpDox.Build.Roslyn.Parser;
+using SharpDox.Build.Roslyn.Parser.ProjectParser;
 using SharpDox.Model;
 using SharpDox.Sdk.Config;
 
@@ -43,11 +45,14 @@ namespace SharpDox.Build.Roslyn
 
         private void ParseProjects(ParserOptions parserOptions)
         {
-            foreach (var project in parserOptions.CodeSolution.Projects)
+            var projects = parserOptions.CodeSolution.Projects.ToList();
+            for (int i = 0; i < projects.Count; i++)
             {
-                ExecuteOnStepMessage(string.Format(_parserStrings.Compiling, project.Name));
-                var projectCompilation = project.GetCompilationAsync().Result;
+                var project = projects[i];
+                ExecuteOnStepMessage(string.Format(_parserStrings.CompilingAndParsing, project.Name));
+                ExecuteOnStepProgress((int)((double)i / projects.Count * 50));
 
+                var projectCompilation = project.GetCompilationAsync().Result;
                 var targetFx = _targetFxParser.GetTargetFx(project.FilePath);
                 var sdRepository = parserOptions.SDSolution.GetExistingOrNew(targetFx);
                 
@@ -56,26 +61,32 @@ namespace SharpDox.Build.Roslyn
                 var nparser = new NamespaceParser(parserOptions);
                 nparser.ParseProjectNamespacesRecursively(projectCompilation.Assembly.GlobalNamespace);
             }
+            ExecuteOnStepProgress(40);
         }
 
         private void CleanUpNamespaces(SDSolution sdSolution)
         {
-            foreach (var sdRepository in sdSolution.Repositories)
+            for(int i = 0; i < sdSolution.Repositories.Count; i++)
             {
-                ExecuteOnStepMessage(string.Format(_parserStrings.Compiling, sdRepository.TargetFx.Name));
+                var sdRepository = sdSolution.Repositories[i];
+                ExecuteOnStepMessage(string.Format(_parserStrings.CleanUp, sdRepository.TargetFx.Name));
+                ExecuteOnStepProgress((int)((double)i / sdSolution.Repositories.Count * 10) + 50);
 
                 foreach (var sdNamespace in sdRepository.GetAllNamespaces())
                 {
                     if (sdNamespace.Types.Count == 0) sdRepository.RemoveNamespace(sdNamespace);
                 }
             }
+            ExecuteOnStepProgress(50);
         }
 
         private void ParseMethodCalls(ParserOptions parserOptions)
         {
-            foreach (var sdRepository in parserOptions.SDSolution.Repositories)
+            for (int i = 0; i < parserOptions.SDSolution.Repositories.Count; i++)
             {
-                ExecuteOnStepMessage(string.Format(_parserStrings.Compiling, sdRepository.TargetFx.Name));
+                var sdRepository = parserOptions.SDSolution.Repositories[i];
+                ExecuteOnStepMessage(string.Format(_parserStrings.ParsingMethod, sdRepository.TargetFx.Name));
+                ExecuteOnStepProgress((int)((double)i / parserOptions.SDSolution.Repositories.Count * 40) + 60);
 
                 var methodParser = new MethodCallParser(parserOptions);
                 methodParser.ParseMethodCalls();

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-namespace SharpDox.UML.Class
+﻿namespace SharpDox.UML.Class
 {
     internal class ClassDiagramRow
     {

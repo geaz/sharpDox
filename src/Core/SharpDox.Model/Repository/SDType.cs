@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using SharpDox.Model.Documentation;
@@ -18,6 +19,7 @@ namespace SharpDox.Model.Repository
     ///     </summary>
     /// </de>
     [Serializable]
+    [DebuggerDisplay("{Identifier}")]
     public class SDType : IComparable<SDType>
     {
         public SDType(string identifier, string name, SDNamespace sdNamespace)
@@ -35,7 +37,7 @@ namespace SharpDox.Model.Repository
             Uses = new SortedList<SDTypeRef>();
 
             TypeParameters = new SortedList<SDTypeParameter>();
-            TypeArguments = new SortedList<SDTypeRef>();
+            TypeArguments = new List<SDTypeRef>();
             Fields = new SortedList<SDField>();
             Constructors = new SortedList<SDMethod>();
             Methods = new SortedList<SDMethod>();
@@ -98,7 +100,7 @@ namespace SharpDox.Model.Repository
                     else list.Add(constraintType.NameWithTypeArguments);
                 }
 
-                typeContraints.Append(string.Format("where {0} : {1} ", typeParam.Name, string.Join(", ", list)));
+                typeContraints.Append($"where {typeParam.Name} : {string.Join(", ", list)} ");
             }
             return typeContraints.ToString();
         }
@@ -261,7 +263,7 @@ namespace SharpDox.Model.Repository
         {
             get
             {
-                var typeParam = TypeArguments.Select(argument => argument.Type.Name).ToList();
+                var typeParam = TypeArguments.Select(argument => argument.NameWithTypeArguments).ToList();
                 var typeArguments = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
 
                 return Name + typeArguments;
@@ -284,9 +286,9 @@ namespace SharpDox.Model.Repository
         {
             get
             {
-                var typeParam = TypeArguments.Select(argument => argument.Type.Name).ToList();
+                var typeParam = TypeArguments.Select(argument => argument.NameWithTypeArguments).ToList();
                 var linkedTypeArguments = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
-                var linkedName = IsProjectStranger ? Name : string.Format("[{0}]({{{{type-link:{1}}}}})", Name, Fullname);
+                var linkedName = IsProjectStranger ? Name : $"[{Name}]({{{{type-link:{Fullname}}}}})";
 
                 return linkedName + linkedTypeArguments;
             }
@@ -318,10 +320,10 @@ namespace SharpDox.Model.Repository
         {
             get
             {
-                var typeParam = TypeArguments.Select(argument => argument.Type.Name).ToList();
+                var typeParam = TypeArguments.Select(argument => argument.NameWithTypeArguments).ToList();
                 var typeArguments = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
 
-                return string.Format("{0}.{1}", Namespace.Fullname, _name + typeArguments);
+                return $"{Namespace.Fullname}.{_name + typeArguments}";
             }
         }
 
@@ -347,7 +349,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Typ-Argumente.
         ///     </summary>     
         /// </de>
-        public SortedList<SDTypeRef> TypeArguments { get; private set; }
+        public List<SDTypeRef> TypeArguments { get; set; }
 
         /// <default>
         ///     <summary>
@@ -359,7 +361,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Typ-Parameter.
         ///     </summary>     
         /// </de>
-        public SortedList<SDTypeParameter> TypeParameters { get; private set; }
+        public SortedList<SDTypeParameter> TypeParameters { get; set; }
 
         /// <default>
         ///     <summary>
@@ -522,7 +524,7 @@ namespace SharpDox.Model.Repository
                 var desc = IsAbstract && Kind.ToLower() != "interface" ? "abstract" : string.Empty;
                 desc = IsStatic ? "static" : desc;
 
-                var syntax = new string[] { Accessibility.ToLower(), desc, Kind.ToLower(), LinkedNameWithTypeArguments + GetInheritText(true), GetTypeConstraintText(true) };
+                var syntax = new [] { Accessibility.ToLower(), desc, Kind.ToLower(), LinkedNameWithTypeArguments + GetInheritText(true), GetTypeConstraintText(true) };
                 syntax = syntax.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
                 return new SDTemplate(string.Join(" ", syntax));

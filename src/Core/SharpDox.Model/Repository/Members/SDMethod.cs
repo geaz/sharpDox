@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using SharpDox.Model.CallTree;
 using SharpDox.Model.Documentation;
@@ -17,6 +18,7 @@ namespace SharpDox.Model.Repository.Members
     ///     </summary>
     /// </de>
     [Serializable]
+    [DebuggerDisplay("{Name}")]
     public class SDMethod : SDMemberBase
     {
         public SDMethod(string identifier, string name)
@@ -24,7 +26,7 @@ namespace SharpDox.Model.Repository.Members
             Identifier = identifier;
             Name = name;
 
-            TypeParameters = new List<SDTypeRef>();
+            TypeParameters = new SortedList<SDTypeParameter>();
             Parameters = new List<SDParameter>();
 			Calls = new List<SDNode>();
         }
@@ -183,7 +185,7 @@ namespace SharpDox.Model.Repository.Members
         ///     Setzt oder liefert eine Liste aller Typ-Parameter.
         ///     </summary>
         /// </de>
-        public List<SDTypeRef> TypeParameters { get; set; }
+        public SortedList<SDTypeParameter> TypeParameters { get; set; }
 
         /// <default>
         ///     <summary>
@@ -211,7 +213,7 @@ namespace SharpDox.Model.Repository.Members
         {
             get
             {
-                var typeParam = TypeParameters.Select(parameter => parameter.NameWithTypeArguments).ToList();
+                var typeParam = TypeParameters.Select(parameter => parameter.Name).ToList();
                 var typeParamText = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
                 var param = Parameters.Select(parameter => parameter.ParamType.NameWithTypeArguments + " " + parameter.Name).ToList();
 
@@ -235,7 +237,7 @@ namespace SharpDox.Model.Repository.Members
         {
             get
             {
-                var typeParam = TypeParameters.Select(parameter => parameter.LinkedNameWithTypeArguments).ToList();
+                var typeParam = TypeParameters.Select(parameter => parameter.Name).ToList();
                 var typeParamText = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
                 var param = Parameters.Select(parameter => parameter.ParamType.LinkedNameWithTypeArguments + " " + parameter.Name).ToList();
 

@@ -1,6 +1,5 @@
 using SharpDox.Model.Documentation;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace SharpDox.Model.Repository

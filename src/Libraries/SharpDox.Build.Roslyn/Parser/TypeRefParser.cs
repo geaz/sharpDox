@@ -5,11 +5,11 @@ namespace SharpDox.Build.Roslyn.Parser
 {
     internal class TypeRefParser : BaseParser
     {
-        private readonly TypeParser _typeParser;
+        private readonly StrangerTypeParser _strangerTypeParser;
 
-        internal TypeRefParser(TypeParser typeParser, ParserOptions parserOptions) : base(parserOptions)
+        internal TypeRefParser(StrangerTypeParser strangerTypeParser, ParserOptions parserOptions) : base(parserOptions)
         {
-            _typeParser = typeParser;
+            _strangerTypeParser = strangerTypeParser;
         }
 
         public SDTypeRef GetParsedTypeReference(ITypeSymbol typeSymbol)
@@ -19,21 +19,28 @@ namespace SharpDox.Build.Roslyn.Parser
             var namedTypeSymbol = typeSymbol as INamedTypeSymbol;
             if(namedTypeSymbol != null)
             {
-                typeRef.Type = _typeParser.GetParsedType(namedTypeSymbol);
+                typeRef.Type = _strangerTypeParser.GetParsedType(this, namedTypeSymbol, namedTypeSymbol.ContainingNamespace);
             }
 
             var pointerTypeSymbol = typeSymbol as IPointerTypeSymbol;
             if(pointerTypeSymbol != null)
             {
-                typeRef.Type = _typeParser.GetParsedType(pointerTypeSymbol.PointedAtType);
+                var pointedSymbol = pointerTypeSymbol.PointedAtType;
+                typeRef.Type = _strangerTypeParser.GetParsedType(this, pointedSymbol, pointedSymbol.ContainingNamespace);
                 typeRef.IsPointerType = true;
             }
 
             var arrayTypeSymbol = typeSymbol as IArrayTypeSymbol;
             if (arrayTypeSymbol != null)
             {
-                typeRef.Type = _typeParser.GetParsedType(arrayTypeSymbol.ElementType);
+                var elementTypeSymbol = arrayTypeSymbol.ElementType;
+                typeRef.Type = _strangerTypeParser.GetParsedType(this, elementTypeSymbol, elementTypeSymbol.ContainingNamespace);
                 typeRef.IsArrayType = true;
+            }
+            
+            if (typeRef.Type == null)
+            {
+                typeRef.Type = _strangerTypeParser.GetParsedType(this, typeSymbol, typeSymbol.ContainingNamespace);
             }
 
             return typeRef;

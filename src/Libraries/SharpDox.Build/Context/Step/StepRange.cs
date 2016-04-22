@@ -13,7 +13,7 @@
             return (int)((((ProgressEnd - ProgressStart) / 100d) * stepProgress) + ProgressStart);
         }
 
-        public int ProgressStart { get; private set; }
-        public int ProgressEnd { get; private set; }
+        public int ProgressStart { get; }
+        public int ProgressEnd { get; }
     }
 }

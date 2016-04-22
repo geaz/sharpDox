@@ -48,7 +48,6 @@ namespace SharpDox.Model.Repository
             if (!Types.ContainsKey(sdType.Identifier))
             {
                 Types.Add(sdType.Identifier, sdType);
-                sdType.Namespace.Types.Add(sdType);
             }
         }
 

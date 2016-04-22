@@ -4,49 +4,10 @@ namespace SharpDox.Build.Roslyn
 {
     public class ParserStrings : ILocalStrings
     {
-        private string _compiling = "Compiling: {0}";
-        private string _parsingNamespace = "Parsing namespace";
-        private string _parsingClass = "Parsing class";
-        private string _parsingMethod = "Parsing method";
-        private string _parsingUsings = "Parsing usings";
-        private string _readingProject = "Reading project: {0}";  
+        public string CompilingAndParsing { get; set; } = "Compiling and Parsing: {0}";
+        public string CleanUp { get; set; } = "Cleaning repository: {0}";
+        public string ParsingMethod { get; set; } = "Parsing Methods of Target: {0}";
 
-        public string DisplayName { get { return "RoslynBuilder"; } }
-
-        public string Compiling
-        {
-            get { return _compiling; }
-            set { _compiling = value; }
-        }
-
-        public string ParsingNamespace
-        {
-            get { return _parsingNamespace; }
-            set { _parsingNamespace = value; }
-        }
-
-        public string ParsingClass
-        {
-            get { return _parsingClass; }
-            set { _parsingClass = value; }
-        }
-
-        public string ParsingMethod
-        {
-            get { return _parsingMethod; }
-            set { _parsingMethod = value; }
-        }
-
-        public string ParsingUseings
-        {
-            get { return _parsingUsings; }
-            set { _parsingUsings = value; }
-        }
-
-        public string ReadingProject
-        {
-            get { return _readingProject; }
-            set { _readingProject = value; }
-        }
+        public string DisplayName => "RoslynBuilder";
     }
 }

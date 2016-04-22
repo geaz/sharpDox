@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.CodeAnalysis;
+using SharpDox.Build.Roslyn.Parser.ProjectParser;
 
 namespace SharpDox.Build.Roslyn.Parser
 {

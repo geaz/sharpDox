@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using SharpDox.Model.Documentation;
 
 namespace SharpDox.Model.Repository.Members

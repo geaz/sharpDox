@@ -1,6 +1,5 @@
 using SharpDox.Model.Documentation;
 using System;
-using System.Linq;
 
 namespace SharpDox.Model.Repository.Members
 {

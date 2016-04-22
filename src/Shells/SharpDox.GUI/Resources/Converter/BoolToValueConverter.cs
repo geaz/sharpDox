@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Data;
-using System.Windows;
 using System.Windows.Media;
 
 namespace SharpDox.GUI.Resources.Converter
