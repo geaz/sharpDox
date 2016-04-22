@@ -30,11 +30,11 @@ namespace SharpDox.UML.Class
             return classDiagram;
         }
 
-        private void ParseTypes(List<ClassDiagram> classDiagramList, IEnumerable<SDType> sdTypes)
+        private void ParseTypes(List<ClassDiagram> classDiagramList, IEnumerable<SDTypeRef> sdTypeRefs)
         {
-            foreach (var sdType in sdTypes)
+            foreach (var sdTypeRef in sdTypeRefs)
             {
-                classDiagramList.Add(CreateClassDiagram(sdType, false));
+                classDiagramList.Add(CreateClassDiagram(sdTypeRef.Type, false));
             }
         }
 

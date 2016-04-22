@@ -18,7 +18,7 @@ namespace SharpDox.Model.Repository
     {
         public SDTypeParameter()
         {
-            ConstraintTypes = new List<SDType>();
+            ConstraintTypes = new List<SDTypeRef>();
         }
 
         /// <default>
@@ -43,7 +43,7 @@ namespace SharpDox.Model.Repository
         ///     Liefert die ConstraintTypes des Typparameters.
         ///     </summary>     
         /// </de>
-        public List<SDType> ConstraintTypes { get; set; }
+        public List<SDTypeRef> ConstraintTypes { get; set; }
 
         /// <default>
         ///     <summary>

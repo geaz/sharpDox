@@ -71,6 +71,7 @@
     <Compile Include="Repository\SDNamespace.cs" />
     <Compile Include="Repository\Members\SDParameter.cs" />
     <Compile Include="Repository\Members\SDProperty.cs" />
+    <Compile Include="Repository\SDTypeRef.cs" />
     <Compile Include="SDProject.cs" />
     <Compile Include="Repository\SDRegion.cs" />
     <Compile Include="Repository\SDRepository.cs" />

@@ -7,11 +7,11 @@ namespace SharpDox.Build.Roslyn.Parser
 {
     internal class FieldParser : BaseParser
     {
-        private readonly TypeParser _typeParser;
+        private readonly TypeRefParser _typeRefParser;
 
-        internal FieldParser(TypeParser typeParser, ParserOptions parserOptions) : base(parserOptions)
+        internal FieldParser(TypeRefParser typeRefParser, ParserOptions parserOptions) : base(parserOptions)
         {
-            _typeParser = typeParser;
+            _typeRefParser = typeRefParser;
         }
 
         internal void ParseFields(SDType sdType, INamedTypeSymbol typeSymbol)
@@ -35,9 +35,9 @@ namespace SharpDox.Build.Roslyn.Parser
             var sdField = new SDField(field.GetIdentifier())
             {
                 Name = field.Name,
-                DeclaringType = _typeParser.GetParsedType(field.ContainingType),
+                DeclaringType = _typeRefParser.GetParsedTypeReference(field.ContainingType),
                 Accessibility = field.DeclaredAccessibility.ToString().ToLower(),
-                ReturnType = _typeParser.GetParsedType(field.Type),
+                ReturnType = _typeRefParser.GetParsedTypeReference(field.Type),
                 ConstantValue = field.ConstantValue != null ? field.ConstantValue.ToString() : string.Empty,
                 IsConst = field.IsConst,
                 IsReadonly = field.IsReadOnly,

@@ -8,6 +8,7 @@ namespace SharpDox.Build.Roslyn.Parser
 {
     internal class TypeParser : BaseParser
     {
+        private readonly TypeRefParser _typeRefParser;
         private readonly EventParser _eventParser;
         private readonly FieldParser _fieldParser;
         private readonly MethodParser _methodParser;
@@ -15,10 +16,11 @@ namespace SharpDox.Build.Roslyn.Parser
 
         internal TypeParser(ParserOptions parserOptions) : base(parserOptions)
         {
-            _eventParser = new EventParser(this, parserOptions);
-            _fieldParser = new FieldParser(this, parserOptions);
-            _methodParser = new MethodParser(this, parserOptions);
-            _propertyParser = new PropertyParser(this, parserOptions);
+            _typeRefParser = new TypeRefParser(this, parserOptions);
+            _eventParser = new EventParser(_typeRefParser, parserOptions);
+            _fieldParser = new FieldParser(_typeRefParser, parserOptions);
+            _methodParser = new MethodParser(_typeRefParser, parserOptions);
+            _propertyParser = new PropertyParser(_typeRefParser, parserOptions);
         }
 
         internal void ParseProjectTypes(List<INamedTypeSymbol> typeSymbols)
@@ -69,12 +71,6 @@ namespace SharpDox.Build.Roslyn.Parser
 
         private void ParseForeignTypeToModel(SDType sdType, ITypeSymbol typeSymbol)
         {
-            var arrayType = typeSymbol as IArrayTypeSymbol;
-            if (arrayType != null)
-            {
-                AddParsedArrayTypeElement(sdType, typeSymbol);
-            }
-
             var type = typeSymbol as INamedTypeSymbol;
             if (type != null)
             {
@@ -85,23 +81,14 @@ namespace SharpDox.Build.Roslyn.Parser
             AddParsedInterfaces(sdType, typeSymbol.Interfaces);            
         }
 
-        private void AddParsedArrayTypeElement(SDType sdType, ITypeSymbol typeSymbol)
-        {
-            var arrayType = typeSymbol as IArrayTypeSymbol;
-            if (arrayType != null)
-            {
-                sdType.ArrayElementType = GetParsedType(arrayType.ElementType);
-            }
-        }
-
         private void AddParsedBaseType(SDType sdType, INamedTypeSymbol baseType)
         {
             if (baseType != null && baseType.TypeKind != TypeKind.Interface)
             {
-                var type = GetParsedType(baseType);
-                if (sdType.BaseTypes.SingleOrDefault((i => i.Identifier == type.Identifier)) == null && type.Fullname != "System.Object")
+                var typeRef = _typeRefParser.GetParsedTypeReference(baseType);
+                if (sdType.BaseTypes.SingleOrDefault((i => i.Type.Identifier == typeRef.Type.Identifier)) == null && typeRef.Type.Fullname != "System.Object")
                 {
-                    sdType.BaseTypes.Add(type);
+                    sdType.BaseTypes.Add(typeRef);
                 }
             }
         }
@@ -112,10 +99,10 @@ namespace SharpDox.Build.Roslyn.Parser
             {
                 if (nestedType.TypeKind != TypeKind.Interface)
                 {
-                    var type = GetParsedType(nestedType);
-                    if (sdType.NestedTypes.SingleOrDefault((i => i.Identifier == type.Identifier)) == null && type.Fullname != "System.Object")
+                    var typeRef = _typeRefParser.GetParsedTypeReference(nestedType);
+                    if (sdType.NestedTypes.SingleOrDefault((i => i.Type.Identifier == typeRef.Type.Identifier)) == null && typeRef.Type.Fullname != "System.Object")
                     {
-                        sdType.NestedTypes.Add(type);
+                        sdType.NestedTypes.Add(typeRef);
                     }
                 }
             }
@@ -127,10 +114,10 @@ namespace SharpDox.Build.Roslyn.Parser
             {
                 if (implementedInterface.TypeKind == TypeKind.Interface)
                 {
-                    var type = GetParsedType(implementedInterface);
-                    if (sdType.ImplementedInterfaces.SingleOrDefault((i => i.Identifier == type.Identifier)) == null && type.Fullname != "System.Object")
+                    var typeRef = _typeRefParser.GetParsedTypeReference(implementedInterface);
+                    if (sdType.ImplementedInterfaces.SingleOrDefault((i => i.Type.Identifier == typeRef.Type.Identifier)) == null && typeRef.Type.Fullname != "System.Object")
                     {
-                        sdType.ImplementedInterfaces.Add(type);
+                        sdType.ImplementedInterfaces.Add(typeRef);
                     }
                 }
             }
@@ -140,10 +127,10 @@ namespace SharpDox.Build.Roslyn.Parser
         {
             foreach (var typeArgument in typeArguments)
             {
-                var type = GetParsedType(typeArgument);
-                if (sdType.TypeArguments.SingleOrDefault((i => i.Identifier == type.Identifier)) == null)
+                var typeRef = _typeRefParser.GetParsedTypeReference(typeArgument);
+                if (sdType.TypeArguments.SingleOrDefault((i => i.Type.Identifier == typeRef.Type.Identifier)) == null)
                 {
-                    sdType.TypeArguments.Add(GetParsedType(typeArgument));
+                    sdType.TypeArguments.Add(typeRef);
                 }
             }
         }
@@ -161,7 +148,7 @@ namespace SharpDox.Build.Roslyn.Parser
                 };
                 foreach (var constraintType in typeParameter.ConstraintTypes)
                 {
-                    sdTypeParameter.ConstraintTypes.Add(GetParsedType(constraintType));
+                    sdTypeParameter.ConstraintTypes.Add(_typeRefParser.GetParsedTypeReference(constraintType));
                 }
 
                 if (sdType.TypeParameters.SingleOrDefault((i => i.Name == sdTypeParameter.Name)) == null)

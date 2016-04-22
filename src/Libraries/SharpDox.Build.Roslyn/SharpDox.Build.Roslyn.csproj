@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Parser\DocumentationParser.cs" />
     <Compile Include="Parser\EventParser.cs" />
+    <Compile Include="Parser\TypeRefParser.cs" />
     <Compile Include="Parser\FieldParser.cs" />
     <Compile Include="Parser\MethodCallParser.cs" />
     <Compile Include="Parser\MethodParser.cs" />

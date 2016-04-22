@@ -93,7 +93,7 @@ namespace SharpDox.Model.Repository.Members
         ///     Liefert den beinhaltenden Typen des Mitglieds.
         ///     </summary>     
         /// </de>
-        public SDType DeclaringType { get; set; }
+        public SDTypeRef DeclaringType { get; set; }
 
         /// <default>
         ///     <summary>

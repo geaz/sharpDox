@@ -29,32 +29,32 @@ namespace SharpDox.Model.Repository
 
             Documentations = new SDLanguageItemCollection<SDDocumentation>();
 
-            BaseTypes = new SortedList<SDType>();
-            ImplementedInterfaces = new SortedList<SDType>();
-            UsedBy = new SortedList<SDType>();
-            Uses = new SortedList<SDType>();
+            BaseTypes = new SortedList<SDTypeRef>();
+            ImplementedInterfaces = new SortedList<SDTypeRef>();
+            UsedBy = new SortedList<SDTypeRef>();
+            Uses = new SortedList<SDTypeRef>();
 
             TypeParameters = new SortedList<SDTypeParameter>();
-            TypeArguments = new SortedList<SDType>();
+            TypeArguments = new SortedList<SDTypeRef>();
             Fields = new SortedList<SDField>();
             Constructors = new SortedList<SDMethod>();
             Methods = new SortedList<SDMethod>();
             Events = new SortedList<SDEvent>();
             Properties = new SortedList<SDProperty>();
-            NestedTypes = new SortedList<SDType>();
+            NestedTypes = new SortedList<SDTypeRef>();
             Regions = new List<SDRegion>();
         }
 
         private string GetInheritText(bool linked)
         {
             var inheritedText = ImplementedInterfaces.Count > 0 ? 
-                string.Join(", ", ImplementedInterfaces.Select(i => linked ? i.LinkedNameWithArguments : 
+                string.Join(", ", ImplementedInterfaces.Select(i => linked ? i.LinkedNameWithTypeArguments : 
                 i.NameWithTypeArguments).ToList()) : string.Empty;
 
             var baseText = string.Empty;
             if (BaseTypes.Any())
             {
-                baseText = linked ? BaseTypes.First().LinkedNameWithArguments : BaseTypes.First().NameWithTypeArguments;
+                baseText = linked ? BaseTypes.First().LinkedNameWithTypeArguments : BaseTypes.First().NameWithTypeArguments;
             }
 
             if (inheritedText != string.Empty && baseText != string.Empty)
@@ -94,7 +94,7 @@ namespace SharpDox.Model.Repository
                 }
                 foreach (var constraintType in typeParam.ConstraintTypes)
                 {
-                    if (linked) list.Add(constraintType.LinkedNameWithArguments);
+                    if (linked) list.Add(constraintType.LinkedNameWithTypeArguments);
                     else list.Add(constraintType.NameWithTypeArguments);
                 }
 
@@ -261,7 +261,7 @@ namespace SharpDox.Model.Repository
         {
             get
             {
-                var typeParam = TypeArguments.Select(argument => argument.NameWithTypeArguments).ToList();
+                var typeParam = TypeArguments.Select(argument => argument.Type.Name).ToList();
                 var typeArguments = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
 
                 return Name + typeArguments;
@@ -280,21 +280,13 @@ namespace SharpDox.Model.Repository
         ///     Projekttypen sind Markdown Links.
         ///     </summary>     
         /// </de>
-        public string LinkedNameWithArguments
+        public string LinkedNameWithTypeArguments
         {
             get
             {
+                var typeParam = TypeArguments.Select(argument => argument.Type.Name).ToList();
+                var linkedTypeArguments = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
                 var linkedName = IsProjectStranger ? Name : string.Format("[{0}]({{{{type-link:{1}}}}})", Name, Fullname);
-                if(ArrayElementType != null && !ArrayElementType.IsProjectStranger)
-                {
-                    linkedName = ArrayElementType.LinkedNameWithArguments + "[]";
-                }
-
-                var linkedTypeArguments =
-                    TypeArguments.Count > 0 ?
-                    string.Format("<{0}>", string.Join(", ", TypeArguments.Select(t => t.IsProjectStranger ? t.Name : string.Format("[{0}]({{{{type-link:{1}}}}})", t.Name, t.Fullname)))) :
-                    string.Empty;
-
 
                 return linkedName + linkedTypeArguments;
             }
@@ -326,7 +318,7 @@ namespace SharpDox.Model.Repository
         {
             get
             {
-                var typeParam = TypeArguments.Select(argument => argument.NameWithTypeArguments).ToList();
+                var typeParam = TypeArguments.Select(argument => argument.Type.Name).ToList();
                 var typeArguments = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
 
                 return string.Format("{0}.{1}", Namespace.Fullname, _name + typeArguments);
@@ -344,19 +336,7 @@ namespace SharpDox.Model.Repository
         ///     </summary>     
         /// </de>
         public string Kind { get; set; }
-
-        /// <default>
-        ///     <summary>
-        ///     If the type is an array element, this property returns the underlying element type.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Falls der Typ ein Arrayelement ist, liefert diese Property den zugrunde liegenden Typen.
-        ///     </summary>     
-        /// </de>>
-        public SDType ArrayElementType { get; set; }
-
+        
         /// <default>
         ///     <summary>
         ///     Gets or sets a list of all type arguments.
@@ -367,7 +347,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Typ-Argumente.
         ///     </summary>     
         /// </de>
-        public SortedList<SDType> TypeArguments { get; private set; }
+        public SortedList<SDTypeRef> TypeArguments { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -391,7 +371,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller Basistypen.
         ///     </summary>     
         /// </de>
-        public SortedList<SDType> BaseTypes { get; private set; }
+        public SortedList<SDTypeRef> BaseTypes { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -403,7 +383,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller implementierter Interfaces.
         ///     </summary>     
         /// </de>
-        public SortedList<SDType> ImplementedInterfaces { get; private set; }
+        public SortedList<SDTypeRef> ImplementedInterfaces { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -415,7 +395,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller <c>SDType</c>s die diesen Typen benutzen.
         ///     </summary>     
         /// </de>
-        public SortedList<SDType> UsedBy { get; set; }
+        public SortedList<SDTypeRef> UsedBy { get; set; }
 
         /// <default>
         ///     <summary>
@@ -427,7 +407,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller <c>SDType</c>s die von diesem Typen benutzt werden.
         ///     </summary>     
         /// </de>
-        public SortedList<SDType> Uses { get; set; }
+        public SortedList<SDTypeRef> Uses { get; set; }
 
         /// <default>
         ///     <summary>
@@ -499,7 +479,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller eingebetteter Typen.
         ///     </summary>     
         /// </de>
-        public SortedList<SDType> NestedTypes { get; private set; }
+        public SortedList<SDTypeRef> NestedTypes { get; private set; }
 
         /// <default>
         ///     <summary>
@@ -542,7 +522,7 @@ namespace SharpDox.Model.Repository
                 var desc = IsAbstract && Kind.ToLower() != "interface" ? "abstract" : string.Empty;
                 desc = IsStatic ? "static" : desc;
 
-                var syntax = new string[] { Accessibility.ToLower(), desc, Kind.ToLower(), LinkedNameWithArguments + GetInheritText(true), GetTypeConstraintText(true) };
+                var syntax = new string[] { Accessibility.ToLower(), desc, Kind.ToLower(), LinkedNameWithTypeArguments + GetInheritText(true), GetTypeConstraintText(true) };
                 syntax = syntax.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
                 return new SDTemplate(string.Join(" ", syntax));

@@ -9,11 +9,11 @@ namespace SharpDox.Build.Roslyn.Parser
 {
     internal class MethodParser : BaseParser
     {
-        private readonly TypeParser _typeParser;
+        private readonly TypeRefParser _typeRefParser;
 
-        internal MethodParser(TypeParser typeParser, ParserOptions parserOptions) : base(parserOptions)
+        internal MethodParser(TypeRefParser typeRefParser, ParserOptions parserOptions) : base(parserOptions)
         {
-            _typeParser = typeParser;
+            _typeRefParser = typeRefParser;
         }
 
         internal void ParseConstructors(SDType sdType, INamedTypeSymbol typeSymbol)
@@ -51,12 +51,12 @@ namespace SharpDox.Build.Roslyn.Parser
                 return sdMethod;
             }
 
-            var returnType = _typeParser.GetParsedType(method.ReturnType);
+            var returnType = _typeRefParser.GetParsedTypeReference(method.ReturnType);
             var syntaxReference = method.DeclaringSyntaxReferences.Any() ? method.DeclaringSyntaxReferences.Single() : null;
             sdMethod = new SDMethod(method.GetIdentifier(), isCtor ? method.ContainingType.Name : method.Name)
             {
                 Namespace = method.ContainingNamespace.GetIdentifier(),
-                DeclaringType = _typeParser.GetParsedType(method.ContainingType),
+                DeclaringType = _typeRefParser.GetParsedTypeReference(method.ContainingType),
                 ReturnType = returnType,
                 IsCtor = isCtor,
                 Accessibility = method.DeclaredAccessibility.ToString().ToLower(),
@@ -79,7 +79,7 @@ namespace SharpDox.Build.Roslyn.Parser
 
             foreach (var typeParameter in method.TypeParameters)
             {
-                sdMethod.TypeParameters.Add(_typeParser.GetParsedType(typeParameter));
+                sdMethod.TypeParameters.Add(_typeRefParser.GetParsedTypeReference(typeParameter));
             }
 
             foreach (var parameter in method.Parameters)
@@ -87,7 +87,7 @@ namespace SharpDox.Build.Roslyn.Parser
                 sdMethod.Parameters.Add(new SDParameter
                 {
                     Name = parameter.Name,
-                    ParamType = _typeParser.GetParsedType(parameter.Type),
+                    ParamType = _typeRefParser.GetParsedTypeReference(parameter.Type),
                     IsOptional = parameter.IsOptional,
                     IsConst = parameter.HasExplicitDefaultValue,
                     ConstantValue = parameter.HasExplicitDefaultValue ? parameter.ExplicitDefaultValue?.ToString() ?? "null" : null,

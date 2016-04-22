@@ -37,7 +37,7 @@ namespace SharpDox.Model.Repository.Members
         ///     Setzt oder liefert den Typen des Parameters.
         ///     </summary>
         /// </de>
-        public SDType ParamType { get; set; }
+        public SDTypeRef ParamType { get; set; }
 
         /// <default>
         ///     <summary>

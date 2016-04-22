@@ -7,11 +7,11 @@ namespace SharpDox.Build.Roslyn.Parser
 {
     internal class PropertyParser : BaseParser
     {
-        private readonly TypeParser _typeParser;
+        private readonly TypeRefParser _typeRefParser;
 
-        internal PropertyParser(TypeParser typeParser, ParserOptions parserOptions) : base(parserOptions)
+        internal PropertyParser(TypeRefParser typeRefParser, ParserOptions parserOptions) : base(parserOptions)
         {
-            _typeParser = typeParser;
+            _typeRefParser = typeRefParser;
         }
 
         internal void ParseProperties(SDType sdType, INamedTypeSymbol typeSymbol)
@@ -35,9 +35,9 @@ namespace SharpDox.Build.Roslyn.Parser
             var sdProperty = new SDProperty(property.GetIdentifier())
             {
                 Name = property.Name,
-                DeclaringType = _typeParser.GetParsedType(property.ContainingType),
+                DeclaringType = _typeRefParser.GetParsedTypeReference(property.ContainingType),
                 Accessibility = property.DeclaredAccessibility.ToString().ToLower(),
-                ReturnType = _typeParser.GetParsedType(property.Type),
+                ReturnType = _typeRefParser.GetParsedTypeReference(property.Type),
                 CanGet = property.GetMethod != null,
                 CanSet = property.SetMethod != null,
                 IsAbstract = property.IsAbstract,

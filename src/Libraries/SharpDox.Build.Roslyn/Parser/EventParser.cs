@@ -7,11 +7,11 @@ namespace SharpDox.Build.Roslyn.Parser
 {
     internal class EventParser : BaseParser
     {
-        private readonly TypeParser _typeParser;
+        private readonly TypeRefParser _typeRefParser;
 
-        internal EventParser(TypeParser typeParser, ParserOptions parserOptions) : base(parserOptions)
+        internal EventParser(TypeRefParser typeRefParser, ParserOptions parserOptions) : base(parserOptions)
         {
-            _typeParser = typeParser;
+            _typeRefParser = typeRefParser;
         }
 
         internal void ParseEvents(SDType sdType, INamedTypeSymbol typeSymbol)
@@ -35,7 +35,7 @@ namespace SharpDox.Build.Roslyn.Parser
             var sdEvent = new SDEvent(eve.GetIdentifier())
             {
                 Name = eve.Name,
-                DeclaringType = _typeParser.GetParsedType(eve.ContainingType),
+                DeclaringType = _typeRefParser.GetParsedTypeReference(eve.ContainingType),
                 Accessibility = eve.DeclaredAccessibility.ToString().ToLower(),
                 Documentations = DocumentationParser.ParseDocumentation(eve)
             };

@@ -24,7 +24,7 @@ namespace SharpDox.Model.Repository.Members
             Identifier = identifier;
             Name = name;
 
-            TypeParameters = new List<SDType>();
+            TypeParameters = new List<SDTypeRef>();
             Parameters = new List<SDParameter>();
 			Calls = new List<SDNode>();
         }
@@ -159,7 +159,7 @@ namespace SharpDox.Model.Repository.Members
         ///     Setzt oder liefert den Rückgabetypen der Methode.
         ///     </summary>
         /// </de>
-        public SDType ReturnType { get; set; }
+        public SDTypeRef ReturnType { get; set; }
     
         /// <default>
         ///     <summary>
@@ -183,7 +183,7 @@ namespace SharpDox.Model.Repository.Members
         ///     Setzt oder liefert eine Liste aller Typ-Parameter.
         ///     </summary>
         /// </de>
-        public List<SDType> TypeParameters { get; set; }
+        public List<SDTypeRef> TypeParameters { get; set; }
 
         /// <default>
         ///     <summary>
@@ -235,9 +235,9 @@ namespace SharpDox.Model.Repository.Members
         {
             get
             {
-                var typeParam = TypeParameters.Select(parameter => parameter.LinkedNameWithArguments).ToList();
+                var typeParam = TypeParameters.Select(parameter => parameter.LinkedNameWithTypeArguments).ToList();
                 var typeParamText = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
-                var param = Parameters.Select(parameter => parameter.ParamType.LinkedNameWithArguments + " " + parameter.Name).ToList();
+                var param = Parameters.Select(parameter => parameter.ParamType.LinkedNameWithTypeArguments + " " + parameter.Name).ToList();
 
                 return Name + typeParamText + "(" + string.Join(", ", param) + ")";
             }
@@ -276,7 +276,7 @@ namespace SharpDox.Model.Repository.Members
                 desc = IsVirtual ? "virtual" : desc;
                 desc = IsStatic ? "static" : desc;
 
-                var syntaxItems = new string[] { Accessibility, desc, ReturnType.LinkedNameWithArguments, LinkedSignature };
+                var syntaxItems = new string[] { Accessibility, desc, ReturnType.LinkedNameWithTypeArguments, LinkedSignature };
                 syntaxItems = syntaxItems.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
                 return new SDTemplate(string.Join(" ", syntaxItems));
