@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using SharpDox.Model.CallTree;
 using SharpDox.Model.Documentation;
@@ -17,14 +18,15 @@ namespace SharpDox.Model.Repository.Members
     ///     </summary>
     /// </de>
     [Serializable]
-    public class SDMethod : SDMember
+    [DebuggerDisplay("{Name}")]
+    public class SDMethod : SDMemberBase
     {
         public SDMethod(string identifier, string name)
         {
             Identifier = identifier;
             Name = name;
 
-            TypeParameters = new List<SDType>();
+            TypeParameters = new SortedList<SDTypeParameter>();
             Parameters = new List<SDParameter>();
 			Calls = new List<SDNode>();
         }
@@ -103,18 +105,6 @@ namespace SharpDox.Model.Repository.Members
 
         /// <default>
         ///     <summary>
-        ///     Gets or sets a value indicating whether the method is shadowing or not.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Setzt oder liefert einen Wert der angibt, ob diese Methode "shadowing" ist oder nicht.
-        ///     </summary>
-        /// </de>
-        public bool IsShadowing { get; set; }
-
-        /// <default>
-        ///     <summary>
         ///     Gets or sets a value indicating whether the method override another one.
         ///     </summary>
         /// </default>
@@ -171,7 +161,7 @@ namespace SharpDox.Model.Repository.Members
         ///     Setzt oder liefert den Rückgabetypen der Methode.
         ///     </summary>
         /// </de>
-        public SDType ReturnType { get; set; }
+        public SDTypeRef ReturnType { get; set; }
     
         /// <default>
         ///     <summary>
@@ -195,7 +185,7 @@ namespace SharpDox.Model.Repository.Members
         ///     Setzt oder liefert eine Liste aller Typ-Parameter.
         ///     </summary>
         /// </de>
-        public List<SDType> TypeParameters { get; set; }
+        public SortedList<SDTypeParameter> TypeParameters { get; set; }
 
         /// <default>
         ///     <summary>
@@ -223,7 +213,7 @@ namespace SharpDox.Model.Repository.Members
         {
             get
             {
-                var typeParam = TypeParameters.Select(parameter => parameter.NameWithTypeArguments).ToList();
+                var typeParam = TypeParameters.Select(parameter => parameter.Name).ToList();
                 var typeParamText = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
                 var param = Parameters.Select(parameter => parameter.ParamType.NameWithTypeArguments + " " + parameter.Name).ToList();
 
@@ -247,9 +237,9 @@ namespace SharpDox.Model.Repository.Members
         {
             get
             {
-                var typeParam = TypeParameters.Select(parameter => parameter.LinkedNameWithArguments).ToList();
+                var typeParam = TypeParameters.Select(parameter => parameter.Name).ToList();
                 var typeParamText = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
-                var param = Parameters.Select(parameter => parameter.ParamType.LinkedNameWithArguments + " " + parameter.Name).ToList();
+                var param = Parameters.Select(parameter => parameter.ParamType.LinkedNameWithTypeArguments + " " + parameter.Name).ToList();
 
                 return Name + typeParamText + "(" + string.Join(", ", param) + ")";
             }
@@ -288,7 +278,7 @@ namespace SharpDox.Model.Repository.Members
                 desc = IsVirtual ? "virtual" : desc;
                 desc = IsStatic ? "static" : desc;
 
-                var syntaxItems = new string[] { Accessibility, desc, ReturnType.LinkedNameWithArguments, LinkedSignature };
+                var syntaxItems = new string[] { Accessibility, desc, ReturnType.LinkedNameWithTypeArguments, LinkedSignature };
                 syntaxItems = syntaxItems.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
                 return new SDTemplate(string.Join(" ", syntaxItems));

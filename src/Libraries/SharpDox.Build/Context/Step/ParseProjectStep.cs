@@ -1,6 +1,5 @@
 ﻿using SharpDox.Model;
 using SharpDox.Model.Documentation;
-using SharpDox.Model.Repository;
 using System.Globalization;
 using System.IO;
 using System.Linq;

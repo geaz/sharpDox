@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using SharpDox.Model.Documentation;
 
 namespace SharpDox.Model.Repository.Members
@@ -15,9 +14,9 @@ namespace SharpDox.Model.Repository.Members
     ///     </summary>
     /// </de>
     [Serializable]
-    public abstract class SDMember : IComparable<SDMember>
+    public abstract class SDMemberBase : IComparable<SDMemberBase>
     {
-        protected SDMember()
+        protected SDMemberBase()
         {
             Guid = Guid.NewGuid();
             Documentations = new SDLanguageItemCollection<SDDocumentation>();
@@ -93,7 +92,7 @@ namespace SharpDox.Model.Repository.Members
         ///     Liefert den beinhaltenden Typen des Mitglieds.
         ///     </summary>     
         /// </de>
-        public SDType DeclaringType { get; set; }
+        public SDTypeRef DeclaringType { get; set; }
 
         /// <default>
         ///     <summary>
@@ -135,17 +134,17 @@ namespace SharpDox.Model.Repository.Members
         ///     <summary>
         ///     Comparer to sort the a list with SDMembers.
         ///     </summary>
-        ///     <param name="other">SDMember to compare with</param>
-        ///     <returns>A value indicating, if the current SDMember is lower or greater then the given one.</returns>
+        ///     <param name="other">SDMemberBase to compare with</param>
+        ///     <returns>A value indicating, if the current SDMemberBase is lower or greater then the given one.</returns>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Vergleichsmethode, um eine Liste mit <c>SDMember</c>s zu sortieren.
+        ///     Vergleichsmethode, um eine Liste mit <c>SDMemberBase</c>s zu sortieren.
         ///     </summary>
-        ///     <param name="other">Ein anderer <c>SDMember</c> mit dem dieser verglichen werden soll.</param>
-        ///     <returns>Ein Wert der angibt, ob der aktuelle <c>SDMember</c> "größer" oder "kleiner" als der angegebene ist.</returns>    
+        ///     <param name="other">Ein anderer <c>SDMemberBase</c> mit dem dieser verglichen werden soll.</param>
+        ///     <returns>Ein Wert der angibt, ob der aktuelle <c>SDMemberBase</c> "größer" oder "kleiner" als der angegebene ist.</returns>    
         /// </de>
-        public int CompareTo(SDMember other)
+        public int CompareTo(SDMemberBase other)
         {
             return Identifier.CompareTo(other.Identifier);
         }

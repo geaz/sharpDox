@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using Autofac;
-using log4net.Config;
 using SharpDox.Core;
 
 namespace SharpDox.Console
@@ -14,8 +13,6 @@ namespace SharpDox.Console
             var exitCode = -1;
             try
             {
-                XmlConfigurator.Configure();
-
                 var mainContainerConfig = new MainContainerConfig();
                 mainContainerConfig.RegisterAsSelf<SDConsole>();
                 mainContainerConfig.RegisterStrings<SDConsoleStrings>();

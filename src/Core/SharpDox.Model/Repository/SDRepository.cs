@@ -26,7 +26,7 @@ namespace SharpDox.Model.Repository
             Namespaces = new SortedDictionary<string, SDNamespace>();
             Types = new Dictionary<string, SDType>();
             Methods = new Dictionary<string, SDMethod>();
-            Members = new Dictionary<string, SDMember>();
+            Members = new Dictionary<string, SDMemberBase>();
 
             KnownReferences.AddKnownNamespaces(this);
             KnownReferences.AddKnownTypes(this);
@@ -59,22 +59,11 @@ namespace SharpDox.Model.Repository
             }
         }
 
-        public void AddMember(SDMember sdMember)
+        public void AddMember(SDMemberBase sdMember)
         {
             if (!Members.ContainsKey(sdMember.Identifier))
             {
                 Members.Add(sdMember.Identifier, sdMember);
-            }
-        }
-
-        public void AddNamespaceTypeRelation(string namespaceIdentifier, string typeIdentifier)
-        {
-            var sdNamespace = GetNamespaceByIdentifier(namespaceIdentifier);
-            var sdType = GetTypeByIdentifier(typeIdentifier);
-
-            if (sdNamespace != null && sdType != null && sdNamespace.Types.SingleOrDefault(t => t.Identifier == sdType.Identifier) == null)
-            {
-                sdNamespace.Types.Add(sdType);
             }
         }
 
@@ -158,9 +147,9 @@ namespace SharpDox.Model.Repository
         ///     <param name="identifier">Der Identifikator des Mitglieds.</param>
         ///     <returns>Das Mitglied, falls dieses vorhanden ist.</returns>  
         /// </de>
-        public SDMember GetMemberByIdentifier(string identifier)
+        public SDMemberBase GetMemberByIdentifier(string identifier)
         {
-            SDMember sdMember = null;
+            SDMemberBase sdMember = null;
             Members.TryGetValue(identifier, out sdMember);
 
             if (sdMember == null)
@@ -174,19 +163,19 @@ namespace SharpDox.Model.Repository
 
         /// <default>
         ///     <summary>
-        ///     Gets a list of all namespaces.
+        ///     Gets a list of all namespaces (no project strangers).
         ///     </summary>
         ///     <returns>A list containing all namespaces.</returns>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Liefert eine Liste aller Namensräume.
+        ///     Liefert eine Liste aller Namensräume (ohne projektfremde Namespaces).
         ///     </summary>
         ///     <returns>Eine Liste aller Namensräume.</returns> 
         /// </de>
         public List<SDNamespace> GetAllNamespaces()
         {
-            return Namespaces.Select(n => n.Value).ToList();
+            return Namespaces.Select(n => n.Value).Where(n => !n.IsProjectStranger).ToList();
         }
 
         /// <default>
@@ -231,6 +220,6 @@ namespace SharpDox.Model.Repository
 
         private Dictionary<string, SDMethod> Methods { get; set; }
 
-        private Dictionary<string, SDMember> Members { get; set; }
+        private Dictionary<string, SDMemberBase> Members { get; set; }
     }
 }

@@ -17,51 +17,27 @@ namespace SharpDox.Model.Repository
     {
         /// <default>
         ///     <summary>
-        ///     Gets or sets the column within the region begins.
+        ///     Gets or sets the start of the region.
         ///     </summary>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Setzt oder liefert die Spalte in der die Region beginnt.
+        ///     Setzt oder liefert den Start der Region.
         ///     </summary>     
         /// </de>
-        public int BeginColumn { get; set; }
+        public int Start { get; set; }
 
         /// <default>
         ///     <summary>
-        ///     Gets or sets the line within the region begins.
+        ///     Gets or sets the end of the region.
         ///     </summary>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Setzt oder liefert die Zeile in der die Region beginnt.
+        ///     Setzt oder liefert das Ende der Region.
         ///     </summary>     
         /// </de>
-        public int BeginLine { get; set; }
-
-        /// <default>
-        ///     <summary>
-        ///     Gets or sets the column within the region ends.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Setzt oder liefert die Spalte in der die Region endet.
-        ///     </summary>     
-        /// </de>
-        public int EndColumn { get; set; }
-
-        /// <default>
-        ///     <summary>
-        ///     Gets or sets the line within the region ends.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Setzt oder liefert die Zeile in der die Region endet.
-        ///     </summary>     
-        /// </de>
-        public int EndLine { get; set; }
+        public int End { get; set; }
 
         /// <default>
         ///     <summary>

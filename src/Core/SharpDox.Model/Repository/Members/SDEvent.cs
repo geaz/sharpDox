@@ -14,7 +14,7 @@ namespace SharpDox.Model.Repository.Members
     ///     </summary>
     /// </de>
     [Serializable]
-    public class SDEvent : SDMember
+    public class SDEvent : SDMemberBase
     {
         public SDEvent(string identifier)
         {

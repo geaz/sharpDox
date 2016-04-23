@@ -14,6 +14,7 @@ namespace SharpDox.Model
             var systemNamespace = sdRepository.GetNamespaceByIdentifier("System");
             if(systemNamespace != null)
             {
+                sdRepository.AddType(new SDType("dynamic", "Dynamic", systemNamespace) { IsProjectStranger = true, CSharpName = "dynamic" });
                 sdRepository.AddType(new SDType("System.Object", "Object", systemNamespace) { IsProjectStranger = true, CSharpName = "object" });
                 sdRepository.AddType(new SDType("System.Boolean", "Boolean", systemNamespace) { IsProjectStranger = true, CSharpName = "bool" });
                 sdRepository.AddType(new SDType("System.Char", "Char", systemNamespace) { IsProjectStranger = true, CSharpName = "char" });

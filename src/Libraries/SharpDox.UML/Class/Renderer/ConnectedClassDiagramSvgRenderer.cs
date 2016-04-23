@@ -1,10 +1,8 @@
 ﻿using SharpDox.UML.Class.Model;
 using SharpDox.UML.SVG;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Windows;
 
 namespace SharpDox.UML.Class.Renderer

@@ -14,40 +14,6 @@ namespace SharpDox.Core.Config
     /// </de>
     public class CoreStrings : ILocalStrings
     {
-        private string _configTitle = "General Settings";
-        private string _projectName = "Project Name";
-        private string _versionNumber = "Version Number";
-        private string _author = "Author";
-        private string _logoPath = "Logo Path";
-        private string _inputFile = "Input File";
-        private string _excludedIdentifiers = "Excluded Identifiers";
-        private string _exporters = "Exporters";
-        private string _outputPath = "Output Path";
-        private string _docLanguage = "Doc Language";
-        private string _projectUrl = "Project Homepage";
-        private string _authorUrl = "Author Homepage";
-
-        private string _startSd = "Starting sharpDox ...";
-        private string _noShells = "No shell registered. At least one shell is necessary to run sharpDox.";
-        private string _moreShells = "More than one shell registered. Which one should be started?";
-        private string _newConfig = "New Configuration";
-        private string _never = "NEVER";
-
-        /// <default>
-        ///     <summary>
-        ///     Gets the name of the language file.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert den Namen der für die Sprachdatei genutzt wird.
-        ///     </summary>
-        /// </de>
-        public string DisplayName
-        {
-            get { return "SharpDox"; }
-        }
-
         /// <default>
         ///     <summary>
         ///     Localized Text: "New Configuration"
@@ -58,11 +24,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "New Configuration"
         ///     </summary>
         /// </de>
-        public string NewConfig
-        {
-            get { return _newConfig; }
-            set { _newConfig = value; }
-        }
+        public string NewConfig { get; set; } = "New Configuration";
 
         /// <default>
         ///     <summary>
@@ -74,11 +36,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "NEVER"
         ///     </summary>
         /// </de>
-        public string Never
-        {
-            get { return _never; }
-            set { _never = value; }
-        }
+        public string Never { get; set; } = "NEVER";
 
         /// <default>
         ///     <summary>
@@ -90,11 +48,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "Starting sharpDox ..."
         ///     </summary>
         /// </de>
-        public string StartSD
-        {
-            get { return _startSd; }
-            set { _startSd = value; }
-        }
+        public string StartSD { get; set; } = "Starting sharpDox ...";
 
         /// <default>
         ///     <summary>
@@ -106,11 +60,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "No shell registered. At least one shell is necessary to run sharpDox."
         ///     </summary>
         /// </de>
-        public string NoShells
-        {
-            get { return _noShells; }
-            set { _noShells = value; }
-        }
+        public string NoShells { get; set; } = "No shell registered. At least one shell is necessary to run sharpDox.";
 
         /// <default>
         ///     <summary>
@@ -122,11 +72,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "More than one shell registered. Which one should be started?"
         ///     </summary>
         /// </de>
-        public string MoreShells
-        {
-            get { return _moreShells; }
-            set { _moreShells = value; }
-        }
+        public string MoreShells { get; set; } = "More than one shell registered. Which one should be started?";
 
         /// <default>
         ///     <summary>
@@ -138,11 +84,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "General Settings"
         ///     </summary>
         /// </de>
-        public string ConfigTitle
-        {
-            get { return _configTitle; }
-            set { _configTitle = value; }
-        }
+        public string ConfigTitle { get; set; } = "General Settings";
 
         /// <default>
         ///     <summary>
@@ -154,11 +96,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "Project Name"
         ///     </summary>
         /// </de>
-        public string ProjectName
-        {
-            get { return _projectName; }
-            set { _projectName = value; }
-        }
+        public string ProjectName { get; set; } = "Project Name";
 
         /// <default>
         ///     <summary>
@@ -170,11 +108,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "Version Number"
         ///     </summary>
         /// </de>
-        public string VersionNumber
-        {
-            get { return _versionNumber; }
-            set { _versionNumber = value; }
-        }
+        public string VersionNumber { get; set; } = "Version Number";
 
         /// <default>
         ///     <summary>
@@ -186,11 +120,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "Author"
         ///     </summary>
         /// </de>
-        public string Author
-        {
-            get { return _author; }
-            set { _author = value; }
-        }
+        public string Author { get; set; } = "Author";
 
         /// <default>
         ///     <summary>
@@ -202,11 +132,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "Author Homepage"
         ///     </summary>
         /// </de>
-        public string AuthorUrl
-        {
-            get { return _authorUrl; }
-            set { _authorUrl = value; }
-        }
+        public string AuthorUrl { get; set; } = "Author Homepage";
 
         /// <default>
         ///     <summary>
@@ -218,11 +144,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "Project Homepage"
         ///     </summary>
         /// </de>
-        public string ProjectUrl
-        {
-            get { return _projectUrl; }
-            set { _projectUrl = value; }
-        }
+        public string ProjectUrl { get; set; } = "Project Homepage";
 
         /// <default>
         ///     <summary>
@@ -234,11 +156,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "Logo Path"
         ///     </summary>
         /// </de>
-        public string LogoPath
-        {
-            get { return _logoPath; }
-            set { _logoPath = value; }
-        }
+        public string LogoPath { get; set; } = "Logo Path";
 
         /// <default>
         ///     <summary>
@@ -250,11 +168,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "Input File"
         ///     </summary>
         /// </de>
-        public string InputFile
-        {
-            get { return _inputFile; }
-            set { _inputFile = value; }
-        }
+        public string InputFile { get; set; } = "Input File";
 
         /// <default>
         ///     <summary>
@@ -266,11 +180,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "Excluded Identifiers"
         ///     </summary>
         /// </de>
-        public string ExcludedIdentifiers
-        {
-            get { return _excludedIdentifiers; }
-            set { _excludedIdentifiers = value; }
-        }
+        public string ExcludedIdentifiers { get; set; } = "Excluded Identifiers";
 
         /// <default>
         ///     <summary>
@@ -282,11 +192,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "Exporters"
         ///     </summary>
         /// </de>
-        public string Exporters
-        {
-            get { return _exporters; }
-            set { _exporters = value; }
-        }
+        public string Exporters { get; set; } = "Exporters";
 
         /// <default>
         ///     <summary>
@@ -298,11 +204,7 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "Output Path"
         ///     </summary>
         /// </de>
-        public string OutputPath
-        {
-            get { return _outputPath; }
-            set { _outputPath = value; }
-        }
+        public string OutputPath { get; set; } = "Output Path";
 
         /// <default>
         ///     <summary>
@@ -314,10 +216,18 @@ namespace SharpDox.Core.Config
         ///     Lokalisierter Text: "Doc Language"
         ///     </summary>
         /// </de>
-        public string DocLanguage
-        {
-            get { return _docLanguage; }
-            set { _docLanguage = value; }
-        }
+        public string DocLanguage { get; set; } = "Doc Language";
+
+        /// <default>
+        ///     <summary>
+        ///     Gets the name of the language file.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert den Namen der für die Sprachdatei genutzt wird.
+        ///     </summary>
+        /// </de>
+        public string DisplayName => "SharpDox";
     }
 }

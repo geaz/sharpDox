@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
 using SharpDox.Model.CallTree;

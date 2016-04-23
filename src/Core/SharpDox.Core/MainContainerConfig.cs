@@ -1,7 +1,6 @@
 ﻿using System;
 using Autofac;
 using SharpDox.Build;
-using SharpDox.Build.NRefactory;
 using SharpDox.Core.Config;
 using SharpDox.Core.Local;
 using SharpDox.Sdk.Config;
@@ -9,6 +8,7 @@ using SharpDox.Sdk.Exporter;
 using SharpDox.Sdk.Local;
 using System.IO;
 using System.Reflection;
+using SharpDox.Build.Roslyn;
 
 namespace SharpDox.Core
 {
@@ -61,7 +61,7 @@ namespace SharpDox.Core
             _containerBuilder.RegisterType<ConfigController>().As<IConfigController>().SingleInstance();
             _containerBuilder.RegisterType<LocalController>().AsSelf().As<ILocalController>().SingleInstance();
             _containerBuilder.RegisterType<CoreStrings>().AsSelf().As<ILocalStrings>().SingleInstance();
-            _containerBuilder.RegisterType<NRefactoryParser>().As<ICodeParser>().SingleInstance();
+            _containerBuilder.RegisterType<RoslynParser>().As<ICodeParser>().SingleInstance();
             _containerBuilder.RegisterType<SDBuildStrings>().AsSelf().As<ILocalStrings>().SingleInstance();
             _containerBuilder.RegisterType<ParserStrings>().AsSelf().As<ILocalStrings>().SingleInstance();
         }

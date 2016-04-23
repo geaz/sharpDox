@@ -15,7 +15,7 @@ namespace SharpDox.Model.Repository.Members
     ///     </summary>
     /// </de>
     [Serializable]
-    public class SDProperty : SDMember
+    public class SDProperty : SDMemberBase
     {
         public SDProperty(string identifier)
         {
@@ -30,7 +30,7 @@ namespace SharpDox.Model.Repository.Members
         /// <de>
         ///     Setzt oder liefert den Typen der Eigenschaft.
         /// </de>
-        public SDType ReturnType { get; set; }
+        public SDTypeRef ReturnType { get; set; }
 
         /// <default>
         ///     <summary>
@@ -151,7 +151,7 @@ namespace SharpDox.Model.Repository.Members
                 else if (CanSet)
                     getSet = "{ set; }";
 
-                var syntax = new string[] { Accessibility, desc, ReturnType.LinkedNameWithArguments, Name, getSet };
+                var syntax = new string[] { Accessibility, desc, ReturnType.LinkedNameWithTypeArguments, Name, getSet };
                 syntax = syntax.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
                 return new SDTemplate(string.Join(" ", syntax));
