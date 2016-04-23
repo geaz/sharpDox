@@ -286,7 +286,7 @@ namespace SharpDox.Model.Repository
         {
             get
             {
-                var typeParam = TypeArguments.Select(argument => argument.NameWithTypeArguments).ToList();
+                var typeParam = TypeArguments.Select(argument => argument.LinkedNameWithTypeArguments).ToList();
                 var linkedTypeArguments = typeParam.Count != 0 ? "<" + string.Join(", ", typeParam) + ">" : "";
                 var linkedName = IsProjectStranger ? Name : $"[{Name}]({{{{type-link:{Fullname}}}}})";
 
