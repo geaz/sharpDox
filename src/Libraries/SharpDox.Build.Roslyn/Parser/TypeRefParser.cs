@@ -41,7 +41,17 @@ namespace SharpDox.Build.Roslyn.Parser
                     elementTypeSymbol = ((IArrayTypeSymbol)elementTypeSymbol).ElementType;
                 }
                 
-                typeRef.Type = _strangerTypeParser.GetParsedType(this, elementTypeSymbol, elementTypeSymbol.ContainingNamespace);
+                if(elementTypeSymbol is IPointerTypeSymbol)
+                {
+                    var pointedSymbol = ((IPointerTypeSymbol)elementTypeSymbol).PointedAtType;
+                    typeRef.Type = _strangerTypeParser.GetParsedType(this, pointedSymbol, pointedSymbol.ContainingNamespace);
+                    typeRef.IsPointerType = true;
+                }
+                else
+                {
+                    typeRef.Type = _strangerTypeParser.GetParsedType(this, elementTypeSymbol, elementTypeSymbol.ContainingNamespace);
+                }
+                
                 typeRef.IsArrayType = true;
                 typeRef.ArrayDimensions = arrayDimensions;
             }
