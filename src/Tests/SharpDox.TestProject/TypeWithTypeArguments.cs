@@ -26,5 +26,10 @@
         {
             return null;
         }
+
+        public unsafe int*[][] MoreDimensionPointerArrayReturn()
+        {
+            return null;
+        }
     }
 }
