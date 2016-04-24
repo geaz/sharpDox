@@ -7,6 +7,7 @@ namespace SharpDox.Model.Repository
         public SDType Type { get; set; }
         public bool IsPointerType { get; set; }
         public bool IsArrayType { get; set; }
+        public int ArrayDimensions { get; set; }
 
         public string NameWithTypeArguments
         {
@@ -14,7 +15,14 @@ namespace SharpDox.Model.Repository
             {
                 var name = Type.NameWithTypeArguments;
                 name += IsPointerType ? "*" : string.Empty;
-                name += IsArrayType ? "[]" : string.Empty;
+
+                var arrayText = string.Empty;
+                for(int i = 0; i < ArrayDimensions; i++)
+                {
+                    arrayText += "[]";
+                }
+                name += arrayText;
+
                 return name;
             }
         }

@@ -21,5 +21,10 @@
         {
             return null;
         }
+
+        public string[][] MoreDimensionArrayReturn()
+        {
+            return null;
+        }
     }
 }

@@ -33,9 +33,17 @@ namespace SharpDox.Build.Roslyn.Parser
             var arrayTypeSymbol = typeSymbol as IArrayTypeSymbol;
             if (arrayTypeSymbol != null)
             {
+                var arrayDimensions = 1;
                 var elementTypeSymbol = arrayTypeSymbol.ElementType;
+                while (elementTypeSymbol is IArrayTypeSymbol)
+                {
+                    arrayDimensions++;
+                    elementTypeSymbol = ((IArrayTypeSymbol)elementTypeSymbol).ElementType;
+                }
+                
                 typeRef.Type = _strangerTypeParser.GetParsedType(this, elementTypeSymbol, elementTypeSymbol.ContainingNamespace);
                 typeRef.IsArrayType = true;
+                typeRef.ArrayDimensions = arrayDimensions;
             }
             
             if (typeRef.Type == null)
