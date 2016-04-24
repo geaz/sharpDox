@@ -51,7 +51,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                 sdType.Namespace = ParserOptions.SDRepository.GetNamespaceByIdentifier(typeSymbol.ContainingNamespace.GetIdentifier());
                 sdType.IsProjectStranger = false;
 
-                sdNamespace.Types.Add(sdType);
+                if(!sdNamespace.Types.Contains(sdType)) sdNamespace.Types.Add(sdType);
             }
 
             sdType.Documentations = DocumentationParser.ParseDocumentation(typeSymbol);

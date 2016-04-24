@@ -20,12 +20,13 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                 var xml = XDocument.Parse($"<doc>{documentationXml}</doc>");
                 foreach (var child in xml.Descendants())
                 {
-                    if (CultureInfo.GetCultures(CultureTypes.NeutralCultures).Any(c => c.TwoLetterISOLanguageName == child.Name.LocalName.ToLower()) || child.Name.LocalName.ToLower() == "default")
+                    var isoCode = child.Name.LocalName.ToLower();
+                    if (CultureInfo.GetCultures(CultureTypes.NeutralCultures).Any(c => c.TwoLetterISOLanguageName == isoCode) || isoCode == "default")
                     {
                         // TODO
                         //_sdRepository.AddDocumentationLanguage(child.Name.ToLower());
                         var languageDoc = ParseDocumentation(child.Descendants(), true);
-                        docDic.Add(child.Name.LocalName.ToLower(), languageDoc);
+                        if(!docDic.ContainsKey(isoCode)) docDic.Add(isoCode, languageDoc);
                     }
                 }
 
