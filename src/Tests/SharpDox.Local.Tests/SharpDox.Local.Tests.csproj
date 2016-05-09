@@ -98,7 +98,7 @@
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(ProjectDir)\bin\Debug\lang"
 
-xcopy "$(ProjectDir)\lang\de.TestStrings.sdlang" "$(ProjectDir)\bin\Debug\lang" /Y /I
+xcopy "$(ProjectDir)\lang\de.TestStrings.sdlang" "$(ProjectDir)\bin\Debug\lang\" /Y /I
 mkdir "$(ProjectDir)\bin\lang"
 xcopy "$(ProjectDir)\lang\de.TestStrings.sdlang" "$(ProjectDir)\bin\lang" /Y /I</PostBuildEvent>
   </PropertyGroup>
