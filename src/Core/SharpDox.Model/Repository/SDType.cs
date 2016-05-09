@@ -33,8 +33,8 @@ namespace SharpDox.Model.Repository
 
             BaseTypes = new SortedList<SDTypeRef>();
             ImplementedInterfaces = new SortedList<SDTypeRef>();
-            UsedBy = new SortedList<SDTypeRef>();
-            Uses = new SortedList<SDTypeRef>();
+            UsedBy = new SortedList<SDType>();
+            Uses = new SortedList<SDType>();
 
             TypeParameters = new SortedList<SDTypeParameter>();
             TypeArguments = new List<SDTypeRef>();
@@ -397,7 +397,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller <c>SDType</c>s die diesen Typen benutzen.
         ///     </summary>     
         /// </de>
-        public SortedList<SDTypeRef> UsedBy { get; set; }
+        public SortedList<SDType> UsedBy { get; set; }
 
         /// <default>
         ///     <summary>
@@ -409,7 +409,7 @@ namespace SharpDox.Model.Repository
         ///     Setzt oder liefert eine Liste aller <c>SDType</c>s die von diesem Typen benutzt werden.
         ///     </summary>     
         /// </de>
-        public SortedList<SDTypeRef> Uses { get; set; }
+        public SortedList<SDType> Uses { get; set; }
 
         /// <default>
         ///     <summary>

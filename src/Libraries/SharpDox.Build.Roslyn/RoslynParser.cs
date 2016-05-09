@@ -4,6 +4,7 @@ using System.Linq;
 using SharpDox.Build.Roslyn.Parser;
 using SharpDox.Build.Roslyn.Parser.ProjectParser;
 using SharpDox.Model;
+using SharpDox.Model.Repository;
 using SharpDox.Sdk.Config;
 
 namespace SharpDox.Build.Roslyn
@@ -38,7 +39,9 @@ namespace SharpDox.Build.Roslyn
 
             ParseProjects(parserOptions);
             CleanUpNamespaces(sdSolution);
+
             if (parseMethodCalls) ParseMethodCalls(parserOptions);
+            ResolveUses(parserOptions);
 
             return sdSolution;
         }
@@ -91,6 +94,13 @@ namespace SharpDox.Build.Roslyn
                 var methodParser = new MethodCallParser(parserOptions);
                 methodParser.ParseMethodCalls();
             }
+        }
+
+        private void ResolveUses(ParserOptions parserOptions)
+        { 
+            var useParser = new UseParser(parserOptions); 
+            useParser.OnItemParseStart += (n) => { ExecuteOnStepMessage(_parserStrings.ParsingUseings + ": " + n); }; 
+            useParser.ResolveAllUses(); 
         }
 
         private void ExecuteOnDocLanguageFound(string lang)

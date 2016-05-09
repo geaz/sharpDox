@@ -100,6 +100,7 @@
     <Compile Include="Parser\ProjectParser\DocumentationParser.cs" />
     <Compile Include="Parser\ProjectParser\EventParser.cs" />
     <Compile Include="Parser\ProjectParser\TypeParameterParser.cs" />
+    <Compile Include="Parser\ProjectParser\UserParser.cs" />
     <Compile Include="Parser\StrangerTypeParser.cs" />
     <Compile Include="Parser\TypeRefParser.cs" />
     <Compile Include="Parser\ProjectParser\FieldParser.cs" />
