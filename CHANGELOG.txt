@@ -1,3 +1,11 @@
+Version 1.1
+
+- Replaced NRefactory with Roslyn
+- Reworked HTML Output (using Angular 2 together with FSC.js)
+- Added a small http server for the HTML Output, if running from file system (start.exe)
+- Added a top menu in the GUI - replacing the old file menu
+- Code tweaks and bug fixes
+
 Version 1.0rc2
 
 - GUI bugfixes
@@ -25,7 +33,6 @@ Version 0.9.9.*
 
 - added a search box in html export
 - added favicon support in html export
-- html output now usable in IE8
 - references in navigation files are no longer case-sensitive
 - fixed some bugs in the 'Excluded Identifiers' window
 - changed the functionality of the hide/show buttons in the 'Excluded Identifiers' window
@@ -165,25 +172,25 @@ Version 0.9
 
 Version 0.8.5
 
-- Es wurde eine Auto-Update Funktionalität eingebaut, diese kann ebenfalls von Plugins genutzt werden (siehe dazu auf sharpdox.geaz.de die Tutorials)
-- Es wurde ein Fortschrittsbalken für den Bauvorgang eingebaut
-- Die Sequenzdiagramme wurden etwas überarbeitet
+- Es wurde eine Auto-Update Funktionalitï¿½t eingebaut, diese kann ebenfalls von Plugins genutzt werden (siehe dazu auf sharpdox.geaz.de die Tutorials)
+- Es wurde ein Fortschrittsbalken fï¿½r den Bauvorgang eingebaut
+- Die Sequenzdiagramme wurden etwas ï¿½berarbeitet
 - Die Beschreibung von Parametern wurde in die Dokumentation eingebaut
 - Logos werden nun von der HTML Dokumentation verwendet
 - Ein Fehler wurde behoben, welcher den erneuten Bau einer Dokumentation verhinderte
 - Probleme mit der GUI Performance wurden behoben
-- Eine Überprüfung, ob notwendige Daten eingeben wurden, wurde eingebaut
+- Eine ï¿½berprï¿½fung, ob notwendige Daten eingeben wurden, wurde eingebaut
 - Namespaces werden nun korrekt ausgeschlossen
 - Einige Bugs in der HTML Dokumentation wurden entfernt
 
 Version 0.8.1
 
-- Einen Fehler in der HTML-Dokumentation behoben, welcher die korrekte Ausführung im IE verhindert hat
+- Einen Fehler in der HTML-Dokumentation behoben, welcher die korrekte Ausfï¿½hrung im IE verhindert hat
 - Die Bauvorgangsausgabe zeigt nun korrekt an, falls es beim Bauvorgang einen Fehler gab.
 - Die Bauvorgangsausgabe zeigt nun an, welche Klasse aktuell eingelesen wird.
-- Die Logeinträge sind nun mit Zeiten gekennzeichnet.
+- Die Logeintrï¿½ge sind nun mit Zeiten gekennzeichnet.
 - Ein Fehler wurde behoben, welches das Beenden von sharpDox verhindert hat.
 
 Version 0.8
 
-- Erste Veröffentlichung
+- Erste Verï¿½ffentlichung
