@@ -100,7 +100,7 @@ namespace SharpDox.Model.Repository
                     else list.Add(constraintType.NameWithTypeArguments);
                 }
 
-                typeContraints.Append($"where {typeParam.Name} : {string.Join(", ", list)} ");
+                if(list.Count > 0) typeContraints.Append($"where {typeParam.Name} : {string.Join(", ", list)} ");
             }
             return typeContraints.ToString();
         }

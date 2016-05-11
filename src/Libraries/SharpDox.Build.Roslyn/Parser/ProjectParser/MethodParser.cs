@@ -21,7 +21,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
         internal void ParseConstructors(SDType sdType, INamedTypeSymbol typeSymbol)
         {
             var constructors = typeSymbol.Constructors.ToList();
-            constructors = constructors.Where(o => !o.ContainingType.GetIdentifier().StartsWith("System.Object")).ToList();
+            constructors = constructors.Where(o => !o.ContainingType.GetIdentifier().StartsWith("System.Object") && !o.IsImplicitlyDeclared).ToList();
             ParseMethodList(sdType.Constructors, constructors, true);
         }
 

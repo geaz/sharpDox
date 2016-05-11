@@ -17,7 +17,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
         internal NamespaceParser(ParserOptions parserOptions) : base(parserOptions)
         {
             _typeParser = new TypeParser(parserOptions);
-            _descriptionFiles = Directory.EnumerateFiles(Path.GetDirectoryName(parserOptions.SDSolution.SolutionFile), "*.sdnd", SearchOption.AllDirectories).ToList();
+            _descriptionFiles = Directory.EnumerateFiles(Path.GetDirectoryName(parserOptions.SharpDoxConfig.InputFile), "*.sdnd", SearchOption.AllDirectories).ToList();
         }
 
         internal void ParseProjectNamespacesRecursively(INamespaceSymbol namespaceSymbol)
