@@ -1,6 +1,6 @@
 using SharpDox.Model.Documentation;
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SharpDox.Model.Repository
 {
@@ -15,6 +15,7 @@ namespace SharpDox.Model.Repository
     ///     </summary>     
     /// </de>
     [Serializable]
+    [DebuggerDisplay("{Fullname} - {IsProjectStranger}")]
     public class SDNamespace : IComparable<SDNamespace>
     {
         public SDNamespace(string fullname)

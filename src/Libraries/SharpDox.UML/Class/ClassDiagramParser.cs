@@ -15,8 +15,8 @@ namespace SharpDox.UML.Class
 
             if (parseConnectedDiagrams)
             {
-                ParseTypes(classDiagram.BaseTypes, type.BaseTypes);
-                ParseTypes(classDiagram.ImplementedInterfaces, type.ImplementedInterfaces);
+                ParseTypes(classDiagram.BaseTypes, type.BaseTypes.Select(t => t.Type));
+                ParseTypes(classDiagram.ImplementedInterfaces, type.ImplementedInterfaces.Select(t => t.Type));
                 ParseTypes(classDiagram.Uses, type.Uses);
                 ParseTypes(classDiagram.UsedBy, type.UsedBy);
             }
@@ -32,9 +32,9 @@ namespace SharpDox.UML.Class
 
         private void ParseTypes(List<ClassDiagram> classDiagramList, IEnumerable<SDType> sdTypes)
         {
-            foreach (var sdType in sdTypes)
+            foreach (var sdTypeRef in sdTypes)
             {
-                classDiagramList.Add(CreateClassDiagram(sdType, false));
+                classDiagramList.Add(CreateClassDiagram(sdTypeRef, false));
             }
         }
 

@@ -28,7 +28,7 @@ namespace SharpDox.UML.Sequence
             {
                 _sequenceDiagram = new SequenceDiagram(_sdRepository);
 
-                CreateStartNode(_method.DeclaringType.Identifier, _method.Name, _method.Identifier);
+                CreateStartNode(_method.DeclaringType.Type.Identifier, _method.Name, _method.Identifier);
                 ParseAllCalls(_method.Calls);
                 CreateReturn(_method);
             }
@@ -117,9 +117,9 @@ namespace SharpDox.UML.Sequence
 
                 var sdType = _sdRepository.GetTypeByIdentifier(targetNode.CalledType.Identifier);
                 var targetMethod = sdType.Methods.SingleOrDefault(o => o.Identifier == targetNode.CalledMethod.Identifier);
-                if (caller.ID != called.ID && targetMethod.ReturnType != null && targetMethod.ReturnType.Name.ToUpper() != "VOID")
+                if (caller.ID != called.ID && targetMethod.ReturnType != null && targetMethod.ReturnType.Type.Name.ToUpper() != "VOID")
                 {
-                    composite.AddConnection(called.ID, caller.ID, targetMethod.ReturnType.Name, targetNode.CalledMethod.Identifier, true);
+                    composite.AddConnection(called.ID, caller.ID, targetMethod.ReturnType.Type.Name, targetNode.CalledMethod.Identifier, true);
                 }
             }
         }
@@ -174,9 +174,9 @@ namespace SharpDox.UML.Sequence
 
         private void CreateReturn(SDMethod method)
         {
-            if (!string.IsNullOrEmpty(method.ReturnType.Name) && method.ReturnType.Name.ToUpper() != "VOID")
+            if (!string.IsNullOrEmpty(method.ReturnType.Type.Name) && method.ReturnType.Type.Name.ToUpper() != "VOID")
             {
-                _sequenceDiagram.AddConnection(_sequenceDiagram.StartNodeID, Guid.Empty, method.ReturnType.Name, string.Empty, true);
+                _sequenceDiagram.AddConnection(_sequenceDiagram.StartNodeID, Guid.Empty, method.ReturnType.Type.Name, string.Empty, true);
             }
         }
     }

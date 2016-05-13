@@ -73,6 +73,14 @@ namespace SharpDox.Build
             {
                 targetFx = KnownTargetFxs.Pcl;
             }
+            else if (string.Equals(targetFrameworkVersion, "v3.0", StringComparison.OrdinalIgnoreCase))
+            {
+                targetFx = KnownTargetFxs.Net30;
+            }
+            else if (string.Equals(targetFrameworkVersion, "v3.5", StringComparison.OrdinalIgnoreCase))
+            {
+                targetFx = KnownTargetFxs.Net35;
+            }
             else if (string.Equals(targetFrameworkVersion, "v4.0", StringComparison.OrdinalIgnoreCase))
             {
                 targetFx = KnownTargetFxs.Net40;

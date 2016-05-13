@@ -1,5 +1,4 @@
 ﻿using SharpDox.Model;
-using System;
 using System.IO;
 
 namespace SharpDox.Build.Context.Step

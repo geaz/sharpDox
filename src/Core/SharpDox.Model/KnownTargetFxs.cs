@@ -4,6 +4,18 @@ namespace SharpDox.Model
 {
     public static class KnownTargetFxs
     {
+        public static readonly SDTargetFx Net30 = new SDTargetFx
+        {
+            Identifier = "NET30",
+            Name = ".NET Framework 3.0"
+        };
+
+        public static readonly SDTargetFx Net35 = new SDTargetFx
+        {
+            Identifier = "NET35",
+            Name = ".NET Framework 3.5"
+        };
+
         public static readonly SDTargetFx Net40 = new SDTargetFx
         {
             Identifier = "NET40",

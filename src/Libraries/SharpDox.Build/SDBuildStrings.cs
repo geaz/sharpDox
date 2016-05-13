@@ -4,163 +4,29 @@ namespace SharpDox.Build
 {
     public class SDBuildStrings : ILocalStrings
     {
-        private string _startingBuild = "Starting build";
-        private string _buildSuccess = "Build ended successfully";
-        private string _startingStep = "Starting step: \"{0}\"";
-        private string _stepCheckConfig = "Check config";
-        private string _stepParseProject = "Parsing project file";
-        private string _stepParseCode = "Parsing code";
-        private string _stepExport = "Export documentation";
-        private string _stepEnd = "Finalizing build";
-        private string _runningExporter = "Starting exporter: \"{0}\"";
+        public string StartingBuild { get; set; } = "Starting build";
+        public string BuildSuccess { get; set; } = "Build ended successfully";
+        public string StartingStep { get; set; } = "Starting step: \"{0}\"";
+        public string StepCheckConfig { get; set; } = "Check config";
+        public string StepParseProject { get; set; } = "Parsing project file";
+        public string StepParseCode { get; set; } = "Parsing code";
+        public string StepExport { get; set; } = "Export documentation";
+        public string StepEnd { get; set; } = "Finalizing build";
+        public string ParsingProject { get; set; } = "Parsing project";
+        public string ParseTokens { get; set; } = "Parsing tokens";
+        public string ParsingDescriptions { get; set; } = "Parsing descriptions";
+        public string ParsingNav { get; set; } = "Parsing navigation file";
+        public string NoDocLanguage { get; set; } = "Please select a default language!";
+        public string NoProjectNameGiven { get; set; } = "No project name given. Please enter a project name and try again.";
+        public string NoProjectGiven { get; set; } = "No Project given. Please select a project and try again.";
+        public string ProjectNotFound { get; set; } = "No project found at the given path.";
+        public string NoOutputPathGiven { get; set; } = "No output path given. Please select a path and try again.";
+        public string OutputPathNotFound { get; set; } = "Output path not found.";
+        public string BuildStopped { get; set; } = "Build stopped!";
+        public string CouldNotEndBuild { get; set; } = "Could not build documentation.";
+        public string RequirementError { get; set; } = "There was an error with the requirements of one or more exporters. Please check the output window.";
+        public string RunningExporter { get; set; } = "Starting exporter: \"{0}\"";
 
-        private string _parsingProject = "Parsing project";
-        private string _parseTokens = "Parsing tokens";
-        private string _parsingDescriptions = "Parsing descriptions";
-        private string _parsingNav = "Parsing navigation file";
-
-        private string _noDocLanguage = "Please select a default language!";
-        private string _noProjectNameGiven = "No project name given. Please enter a project name and try again.";
-        private string _noProjectGiven = "No Project given. Please select a project and try again.";
-        private string _projectNotFound = "No project found at the given path.";
-        private string _noOutputPathGiven = "No output path given. Please select a path and try again.";
-        private string _outputPathNotFound = "Output path not found.";
-        private string _buildStopped = "Build stopped!";
-        private string _couldNotEndBuild = "Could not build documentation.";
-        private string _requirementError = "There was an error with the requirements of one or more exporters. Please check the output window.";
-
-        public string DisplayName { get { return "SharpDoxBuild"; } }
-
-        public string StartingBuild
-        {
-            get { return _startingBuild; }
-            set { _startingBuild = value; }
-        }
-
-        public string BuildSuccess
-        {
-            get { return _buildSuccess; }
-            set { _buildSuccess = value; }
-        }
-
-        public string StartingStep
-        {
-            get { return _startingStep; }
-            set { _startingStep = value; }
-        }
-
-        public string StepCheckConfig
-        {
-            get { return _stepCheckConfig; }
-            set { _stepCheckConfig = value; }
-        }
-
-        public string StepParseProject
-        {
-            get { return _stepParseProject; }
-            set { _stepParseProject = value; }
-        }
-
-        public string StepParseCode
-        {
-            get { return _stepParseCode; }
-            set { _stepParseCode = value; }
-        }
-
-        public string StepExport
-        {
-            get { return _stepExport; }
-            set { _stepExport = value; }
-        }
-
-        public string StepEnd
-        {
-            get { return _stepEnd; }
-            set { _stepEnd = value; }
-        }
-
-        public string ParsingProject
-        {
-            get { return _parsingProject; }
-            set { _parsingProject = value; }
-        }
-
-        public string ParseTokens
-        {
-            get { return _parseTokens; }
-            set { _parseTokens = value; }
-        }
-
-        public string ParsingDescriptions
-        {
-            get { return _parsingDescriptions; }
-            set { _parsingDescriptions = value; }
-        }
-
-        public string ParsingNav
-        {
-            get { return _parsingNav; }
-            set { _parsingNav = value; }
-        }
-
-        public string NoDocLanguage
-        {
-            get { return _noDocLanguage; }
-            set { _noDocLanguage = value; }
-        }
-
-        public string NoProjectNameGiven
-        {
-            get { return _noProjectNameGiven; }
-            set { _noProjectNameGiven = value; }
-        }
-
-        public string NoProjectGiven
-        {
-            get { return _noProjectGiven; }
-            set { _noProjectGiven = value; }
-        }
-
-        public string ProjectNotFound
-        {
-            get { return _projectNotFound; }
-            set { _projectNotFound = value; }
-        }
-
-        public string NoOutputPathGiven
-        {
-            get { return _noOutputPathGiven; }
-            set { _noOutputPathGiven = value; }
-        }
-
-        public string OutputPathNotFound
-        {
-            get { return _outputPathNotFound; }
-            set { _outputPathNotFound = value; }
-        }        
-
-        public string BuildStopped
-        {
-            get { return _buildStopped; }
-            set { _buildStopped = value; }
-        }
-
-        public string CouldNotEndBuild
-        {
-            get { return _couldNotEndBuild; }
-            set { _couldNotEndBuild = value; }
-        }
-
-        public string RequirementError
-        {
-            get { return _requirementError; }
-            set { _requirementError = value; }
-        }
-
-        public string RunningExporter
-        {
-            get { return _runningExporter; }
-            set { _runningExporter = value; }
-        }
+        public string DisplayName => "SharpDoxBuild";
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpDox.Core.Config;
 using SharpDox.Sdk.Config;
-using SharpDox.Sdk.Local;
 
 namespace SharpDox.Config.Tests
 {

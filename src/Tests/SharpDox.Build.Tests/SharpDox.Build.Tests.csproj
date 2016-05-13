@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SharpDox.Build.Tests</RootNamespace>
     <AssemblyName>SharpDox.Build.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -28,6 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,6 +37,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -53,6 +55,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="SyntaxTests.cs" />
+    <Compile Include="IdentifierTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SDTargetFxParserTests.cs" />
   </ItemGroup>
@@ -65,9 +69,17 @@
       <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
       <Name>SharpDox.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\SharpDox.Build.Roslyn\SharpDox.Build.Roslyn.csproj">
+      <Project>{9e825e4a-768a-4eee-bcbd-7fa92dac0d81}</Project>
+      <Name>SharpDox.Build.Roslyn</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\SharpDox.Build\SharpDox.Build.csproj">
       <Project>{65180da0-d8cf-4a7b-bd1c-dba841883dd4}</Project>
       <Name>SharpDox.Build</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpDox.RegressionTests\SharpDox.RegressionTests.csproj">
+      <Project>{0a886c13-dd26-46ad-822c-0b118501512c}</Project>
+      <Name>SharpDox.RegressionTests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

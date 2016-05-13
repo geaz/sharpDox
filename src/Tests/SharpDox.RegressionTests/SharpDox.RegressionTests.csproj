@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SharpDox.RegressionTests</RootNamespace>
     <AssemblyName>SharpDox.RegressionTests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -28,6 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,11 +37,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq, Version=4.2.1502.911, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -62,6 +64,7 @@
     <Compile Include="InheritDoc.cs" />
     <Compile Include="Regression7.cs" />
     <Compile Include="Regression6.cs" />
+    <Compile Include="Regression8.cs" />
     <Compile Include="WebApiDoc.cs" />
     <Compile Include="Regression5.cs" />
     <Compile Include="Regression4.cs" />
@@ -78,9 +81,9 @@
       <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
       <Name>SharpDox.Sdk</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\SharpDox.Build.NRefactory\SharpDox.Build.NRefactory.csproj">
-      <Project>{96484ac9-7aaa-4d8c-aea3-157630727e8b}</Project>
-      <Name>SharpDox.Build.NRefactory</Name>
+    <ProjectReference Include="..\..\Libraries\SharpDox.Build.Roslyn\SharpDox.Build.Roslyn.csproj">
+      <Project>{9e825e4a-768a-4eee-bcbd-7fa92dac0d81}</Project>
+      <Name>SharpDox.Build.Roslyn</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\SharpDox.Build\SharpDox.Build.csproj">
       <Project>{65180da0-d8cf-4a7b-bd1c-dba841883dd4}</Project>

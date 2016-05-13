@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Threading;
 using Autofac;
-using log4net.Config;
 using SharpDox.Core;
 
 namespace SharpDox.GUI
@@ -11,7 +10,6 @@ namespace SharpDox.GUI
     {
         public App()
         {
-            XmlConfigurator.Configure();
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
         }
 

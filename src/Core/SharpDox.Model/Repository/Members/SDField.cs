@@ -1,6 +1,5 @@
 using SharpDox.Model.Documentation;
 using System;
-using System.Linq;
 
 namespace SharpDox.Model.Repository.Members
 {
@@ -15,7 +14,7 @@ namespace SharpDox.Model.Repository.Members
     ///     </summary>
     /// </de>
     [Serializable]
-    public class SDField : SDMember
+    public class SDField : SDMemberBase
     {
         public SDField(string identifier)
         {
@@ -32,7 +31,7 @@ namespace SharpDox.Model.Repository.Members
         ///     Setzt oder liefert den Rückgabetyp des Fields.
         ///     </summary>
         /// </de>
-        public SDType ReturnType { get; set; }
+        public SDTypeRef ReturnType { get; set; }
 
         /// <default>
         ///     <summary>
@@ -104,7 +103,7 @@ namespace SharpDox.Model.Repository.Members
                 else if (IsReadonly)
                     desc = "readonly";
 
-                return new SDTemplate(string.Join(" ", new string[] { Accessibility, desc, ReturnType.LinkedNameWithArguments, Name }));
+                return new SDTemplate(string.Join(" ", new string[] { Accessibility, desc, ReturnType.LinkedNameWithTypeArguments, Name }));
             }
         }
     }

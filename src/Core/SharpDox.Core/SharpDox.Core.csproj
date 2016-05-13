@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SharpDox.Core</RootNamespace>
     <AssemblyName>SharpDox.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -23,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>
@@ -43,9 +46,6 @@
   <ItemGroup>
     <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -65,18 +65,21 @@
     <Compile Include="Local\LocalCreator.cs" />
     <Compile Include="Local\LocalLoader.cs" />
     <Compile Include="Local\LocalStrings.cs" />
-    <Compile Include="Log4NetTraceListener.cs" />
     <Compile Include="MainContainerConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\SharpDox.Build.NRefactory\SharpDox.Build.NRefactory.csproj">
-      <Project>{96484ac9-7aaa-4d8c-aea3-157630727e8b}</Project>
-      <Name>SharpDox.Build.NRefactory</Name>
+    <ProjectReference Include="..\..\Libraries\SharpDox.Build.Roslyn\SharpDox.Build.Roslyn.csproj">
+      <Project>{9e825e4a-768a-4eee-bcbd-7fa92dac0d81}</Project>
+      <Name>SharpDox.Build.Roslyn</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\SharpDox.Build\SharpDox.Build.csproj">
       <Project>{65180da0-d8cf-4a7b-bd1c-dba841883dd4}</Project>
       <Name>SharpDox.Build</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\SharpDox.UML\SharpDox.UML.csproj">
+      <Project>{3cb8094e-ffe2-4ef1-8366-e6b9c91d4831}</Project>
+      <Name>SharpDox.UML</Name>
     </ProjectReference>
     <ProjectReference Include="..\SharpDox.Model\SharpDox.Model.csproj">
       <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>

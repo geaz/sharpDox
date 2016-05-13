@@ -18,7 +18,7 @@ namespace SharpDox.Model.Repository
     {
         public SDTypeParameter()
         {
-            Interfaces = new List<SDType>();
+            ConstraintTypes = new List<SDTypeRef>();
         }
 
         /// <default>
@@ -35,27 +35,15 @@ namespace SharpDox.Model.Repository
         
         /// <default>
         ///     <summary>
-        ///     Gets the base class of this type parameter.
+        ///     Gets the constraint types of this type parameter.
         ///     </summary>
         /// </default>
         /// <de>
         ///     <summary>
-        ///     Liefert die Basisklasse des Typparameters.
+        ///     Liefert die ConstraintTypes des Typparameters.
         ///     </summary>     
         /// </de>
-        public SDType BaseClass { get; set; }
-
-        /// <default>
-        ///     <summary>
-        ///     Gets the interface set of this type parameter.
-        ///     </summary>
-        /// </default>
-        /// <de>
-        ///     <summary>
-        ///     Liefert die Interfaces des Typparameters.
-        ///     </summary>     
-        /// </de>
-        public List<SDType> Interfaces { get; private set; }
+        public List<SDTypeRef> ConstraintTypes { get; set; }
 
         /// <default>
         ///     <summary>
