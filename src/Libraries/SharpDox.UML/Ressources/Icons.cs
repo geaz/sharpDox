@@ -8,6 +8,10 @@ namespace SharpDox.UML.Ressources
     {
         public static BitmapImage GetIcon(string entityType, string accessibility)
         {
+            //necessary if called from console!
+            if (!UriParser.IsKnownScheme("pack"))
+                new System.Windows.Application();
+
             BitmapImage bitmap = null;
             switch (accessibility.ToLower())
             {
