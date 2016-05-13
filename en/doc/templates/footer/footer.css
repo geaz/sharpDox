@@ -1,0 +1,14 @@
+:host {
+    display:block;
+    border-top: 1px solid #bbb;
+    color: gray;
+    font-size: 0.75em;
+}
+
+#footer-left{
+    float:left;
+}
+
+#footer-right{
+    float:right;
+}

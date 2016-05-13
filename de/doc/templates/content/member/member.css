@@ -1,0 +1,89 @@
+/* Members */
+:host .member{
+	margin: 0 0 15px 5px;
+}
+
+:host .member-header{
+    border: 1px solid #dadada;
+    padding:10px;
+}
+
+:host .member-header-link{
+  cursor: pointer;
+  color: #1382ce;
+}
+
+:host .member-header-link:hover{
+  cursor: pointer;
+  color: #f58026;
+}
+
+:host .member-header i{
+	float: left;
+	margin-top: 5px;
+}
+
+:host .member-header img{
+	float: left;
+	margin: 0 5px;
+	padding-top: 0px;
+	top: 6px;
+	position: relative;
+}
+
+:host .member-header p{
+	margin: 0;
+	margin-left: 35px;
+}
+
+:host .member-header .summary{
+	font-family: 'OpenSansRegular';
+	margin: 0 35px;
+}
+
+:host .member-header .summary p{
+	margin: 0;
+}
+
+:host .member-content{
+	border: 1px solid #dadada;
+    border-left: 10px solid #1F6FB0;
+    border-top: 0;
+    padding: 10px 10px 10px 35px;   
+}
+
+.member-content .syntax-box{
+	margin: 0 35px;
+}
+
+:host .member-box-title{
+	margin: 10px 0;
+	font-family: 'OpenSansSemiBold';	
+}
+
+:host .member-doc-box{
+	margin: 0px 25px 25px 0;
+}
+
+:host .member-doc-box p, :host .member-doc-box pre{
+	margin: 0;
+}
+
+:host .member-doc-box .inline{
+	margin: 0 35px 15px;
+}
+
+:host .member-doc-box small{
+	margin: 0 35px;
+	font-size: 0.7em;
+	font-family: 'OpenSansSemiBold';
+	color: gray;
+}
+
+:host .member-doc-box .key{
+	font-style: italic;
+}
+
+:host .syntax-pre{
+    margin:0!important;
+}

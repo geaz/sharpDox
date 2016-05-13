@@ -1,0 +1,1 @@
+{".NET Framework 4.6":{"name":"SharpDox.Build.Roslyn","assembly":"SharpDox.Build.Roslyn","description":"","types":[{"id":"SharpDox.Build.Roslyn.ParserStrings","kind":"class","accessibility":"public","name":"ParserStrings","summary":""},{"id":"SharpDox.Build.Roslyn.RoslynParser","kind":"class","accessibility":"public","name":"RoslynParser","summary":""}]}}

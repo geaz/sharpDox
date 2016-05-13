@@ -1,0 +1,15 @@
+:host{
+    margin: auto;
+    display: block;
+    text-align: right;
+    max-width: 800px;
+}
+
+select{
+    padding: 5px;
+    font-size: 0.7em;
+}
+
+option{
+    padding:5px;
+}

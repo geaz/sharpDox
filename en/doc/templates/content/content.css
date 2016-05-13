@@ -1,0 +1,73 @@
+.content {
+  display:block;
+  max-width:800px;
+  margin:auto;
+  padding: 25px;
+}
+
+.content p{
+  text-align: justify;
+}
+
+.content h4{
+  margin-bottom:5px;
+  margin-top:0px;
+  font-size: 1em;
+  font-family: 'OpenSansSemiBold';
+}
+
+.list-box, .text-box, .table-box{
+    margin: 0 0 1.5em 0;
+}
+
+.list-box ul li:before, .doc-box ul li:before {
+  content: "\f138";
+  font-family: 'FontAwesome';
+  margin-right: 5px;
+}
+
+/* Table */
+
+:host table {
+  width: 100%;
+}
+
+:host th {
+  background: #C2C2C2 !important;
+}
+
+:host .even {
+  background: #F6F5F1;
+}
+
+:host td, :host th {
+	text-align: left;
+}
+
+:host td{
+  padding: 5px !important;
+  border-top: 1px solid #DADADA !important;
+}
+
+:host thead td{  
+  padding: 0 5px !important;
+}
+
+:host td p {
+    margin: 0;
+}
+
+:host thead, :host th{
+  background: none repeat scroll 0 0 #f6f5f1;
+  border-top: 1px solid #DADADA !important;
+  font-family: OpenSansLight !important;
+}
+
+:host .iconColumn {
+  width: 15px;
+}
+
+#disqus_thread{
+  margin-top: 25px;
+  margin-bottom: 15px;
+}

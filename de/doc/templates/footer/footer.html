@@ -1,0 +1,7 @@
+<div *ngIf="footerLine" id="footer-left" [innerHtml]="footerLine"></div>
+<div id="footer-right">
+    <a *ngIf="homepage" href="{{ homepage }}" title="{{ projectName }}" target="_blank">{{ projectName }}</a>
+    <span *ngIf="homepage == undefined">{{ projectName }}</span> {{ version }}
+    <span *ngIf="author">- {{ author }}</span> - {{ generatedBy }} <a href="http://sharpdox.de" title="sharpDox" target="_blank">sharpDox</a>
+</div>
+<div style="clear:both;"></div>

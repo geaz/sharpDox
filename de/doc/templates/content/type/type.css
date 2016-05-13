@@ -1,0 +1,48 @@
+@import url("../content.css");
+
+/* Diagrams */
+
+:host .syntax-pre{
+  margin-bottom:0!important;
+}
+
+:host .sd-sequence-diagram, :host #sd-class-diagram {
+  border: 1px solid #DADADA;
+  border-top:0;
+  padding: 5px;
+  position: relative;
+  overflow:hidden;
+  resize: vertical;
+}
+
+:host .sd-sequence-diagram svg, :host #sd-class-diagram svg{
+  width: 100%;
+  height: 100%;
+}
+
+:host .legend p {
+    font-size: 0.7em;
+}
+
+:host .save, :host .resetZoom {
+    float: right;
+    cursor: pointer;
+    color: #1382ce;
+}
+
+:host .save:hover, :host .resetZoom:hover{
+  cursor: pointer;
+  color: #f58026;
+}
+
+:host .save i, :host .resetZoom i {
+    margin-right: 5px;
+}
+
+:host .save {
+    margin-left: 10px !important;
+}
+
+:host .resetZoom {
+    margin-right: 10px !important;
+}

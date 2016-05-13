@@ -1,0 +1,4 @@
+<select (change)="setTargetFx($event)" [(ngModel)]="selectedTargetFx">
+    <option *ngFor="#targetFx of currentPageTargetFxs" [value]="targetFx">{{targetFx}}</option>
+</select>
+<div style="clear:both;"></div>

@@ -1,0 +1,15 @@
+:host {
+    display:block;
+    overflow:hidden;
+}
+
+:host .jstree-default a {
+        width: 100%;
+}
+
+:host .jstree-clicked, :host .jstree-hovered{
+    box-shadow:none!important;
+    background: #F58026!important;
+    border-radius: 0!important;
+    color:white!important;
+}

@@ -1,0 +1,152 @@
+<div class="content">
+    <div *ngIf="currentPageData.summary" class="markdown" [innerHtml]="currentPageData.summary"></div>
+
+    <div *ngIf="currentPageData.remarks">
+        <h4>{{strings.remarks}}</h4>
+        <div class="markdown" [innerHtml]="currentPageData.remarks"></div>
+    </div>
+
+    <div class="markdown">
+        <pre class="syntax-pre"><code id="syntax" class="language-csharp">{{currentPageData.linkedSyntax}}</code></pre>
+    </div>
+
+    <div *ngIf="currentPageData.classDiagram">
+        <div id="sd-class-diagram" class="svgpan" 
+            attr.style="height:{{currentPageData.classDiagramHeight}}px;" 
+            attr.data-fit="{{currentPageData.fit}}"
+            [innerHtml]="currentPageData.classDiagram">
+        </div>
+        <div class="legend">
+            <p class="save"><a href="#"><i class="icon-save"></i>{{strings.save}}</a></p>
+            <p class="resetZoom"><i class="icon-refresh"></i>{{strings.reset}}</p>
+            <p>{{strings.panZoom}}</p>
+        </div>
+    </div>      
+
+    <div *ngIf="currentPageData.example">
+        <h4>{{strings.example}}</h4>
+        <div class="markdown" [innerHtml]="currentPageData.example"></div>
+    </div>
+
+    <div *ngIf="currentPageData.returns">
+        <h4>{{strings.returns}}</h4>
+        <div class="markdown" [innerHtml]="currentPageData.returns"></div>
+    </div>
+
+    <div *ngIf="currentPageData.exceptions">
+        <h4>{{strings.exceptions}}</h4>
+        <div class="table-box">
+        <table>
+            <thead>
+            <tr>
+                <td>{{strings.name}}</td>
+                <td>{{strings.description}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="#exception of currentPageData.exceptions">
+                <td>{{exception.key}}</td>
+                <td class="markdown" [innerHtml]="exception.value"></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <div *ngIf="currentPageData.params">
+        <h4>{{strings.parameters}}</h4>
+        <div class="table-box">
+        <table>
+            <thead>
+            <tr>
+                <td>{{strings.name}}</td>
+                <td>{{strings.description}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="#param of currentPageData.params">
+                <td>{{param.key}}</td>
+                <td class="markdown" [innerHtml]="param.value"></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <div *ngIf="currentPageData.typeParams">
+        <h4>{{strings.parameters}}</h4>
+        <div class="table-box">
+        <table>
+            <thead>
+            <tr>
+                <td>{{strings.name}}</td>
+                <td>{{strings.description}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="#typeParam of currentPageData.typeParams">
+                <td>{{typeParam.key}}</td>
+                <td class="markdown" [innerHtml]="typeParam.value"></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <div *ngIf="currentPageData.fields">
+    <h4>{{strings.fields}}</h4>
+        <sd-member *ngFor="#field of currentPageData.fields" [member]="field"></sd-member>
+    </div>
+
+    <div *ngIf="currentPageData.constructors">
+    <h4>{{strings.constructors}}</h4>
+    <sd-member *ngFor="#constructor of currentPageData.constructors" [member]="constructor"></sd-member>
+    </div>
+
+    <div *ngIf="currentPageData.methods">
+    <h4>{{strings.methods}}</h4>
+    <sd-member *ngFor="#method of currentPageData.methods" [member]="method"></sd-member>
+    </div>
+
+    <div *ngIf="currentPageData.events">
+    <h4>{{strings.events}}</h4>
+    <sd-member *ngFor="#event of currentPageData.events" [member]="event"></sd-member>
+    </div>
+
+    <div *ngIf="currentPageData.properties">
+    <h4>{{strings.properties}}</h4>
+    <sd-member *ngFor="#property of currentPageData.properties" [member]="property"></sd-member>
+    </div>
+
+    <div *ngIf="currentPageData.seeAlsos">
+    <h4>{{strings.seeAlso}}</h4>
+    <div class="list-box">
+    <ul>
+        <li *ngFor="#seeAlso of currentPageData.seeAlsos"><a href="#/{{seeAlso.type}}/{{seeAlso.id}}">{{seeAlso.name}}</a></li>
+    </ul>
+    </div>
+    </div>
+
+    <div *ngIf="currentPageData.uses">
+    <h4>{{strings.uses}}</h4>
+    <div class="list-box">
+    <ul>
+        <li *ngFor="#use of currentPageData.uses"><a href="#/type/{{use.id}}">{{use.name}}</a></li>
+    </ul>
+    </div>
+    </div>
+
+    <div *ngIf="currentPageData.usedBy">
+    <h4>{{strings.usedBy}}</h4>
+    <div class="list-box">
+    <ul>
+        <li *ngFor="#used of currentPageData.usedBy"><a href="#/type/{{used.id}}">{{used.name}}</a></li>
+    </ul>
+    </div>
+    </div>
+
+    <div *ngIf="disqusShortName">
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</div>

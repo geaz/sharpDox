@@ -1,0 +1,8 @@
+<h2 *ngIf="currentPageType == 'article'">{{ currentPageData.title }}</h2>
+<h3 *ngIf="currentPageType == 'article'">{{ currentPageData.subTitle }}</h3>
+
+<h2 *ngIf="currentPageType == 'namespace'">{{ currentPageData.name }}</h2>
+<h3 *ngIf="currentPageType == 'namespace'">{{ strings.assembly }}: {{ currentPageData.assembly }}</h3>
+
+<h2 *ngIf="currentPageType == 'type'">{{ currentPageData.name }}</h2>
+<h3 *ngIf="currentPageType == 'type'">{{ strings.namespace }}: {{ currentPageData.namespace }}</h3>

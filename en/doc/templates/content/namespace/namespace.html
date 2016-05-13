@@ -1,0 +1,45 @@
+<div class="content">
+    <div *ngIf="currentPageData.description" class="text-box markdown" [innerHtml]="currentPageData.description"></div>
+
+    <div class="table-box">
+    <table>
+    <thead>
+        <tr>
+        <td></td>
+        <td>{{strings.types}}</td>
+        <td>{{strings.description}}</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="#type of currentPageData.types">
+            <td class="iconColumn"><img src="./assets/icons/{{type.kind}}_{{type.accessibility}}.png"/></td>
+            <td><a href="#/type/{{type.id}}">{{type.name}}</a></td>
+            <td class="markdown" [innerHtml]="type.summary"></td>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+
+    <div *ngIf="currentPageData.uses">
+        <h4>{{strings.uses}}</h4>
+        <div class="list-box">
+        <ul>
+            <li *ngFor="#use of currentPageData.uses"><a href="#/namespace/{{use.id}}">{{use.name}}</a></li>
+        </ul>
+        </div>
+    </div>
+
+    <div *ngIf="currentPageData.usedBy">
+        <h4>{{strings.usedBy}}</h4>
+        <div class="list-box">
+        <ul>
+            <li *ngFor="#use of currentPageData.usedBy"><a href="#/namespace/{{use.id}}">{{use.name}}</a></li>
+        </ul>
+        </div>
+    </div>
+
+    <div *ngIf="disqusShortName">
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</div>

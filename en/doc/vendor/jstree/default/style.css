@@ -66,6 +66,9 @@
 .jstree-anchor > .jstree-themeicon-hidden {
   display: none;
 }
+.jstree-hidden {
+  display: none;
+}
 .jstree-rtl .jstree-anchor {
   padding: 0 1px 0 4px;
 }
@@ -392,7 +395,7 @@
 }
 .jstree-default .jstree-node,
 .jstree-default .jstree-icon {
-  background-image: url("32px.png");
+  background-image: url('./vendor/jstree/default/32px.png');
 }
 .jstree-default .jstree-node {
   background-position: -292px -4px;
@@ -452,6 +455,15 @@
 .jstree-default .jstree-anchor > .jstree-undetermined:hover {
   background-position: -196px -36px;
 }
+.jstree-default .jstree-checkbox-disabled {
+  opacity: 0.8;
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'jstree-grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#jstree-grayscale");
+  /* Firefox 10+ */
+  filter: gray;
+  /* IE6-9 */
+  -webkit-filter: grayscale(100%);
+  /* Chrome 19+ & Safari 6+ */
+}
 .jstree-default > .jstree-striped {
   background-size: auto 48px;
 }
@@ -488,13 +500,13 @@
   background-position: 0 0;
 }
 .jstree-default > .jstree-container-ul .jstree-loading > .jstree-ocl {
-  background: url("throbber.gif") center center no-repeat;
+  background: url('./vendor/jstree/default/throbber.gif')center center no-repeat;
 }
 .jstree-default .jstree-file {
-  background: url("32px.png") -100px -68px no-repeat;
+  background: url('./vendor/jstree/default/32px.png')-100px -68px no-repeat;
 }
 .jstree-default .jstree-folder {
-  background: url("32px.png") -260px -4px no-repeat;
+  background: url('./vendor/jstree/default/32px.png')-260px -4px no-repeat;
 }
 .jstree-default > .jstree-container-ul > .jstree-node {
   margin-left: 0;
@@ -506,7 +518,7 @@
 }
 #jstree-dnd.jstree-default .jstree-ok,
 #jstree-dnd.jstree-default .jstree-er {
-  background-image: url("32px.png");
+  background-image: url('./vendor/jstree/default/32px.png');
   background-repeat: no-repeat;
   background-color: transparent;
 }
@@ -556,7 +568,7 @@
 }
 .jstree-default-small .jstree-node,
 .jstree-default-small .jstree-icon {
-  background-image: url("32px.png");
+  background-image: url('./vendor/jstree/default/32px.png');
 }
 .jstree-default-small .jstree-node {
   background-position: -295px -7px;
@@ -616,6 +628,15 @@
 .jstree-default-small .jstree-anchor > .jstree-undetermined:hover {
   background-position: -199px -39px;
 }
+.jstree-default-small .jstree-checkbox-disabled {
+  opacity: 0.8;
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'jstree-grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#jstree-grayscale");
+  /* Firefox 10+ */
+  filter: gray;
+  /* IE6-9 */
+  -webkit-filter: grayscale(100%);
+  /* Chrome 19+ & Safari 6+ */
+}
 .jstree-default-small > .jstree-striped {
   background-size: auto 36px;
 }
@@ -652,13 +673,13 @@
   background-position: 0 0;
 }
 .jstree-default-small > .jstree-container-ul .jstree-loading > .jstree-ocl {
-  background: url("throbber.gif") center center no-repeat;
+  background: url('./vendor/jstree/default/throbber.gif')center center no-repeat;
 }
 .jstree-default-small .jstree-file {
-  background: url("32px.png") -103px -71px no-repeat;
+  background: url('./vendor/jstree/default/32px.png')-103px -71px no-repeat;
 }
 .jstree-default-small .jstree-folder {
-  background: url("32px.png") -263px -7px no-repeat;
+  background: url('./vendor/jstree/default/32px.png')-263px -7px no-repeat;
 }
 .jstree-default-small > .jstree-container-ul > .jstree-node {
   margin-left: 0;
@@ -670,7 +691,7 @@
 }
 #jstree-dnd.jstree-default-small .jstree-ok,
 #jstree-dnd.jstree-default-small .jstree-er {
-  background-image: url("32px.png");
+  background-image: url('./vendor/jstree/default/32px.png');
   background-repeat: no-repeat;
   background-color: transparent;
 }
@@ -720,7 +741,7 @@
 }
 .jstree-default-large .jstree-node,
 .jstree-default-large .jstree-icon {
-  background-image: url("32px.png");
+  background-image: url('./vendor/jstree/default/32px.png');
 }
 .jstree-default-large .jstree-node {
   background-position: -288px 0px;
@@ -780,6 +801,15 @@
 .jstree-default-large .jstree-anchor > .jstree-undetermined:hover {
   background-position: -192px -32px;
 }
+.jstree-default-large .jstree-checkbox-disabled {
+  opacity: 0.8;
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'jstree-grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#jstree-grayscale");
+  /* Firefox 10+ */
+  filter: gray;
+  /* IE6-9 */
+  -webkit-filter: grayscale(100%);
+  /* Chrome 19+ & Safari 6+ */
+}
 .jstree-default-large > .jstree-striped {
   background-size: auto 64px;
 }
@@ -816,13 +846,13 @@
   background-position: 0 0;
 }
 .jstree-default-large > .jstree-container-ul .jstree-loading > .jstree-ocl {
-  background: url("throbber.gif") center center no-repeat;
+  background: url('./vendor/jstree/default/throbber.gif')center center no-repeat;
 }
 .jstree-default-large .jstree-file {
-  background: url("32px.png") -96px -64px no-repeat;
+  background: url('./vendor/jstree/default/32px.png')-96px -64px no-repeat;
 }
 .jstree-default-large .jstree-folder {
-  background: url("32px.png") -256px 0px no-repeat;
+  background: url('./vendor/jstree/default/32px.png')-256px 0px no-repeat;
 }
 .jstree-default-large > .jstree-container-ul > .jstree-node {
   margin-left: 0;
@@ -834,7 +864,7 @@
 }
 #jstree-dnd.jstree-default-large .jstree-ok,
 #jstree-dnd.jstree-default-large .jstree-er {
-  background-image: url("32px.png");
+  background-image: url('./vendor/jstree/default/32px.png');
   background-repeat: no-repeat;
   background-color: transparent;
 }
@@ -1017,11 +1047,11 @@
     background-position: 0 0;
   }
   .jstree-default-responsive .jstree-file {
-    background: url("40px.png") 0 -160px no-repeat;
+    background: url('./vendor/jstree/default/40px.png')0 -160px no-repeat;
     background-size: 120px 240px;
   }
   .jstree-default-responsive .jstree-folder {
-    background: url("40px.png") -40px -40px no-repeat;
+    background: url('./vendor/jstree/default/40px.png')-40px -40px no-repeat;
     background-size: 120px 240px;
   }
   .jstree-default-responsive > .jstree-container-ul > .jstree-node {

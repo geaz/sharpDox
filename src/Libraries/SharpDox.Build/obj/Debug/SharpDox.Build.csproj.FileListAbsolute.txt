@@ -1,9 +1,0 @@
-D:\Github\sharpDox\src\Libraries\SharpDox.Build\bin\Debug\SharpDox.Build.dll
-D:\Github\sharpDox\src\Libraries\SharpDox.Build\bin\Debug\SharpDox.Build.pdb
-D:\Github\sharpDox\src\Libraries\SharpDox.Build\bin\Debug\SharpDox.Model.dll
-D:\Github\sharpDox\src\Libraries\SharpDox.Build\bin\Debug\SharpDox.Sdk.dll
-D:\Github\sharpDox\src\Libraries\SharpDox.Build\bin\Debug\SharpDox.Model.pdb
-D:\Github\sharpDox\src\Libraries\SharpDox.Build\bin\Debug\SharpDox.Sdk.pdb
-D:\Github\sharpDox\src\Libraries\SharpDox.Build\obj\Debug\SharpDox.Build.csprojResolveAssemblyReference.cache
-D:\Github\sharpDox\src\Libraries\SharpDox.Build\obj\Debug\SharpDox.Build.dll
-D:\Github\sharpDox\src\Libraries\SharpDox.Build\obj\Debug\SharpDox.Build.pdb

@@ -1,0 +1,111 @@
+<div id="{{member.urlId}}" class="member">
+    <div class="member-header">		
+        <a class="member-header-link" (click)="toogleMember($event)"><img src="./assets/icons/{{member.type}}_{{member.accessibility}}.png"/> <p>{{member.name}}</p></a>
+        <div *ngIf="member.summary" class="summary markdown" [innerHtml]="member.summary"></div>
+	</div>
+	<div class="member-content">
+        <div class="markdown">
+            <pre class="syntax-pre"><code id="syntax" class="language-csharp">{{member.linkedSyntax}}</code></pre>
+        </div>
+    
+        <div *ngIf="member.sequenceDiagram">
+            <div id="sequence-diagram-{{member.diagramId}}" class="sd-sequence-diagram svgpan" style="height:400px;" [innerHtml]="member.sequenceDiagram"></div>
+            <div class="legend">
+                <p class="save"><a href="#"><i class="icon-save"></i>{{strings.save}}</a></p>
+                <p class="resetZoom"><i class="icon-refresh"></i>{{strings.reset}}</p>
+                <p>{{strings.panZoom}}</p>
+            </div>
+        </div> 
+	  
+	    <div *ngIf="member.constantValue">
+            <p class="member-box-title">{{strings.constantValue}}</p>
+            <div class="member-doc-box markdown">
+                {{member.constantValue}}
+            </div>
+        </div>
+	  
+        <div *ngIf="member.params">
+            <p class="member-box-title">{{strings.parameters}}</p>
+            <div class="table-box">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>{{strings.name}}</td>
+                            <td>{{strings.description}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="#param of member.params">
+                            <td>{{param.key}}</td>
+                            <td class="markdown" [innerHtml]="param.value"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+	     
+        <div *ngIf="member.typeParams">
+            <p class="member-box-title">{{strings.typeParams}}</p>
+            <div class="table-box">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>{{strings.name}}</td>
+                            <td>{{strings.description}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="#typeParam of member.typeParams">
+                            <td>{{typeParam.key}}</td>
+                            <td class="markdown" [innerHtml]="typeParam.value"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+	    
+        <div *ngIf="member.returns">
+            <p class="member-box-title">{{strings.returns}}</p>
+	        <div class="member-doc-box" [innerHtml]="member.returns"></div>
+        </div>
+	  
+        <div *ngIf="member.remarks">
+            <p class="member-box-title">{{strings.remarks}}</p>
+	        <div class="member-doc-box" [innerHtml]="member.remarks"></div>
+        </div>
+        
+        <div *ngIf="member.example">
+            <p class="member-box-title">{{strings.example}}</p>
+	        <div class="member-doc-box" [innerHtml]="member.example"></div>
+        </div>
+	
+        <div *ngIf="member.exceptions">
+            <p class="member-box-title">{{strings.exceptions}}</p>
+            <div class="table-box">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>{{strings.name}}</td>
+                            <td>{{strings.description}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="#exception of member.exceptions">
+                            <td>{{exception.key}}</td>
+                            <td class="markdown" [innerHtml]="exception.value"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+	  
+        <div *ngIf="member.seeAlsos">
+            <p class="member-box-title">{{strings.seeAlso}}</p>
+            <div class="list-box">
+                <ul>
+                    <li *ngFor="#seeAlso of member.seeAlsos"><a href="#/{{seeAlso.type}}/{{seeAlso.id}}">{{seeAlso.name}}</a></li>
+                </ul>
+            </div>
+        </div>
+	</div>
+</div>
