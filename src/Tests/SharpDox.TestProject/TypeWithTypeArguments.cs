@@ -1,4 +1,6 @@
-﻿namespace SharpDox.TestProject
+﻿using System.Collections.Generic;
+
+namespace SharpDox.TestProject
 {
     public class TypeWithTypeArguments<T> where T : Regression1
     {
@@ -30,6 +32,11 @@
         public unsafe int*[][] MoreDimensionPointerArrayReturn()
         {
             return null;
+        }
+
+        public List<string> TypeParameters(List<string> test)
+        {
+            return new List<string>();
         }
     }
 }

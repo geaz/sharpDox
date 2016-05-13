@@ -55,6 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="SyntaxTests.cs" />
     <Compile Include="IdentifierTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SDTargetFxParserTests.cs" />
