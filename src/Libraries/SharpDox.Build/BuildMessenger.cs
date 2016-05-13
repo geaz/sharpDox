@@ -56,13 +56,13 @@ namespace SharpDox.Build
             ExecuteOnStepMessage("");
         }
 
-        internal void ExecuteOnBuildFailed()
+        internal void ExecuteOnBuildFailed(string errorMessage)
         {
             if (OnBuildFailed != null)
             {
                 OnBuildFailed();
             }
-            ExecuteOnStepMessage("");
+            ExecuteOnBuildMessage(errorMessage);
         }
 
         internal void ExecuteOnBuildCompleted(SDProject sdProject)
