@@ -8,6 +8,7 @@ namespace SharpDox.Build.Roslyn
         public string CleanUp { get; set; } = "Cleaning repository: {0}";
         public string ParsingMethod { get; set; } = "Parsing Methods of Target: {0}";
         public string ParsingUseings { get; set; } = "Parsing useings of Target: {0}";
+        public string ParsingSeeTokens { get; set; } = "Parsing References: {0}";
 
         public string DisplayName => "RoslynBuilder";
     }

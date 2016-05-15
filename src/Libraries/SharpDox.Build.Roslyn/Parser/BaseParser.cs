@@ -15,7 +15,7 @@ namespace SharpDox.Build.Roslyn.Parser
         internal BaseParser(ParserOptions parserOptions)
         {
             ParserOptions = parserOptions;
-            DocumentationParser = new DocumentationParser();
+            DocumentationParser = new DocumentationParser(parserOptions.SeeTokens);
         }
 
         protected bool IsMemberExcluded(string identifier, Accessibility accessibility)

@@ -23,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\SharpDox.TestProject.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -50,6 +51,7 @@
     <Compile Include="Regression7.cs" />
     <Compile Include="Regression6.cs" />
     <Compile Include="Regression8.cs" />
+    <Compile Include="SeeAlsoDocType.cs" />
     <Compile Include="TypeWithTypeArguments.cs" />
     <Compile Include="WebApiDoc.cs" />
     <Compile Include="Regression5.cs" />
