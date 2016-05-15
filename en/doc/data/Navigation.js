@@ -19,7 +19,7 @@ sharpDox.navigationData = [
 											
 
 {
-	id: 'e76917ab-fcb5-4c9d-8057-e15b0dfd7da1',
+	id: '94d9f16e-42ef-4c0b-b10d-33b205fb977f',
 	text: 'Users',
 		icon: 'icon-folder-close',
 		children: [
@@ -69,7 +69,7 @@ sharpDox.navigationData = [
 											
 
 {
-	id: '6947f3ea-e57b-4762-94b6-5571955a5efb',
+	id: '36483802-3fd9-473c-a05f-472328c6f626',
 	text: 'Developers',
 		icon: 'icon-folder-close',
 		children: [
@@ -88,7 +88,7 @@ sharpDox.navigationData = [
 
 					
 				{
-					id: '9f3a1b8d-c1d0-4a4e-a079-6aa93129fb92',
+					id: '9a0c7d05-1624-41c6-99c9-89327ad148ac',
 					text: 'API',
 					icon: 'icon-folder-close',
 					children: [
