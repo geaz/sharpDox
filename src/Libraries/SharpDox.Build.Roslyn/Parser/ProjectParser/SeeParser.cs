@@ -49,10 +49,12 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                             }
                             break;
                         default:
+                            //TODO See parsing, if type is generic
                             seeToken.Name = splitted.Last();
                             seeToken.Namespace = string.Join(".", splitted.Take(splitted.Length - 2));
                             seeToken.DeclaringType = splitted[splitted.Length - 2];
                             seeToken.Text = splitted.Last();
+                            seeToken.Identifier = $"{seeToken.Namespace}.{seeToken.DeclaringType}.{seeToken.Name}";
 
                             if (seeToken.Name.Contains('`'))
                             {
