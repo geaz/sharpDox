@@ -1,18 +1,23 @@
 ﻿using SharpDox.Model.CallTree;
 using System.Linq;
+using SharpDox.Model.Repository;
 
 namespace SharpDox.Build.Roslyn.Parser.ProjectParser
 {
-    internal class UseParser : BaseParser
+    internal class UseParser
     {
-        internal UseParser(ParserOptions parserOptions) : base(parserOptions) { }
+        private readonly SDRepository _sdRepository;
+
+        internal UseParser(SDRepository sdRepository)
+        {
+            _sdRepository = sdRepository;
+        }
 
         internal void ResolveAllUses()
         {
-            var methods = ParserOptions.SDRepository.GetAllMethods();
+            var methods = _sdRepository.GetAllMethods();
             foreach (var sdMethod in methods)
             {
-                HandleOnItemParseStart(sdMethod.Name);
                 foreach (var call in sdMethod.Calls)
                 {
                     ResolveCall(call);
@@ -25,8 +30,8 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
             if (call is SDTargetNode)
             {
                 var targetNode = call as SDTargetNode;
-                var calledType = ParserOptions.SDRepository.GetTypeByIdentifier(targetNode.CalledType.Identifier);
-                var callerType = ParserOptions.SDRepository.GetTypeByIdentifier(targetNode.CallerType.Identifier);
+                var calledType = _sdRepository.GetTypeByIdentifier(targetNode.CalledType.Identifier);
+                var callerType = _sdRepository.GetTypeByIdentifier(targetNode.CallerType.Identifier);
 
                 if (calledType != null && callerType != null && calledType.Identifier != callerType.Identifier)
                 {
@@ -36,8 +41,8 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                     if (!calledType.IsProjectStranger && callerType.Uses.SingleOrDefault(u => u.Identifier == calledType.Identifier) == null)
                         callerType.Uses.Add(calledType);
 
-                    var calledNamespace = ParserOptions.SDRepository.GetNamespaceByIdentifier(calledType.Namespace.Identifier);
-                    var callerNamespace = ParserOptions.SDRepository.GetNamespaceByIdentifier(callerType.Namespace.Identifier);
+                    var calledNamespace = _sdRepository.GetNamespaceByIdentifier(calledType.Namespace.Identifier);
+                    var callerNamespace = _sdRepository.GetNamespaceByIdentifier(callerType.Namespace.Identifier);
 
                     if (calledNamespace != null && callerNamespace != null && calledNamespace.Fullname != callerNamespace.Fullname)
                     {

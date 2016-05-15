@@ -15,10 +15,23 @@ namespace SharpDox.Model.Documentation.Token
     [Serializable]
     public class SDSeeToken : SDToken
     {
-        public SDSeeToken()
+        public SDSeeToken(string attributeValue)
         {
+            AttributeValue = attributeValue;
             Role = SDTokenRole.See;
         }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets or sets the identifier of the referenced entity.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert den Identifier der referenzierten Entität.
+        ///     </summary>
+        /// </de>
+        public string Identifier { get; set; }
 
         /// <default>
         ///     <summary>
@@ -55,5 +68,17 @@ namespace SharpDox.Model.Documentation.Token
         ///     </summary>
         /// </de>
         public string DeclaringType { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets or sets the value of the xml attribute.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert den Wert des XML Attributes.
+        ///     </summary>
+        /// </de>
+        public string AttributeValue { get; set; }
     }
 }

@@ -211,7 +211,24 @@ namespace SharpDox.Model.Repository
         {
             return Methods.Select(n => n.Value).ToList();
         }
-        
+
+        /// <default>
+        ///     <summary>
+        ///     Gets a list of all members (no methods).
+        ///     </summary>
+        ///     <returns>A list containing all members.</returns>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Liefert eine Liste aller Mitglieder (keine Methoden).
+        ///     </summary>
+        ///     <returns>Eine Liste aller Mitgleider.</returns> 
+        /// </de>
+        public List<SDMemberBase> GetAllMembers()
+        {
+            return Members.Select(n => n.Value).ToList();
+        }
+
         public SDTargetFx TargetFx { get; set; }
 
         private SortedDictionary<string, SDNamespace> Namespaces { get; set; }

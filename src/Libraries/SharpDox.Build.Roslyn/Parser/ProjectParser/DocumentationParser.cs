@@ -6,11 +6,19 @@ using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
 using SharpDox.Model.Documentation;
 using SharpDox.Model.Documentation.Token;
+using SharpDox.Model.Repository;
 
 namespace SharpDox.Build.Roslyn.Parser.ProjectParser
 {
     internal class DocumentationParser
     {
+        private readonly List<SDToken> _seeTokens;
+
+        public DocumentationParser(List<SDToken> seeTokens)
+        {
+            _seeTokens = seeTokens;
+        }
+
         public SDLanguageItemCollection<SDDocumentation> ParseDocumentation(ISymbol symbol)
         {
             var documentationXml = symbol.GetDocumentationCommentXml();
@@ -77,7 +85,9 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                         AddResultsSection(sdDocumentation.Returns, child, multilang);
                         break;
                     case "seealso":
-                        sdDocumentation.SeeAlsos.Add(GetSeeRef(child));
+                        var seeToken = new SDSeeToken(child.ToString());
+                        _seeTokens.Add(seeToken);
+                        sdDocumentation.SeeAlsos.Add(seeToken);
                         break;
                 }
             }
@@ -107,11 +117,9 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                     switch (nodeElement.Name.LocalName.ToLower())
                     {
                         case "see":
-                            var seeRef = GetSeeRef(nodeElement);
-                            if (seeRef != null)
-                            {
-                                content.Add(seeRef);
-                            }
+                            var seeToken = new SDSeeToken(nodeElement.ToString());
+                            _seeTokens.Add(seeToken);
+                            content.Add(seeToken);
                             break;
                         case "typeparamref":
                             content.Add(new SDToken { Role = SDTokenRole.TypeParamRef, Text = nodeElement.Attribute("name")?.Value });
@@ -143,36 +151,6 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
             else if(!results.ContainsKey("default"))
             {
                 results.Add("default", ParseContentTokens(xmlElement, multilang));
-            }
-        }
-
-        private SDToken GetSeeRef(XElement xmlElement)
-        {
-            try
-            {
-                var sdToken = new SDSeeToken();
-
-                /*if (xmlElement.ReferencedEntity != null)
-                {
-                    var identifier = xmlElement.ReferencedEntity.DeclaringType != null
-                                            ? xmlElement.ReferencedEntity.DeclaringType.GetIdentifier()
-                                            : string.Empty;
-
-                    sdToken.Name = xmlElement.ReferencedEntity.Name;
-                    sdToken.Namespace = xmlElement.ReferencedEntity.Namespace;
-                    sdToken.DeclaringType = identifier;
-                    sdToken.Text = xmlElement.ReferencedEntity.Name;
-                }
-                else
-                {
-                    sdToken.Name = xmlElement.GetAttribute("cref");
-                }*/
-
-                return sdToken;
-            }
-            catch (Exception)
-            {
-                return null;
             }
         }
     }

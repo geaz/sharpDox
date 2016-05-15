@@ -1,3 +1,7 @@
+﻿Version 1.1.1
+
+- Fixed a bug with usings and see xml tags
+
 Version 1.1
 
 - Replaced NRefactory with Roslyn
