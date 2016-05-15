@@ -1,0 +1,4 @@
+CompilingAndParsing = Compiling and Parsing: {0}
+CleanUp = Cleaning repository: {0}
+ParsingMethod = Parsing Methods of Target: {0}
+ParsingUseings = Parsing useings of Target: {0}

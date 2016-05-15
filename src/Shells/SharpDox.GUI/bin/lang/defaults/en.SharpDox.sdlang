@@ -1,0 +1,17 @@
+NewConfig = New Configuration
+Never = NEVER
+StartSD = Starting sharpDox ...
+NoShells = No shell registered. At least one shell is necessary to run sharpDox.
+MoreShells = More than one shell registered. Which one should be started?
+ConfigTitle = General Settings
+ProjectName = Project Name
+VersionNumber = Version Number
+Author = Author
+AuthorUrl = Author Homepage
+ProjectUrl = Project Homepage
+LogoPath = Logo Path
+InputFile = Input File
+ExcludedIdentifiers = Excluded Identifiers
+Exporters = Exporters
+OutputPath = Output Path
+DocLanguage = Doc Language

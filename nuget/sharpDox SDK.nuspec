@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>sharpDoxSDK</id>
+        <version>1.1.2</version>
+        <title>sharpDox SDK</title>
+        <authors>Gerrit 'Geaz' Gazic</authors>
+        <owners>Gerrit 'Geaz' Gazic</owners>
+        <projectUrl>http://sharpdox.de</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>This package contains all files necessary to create you own plugins for sharpDox.</description>
+        <copyright>Copyright ©  2016</copyright>
+    </metadata>
+</package>

@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SharpDox.TestProject</name>
+    </assembly>
+    <members>
+        <member name="T:SharpDox.TestProject.IInheritDoc">
+            <summary>
+            Description of IInheritDoc.
+            </summary>
+        </member>
+        <member name="M:SharpDox.TestProject.IInheritDoc.Method1">
+            <summary>
+            Description of Method1
+            </summary>
+        </member>
+        <member name="M:SharpDox.TestProject.InheritDoc.Method1">
+            <inheritdoc />
+        </member>
+        <member name="T:SharpDox.TestProject.SeeAlsoDocType">
+            <summary>
+            Test
+            </summary>
+            <seealso cref="T:SharpDox.TestProject.Regression8"/>
+        </member>
+        <member name="M:SharpDox.TestProject.SeeAlsoDocType.TestMethod">
+            <summary>
+            Test <see cref="T:SharpDox.TestProject.Regression1"/>
+            </summary>
+        </member>
+        <member name="M:SharpDox.TestProject.SeeAlsoDocType.TestMethod2">
+            <summary>
+            Test 
+            <see cref="M:SharpDox.TestProject.SeeAlsoDocType.TestMethod"/>
+            <see cref="P:SharpDox.TestProject.SeeAlsoDocType.TestProp"/>
+            <see cref="E:SharpDox.TestProject.SeeAlsoDocType.TestEvent"/>
+            <see cref="F:SharpDox.TestProject.SeeAlsoDocType.TestField"/>
+            <see cref="M:SharpDox.TestProject.SeeAlsoDocType.TestMethod3``1(``0)"/>
+            <see cref="!:TestMethod3&lt;T,V&gt;"/>
+            </summary>
+        </member>
+        <member name="M:SharpDox.TestProject.WebApiDoc.Get(System.Int32)">
+            <summary>
+            Returns a pet.
+            </summary>
+            <returns httpCode="200">
+              <code>
+               {
+                 "id": 0,
+                 "category": {
+                   "id": 0,
+                   "name": "string"
+                 },
+                 "name": "doggie",
+                 "photoUrls": [
+                   "string"
+                 ],
+                 "tags": [
+                   {
+                     "id": 0,
+                     "name": "string"
+                   }
+                 ],
+                 "status": "string"
+               }
+              </code> 
+            </returns>
+        </member>
+        <member name="M:SharpDox.TestProject.Regression4.MethodWithExceptionDoc">
+            <summary>
+            Lorem ipsum
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Lorem ipsum</exception>
+            <exception cref="T:System.Net.Sockets.SocketException">Lorem ipsum</exception>
+        </member>
+    </members>
+</doc>
