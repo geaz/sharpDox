@@ -1,4 +1,0 @@
-D:\Github\sharpDox\src\Tests\SharpDox.TestProject\bin\Release\SharpDox.TestProject.dll
-D:\Github\sharpDox\src\Tests\SharpDox.TestProject\bin\Release\SharpDox.TestProject.pdb
-D:\Github\sharpDox\src\Tests\SharpDox.TestProject\obj\Release\SharpDox.TestProject.dll
-D:\Github\sharpDox\src\Tests\SharpDox.TestProject\obj\Release\SharpDox.TestProject.pdb
