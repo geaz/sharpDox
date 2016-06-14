@@ -7,6 +7,7 @@ namespace SharpDox.TestProject
     /// Test
     /// </summary>
     /// <seealso cref="Regression8"/>
+    /// <seealso cref=""/>
     public class SeeAlsoDocType<TK>
     {
         public event Action TestEvent;
