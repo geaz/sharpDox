@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C3092F55-794C-4623-8C77-67BB1343339C}"
 EndProject
@@ -36,6 +36,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.Sdk", "Core\SharpDox.Sdk\SharpDox.Sdk.csproj", "{C754373F-E69A-41BF-9007-F11121BD6302}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.Build.Roslyn", "Libraries\SharpDox.Build.Roslyn\SharpDox.Build.Roslyn.csproj", "{9E825E4A-768A-4EEE-BCBD-7FA92DAC0D81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visual Studio", "Visual Studio", "{01673821-1E85-46CB-8FE8-F240C9A7630C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDox.Vsix", "SharpDox.Vsix\SharpDox.Vsix.csproj", "{589035AE-1688-4D62-ABB5-252329A2B4DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +103,10 @@ Global
 		{9E825E4A-768A-4EEE-BCBD-7FA92DAC0D81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E825E4A-768A-4EEE-BCBD-7FA92DAC0D81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E825E4A-768A-4EEE-BCBD-7FA92DAC0D81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{589035AE-1688-4D62-ABB5-252329A2B4DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{589035AE-1688-4D62-ABB5-252329A2B4DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{589035AE-1688-4D62-ABB5-252329A2B4DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{589035AE-1688-4D62-ABB5-252329A2B4DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,5 +124,6 @@ Global
 		{7880D6BD-3EEF-44AB-964F-61B0F35EFE51} = {3963F440-08F8-46D9-9BED-F8C9E726738C}
 		{C754373F-E69A-41BF-9007-F11121BD6302} = {3963F440-08F8-46D9-9BED-F8C9E726738C}
 		{9E825E4A-768A-4EEE-BCBD-7FA92DAC0D81} = {B31D7989-25F8-4468-BF06-ADC904683296}
+		{589035AE-1688-4D62-ABB5-252329A2B4DB} = {01673821-1E85-46CB-8FE8-F240C9A7630C}
 	EndGlobalSection
 EndGlobal

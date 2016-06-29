@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="SharpDox.Vsix.Company.bb2d6718-20ab-4c7f-ab6d-1f93022b21e4" Version="1.0" Language="en-US" Publisher="Company" />
+    <DisplayName>SharpDox.Vsix</DisplayName>
+    <Description>Empty VSIX Project.</Description>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    <Dependency Id="Microsoft.VisualStudio.MPF.14.0" DisplayName="Visual Studio MPF 14.0" d:Source="Installed" Version="[14.0]" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Autofac.dll" AssemblyName="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Microsoft.Build.dll" AssemblyName="Microsoft.Build, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Microsoft.Build.Engine.dll" AssemblyName="Microsoft.Build.Engine, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Microsoft.Build.Framework.dll" AssemblyName="Microsoft.Build.Framework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Microsoft.Build.Tasks.Core.dll" AssemblyName="Microsoft.Build.Tasks.Core, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Microsoft.Build.Utilities.Core.dll" AssemblyName="Microsoft.Build.Utilities.Core, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Microsoft.CodeAnalysis.CSharp.dll" AssemblyName="Microsoft.CodeAnalysis.CSharp, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Microsoft.CodeAnalysis.CSharp.Workspaces.dll" AssemblyName="Microsoft.CodeAnalysis.CSharp.Workspaces, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Microsoft.CodeAnalysis.dll" AssemblyName="Microsoft.CodeAnalysis, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Microsoft.CodeAnalysis.VisualBasic.dll" AssemblyName="Microsoft.CodeAnalysis.VisualBasic, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll" AssemblyName="Microsoft.CodeAnalysis.VisualBasic.Workspaces, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Microsoft.CodeAnalysis.Workspaces.Desktop.dll" AssemblyName="Microsoft.CodeAnalysis.Workspaces.Desktop, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\Microsoft.CodeAnalysis.Workspaces.dll" AssemblyName="Microsoft.CodeAnalysis.Workspaces, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\NLog.dll" AssemblyName="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\SharpDox.Build.dll" AssemblyName="SharpDox.Build, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\SharpDox.Build.Roslyn.dll" AssemblyName="SharpDox.Build.Roslyn, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\SharpDox.Core.dll" AssemblyName="SharpDox.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\SharpDox.Model.dll" AssemblyName="SharpDox.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\SharpDox.Sdk.dll" AssemblyName="SharpDox.Sdk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\SharpDox.UML.dll" AssemblyName="SharpDox.UML, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\System.Collections.Immutable.dll" AssemblyName="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\System.Composition.AttributedModel.dll" AssemblyName="System.Composition.AttributedModel, Version=1.0.27.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\System.Composition.Convention.dll" AssemblyName="System.Composition.Convention, Version=1.0.27.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\System.Composition.Hosting.dll" AssemblyName="System.Composition.Hosting, Version=1.0.27.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\System.Composition.Runtime.dll" AssemblyName="System.Composition.Runtime, Version=1.0.27.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\System.Composition.TypedParts.dll" AssemblyName="System.Composition.TypedParts, Version=1.0.27.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" d:VsixSubPath="sharpDox" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="sharpDox\System.Reflection.Metadata.dll" AssemblyName="System.Reflection.Metadata, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" d:VsixSubPath="sharpDox" />
+  </Assets>
+</PackageManifest>
