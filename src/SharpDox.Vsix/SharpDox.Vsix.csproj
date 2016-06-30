@@ -71,6 +71,10 @@
     <Content Include="Resources\BuildCommandPackage.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
@@ -152,9 +156,8 @@
       <HintPath>..\packages\Microsoft.VisualStudio.Validation.14.1.111\lib\net45\Microsoft.VisualStudio.Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SharpDox.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>sharpDox\SharpDox.Core.dll</HintPath>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.4.2.3\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -172,7 +175,32 @@
       <ManifestResourceName>VSPackage</ManifestResourceName>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Core\SharpDox.Core\SharpDox.Core.csproj">
+      <Project>{8e519972-d18f-47e4-8e82-abc3b3d43311}</Project>
+      <Name>SharpDox.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\SharpDox.Model\SharpDox.Model.csproj">
+      <Project>{7880d6bd-3eef-44ab-964f-61b0f35efe51}</Project>
+      <Name>SharpDox.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\SharpDox.Sdk\SharpDox.Sdk.csproj">
+      <Project>{c754373f-e69a-41bf-9007-f11121bd6302}</Project>
+      <Name>SharpDox.Sdk</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Libraries\SharpDox.Build.Roslyn\SharpDox.Build.Roslyn.csproj">
+      <Project>{9e825e4a-768a-4eee-bcbd-7fa92dac0d81}</Project>
+      <Name>SharpDox.Build.Roslyn</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Libraries\SharpDox.Build\SharpDox.Build.csproj">
+      <Project>{65180da0-d8cf-4a7b-bd1c-dba841883dd4}</Project>
+      <Name>SharpDox.Build</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Libraries\SharpDox.UML\SharpDox.UML.csproj">
+      <Project>{3cb8094e-ffe2-4ef1-8366-e6b9c91d4831}</Project>
+      <Name>SharpDox.UML</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
