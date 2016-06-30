@@ -12,13 +12,13 @@ using SharpDox.Build.Roslyn;
 
 namespace SharpDox.Core
 {
-    public class MainContainerConfig
+    public class SDBootStrapper
     {
         private IContainer _container;
 
         private readonly ContainerBuilder _containerBuilder;
 
-        public MainContainerConfig()
+        public SDBootStrapper()
         {
             _containerBuilder = new ContainerBuilder();
             RegisterDefaultComponents();
@@ -31,6 +31,15 @@ namespace SharpDox.Core
                 throw new Exception("Can't add type after building the container");
             }
             _containerBuilder.RegisterType<T>().AsSelf();
+        }
+
+        public void RegisterInstance<T>(T instance) where T : class
+        {
+            if (_container != null)
+            {
+                throw new Exception("Can't add type after building the container");
+            }
+            _containerBuilder.RegisterInstance(instance).As<T>();
         }
 
         public void RegisterStrings<T>()

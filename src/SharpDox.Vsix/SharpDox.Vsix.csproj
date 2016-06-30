@@ -54,6 +54,7 @@
     <Compile Include="Controllers\OutputController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\SharpDoxController.cs" />
+    <Compile Include="SDSolutionConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />

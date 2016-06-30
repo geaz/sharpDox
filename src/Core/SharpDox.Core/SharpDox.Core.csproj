@@ -65,7 +65,7 @@
     <Compile Include="Local\LocalCreator.cs" />
     <Compile Include="Local\LocalLoader.cs" />
     <Compile Include="Local\LocalStrings.cs" />
-    <Compile Include="MainContainerConfig.cs" />
+    <Compile Include="SDBootStrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

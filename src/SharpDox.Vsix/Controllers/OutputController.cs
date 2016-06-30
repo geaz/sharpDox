@@ -2,22 +2,21 @@
 using EnvDTE;
 using EnvDTE80;
 
-namespace SharpDox.Vsix
+namespace SharpDox.Vsix.Controllers
 {
     internal class OutputController
     {
         private const string PaneName = "sharpDox";
 
         private readonly Window _vsOutputWindow;
-        private readonly OutputWindow _outputWindow;
         private readonly OutputWindowPane _outputPane;
 
         public OutputController(DTE2 dte)
         {
             _vsOutputWindow = dte.Windows.Item(Constants.vsWindowKindOutput);
-            _outputWindow = (OutputWindow)_vsOutputWindow.Object;
+            var outputWindow = (OutputWindow)_vsOutputWindow.Object;
 
-            foreach (OutputWindowPane pane in _outputWindow.OutputWindowPanes)
+            foreach (OutputWindowPane pane in outputWindow.OutputWindowPanes)
             {
                 if (pane.Name == PaneName)
                 {
@@ -25,7 +24,7 @@ namespace SharpDox.Vsix
                     break;
                 }
             }
-            if(_outputPane == null) _outputPane = _outputWindow.OutputWindowPanes.Add(PaneName);
+            if(_outputPane == null) _outputPane = outputWindow.OutputWindowPanes.Add(PaneName);
         }
 
         public void WriteOutputLine(string message)

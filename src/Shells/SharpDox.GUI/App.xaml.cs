@@ -24,7 +24,7 @@ namespace SharpDox.GUI
         {
             base.OnStartup(e);
             
-            var mainContainerConfig = new MainContainerConfig();
+            var mainContainerConfig = new SDBootStrapper();
             mainContainerConfig.RegisterAsSelf<Shell>();
             mainContainerConfig.RegisterStrings<SDGuiStrings>();
             var mainContainer = mainContainerConfig.BuildContainer();

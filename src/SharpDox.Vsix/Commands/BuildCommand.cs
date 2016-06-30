@@ -1,10 +1,13 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using Autofac;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using SharpDox.Core;
+using SharpDox.Vsix.Controllers;
 
-namespace SharpDox.Vsix
+namespace SharpDox.Vsix.Commands
 {
     internal sealed class BuildCommand
     {
@@ -41,11 +44,15 @@ namespace SharpDox.Vsix
         private void MenuItemCallback(object sender, EventArgs e)
         {
             var dte = ServiceProvider.GetService(typeof(SDTE)) as DTE2;
-            var outputController = new OutputController(dte);
+            
+            var sdBootStrapper = new SDBootStrapper();
+            sdBootStrapper.RegisterInstance(dte);
+            sdBootStrapper.RegisterAsSelf<OutputController>();
+            sdBootStrapper.RegisterAsSelf<SharpDoxController>();
+            var container = sdBootStrapper.BuildContainer();
 
-
-
-            outputController.WriteOutput(!string.IsNullOrEmpty(dte.Solution.FileName) ? dte.Solution.FileName : "NO SOLUTION");
+            var sharpdoxController = container.Resolve<SharpDoxController>();
+            sharpdoxController.BuildDocumentation(dte.Solution);
         }
 
         public static BuildCommand Instance { get; private set; }

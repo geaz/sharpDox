@@ -13,7 +13,7 @@ namespace SharpDox.Console
             var exitCode = -1;
             try
             {
-                var mainContainerConfig = new MainContainerConfig();
+                var mainContainerConfig = new SDBootStrapper();
                 mainContainerConfig.RegisterAsSelf<SDConsole>();
                 mainContainerConfig.RegisterStrings<SDConsoleStrings>();
                 var mainContainer = mainContainerConfig.BuildContainer();
