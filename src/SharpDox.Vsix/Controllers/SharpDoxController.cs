@@ -1,4 +1,4 @@
-﻿using SharpDox.Build;
+﻿/*using SharpDox.Build;
 using SharpDox.Core;
 
 namespace SharpDox.Vsix
@@ -23,4 +23,4 @@ namespace SharpDox.Vsix
             
         }
     }
-}
+}*/
