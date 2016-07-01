@@ -24,6 +24,8 @@ namespace SharpDox.TestProject
 
         /// <summary>
         /// Test 
+        /// <see cref=""></see>
+        /// <see cref="NotExist"></see>
         /// <see cref="SeeAlsoDocType{TK}"/>
         /// <see cref="TestMethod"/>
         /// <see cref="TestProp"/>
