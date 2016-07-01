@@ -24,7 +24,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
             {
                 var seeToken = ((SDSeeToken) token);
                 var cref = XElement.Parse(seeToken.AttributeValue).Attributes().FirstOrDefault(a => a.Name == "cref");
-                if (!string.IsNullOrEmpty(cref?.Value) && cref?.Value != "!:")
+                if (!string.IsNullOrEmpty(cref?.Value) && !cref.Value.StartsWith("!:"))
                 {
                     var cleanedRef = cref.Value.Substring(2);
                     var splitted = cleanedRef.Split('.');
