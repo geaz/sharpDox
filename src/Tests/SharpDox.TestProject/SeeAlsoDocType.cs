@@ -19,7 +19,7 @@ namespace SharpDox.TestProject
         /// </summary>
         public void TestMethod()
         {
-            
+
         }
 
         /// <summary>
