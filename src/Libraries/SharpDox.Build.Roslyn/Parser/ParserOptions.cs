@@ -20,5 +20,6 @@ namespace SharpDox.Build.Roslyn.Parser
         public ICoreConfigSection SharpDoxConfig { get; set; }
         public Dictionary<string, string> Tokens { get; set; }
         public List<SDToken> SeeTokens { get; set; }
+        public bool IgnoreExcludes { get; set; }
     }
 }

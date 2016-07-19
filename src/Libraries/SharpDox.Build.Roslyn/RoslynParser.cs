@@ -29,7 +29,7 @@ namespace SharpDox.Build.Roslyn
             _seeTokens = new Dictionary<SDTargetFx, List<SDToken>>();
         }
 
-        public SDSolution GetParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens, bool parseMethodCalls)
+        public SDSolution GetParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens, bool parseMethodCalls, bool ignoreExcludes = false)
         {
             var sdSolution = new SDSolution(solutionFile);
             var solution = _roslynLoader.LoadSolutionFile(solutionFile);
@@ -39,6 +39,7 @@ namespace SharpDox.Build.Roslyn
             parserOptions.SDSolution = sdSolution;
             parserOptions.SharpDoxConfig = sharpDoxConfig;
             parserOptions.Tokens = tokens;
+            parserOptions.IgnoreExcludes = ignoreExcludes;
 
             ParseProjects(parserOptions);
             CleanUpNamespaces(sdSolution);

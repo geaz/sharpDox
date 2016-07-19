@@ -11,6 +11,6 @@ namespace SharpDox.Build
         event Action<string> OnStepMessage;
         event Action<int> OnStepProgress;
         
-        SDSolution GetParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens, bool parseMethodCalls);
+        SDSolution GetParsedSolution(string solutionFile, ICoreConfigSection sharpDoxConfig, Dictionary<string, string> tokens, bool parseMethodCalls, bool ignoreExcludes = false);
     }
 }
