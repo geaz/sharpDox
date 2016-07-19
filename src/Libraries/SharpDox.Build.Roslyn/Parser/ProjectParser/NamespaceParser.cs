@@ -23,7 +23,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
         internal void ParseProjectNamespacesRecursively(INamespaceSymbol namespaceSymbol)
         {
             HandleOnItemParseStart(namespaceSymbol.Name);
-            if (!ParserOptions.SharpDoxConfig.ExcludedIdentifiers.Contains(namespaceSymbol.GetIdentifier()))
+            if (!ParserOptions.SharpDoxConfig.ExcludedIdentifiers.Contains(namespaceSymbol.GetIdentifier()) || ParserOptions.IgnoreExcludes)
             {
                 var sdNamespace = GetParsedNamespace(namespaceSymbol);
                 ParserOptions.SDRepository.AddNamespace(sdNamespace);
