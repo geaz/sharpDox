@@ -7,6 +7,7 @@ namespace SharpDox.TestProject
     /// Test
     /// </summary>
     /// <seealso cref="Regression8"/>
+    /// <seealso cref=""/>
     public class SeeAlsoDocType<TK>
     {
         public event Action TestEvent;
@@ -18,11 +19,13 @@ namespace SharpDox.TestProject
         /// </summary>
         public void TestMethod()
         {
-            
+
         }
 
         /// <summary>
         /// Test 
+        /// <see cref=""></see> 
+        /// <see cref="NotExist"></see> 
         /// <see cref="SeeAlsoDocType{TK}"/>
         /// <see cref="TestMethod"/>
         /// <see cref="TestProp"/>

@@ -24,7 +24,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
             {
                 var seeToken = ((SDSeeToken) token);
                 var cref = XElement.Parse(seeToken.AttributeValue).Attributes().FirstOrDefault(a => a.Name == "cref");
-                if (!string.IsNullOrEmpty(cref?.Value))
+                if (!string.IsNullOrEmpty(cref?.Value) && !cref.Value.StartsWith("!:"))
                 {
                     var cleanedRef = cref.Value.Substring(2);
                     var splitted = cleanedRef.Split('.');
@@ -61,7 +61,8 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                                 var splittedName = seeToken.Name.Replace("(", string.Empty).Replace(")", string.Empty).Split(new [] {"`"}, StringSplitOptions.RemoveEmptyEntries);
                                 var sdMethod = _sdRepository.GetAllMethods().SingleOrDefault(
                                     m => m.Namespace == seeToken.Namespace &&
-                                    m.Name == splittedName[0] && m.TypeParameters.Count == int.Parse(splittedName[1]));
+                                    m.Name == splittedName[0] && m.TypeParameters.Count == int.Parse(splittedName[1]) &&
+                                    m.Parameters.Count == splittedName.Length - 2);
 
                                 seeToken.Identifier = sdMethod?.Identifier;
                                 seeToken.Name = sdMethod != null ? sdMethod.Name : $"Missing: {seeToken.AttributeValue}";

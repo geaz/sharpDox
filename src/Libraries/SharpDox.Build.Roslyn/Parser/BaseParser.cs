@@ -25,7 +25,7 @@ namespace SharpDox.Build.Roslyn.Parser
             isExcluded = accessibility == Accessibility.Protected && ParserOptions.SharpDoxConfig.ExcludeProtected || isExcluded;
             isExcluded = accessibility == Accessibility.Internal && ParserOptions.SharpDoxConfig.ExcludeInternal || isExcluded;
 
-            return isExcluded;
+            return isExcluded && !ParserOptions.IgnoreExcludes;
         }
 
         protected void HandleOnItemParseStart(string message)
