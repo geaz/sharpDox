@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using SharpDox.Model.Repository;
@@ -133,7 +134,9 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                 {
                     Start = reference.Span.Start,
                     End = reference.Span.End,
-                    Filename = reference.SyntaxTree.FilePath
+                    FilePath = reference.SyntaxTree.FilePath,
+                    Filename = Path.GetFileName(reference.SyntaxTree.FilePath),
+                    Content = File.ReadAllText(reference.SyntaxTree.FilePath)
                 };
                 sdType.Regions.Add(region);
             }
