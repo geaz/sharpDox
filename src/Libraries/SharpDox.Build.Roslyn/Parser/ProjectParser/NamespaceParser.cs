@@ -38,14 +38,14 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
 
         private SDNamespace GetParsedNamespace(INamespaceSymbol namespaceSymbol)
         {
-            var descriptionFiles = _descriptionFiles.Where(d => Path.GetFileName(d).ToLower().Contains(namespaceSymbol.Name.ToLower() + ".sdnd"));
+            var descriptionFiles = _descriptionFiles.Where(d => Path.GetFileName(d).ToLower().Contains(namespaceSymbol.ToDisplayString().ToLower() + ".sdnd"));
 
             var descriptions = new SDLanguageItemCollection<SDTemplate>();
             foreach (var file in descriptionFiles)
             {
-                if (!string.IsNullOrEmpty(namespaceSymbol.Name.Trim()))
+                if (!string.IsNullOrEmpty(namespaceSymbol.ToDisplayString().Trim()))
                 {
-                    var splitted = Path.GetFileName(file).ToLower().Replace(namespaceSymbol.Name.ToLower(), " ").Split('.');
+                    var splitted = Path.GetFileName(file).ToLower().Replace(namespaceSymbol.ToDisplayString().ToLower(), " ").Split('.');
                     if (splitted.Length > 0 && splitted[0].Length == 2 && CultureInfo.GetCultures(CultureTypes.AllCultures).Any(c => c.TwoLetterISOLanguageName == splitted[0]))
                     {
                         descriptions.Add(splitted[0], new SDTemplate(File.ReadAllText(file), ParserOptions.Tokens));
