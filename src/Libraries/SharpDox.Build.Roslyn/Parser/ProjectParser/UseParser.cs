@@ -33,7 +33,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                 var calledType = _sdRepository.GetTypeByIdentifier(targetNode.CalledType.Identifier);
                 var callerType = _sdRepository.GetTypeByIdentifier(targetNode.CallerType.Identifier);
 
-                if (calledType != null && callerType != null && calledType.Identifier != callerType.Identifier)
+                if (calledType != null && callerType != null && calledType.Identifier != callerType.Identifier && !calledType.IsProjectStranger && !callerType.IsProjectStranger)
                 {
                     if (!calledType.IsProjectStranger && calledType.UsedBy.SingleOrDefault(u => u.Identifier == callerType.Identifier) == null)
                         calledType.UsedBy.Add(callerType);
