@@ -142,6 +142,8 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                 {
                     Start = reference.Span.Start,
                     End = reference.Span.End,
+                    StartLine = reference.SyntaxTree.GetLineSpan(reference.Span).StartLinePosition.Line + 1,
+                    EndLine = reference.SyntaxTree.GetLineSpan(reference.Span).EndLinePosition.Line + 1,
                     FilePath = reference.SyntaxTree.FilePath,
                     Filename = Path.GetFileName(reference.SyntaxTree.FilePath),
                     Content = File.ReadAllText(reference.SyntaxTree.FilePath)

@@ -43,6 +43,8 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                 Region = syntaxReference != null ? new SDRegion
                 {
                     Start = syntaxReference.Span.Start,
+                    StartLine = syntaxReference.SyntaxTree.GetLineSpan(syntaxReference.Span).StartLinePosition.Line + 1,
+                    EndLine = syntaxReference.SyntaxTree.GetLineSpan(syntaxReference.Span).EndLinePosition.Line + 1,
                     End = syntaxReference.Span.End,
                     FilePath = syntaxReference.SyntaxTree.FilePath,
                     Filename = Path.GetFileName(syntaxReference.SyntaxTree.FilePath)

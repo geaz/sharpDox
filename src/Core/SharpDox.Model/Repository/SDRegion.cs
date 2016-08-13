@@ -41,6 +41,30 @@ namespace SharpDox.Model.Repository
 
         /// <default>
         ///     <summary>
+        ///     Gets or sets the start line of the region.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert die Startzeile der Region.
+        ///     </summary>     
+        /// </de>
+        public int StartLine { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets or sets the end line of the region.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert die Endzeile der Region.
+        ///     </summary>     
+        /// </de>
+        public int EndLine { get; set; }
+
+        /// <default>
+        ///     <summary>
         ///     Gets or sets the file path within the region is defined.
         ///     </summary>
         /// </default>
