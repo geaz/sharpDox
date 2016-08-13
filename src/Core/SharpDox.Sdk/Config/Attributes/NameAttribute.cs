@@ -13,8 +13,8 @@ namespace SharpDox.Sdk.Config.Attributes
     ///             [Name(typeof(CoreStrings), "ProjectName")]
     ///             public string ProjectName
     ///             {
-    ///                 get { [...] }
-    ///                 set { [...] }
+    ///                 get { /* ... */ }
+    ///                 set { /* ... */ }
     ///             }
     ///         </code>
     ///     </example>
@@ -31,8 +31,8 @@ namespace SharpDox.Sdk.Config.Attributes
     ///             [Name(typeof(CoreStrings), "ProjectName")]
     ///             public string ProjectName
     ///             {
-    ///                 get { [...] }
-    ///                 set { [...] }
+    ///                 get { /* ... */ }
+    ///                 set { /* ... */ }
     ///             }
     ///         </code>
     ///     </example>
