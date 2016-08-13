@@ -111,7 +111,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                     content.Add(new SDToken
                     {
                         Role = SDTokenRole.Text,
-                        Text = element.ToString().Trim()
+                        Text = element.ToString()
                     });
                 }
 
