@@ -14,10 +14,10 @@ namespace SharpDox.Model.Documentation.Token
                 switch (token.Role)
                 {
                     case SDTokenRole.Paragraph:
-                        text += string.Format("{0}{1}{0}", System.Environment.NewLine, token.Text);
+                        text += string.Format("{0}{1}{0}", Environment.NewLine, token.Text);
                         break;
                     case SDTokenRole.Code:
-                        text += ((SDCodeToken)token).IsInline ? $" {token.Text} " : string.Format("{0}{1}{0}", System.Environment.NewLine, token.Text);
+                        text += ((SDCodeToken)token).IsInline ? $" {token.Text }" : string.Format("{0}{1}{0}", Environment.NewLine, token.Text);
                         break;
                     default:
                         text += token.Text;
@@ -38,16 +38,16 @@ namespace SharpDox.Model.Documentation.Token
                         text += string.Format("{0}{1}{1}", token.Text, Environment.NewLine);
                         break;
                     case SDTokenRole.Code:
-                        var splittedText = token.Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+                        var splittedText = token.Text.Split(new [] { "\r\n", "\n" }, StringSplitOptions.None);
                         text += ((SDCodeToken)token).IsInline ?
-                                    string.Format(" {0}{1}{0} ", "```", token.Text) : 
+                                    string.Format(" {0}{1}{0}", "```", token.Text) : 
                                     string.Format("{0}{1}{2}{1}{0}", "```", Environment.NewLine, string.Join(Environment.NewLine, splittedText));
                         break;
                     case SDTokenRole.See:
                         var seeToken = (SDSeeToken)token;
                         if(!string.IsNullOrEmpty(seeToken.Namespace) && string.IsNullOrEmpty(seeToken.DeclaringType))
                         {
-                            text += string.Format(" [{0}]({{{{type-link:{1}.{0}}}}}) ", seeToken.Name, seeToken.Namespace);
+                            text += string.Format(" [{0}]({{{{type-link:{1}.{0}}}}})", seeToken.Name, seeToken.Namespace);
                         }
                         else
                         {
