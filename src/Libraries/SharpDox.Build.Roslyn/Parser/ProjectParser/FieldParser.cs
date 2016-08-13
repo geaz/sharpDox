@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
@@ -32,6 +33,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
 
         private SDField GetParsedField(IFieldSymbol field)
         {
+            var syntaxReference = field.DeclaringSyntaxReferences.Any() ? field.DeclaringSyntaxReferences.Single() : null;
             var sdField = new SDField(field.GetIdentifier())
             {
                 Name = field.Name,
@@ -41,7 +43,14 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                 ConstantValue = field.ConstantValue != null ? field.ConstantValue.ToString() : string.Empty,
                 IsConst = field.IsConst,
                 IsReadonly = field.IsReadOnly,
-                Documentations = DocumentationParser.ParseDocumentation(field)
+                Documentations = DocumentationParser.ParseDocumentation(field),
+                Region = syntaxReference != null ? new SDRegion
+                {
+                    Start = syntaxReference.Span.Start,
+                    End = syntaxReference.Span.End,
+                    FilePath = syntaxReference.SyntaxTree.FilePath,
+                    Filename = Path.GetFileName(syntaxReference.SyntaxTree.FilePath)
+                } : null
             };
 
             ParserOptions.SDRepository.AddMember(sdField);
