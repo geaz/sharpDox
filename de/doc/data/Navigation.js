@@ -19,7 +19,7 @@ sharpDox.navigationData = [
 											
 
 {
-	id: '7a0ed74b-d12e-4b53-8b27-8129d563f9b6',
+	id: 'feccc4c4-5fd6-4cbc-8691-21288cecc811',
 	text: 'Benutzer',
 		icon: 'icon-folder-close',
 		children: [
@@ -69,7 +69,7 @@ sharpDox.navigationData = [
 											
 
 {
-	id: 'a10644b7-eabf-43c4-946c-185bc6032599',
+	id: '45254dfe-60c1-4c09-9d22-ad8c3a4e1ab0',
 	text: 'Entwickler',
 		icon: 'icon-folder-close',
 		children: [
@@ -88,7 +88,7 @@ sharpDox.navigationData = [
 
 					
 				{
-					id: '30bab768-70a8-4d42-a570-df9196966e8d',
+					id: '63e536c5-bb51-4b43-909e-592f175f4751',
 					text: 'API',
 					icon: 'icon-folder-close',
 					children: [
@@ -108,13 +108,13 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Build.Roslyn.ParserStrings',
 			text: 'ParserStrings',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Build.Roslyn.ParserStrings' }
+			a_attr: { href : '#/type/SharpDox.Build.Roslyn.ParserStrings/index' }
         },	
 		{
 			id: 'SharpDox.Build.Roslyn.RoslynParser',
 			text: 'RoslynParser',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Build.Roslyn.RoslynParser' }
+			a_attr: { href : '#/type/SharpDox.Build.Roslyn.RoslynParser/index' }
         },	
 
 
@@ -133,31 +133,31 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Model.KnownReferences',
 			text: 'KnownReferences',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.KnownReferences' }
+			a_attr: { href : '#/type/SharpDox.Model.KnownReferences/index' }
         },	
 		{
 			id: 'SharpDox.Model.KnownTargetFxs',
 			text: 'KnownTargetFxs',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.KnownTargetFxs' }
+			a_attr: { href : '#/type/SharpDox.Model.KnownTargetFxs/index' }
         },	
 		{
 			id: 'SharpDox.Model.SDProject',
 			text: 'SDProject',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.SDProject' }
+			a_attr: { href : '#/type/SharpDox.Model.SDProject/index' }
         },	
 		{
 			id: 'SharpDox.Model.SDSolution',
 			text: 'SDSolution',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.SDSolution' }
+			a_attr: { href : '#/type/SharpDox.Model.SDSolution/index' }
         },	
 		{
 			id: 'SharpDox.Model.SortedListT',
 			text: 'SortedList',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.SortedListT' }
+			a_attr: { href : '#/type/SharpDox.Model.SortedListT/index' }
         },	
 
 
@@ -176,31 +176,31 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Model.CallTree.SDBlock',
 			text: 'SDBlock',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.CallTree.SDBlock' }
+			a_attr: { href : '#/type/SharpDox.Model.CallTree.SDBlock/index' }
         },	
 		{
 			id: 'SharpDox.Model.CallTree.SDConditionalBlock',
 			text: 'SDConditionalBlock',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.CallTree.SDConditionalBlock' }
+			a_attr: { href : '#/type/SharpDox.Model.CallTree.SDConditionalBlock/index' }
         },	
 		{
 			id: 'SharpDox.Model.CallTree.SDNode',
 			text: 'SDNode',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.CallTree.SDNode' }
+			a_attr: { href : '#/type/SharpDox.Model.CallTree.SDNode/index' }
         },	
 		{
 			id: 'SharpDox.Model.CallTree.SDNodeRole',
 			text: 'SDNodeRole',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.CallTree.SDNodeRole' }
+			a_attr: { href : '#/type/SharpDox.Model.CallTree.SDNodeRole/index' }
         },	
 		{
 			id: 'SharpDox.Model.CallTree.SDTargetNode',
 			text: 'SDTargetNode',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.CallTree.SDTargetNode' }
+			a_attr: { href : '#/type/SharpDox.Model.CallTree.SDTargetNode/index' }
         },	
 
 
@@ -219,19 +219,19 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Model.Documentation.SDDocumentation',
 			text: 'SDDocumentation',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Documentation.SDDocumentation' }
+			a_attr: { href : '#/type/SharpDox.Model.Documentation.SDDocumentation/index' }
         },	
 		{
 			id: 'SharpDox.Model.Documentation.SDLanguageItemCollectionT',
 			text: 'SDLanguageItemCollection',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Documentation.SDLanguageItemCollectionT' }
+			a_attr: { href : '#/type/SharpDox.Model.Documentation.SDLanguageItemCollectionT/index' }
         },	
 		{
 			id: 'SharpDox.Model.Documentation.SDTemplate',
 			text: 'SDTemplate',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Documentation.SDTemplate' }
+			a_attr: { href : '#/type/SharpDox.Model.Documentation.SDTemplate/index' }
         },	
 
 
@@ -250,19 +250,19 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Model.Documentation.Article.SDArticle',
 			text: 'SDArticle',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Documentation.Article.SDArticle' }
+			a_attr: { href : '#/type/SharpDox.Model.Documentation.Article.SDArticle/index' }
         },	
 		{
 			id: 'SharpDox.Model.Documentation.Article.SDArticlePlaceholder',
 			text: 'SDArticlePlaceholder',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Documentation.Article.SDArticlePlaceholder' }
+			a_attr: { href : '#/type/SharpDox.Model.Documentation.Article.SDArticlePlaceholder/index' }
         },	
 		{
 			id: 'SharpDox.Model.Documentation.Article.SDDocPlaceholder',
 			text: 'SDDocPlaceholder',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Documentation.Article.SDDocPlaceholder' }
+			a_attr: { href : '#/type/SharpDox.Model.Documentation.Article.SDDocPlaceholder/index' }
         },	
 
 
@@ -281,31 +281,31 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Model.Documentation.Token.SDCodeToken',
 			text: 'SDCodeToken',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Documentation.Token.SDCodeToken' }
+			a_attr: { href : '#/type/SharpDox.Model.Documentation.Token.SDCodeToken/index' }
         },	
 		{
 			id: 'SharpDox.Model.Documentation.Token.SDSeeToken',
 			text: 'SDSeeToken',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Documentation.Token.SDSeeToken' }
+			a_attr: { href : '#/type/SharpDox.Model.Documentation.Token.SDSeeToken/index' }
         },	
 		{
 			id: 'SharpDox.Model.Documentation.Token.SDToken',
 			text: 'SDToken',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Documentation.Token.SDToken' }
+			a_attr: { href : '#/type/SharpDox.Model.Documentation.Token.SDToken/index' }
         },	
 		{
 			id: 'SharpDox.Model.Documentation.Token.SDTokenList',
 			text: 'SDTokenList',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Documentation.Token.SDTokenList' }
+			a_attr: { href : '#/type/SharpDox.Model.Documentation.Token.SDTokenList/index' }
         },	
 		{
 			id: 'SharpDox.Model.Documentation.Token.SDTokenRole',
 			text: 'SDTokenRole',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Documentation.Token.SDTokenRole' }
+			a_attr: { href : '#/type/SharpDox.Model.Documentation.Token.SDTokenRole/index' }
         },	
 
 
@@ -324,43 +324,43 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Model.Repository.SDNamespace',
 			text: 'SDNamespace',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.SDNamespace' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.SDNamespace/index' }
         },	
 		{
 			id: 'SharpDox.Model.Repository.SDRegion',
 			text: 'SDRegion',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.SDRegion' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.SDRegion/index' }
         },	
 		{
 			id: 'SharpDox.Model.Repository.SDRepository',
 			text: 'SDRepository',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.SDRepository' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.SDRepository/index' }
         },	
 		{
 			id: 'SharpDox.Model.Repository.SDTargetFx',
 			text: 'SDTargetFx',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.SDTargetFx' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.SDTargetFx/index' }
         },	
 		{
 			id: 'SharpDox.Model.Repository.SDType',
 			text: 'SDType',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.SDType' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.SDType/index' }
         },	
 		{
 			id: 'SharpDox.Model.Repository.SDTypeParameter',
 			text: 'SDTypeParameter',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.SDTypeParameter' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.SDTypeParameter/index' }
         },	
 		{
 			id: 'SharpDox.Model.Repository.SDTypeRef',
 			text: 'SDTypeRef',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.SDTypeRef' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.SDTypeRef/index' }
         },	
 
 
@@ -379,37 +379,37 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Model.Repository.Members.SDEvent',
 			text: 'SDEvent',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.Members.SDEvent' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.Members.SDEvent/index' }
         },	
 		{
 			id: 'SharpDox.Model.Repository.Members.SDField',
 			text: 'SDField',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.Members.SDField' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.Members.SDField/index' }
         },	
 		{
 			id: 'SharpDox.Model.Repository.Members.SDMemberBase',
 			text: 'SDMemberBase',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.Members.SDMemberBase' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.Members.SDMemberBase/index' }
         },	
 		{
 			id: 'SharpDox.Model.Repository.Members.SDMethod',
 			text: 'SDMethod',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.Members.SDMethod' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.Members.SDMethod/index' }
         },	
 		{
 			id: 'SharpDox.Model.Repository.Members.SDParameter',
 			text: 'SDParameter',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.Members.SDParameter' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.Members.SDParameter/index' }
         },	
 		{
 			id: 'SharpDox.Model.Repository.Members.SDProperty',
 			text: 'SDProperty',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Model.Repository.Members.SDProperty' }
+			a_attr: { href : '#/type/SharpDox.Model.Repository.Members.SDProperty/index' }
         },	
 
 
@@ -428,7 +428,7 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Sdk.SDPath',
 			text: 'SDPath',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.SDPath' }
+			a_attr: { href : '#/type/SharpDox.Sdk.SDPath/index' }
         },	
 
 
@@ -447,19 +447,19 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Sdk.Config.IConfigController',
 			text: 'IConfigController',
 			icon: './assets/icons/interface_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Config.IConfigController' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Config.IConfigController/index' }
         },	
 		{
 			id: 'SharpDox.Sdk.Config.IConfigSection',
 			text: 'IConfigSection',
 			icon: './assets/icons/interface_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Config.IConfigSection' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Config.IConfigSection/index' }
         },	
 		{
 			id: 'SharpDox.Sdk.Config.ICoreConfigSection',
 			text: 'ICoreConfigSection',
 			icon: './assets/icons/interface_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Config.ICoreConfigSection' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Config.ICoreConfigSection/index' }
         },	
 
 
@@ -478,31 +478,31 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Sdk.Config.Attributes.ConfigEditorAttribute',
 			text: 'ConfigEditorAttribute',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Config.Attributes.ConfigEditorAttribute' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Config.Attributes.ConfigEditorAttribute/index' }
         },	
 		{
 			id: 'SharpDox.Sdk.Config.Attributes.EditorType',
 			text: 'EditorType',
 			icon: './assets/icons/enum_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Config.Attributes.EditorType' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Config.Attributes.EditorType/index' }
         },	
 		{
 			id: 'SharpDox.Sdk.Config.Attributes.ExcludeAttribute',
 			text: 'ExcludeAttribute',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Config.Attributes.ExcludeAttribute' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Config.Attributes.ExcludeAttribute/index' }
         },	
 		{
 			id: 'SharpDox.Sdk.Config.Attributes.NameAttribute',
 			text: 'NameAttribute',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Config.Attributes.NameAttribute' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Config.Attributes.NameAttribute/index' }
         },	
 		{
 			id: 'SharpDox.Sdk.Config.Attributes.RequiredAttribute',
 			text: 'RequiredAttribute',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Config.Attributes.RequiredAttribute' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Config.Attributes.RequiredAttribute/index' }
         },	
 
 
@@ -521,19 +521,19 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Sdk.Config.Lists.CheckBoxList',
 			text: 'CheckBoxList',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Config.Lists.CheckBoxList' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Config.Lists.CheckBoxList/index' }
         },	
 		{
 			id: 'SharpDox.Sdk.Config.Lists.CheckBoxNode',
 			text: 'CheckBoxNode',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Config.Lists.CheckBoxNode' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Config.Lists.CheckBoxNode/index' }
         },	
 		{
 			id: 'SharpDox.Sdk.Config.Lists.ComboBoxList',
 			text: 'ComboBoxList',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Config.Lists.ComboBoxList' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Config.Lists.ComboBoxList/index' }
         },	
 
 
@@ -552,7 +552,7 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Sdk.Exporter.IExporter',
 			text: 'IExporter',
 			icon: './assets/icons/interface_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Exporter.IExporter' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Exporter.IExporter/index' }
         },	
 
 
@@ -571,13 +571,13 @@ sharpDox.navigationData = [
 			id: 'SharpDox.Sdk.Local.ILocalController',
 			text: 'ILocalController',
 			icon: './assets/icons/interface_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Local.ILocalController' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Local.ILocalController/index' }
         },	
 		{
 			id: 'SharpDox.Sdk.Local.ILocalStrings',
 			text: 'ILocalStrings',
 			icon: './assets/icons/interface_public.png',
-			a_attr: { href : '#/type/SharpDox.Sdk.Local.ILocalStrings' }
+			a_attr: { href : '#/type/SharpDox.Sdk.Local.ILocalStrings/index' }
         },	
 
 
@@ -596,13 +596,13 @@ sharpDox.navigationData = [
 			id: 'SharpDox.UML.DiagramExtensions',
 			text: 'DiagramExtensions',
 			icon: './assets/icons/class_public.png',
-			a_attr: { href : '#/type/SharpDox.UML.DiagramExtensions' }
+			a_attr: { href : '#/type/SharpDox.UML.DiagramExtensions/index' }
         },	
 		{
 			id: 'SharpDox.UML.ISDDiagram',
 			text: 'ISDDiagram',
 			icon: './assets/icons/interface_public.png',
-			a_attr: { href : '#/type/SharpDox.UML.ISDDiagram' }
+			a_attr: { href : '#/type/SharpDox.UML.ISDDiagram/index' }
         },	
 
 

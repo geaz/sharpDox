@@ -1,0 +1,41 @@
+#loader {
+    z-index: 999;
+    background: white;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#loader.hidden{
+    visibility: hidden;
+    opacity: 0;
+    
+    transition-duration: 500ms, 0ms;
+    transition-property: opacity, visibility;
+    transition-delay: 0ms, 500ms;
+    
+    -webkit-transition-duration: 500ms, 0ms;
+    -webkit-transition-property: opacity, visibility;
+    -webkit-transition-delay: 0ms, 500ms;
+    
+    -o-transition-duration: 500ms, 0ms;
+    -o-transition-property: opacity, visibility;
+    -o-transition-delay: 0ms, 500ms;
+    
+    -moz-transition-duration: 500ms, 0ms;
+    -moz-transition-property: opacity, visibility;
+    -moz-transition-delay: 0ms, 500ms;
+}
+
+#loader.visible{
+    visibility: visible;
+    opacity: 1;
+}
+
+#loader-content{
+    width: 21px;
+    margin: auto;
+    padding-top: 200px;
+}

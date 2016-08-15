@@ -46,3 +46,20 @@
 :host .resetZoom {
     margin-right: 10px !important;
 }
+
+/*Code Tab*/
+
+pre{
+    margin-top:0!important;
+}
+
+i{
+    margin-right:10px;
+}
+
+.code-fileheader{
+    border: 1px solid #dadada;
+    border-bottom:0;
+    padding: 5px 15px;
+    background: #f6f5f1;
+}

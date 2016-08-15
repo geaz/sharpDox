@@ -6,13 +6,18 @@
     <div class="split-pane-divider secondary-background" id="divider"></div>
     <div id="main" class="split-pane-component">
         <div id="content">
-            <div id="loader" [class.visible]="!hideLoader" [class.hidden]="hideLoader">
-                <div id="loader-content"><i class="icon-refresh icon-spin"></i></div>
-            </div>  
-            
+            <sd-loader></sd-loader>          
+
             <sd-titlebar></sd-titlebar>
-            <sd-fxchanger></sd-fxchanger>        
+            <sd-fxchanger></sd-fxchanger>     
+
             <router-outlet></router-outlet>
+
+            <div id="disqus" *ngIf="disqusShortName">
+                <div id="disqus_thread"></div>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </div>
+
             <sd-footer></sd-footer> 
         </div>       
     </div>

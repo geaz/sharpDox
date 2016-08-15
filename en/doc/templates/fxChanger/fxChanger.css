@@ -5,6 +5,27 @@
     max-width: 800px;
 }
 
+a{
+    border: 1px solid rgb(169, 169, 169);
+    padding: 5px;
+    width: 16px;
+    height: 16px;
+    font-size: 0.9em;
+    display: inline-block;
+    text-align: center;
+    color: #434343;
+}
+
+a:hover{
+    background:rgb(19, 130, 206);
+    color: white;
+}
+
+a.active{
+    color: white;
+    background: #F58026;
+}
+
 select{
     padding: 5px;
     font-size: 0.7em;

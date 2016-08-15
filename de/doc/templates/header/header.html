@@ -1,2 +1,2 @@
-<a [routerLink]="['Article', { id: 'home' }]" *ngIf="hasLogo"><img src="data/logo.png" alt="{{ projectName }}"/></a>
-<a [routerLink]="['Article', { id: 'home' }]" *ngIf="hasLogo == false"><h1>{{ projectName }}</h1></a>
+<a routerLink="/article/home" *ngIf="hasLogo"><img src="data/logo.png" alt="{{ projectName }}"/></a>
+<a routerLink="/article/home" *ngIf="hasLogo == false"><h1>{{ projectName }}</h1></a>

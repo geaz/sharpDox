@@ -1,15 +1,19 @@
-<div id="{{member.urlId}}" class="member">
-    <div class="member-header">		
-        <a class="member-header-link" (click)="toogleMember($event)"><img src="./assets/icons/{{member.type}}_{{member.accessibility}}.png"/> <p>{{member.name}}</p></a>
+<div id="{{member.urlId}}" class="member" [class.member-last]="last == true">
+    <div class="member-header" [class.member-header-last]="last == true">		
+        <a class="member-header-link" (click)="toogleMember($event)">
+            <img src="./assets/icons/{{member.type}}_{{member.accessibility}}.png"/> 
+            <a *ngIf="showCode == true" class="member-header-code" href="#!/type/{{currentPageId}}/code#{{getCodeId(member.region.filename)}}.{{member.region.start}}-{{member.region.end}}" title="Code"><i class="icon-code"></i></a>
+            <p>{{member.name}}</p>            
+        </a>
         <div *ngIf="member.summary" class="summary markdown" [innerHtml]="member.summary"></div>
 	</div>
-	<div class="member-content">
+	<div class="member-content" [class.member-content-last]="last == true">
         <div class="markdown">
-            <pre class="syntax-pre"><code id="syntax" class="language-csharp">{{member.linkedSyntax}}</code></pre>
+            <pre class="syntax-pre"><code id="syntax" class="language-csharp" [innerHtml]="member.linkedSyntaxSanitized"></code></pre>
         </div>
     
         <div *ngIf="member.sequenceDiagram">
-            <div id="sequence-diagram-{{member.diagramId}}" class="sd-sequence-diagram svgpan" style="height:400px;" [innerHtml]="member.sequenceDiagram"></div>
+            <div id="sequence-diagram-{{member.diagramId}}" class="sd-sequence-diagram svgpan" style="height:400px;" [innerHtml]="member.sequenceDiagramSanitized"></div>
             <div class="legend">
                 <p class="save"><a href="#"><i class="icon-save"></i>{{strings.save}}</a></p>
                 <p class="resetZoom"><i class="icon-refresh"></i>{{strings.reset}}</p>
@@ -35,7 +39,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="#param of member.params">
+                        <tr *ngFor="let param of member.params">
                             <td>{{param.key}}</td>
                             <td class="markdown" [innerHtml]="param.value"></td>
                         </tr>
@@ -55,7 +59,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="#typeParam of member.typeParams">
+                        <tr *ngFor="let typeParam of member.typeParams">
                             <td>{{typeParam.key}}</td>
                             <td class="markdown" [innerHtml]="typeParam.value"></td>
                         </tr>
@@ -90,7 +94,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="#exception of member.exceptions">
+                        <tr *ngFor="let exception of member.exceptions">
                             <td>{{exception.key}}</td>
                             <td class="markdown" [innerHtml]="exception.value"></td>
                         </tr>
@@ -103,7 +107,7 @@
             <p class="member-box-title">{{strings.seeAlso}}</p>
             <div class="list-box">
                 <ul>
-                    <li *ngFor="#seeAlso of member.seeAlsos"><a href="#/{{seeAlso.type}}/{{seeAlso.id}}">{{seeAlso.name}}</a></li>
+                    <li *ngFor="let seeAlso of member.seeAlsos"><a href="#/{{seeAlso.type}}/{{seeAlso.id}}">{{seeAlso.name}}</a></li>
                 </ul>
             </div>
         </div>

@@ -11,7 +11,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="#type of currentPageData.types">
+        <tr *ngFor="let type of currentPageData.types">
             <td class="iconColumn"><img src="./assets/icons/{{type.kind}}_{{type.accessibility}}.png"/></td>
             <td><a href="#/type/{{type.id}}">{{type.name}}</a></td>
             <td class="markdown" [innerHtml]="type.summary"></td>
@@ -24,7 +24,7 @@
         <h4>{{strings.uses}}</h4>
         <div class="list-box">
         <ul>
-            <li *ngFor="#use of currentPageData.uses"><a href="#/namespace/{{use.id}}">{{use.name}}</a></li>
+            <li *ngFor="let use of currentPageData.uses"><a href="#/namespace/{{use.id}}">{{use.name}}</a></li>
         </ul>
         </div>
     </div>
@@ -33,13 +33,8 @@
         <h4>{{strings.usedBy}}</h4>
         <div class="list-box">
         <ul>
-            <li *ngFor="#use of currentPageData.usedBy"><a href="#/namespace/{{use.id}}">{{use.name}}</a></li>
+            <li *ngFor="let use of currentPageData.usedBy"><a href="#/namespace/{{use.id}}">{{use.name}}</a></li>
         </ul>
         </div>
-    </div>
-
-    <div *ngIf="disqusShortName">
-        <div id="disqus_thread"></div>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
 </div>
