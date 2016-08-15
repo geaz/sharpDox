@@ -24,7 +24,7 @@ namespace SharpDox.Model.Documentation.Token
                         break;
                 }
             }
-            return text;
+            return text.Trim();
         }
 
         public SDTemplate ToMarkdown(Dictionary<string, string> tokens)
@@ -59,7 +59,7 @@ namespace SharpDox.Model.Documentation.Token
                         break;
                 }
             }
-            return new SDTemplate(text, tokens);
+            return new SDTemplate(text.Trim(), tokens);
         }
     }
 }

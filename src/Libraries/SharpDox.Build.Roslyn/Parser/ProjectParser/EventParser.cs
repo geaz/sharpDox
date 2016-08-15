@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.IO;
 using Microsoft.CodeAnalysis;
 using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
@@ -32,12 +33,22 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
 
         private SDEvent GetParsedEvent(IEventSymbol eve)
         {
+            var syntaxReference = eve.DeclaringSyntaxReferences.Any() ? eve.DeclaringSyntaxReferences.Single() : null;
             var sdEvent = new SDEvent(eve.GetIdentifier())
             {
                 Name = eve.Name,
                 DeclaringType = _typeRefParser.GetParsedTypeReference(eve.ContainingType),
                 Accessibility = eve.DeclaredAccessibility.ToString().ToLower(),
-                Documentations = DocumentationParser.ParseDocumentation(eve)
+                Documentations = DocumentationParser.ParseDocumentation(eve),
+                Region = syntaxReference != null ? new SDRegion
+                {
+                    Start = syntaxReference.Span.Start,
+                    StartLine = syntaxReference.SyntaxTree.GetLineSpan(syntaxReference.Span).StartLinePosition.Line + 1,
+                    EndLine = syntaxReference.SyntaxTree.GetLineSpan(syntaxReference.Span).EndLinePosition.Line + 1,
+                    End = syntaxReference.Span.End,
+                    FilePath = syntaxReference.SyntaxTree.FilePath,
+                    Filename = Path.GetFileName(syntaxReference.SyntaxTree.FilePath)
+                } : null
             };
 
             ParserOptions.SDRepository.AddMember(sdEvent);

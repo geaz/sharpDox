@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using SharpDox.Model.Repository;
 using SharpDox.Model.Repository.Members;
@@ -32,6 +33,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
 
         private SDProperty GetParsedProperty(IPropertySymbol property)
         {
+            var syntaxReference = property.DeclaringSyntaxReferences.Any() ? property.DeclaringSyntaxReferences.Single() : null;
             var sdProperty = new SDProperty(property.GetIdentifier())
             {
                 Name = property.Name,
@@ -43,7 +45,16 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                 IsAbstract = property.IsAbstract,
                 IsVirtual = property.IsVirtual,
                 IsOverride = property.IsOverride,
-                Documentations = DocumentationParser.ParseDocumentation(property)
+                Documentations = DocumentationParser.ParseDocumentation(property),
+                Region = syntaxReference != null ? new SDRegion
+                {
+                    Start = syntaxReference.Span.Start,
+                    End = syntaxReference.Span.End,
+                    StartLine = syntaxReference.SyntaxTree.GetLineSpan(syntaxReference.Span).StartLinePosition.Line + 1,
+                    EndLine = syntaxReference.SyntaxTree.GetLineSpan(syntaxReference.Span).EndLinePosition.Line + 1,
+                    FilePath = syntaxReference.SyntaxTree.FilePath,
+                    Filename = Path.GetFileName(syntaxReference.SyntaxTree.FilePath)
+                } : null
             };
 
             ParserOptions.SDRepository.AddMember(sdProperty);

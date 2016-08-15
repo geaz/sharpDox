@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using SharpDox.Model.Repository;
@@ -49,6 +50,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
             else // already parsed as stranger
             {
                 sdType.Namespace = ParserOptions.SDRepository.GetNamespaceByIdentifier(typeSymbol.ContainingNamespace.GetIdentifier());
+                sdType.Regions = GetRegions(typeSymbol);
                 sdType.IsProjectStranger = false;
 
                 if(!sdNamespace.Types.Contains(sdType)) sdNamespace.Types.Add(sdType);
@@ -126,18 +128,29 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                 IsProjectStranger = false,
                 Kind = typeSymbol.TypeKind.ToString().ToLower()
             };
-            
+            sdType.Regions = GetRegions(typeSymbol);
+
+            return sdType;
+        }
+
+        private List<SDRegion> GetRegions(INamedTypeSymbol typeSymbol)
+        {
+            var regions = new List<SDRegion>();
             foreach (var reference in typeSymbol.DeclaringSyntaxReferences.ToList())
             {
                 var region = new SDRegion
                 {
                     Start = reference.Span.Start,
                     End = reference.Span.End,
-                    Filename = reference.SyntaxTree.FilePath
+                    StartLine = reference.SyntaxTree.GetLineSpan(reference.Span).StartLinePosition.Line + 1,
+                    EndLine = reference.SyntaxTree.GetLineSpan(reference.Span).EndLinePosition.Line + 1,
+                    FilePath = reference.SyntaxTree.FilePath,
+                    Filename = Path.GetFileName(reference.SyntaxTree.FilePath),
+                    Content = File.ReadAllText(reference.SyntaxTree.FilePath)
                 };
-                sdType.Regions.Add(region);
+                regions.Add(region);
             }
-            return sdType;
+            return regions;
         }
     }
 }

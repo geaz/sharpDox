@@ -41,7 +41,43 @@ namespace SharpDox.Model.Repository
 
         /// <default>
         ///     <summary>
-        ///     Gets or sets the file within the region is defined.
+        ///     Gets or sets the start line of the region.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert die Startzeile der Region.
+        ///     </summary>     
+        /// </de>
+        public int StartLine { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets or sets the end line of the region.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert die Endzeile der Region.
+        ///     </summary>     
+        /// </de>
+        public int EndLine { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets or sets the file path within the region is defined.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert den Pfad der Datei in der die Region definiert ist.
+        ///     </summary>     
+        /// </de>
+        public string FilePath { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets or sets the file name within the region is defined.
         ///     </summary>
         /// </default>
         /// <de>
@@ -50,5 +86,17 @@ namespace SharpDox.Model.Repository
         ///     </summary>     
         /// </de>
         public string Filename { get; set; }
+
+        /// <default>
+        ///     <summary>
+        ///     Gets or sets the content of the file.
+        ///     </summary>
+        /// </default>
+        /// <de>
+        ///     <summary>
+        ///     Setzt oder liefert den Inhalt der Datei.
+        ///     </summary>     
+        /// </de>
+        public string Content { get; set; }
     }
 }

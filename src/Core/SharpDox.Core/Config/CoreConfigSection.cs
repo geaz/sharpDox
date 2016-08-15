@@ -185,7 +185,7 @@ namespace SharpDox.Core.Config
         [Name(typeof(CoreStrings), "DocLanguage")]
         public string DocLanguage
         {
-            get { return _docLanguage; }
+            get { return string.IsNullOrEmpty(_docLanguage) ? "en" : _docLanguage; }
             set
             {
                 if (_docLanguage != value)

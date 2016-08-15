@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using SharpDox.Model;
@@ -75,7 +76,10 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                 {
                     Start = syntaxReference.Span.Start,
                     End = syntaxReference.Span.End,
-                    Filename = syntaxReference.SyntaxTree.FilePath
+                    StartLine = syntaxReference.SyntaxTree.GetLineSpan(syntaxReference.Span).StartLinePosition.Line + 1,
+                    EndLine = syntaxReference.SyntaxTree.GetLineSpan(syntaxReference.Span).EndLinePosition.Line + 1,
+                    FilePath = syntaxReference.SyntaxTree.FilePath,
+                    Filename = Path.GetFileName(syntaxReference.SyntaxTree.FilePath)
                 } : null
             };
 

@@ -4,6 +4,10 @@ using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Formatting;
+using Microsoft.CodeAnalysis.MSBuild;
+using Microsoft.CodeAnalysis.Options;
 using SharpDox.Model.Documentation;
 using SharpDox.Model.Documentation.Token;
 using SharpDox.Model.Repository;
@@ -107,7 +111,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                     content.Add(new SDToken
                     {
                         Role = SDTokenRole.Text,
-                        Text = element.ToString().Trim()
+                        Text = element.ToString()
                     });
                 }
 
@@ -128,7 +132,9 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                             content.Add(new SDToken { Role = SDTokenRole.ParamRef, Text = nodeElement.Attribute("name")?.Value });
                             break;
                         case "code":
-                            content.Add(new SDCodeToken { Text = nodeElement.Value, IsInline = false });
+                            var workspace = MSBuildWorkspace.Create();
+                            var formattedResult = Formatter.Format(CSharpSyntaxTree.ParseText(nodeElement.Value, CSharpParseOptions.Default).GetRoot(), workspace);
+                            content.Add(new SDCodeToken { Text = formattedResult.ToString(), IsInline = false });
                             break;
                         case "c":
                             content.Add(new SDCodeToken { Text = nodeElement.Value, IsInline = true });
