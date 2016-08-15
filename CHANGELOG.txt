@@ -1,4 +1,9 @@
-﻿Version 1.1.2
+﻿Version 1.2.0
+
+- Some minor bug fixes
+- Added 'Show Code' option to HTML Exporter
+
+Version 1.1.2
 
 - Some minor bug fixes
 
