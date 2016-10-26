@@ -39,7 +39,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                             if (cleanedRef.Contains('`'))
                             {
                                 var splittedName = seeToken.Name.Split('`');
-                                var type = _sdRepository.GetAllTypes().SingleOrDefault(
+                                var type = _sdRepository.GetAllTypes().FirstOrDefault(
                                     t => t.Namespace.Fullname == seeToken.Namespace &&
                                     t.Name == splittedName[0] && t.TypeArguments.Count == int.Parse(splittedName[1]));
 
