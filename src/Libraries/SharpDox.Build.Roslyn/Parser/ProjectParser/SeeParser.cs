@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -39,7 +39,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                             if (cleanedRef.Contains('`'))
                             {
                                 var splittedName = seeToken.Name.Split('`');
-                                var type = _sdRepository.GetAllTypes().SingleOrDefault(
+                                var type = _sdRepository.GetAllTypes().FirstOrDefault(
                                     t => t.Namespace.Fullname == seeToken.Namespace &&
                                     t.Name == splittedName[0] && t.TypeArguments.Count == int.Parse(splittedName[1]));
 
@@ -59,7 +59,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                             if (seeToken.Name.Contains('`'))
                             {
                                 var splittedName = seeToken.Name.Replace("(", string.Empty).Replace(")", string.Empty).Split(new [] {"`"}, StringSplitOptions.RemoveEmptyEntries);
-                                var sdMethod = _sdRepository.GetAllMethods().SingleOrDefault(
+                                var sdMethod = _sdRepository.GetAllMethods().FirstOrDefault(
                                     m => m.Namespace == seeToken.Namespace &&
                                     m.Name == splittedName[0] && m.TypeParameters.Count == int.Parse(splittedName[1]) &&
                                     m.Parameters.Count == splittedName.Length - 2);
