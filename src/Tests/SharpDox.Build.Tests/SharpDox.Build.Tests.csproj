@@ -83,7 +83,6 @@
       <Name>SharpDox.RegressionTests</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="TestData\TargetFxFiles\Catel.Core.NET40.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
