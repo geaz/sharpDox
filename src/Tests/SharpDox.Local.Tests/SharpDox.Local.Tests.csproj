@@ -61,7 +61,6 @@
     <Compile Include="TestLocalStrings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="lang\de.TestStrings.sdlang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
