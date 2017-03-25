@@ -6,7 +6,7 @@ url: "http://sharpdox.de" # the base hostname & protocol for your site
 top_version_info_de: "1.2.2 (März 2017)"
 top_version_info_en: "1.2.2 (March 2017)"
 download_url: "https://github.com/geaz/sharpDox/releases/download/v1.2.2/sharpDox.1.2.2.zip"
-sharpDox_version: "1.2.2""
+sharpDox_version: "1.2.2"
 
 twitter_username: sharpDox
 github_username:  Geaz
