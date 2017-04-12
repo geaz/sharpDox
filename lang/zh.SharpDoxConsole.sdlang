@@ -1,3 +1,3 @@
-ConfigMissing = Bitte eine Konfigurationsdatei angeben.
-Path = PFAD
-PressToEnd = Enter drücken, um sharpDox zu verlassen ...
+ConfigMissing = 请指定一个配置文件
+Path = 路径
+PressToEnd = 按回车键退出 sharpDox  ...
