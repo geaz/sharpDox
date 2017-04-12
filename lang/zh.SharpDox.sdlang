@@ -1,0 +1,17 @@
+NewConfig = 新配置文件
+Never = 绝不
+StartSD = 开始 sharpDox ...
+NoShells = 没有注册的Shell，至少需要一个来运行 sharpDox 。
+MoreShells = 超过一个以上的Shell注册，应该用哪个启动？
+ConfigTitle = 常规设置
+ProjectName = 项目名称
+VersionNumber = 版本号
+Author = 作者
+AuthorUrl = 作者网站
+ProjectUrl = 项目网站
+LogoPath = Logo路径
+InputFile = 输入文件
+ExcludedIdentifiers = 排除的标识符
+Exporters = 导出
+OutputPath = 输出路径
+DocLanguage = 文档语言
