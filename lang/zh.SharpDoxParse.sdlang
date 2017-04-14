@@ -1,0 +1,5 @@
+ParsingNamespace = 分析命名空间
+ParsingClass = 分析类
+ParsingMethod = 分析方法
+ParsingUsings = 分析使用
+ReadingProject = 分析项目: {0}
