@@ -18,7 +18,7 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                     foreach (var sdMethod in sdType.Methods)
                     {
                         HandleOnItemParseStart(sdMethod.Name);
-                        var fileId = ParserOptions.CodeSolution.GetDocumentIdsWithFilePath(sdMethod.Region.FilePath).Single();
+                        var fileId = ParserOptions.CodeSolution.GetDocumentIdsWithFilePath(sdMethod.Region.FilePath).FirstOrDefault();
                         var file = ParserOptions.CodeSolution.GetDocument(fileId);
                         var syntaxTree = file.GetSyntaxTreeAsync().Result;
                         
@@ -26,9 +26,12 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                         {
                             var methodVisitor = new CSharpMethodVisitor(ParserOptions.SDRepository, sdMethod, sdType, file);
                             var methodSyntaxNode = syntaxTree.GetRoot().DescendantNodes().OfType<MethodDeclarationSyntax>()
-                                                    .Single(m => m.Span.Start == sdMethod.Region.Start &&
+                                                    .FirstOrDefault(m => m.Span.Start == sdMethod.Region.Start &&
                                                     m.Span.End == sdMethod.Region.End);
-                            methodVisitor.Visit(methodSyntaxNode);
+                            if (methodSyntaxNode != null)
+                            {
+                                methodVisitor.Visit(methodSyntaxNode);
+                            }
                         }
                         else if (file.Project.Language == "VBNET")
                         {
