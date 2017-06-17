@@ -51,8 +51,18 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
                         default:
                             //TODO See parsing, if type is generic
                             seeToken.Name = splitted.Last();
-                            seeToken.Namespace = string.Join(".", splitted.Take(splitted.Length - 2));
-                            seeToken.DeclaringType = splitted[splitted.Length - 2];
+
+                            var declaringType = string.Empty;
+                            var typeNamespace = string.Empty;
+
+                            if (splitted.Length >= 2)
+                            {
+                                typeNamespace = string.Join(".", splitted.Take(splitted.Length - 2));
+                                declaringType = splitted[splitted.Length - 2];
+                            }
+
+                            seeToken.Namespace = typeNamespace;
+                            seeToken.DeclaringType = declaringType;
                             seeToken.Text = splitted.Last();
                             seeToken.Identifier = $"{seeToken.Namespace}.{seeToken.DeclaringType}.{seeToken.Name}";
 
