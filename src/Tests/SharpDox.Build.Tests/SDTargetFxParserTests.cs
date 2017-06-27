@@ -27,6 +27,12 @@ namespace SharpDox.Build.Tests
         }
 
         [TestMethod]
+        public void RecognizesNet47()
+        {
+            TestProjectFx(@"TestData\TargetFxFiles\Catel.Core.NET47.csproj", KnownTargetFxs.Net47);
+        }
+
+        [TestMethod]
         public void RecognizesSilverlight5()
         {
             TestProjectFx(@"TestData\TargetFxFiles\Catel.Core.SL5.csproj", KnownTargetFxs.Silverlight5);
