@@ -93,6 +93,10 @@ namespace SharpDox.Build
             {
                 targetFx = KnownTargetFxs.Net46;
             }
+            else if (string.Equals(targetFrameworkVersion, "v4.7", StringComparison.OrdinalIgnoreCase))
+            {
+                targetFx = KnownTargetFxs.Net47;
+            }
             else if (string.Equals(targetFrameworkIdentifier, "silverlight", StringComparison.OrdinalIgnoreCase) && string.Equals(targetFrameworkVersion, "v5.0", StringComparison.OrdinalIgnoreCase))
             {
                 targetFx = KnownTargetFxs.Silverlight5;

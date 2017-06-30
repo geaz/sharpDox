@@ -40,7 +40,7 @@ namespace SharpDox.Model.Documentation.Token
                     case SDTokenRole.Code:
                         var splittedText = token.Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
                         text += ((SDCodeToken)token).IsInline ?
-                                    string.Format("{0}{1}{0}", "```", token.Text) : 
+                                    string.Format("{0}{1}{0}", "`", token.Text) : 
                                     string.Format("{0}{1}{2}{1}{0}", "```", Environment.NewLine, string.Join(Environment.NewLine, splittedText));
                         break;
                     case SDTokenRole.See:

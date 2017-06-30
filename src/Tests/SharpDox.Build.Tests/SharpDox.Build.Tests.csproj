@@ -102,6 +102,9 @@
     <Content Include="TestData\TargetFxFiles\Catel.Core.NET46.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\TargetFxFiles\Catel.Core.NET47.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\TargetFxFiles\Catel.Core.PCL.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
