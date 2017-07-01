@@ -106,12 +106,61 @@ namespace SharpDox.Build.Roslyn.Parser.ProjectParser
             foreach (var element in xmlElement.Nodes())
             {
                 var textElement = element as XText;
-                if(textElement != null)
+                if (textElement != null)
                 {
+                    var newLines = new[] {"\r\n", "\n"};
+                    var text = element.ToString();
+
+                    while (true)
+                    {
+                        foreach (var newLine in newLines)
+                        {
+                            if (text.StartsWith(newLine))
+                            {
+                                text = text.Substring(newLine.Length);
+                            }
+
+                            if (text.EndsWith(newLine))
+                            {
+                                text = text.Substring(0, text.Length - newLine.Length);
+                            }
+                        }
+
+                        text = text.Trim();
+
+                        var shouldBreak = true;
+
+                        foreach (var newLine in newLines)
+                        {
+                            if (text.StartsWith(newLine) || text.EndsWith(newLine))
+                            {
+                                shouldBreak = false;
+                                break;
+                            }
+                        }
+
+                        if (shouldBreak)
+                        {
+                            // Replace single newline occurrences by a space (this is just a newline in the docs, not a new paragraph)
+                            foreach (var newLine in newLines)
+                            {
+                                text = text.Replace(newLine, " ");
+                            }
+
+                            // Remove duplicate spaces that were used for indentation
+                            while (text.Contains("  "))
+                            {
+                                text = text.Replace("  ", " ");
+                            }
+
+                            break;
+                        }
+                    }
+
                     content.Add(new SDToken
                     {
                         Role = SDTokenRole.Text,
-                        Text = element.ToString()
+                        Text = text
                     });
                 }
 
