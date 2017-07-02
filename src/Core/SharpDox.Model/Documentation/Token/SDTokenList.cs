@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SharpDox.Model.Documentation.Token
 {
     public class SDTokenList : List<SDToken>
     {
+        private static readonly List<char> SpecialTokensThatDontRequirePreSpace = new List<char>(new[] { ' ', ';', ',', '.', '\n' });
+        private static readonly List<char> SpecialTokensThatDontRequirePostSpace = new List<char>(new[] { ' ', '\n' });
+
         public new string ToString()
         {
             var text = string.Empty;
@@ -29,37 +33,62 @@ namespace SharpDox.Model.Documentation.Token
 
         public SDTemplate ToMarkdown(Dictionary<string, string> tokens)
         {
-            var text = string.Empty;
+            var stringBuilder = new StringBuilder();
+
             foreach (var token in this)
             {
+                var textToAppend = string.Empty;
+                var addSpace = true;
+
                 switch (token.Role)
                 {
                     case SDTokenRole.Paragraph:
-                        text += string.Format("{0}{1}{1}", token.Text, Environment.NewLine);
+                        addSpace = false;
+                        textToAppend = string.Format("{0}{1}{1}", token.Text, Environment.NewLine);
                         break;
+
                     case SDTokenRole.Code:
-                        var splittedText = token.Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-                        text += ((SDCodeToken)token).IsInline ?
+                        addSpace = false;
+                        var splittedText = token.Text.Split(new [] { "\r\n", "\n" }, StringSplitOptions.None);
+                        textToAppend = ((SDCodeToken)token).IsInline ?
                                     string.Format("{0}{1}{0}", "`", token.Text) : 
                                     string.Format("{0}{1}{2}{1}{0}", "```", Environment.NewLine, string.Join(Environment.NewLine, splittedText));
                         break;
+
                     case SDTokenRole.See:
                         var seeToken = (SDSeeToken)token;
                         if(!string.IsNullOrEmpty(seeToken.Namespace) && string.IsNullOrEmpty(seeToken.DeclaringType))
                         {
-                            text += string.Format("[{0}]({{{{type-link:{1}.{0}}}}})", seeToken.Name, seeToken.Namespace);
+                            textToAppend = string.Format("[{0}]({{{{type-link:{1}.{0}}}}})", seeToken.Name, seeToken.Namespace);
                         }
                         else
                         {
-                            text += seeToken.Name; 
+                            textToAppend = seeToken.Name;
                         }
                         break;
+
                     default:
-                        text += token.Text;
+                        textToAppend = token.Text;
                         break;
                 }
+
+                if (!string.IsNullOrWhiteSpace(textToAppend))
+                {
+                    var stringBuilderLength = stringBuilder.Length;
+
+                    if (addSpace && stringBuilderLength > 0 && 
+                        !SpecialTokensThatDontRequirePostSpace.Contains(stringBuilder[stringBuilderLength - 1]) &&
+                        !SpecialTokensThatDontRequirePreSpace.Contains(textToAppend[0]))
+                    {
+                        stringBuilder.Append(" ");
+                    }
+
+                    stringBuilder.Append(textToAppend);
+                }
             }
-            return new SDTemplate(text.Trim(), tokens);
+
+            var text = stringBuilder.ToString().Trim();
+            return new SDTemplate(text, tokens);
         }
     }
 }
