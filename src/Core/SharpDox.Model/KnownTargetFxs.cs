@@ -34,6 +34,12 @@ namespace SharpDox.Model
             Name = ".NET Framework 4.6"
         };
 
+        public static readonly SDTargetFx Net461 = new SDTargetFx
+        {
+            Identifier = "NET461",
+            Name = ".NET Framework 4.6.1"
+        };
+
         public static readonly SDTargetFx Net47 = new SDTargetFx
         {
             Identifier = "NET47",
