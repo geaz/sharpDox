@@ -9,6 +9,7 @@ namespace SharpDox.Build.Roslyn
         public Solution LoadSolutionFile(string solutionFile)
         {
             var workspace = MSBuildWorkspace.Create();
+            workspace.WorkspaceFailed += Workspace_WorkspaceFailed;
             if (FileIsSolution(solutionFile))
             {
                 workspace.OpenSolutionAsync(solutionFile).Wait();
@@ -17,7 +18,12 @@ namespace SharpDox.Build.Roslyn
             {
                 workspace.OpenProjectAsync(solutionFile).Wait();
             }
-            return workspace.CurrentSolution;      
+            return workspace.CurrentSolution;
+        }
+
+        private void Workspace_WorkspaceFailed(object sender, WorkspaceDiagnosticEventArgs e)
+        {
+            var k = "";
         }
 
         private static bool FileIsSolution(string pathToSolutionFile)

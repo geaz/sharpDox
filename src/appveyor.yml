@@ -1,0 +1,22 @@
+version: 1.2.2.{build}
+branches:
+  except:
+  - roslyn
+  - gh-pages
+image: Visual Studio 2017
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_file_version: '{version}'
+install:
+- cmd: >-
+    nuget sources add -Name V3 -Source https://api.nuget.org/v3/index.json
+
+    nuget restore src
+build:
+  project: msbuild.config
+  verbosity: minimal
+artifacts:
+- path: build
+- path: nuget
+- path: nuget-beta
