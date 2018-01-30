@@ -3,10 +3,10 @@ title: sharpDox
 email: mail@geaz.de
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://sharpdox.de" # the base hostname & protocol for your site
-top_version_info_de: "1.2.2 (März 2017)"
-top_version_info_en: "1.2.2 (March 2017)"
-download_url: "https://github.com/geaz/sharpDox/releases/download/v1.2.2/sharpDox.1.2.2.zip"
-sharpDox_version: "1.2.2"
+top_version_info_de: "1.2.3 (Januar 2018)"
+top_version_info_en: "1.2.3 (January 2018)"
+download_url: "https://github.com/geaz/sharpDox/releases/download/v1.2.3/sharpDox.1.2.3.zip"
+sharpDox_version: "1.2.3"
 
 twitter_username: sharpDox
 github_username:  Geaz
