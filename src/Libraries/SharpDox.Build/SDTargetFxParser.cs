@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
@@ -26,13 +26,17 @@ namespace SharpDox.Build
             else
             {
                 var document = XDocument.Parse(fileContents);
+
+                //Try Get TargetFramework for new Project Files
+                var targetFramework = document.XPathSelectElement("/Project/PropertyGroup/TargetFramework")?.Value;
+
                 var targetFrameworkIdentifier = ReadXPathElementValue(document, "/Project/PropertyGroup/TargetFrameworkIdentifier");
                 var targetFrameworkVersion = ReadXPathElementValue(document, "/Project/PropertyGroup/TargetFrameworkVersion");
                 var targetPlatformIdentifier = ReadXPathElementValue(document, "/Project/PropertyGroup/TargetPlatformIdentifier");
                 var targetPlatformVersion = ReadXPathElementValue(document, "/Project/PropertyGroup/TargetPlatformVersion");
                 var targetFrameworkProfile = ReadXPathElementValue(document, "/Project/PropertyGroup/TargetFrameworkProfile");
 
-                targetFx = GetTargetFx(targetFrameworkIdentifier, targetFrameworkVersion, targetPlatformIdentifier, targetPlatformVersion, targetFrameworkProfile);
+                targetFx = GetTargetFx(targetFramework, targetFrameworkIdentifier, targetFrameworkVersion, targetPlatformIdentifier, targetPlatformVersion, targetFrameworkProfile);
             }
 
             return targetFx;
@@ -64,9 +68,11 @@ namespace SharpDox.Build
             return projectFileContents.ToLower().Contains("xamarin.ios.csharp.targets");
         }
 
-        private SDTargetFx GetTargetFx(string targetFrameworkIdentifier, string targetFrameworkVersion, string targetPlatformIdentifier, string targetPlatformVersion, string targetFrameworkProfile)
+        private SDTargetFx GetTargetFx(string targetFramework, string targetFrameworkIdentifier, string targetFrameworkVersion, 
+            string targetPlatformIdentifier, string targetPlatformVersion, string targetFrameworkProfile)
         {
-            var targetFx = KnownTargetFxs.Unknown;
+            var unknownIdentifier = !string.IsNullOrEmpty(targetFramework) ? targetFramework : targetFrameworkIdentifier;
+            var targetFx = new SDTargetFx { Identifier = unknownIdentifier, Name = unknownIdentifier };
 
             // Note: PCL must be on top (since it also has v4.5)
             if (targetFrameworkProfile.ToLower().StartsWith("profile"))
